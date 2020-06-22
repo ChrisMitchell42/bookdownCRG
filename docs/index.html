@@ -24,7 +24,7 @@
 <meta name="author" content="Chris Mitchell" />
 
 
-<meta name="date" content="2020-06-20" />
+<meta name="date" content="2020-06-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -103,11 +103,38 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">A Minimal Book Example</a></li>
+<li><a href="./">Comparative Research Group</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preamble</a></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="w1plotting.html"><a href="w1plotting.html"><i class="fa fa-check"></i><b>3</b> Workshop 1: Plotting phylogenies in R</a><ul>
+<li class="chapter" data-level="3.1" data-path="w1plotting.html"><a href="w1plotting.html#phylogenetics-in-r"><i class="fa fa-check"></i><b>3.1</b> Phylogenetics in R</a><ul>
+<li class="chapter" data-level="3.1.1" data-path="w1plotting.html"><a href="w1plotting.html#packages-used"><i class="fa fa-check"></i><b>3.1.1</b> Packages used</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="w1plotting.html"><a href="w1plotting.html#importing-your-tree"><i class="fa fa-check"></i><b>3.2</b> Importing your tree</a></li>
+<li class="chapter" data-level="3.3" data-path="w1plotting.html"><a href="w1plotting.html#ggtree"><i class="fa fa-check"></i><b>3.3</b> ggtree</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="w1plotting.html"><a href="w1plotting.html#geoms"><i class="fa fa-check"></i><b>3.3.1</b> Geoms</a></li>
+<li class="chapter" data-level="3.3.2" data-path="w1plotting.html"><a href="w1plotting.html#labelling-clades"><i class="fa fa-check"></i><b>3.3.2</b> Labelling clades</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="w1plotting.html"><a href="w1plotting.html#example-phylogeny"><i class="fa fa-check"></i><b>3.4</b> Example Phylogeny</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="w1plotting.html"><a href="w1plotting.html#phylopic"><i class="fa fa-check"></i><b>3.4.1</b> Phylopic</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="w2PGLS.html"><a href="w2PGLS.html"><i class="fa fa-check"></i><b>4</b> Workshop 2: PGLS</a><ul>
+<li class="chapter" data-level="4.1" data-path="w2PGLS.html"><a href="w2PGLS.html#data"><i class="fa fa-check"></i><b>4.1</b> Data</a></li>
+<li class="chapter" data-level="4.2" data-path="w2PGLS.html"><a href="w2PGLS.html#plotting-with-ggplot2"><i class="fa fa-check"></i><b>4.2</b> Plotting with ggplot2</a></li>
+<li class="chapter" data-level="4.3" data-path="w2PGLS.html"><a href="w2PGLS.html#linear-regression"><i class="fa fa-check"></i><b>4.3</b> Linear Regression</a></li>
+<li class="chapter" data-level="4.4" data-path="w2PGLS.html"><a href="w2PGLS.html#trees-and-phylogenetic-signal"><i class="fa fa-check"></i><b>4.4</b> Trees and Phylogenetic Signal</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-signal"><i class="fa fa-check"></i><b>4.4.1</b> Phylogenetic signal</a></li>
+<li class="chapter" data-level="4.4.2" data-path="w2PGLS.html"><a href="w2PGLS.html#caper"><i class="fa fa-check"></i><b>4.4.2</b> caper</a></li>
+<li class="chapter" data-level="4.4.3" data-path="w2PGLS.html"><a href="w2PGLS.html#estimating-phylogenetic-signal"><i class="fa fa-check"></i><b>4.4.3</b> Estimating Phylogenetic Signal</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-regression"><i class="fa fa-check"></i><b>4.5</b> Phylogenetic Regression</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="w2PGLS.html"><a href="w2PGLS.html#model-checking"><i class="fa fa-check"></i><b>4.5.1</b> Model Checking</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="w2PGLS.html"><a href="w2PGLS.html#conclusion"><i class="fa fa-check"></i><b>4.6</b> Conclusion</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -131,17 +158,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div id="header">
 <h1 class="title">Comparative Methods Workshops</h1>
 <p class="author"><em>Chris Mitchell</em></p>
-<p class="date"><em>2020-06-20</em></p>
+<p class="date"><em>2020-06-22</em></p>
 </div>
-<div id="prerequisites" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Prerequisites</h1>
-<p>This is a <em>sample</em> book written in <strong>Markdown</strong>. You can use anything that Pandoc's Markdown supports, e.g., a math equation <span class="math inline">\(a^2 + b^2 = c^2\)</span>.</p>
-<p>The <strong>bookdown</strong> package can be installed from CRAN or Github:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;bookdown&quot;</span>)
-<span class="co"># or the development version</span>
-<span class="co"># devtools::install_github(&quot;rstudio/bookdown&quot;)</span></code></pre></div>
-<p>Remember each Rmd file contains one and only one chapter, and a chapter is defined by the first-level heading <code>#</code>.</p>
-<p>To compile this example to PDF, you need XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): <a href="https://yihui.name/tinytex/" class="uri">https://yihui.name/tinytex/</a>.</p>
+<div id="preamble" class="section level1">
+<h1><span class="header-section-number">1</span> Preamble</h1>
+<p>This book contains a series of workshops on the use of phylogenetically controlled comparative methods. The workshops assume a basic familiarity with R. You should revisit the material from LIFE223 if you need a quick refresher on R.</p>
 
 </div>
             </section>
@@ -181,8 +202,8 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
-"text": "Edit"
+"link": null,
+"text": null
 },
 "history": {
 "link": null,

@@ -1,0 +1,292 @@
+# Workshop 2: PGLS {#w2PGLS}
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(comment = '')
+knitr::opts_chunk$set(fig.pos = 'H', fig.height = 5, fig.align = 'center')
+knitr::opts_knit$set(root.dir = '~/Google Drive/University of Liverpool/CRG19:20/Comparative Methods Course/04 - PGLS Regression/PGLS files')
+require(magick)
+require(png)
+require(ggplot2)
+require(phytools)
+require(caper)
+require(dplyr)
+```
+
+This tutorial will show you how to perform phylogenetically correct regression analyses on continuous data in R.
+
+As usual, remember to set your working directory to wherever you have saved the necessary files. Other than that, this tutorial assumes you have already installed the packages ape and caper.
+
+##Data
+
+Let's load up some primate data. You should see the dataframe appear in your environment. If you inspect the object, you will find a number of continuous variables in there for us to investigate.
+```{r}
+primate.data <- read.table("primates_data.txt", header = T)
+names(primate.data)
+```
+
+##Plotting with ggplot2
+
+A nice way of investigating data is by plotting it. For a quick visualisation I usually use the base graphics in R. They get the job done and are realtively simple to edit once you understand the syntax of R.
+
+However, most R users seem to agree that the package "ggplot2" gives better plots. This might be useful to you when you want to prepare your plots for reports. So here, I'm going to use ggplot2 just to show you what it can do.
+```{r, eval = FALSE}
+install.packages("ggplot2")
+library(ggplot2)
+```
+
+ggplot2 builds plots in layers similar to ggtree which you have met before in workshop 1. In fact, the ggtree package was built based upon ggplot2. We start with the function ggplot which creates a coordinate system to which we can add layers. This function alone just creates a blank plot
+```{r, fig.align='center'}
+ggplot(data = primate.data)
+```
+
+Let's add a layer with the points. We can add a layer of points with the function geom_point. This creates our basic scatterplot. Each geom function (the ones that add layers) takes a mapping argument which controls how the layer is mapped onto the plot. This argument usually takes the form seen below. Remember that body mass should be log transformed before we plot it!
+```{r, fig.align='center'}
+ggplot(data = primate.data) +
+  geom_point(mapping = aes(x = log10(AdultBodyMass_g), y = GestationLen_d))
+```
+
+In practice, exactly how you add geoms and layers seems to be affected by exactly what you want to do with the plot. As we'll see later, if you want to add regression lines or other statistical features to your plot, you may want to reorganise this code. My advice is to google what you want to do and work backwards from someone else's code. That's what I do.
+
+The plot isn't done yet. We can display a bit more information by adding another mapping argument. Here, I've coloured the points according to their family. The unique colours are assigned auotmatically and the legend is also created automatically.
+```{r, fig.align='center', fig.height = 4.5, fig.width = 7}
+ggplot(data = primate.data) +
+  geom_point(mapping = aes(x = log10(AdultBodyMass_g), y = GestationLen_d, 
+                           colour = Family))
+```
+
+If you prefer, you can manually set the colour for all points. Be aware of the difference here! In the code below, the difference is that colour here is outside of the mapping argument. This means that the colour doesn't display any real information but does change the aesthetic of the plot.
+```{r, fig.align='center'}
+ggplot(data = primate.data) +
+  geom_point(mapping = aes(x = log10(AdultBodyMass_g), y = GestationLen_d),
+             colour = "green")
+```
+
+Let's clean up the plot with some axis labels.
+```{r, fig.align='center', fig.height = 4.5, fig.width = 7}
+ggplot(data = primate.data) +
+  geom_point(mapping = aes(x = log10(AdultBodyMass_g), y = GestationLen_d,
+                           colour = Family)) +
+  labs(x = "Log Body Mass", y = "Gestation Length")
+```
+
+##Linear Regression
+
+To see if body mass and gestation length are related, the best way to go would seem to be a linear regression. The funtion to perform an ordinary least squares linear regression is lm(). The first argument is our model, stating in this case that body mass predicts gestation length. Then we specify the data object to tell R where to find the data.
+```{r}
+m1 <- lm(GestationLen_d ~ log10(AdultBodyMass_g), data = primate.data)
+```
+
+You should now see a new object (m1) in your environment. This contains the output of your regression analysis and to view it, we can use the summary function.
+```{r}
+summary(m1)
+```
+
+The key parts of our output are the coefficients table and the three lines of output below which contain the R^2^ value. Here, it's telling us that our model is a significant fit to the data as we might expect. Also, the mid-range R^2^ (0.50) is what we'd expect given the spread of data in the plot.
+
+We can also plot this line with ggplot with the following code. There are some key differences here. Most importantly, I've specified x and y in ggplot rather than geom_point. I've then added the function geom_smooth amd used the method "lm" to specify that I want a linear model plotted. The reason I did this is quite simple; I Googled it and the hive-mind of R users on the internet told me to.
+```{r, fig.align='center'}
+ggplot(data = primate.data, aes(x = log10(AdultBodyMass_g), y = GestationLen_d)) +
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+##Trees and Phylogenetic Signal
+
+As you know, the fact that comparative data points are not statistically independent is a problem for these kind of analyses. Therefore we need to run a phylogenetically corrected analysis.
+
+###Phylogenetic signal
+
+Importantly, you need to understand the concept of phylogenetic signal which is defined as _the tendency for closely related species to resemble each other more than distantly related species_.
+
+For example, body mass is (usually) a trait with a strong phylogenetic signal. What this means in primates is that although there is a broad range of body sizes from a few tens of grams up to around 200kg, the distribution of body masses closely follows the pattern of relatedness. Large primates like orangutan, gorillas, chimps and humans are all closely related for example.
+
+The degree of phylogenetic signal in a trait is often described using the scaling parameter $\lambda$. $\lambda$ varies between 0 and 1 and is used to multiply the internal branch lengths so that the tree describes the pattern of variation in the trait.
+
+For example, take the case on the left, where $\lambda = 1$. In this case the tree is untransformed because the variation in the trait follows the structure of the tree. On the right, where $\lambda = 0$, all the internal branch lengths have been multiplied by 0 and therefore collapsed. This "star phylogeny" describes a pattern of variation in which the trait varies at random with respect to the phylogeny. The trait is not equal across the tree but rather the variation in the trait does not correlate to the pattern of relatedness.
+```{r,echo=F, fig.align='center', fig.height = 3}
+par(mfrow = c(1,2))
+par(mar = c(0.5,0.5,2,0.5))
+
+tree <- pbtree(n = 13, scale = 42)
+plot(tree, tip.color = "white",
+     edge.width = 4, no.margin = F,
+     main = expression(paste(lambda, "= 1")))
+
+tree1 <- starTree(species = rep("A",13))
+plot(tree1, tip.color = "white",
+     edge.width = 4, no.margin = F, 
+     main = expression(paste(lambda, "= 0")))
+
+rm(tree, tree1)
+par.default <- par(no.readonly = T)
+par(par.default)
+```
+
+###caper
+
+Let's run through some examples. There are a few packages that can run phylogenetic regressions in R but the one I usually go with is called caper (Comparative Analysis of Phylogenetics and Evolution in R). So first we'll need to load caper.
+```{r, eval = FALSE}
+library(caper)
+```
+
+Now we can load up our phylogeny using read.nexus from the ape package.
+```{r}
+primate.tree <- read.nexus("primate_tree.nex")
+```
+
+The regression command in caper (along with some other functions) requires the data and tree to be combined in a comparative data object. This type of objectis simply a tree and comparative data set concatenated and is created using the function "comparative.data". We need to specify the tree object, data object, column name in the data where species names are stored and whether we want a variance-covariance matrix included (we do).
+```{r}
+primates <- comparative.data(phy = primate.tree,     #Our tree
+                             data = primate.data,    #Our data
+                             names.col = Binomial,   #Data column with the species names
+                             vcv = TRUE,             #Variance-covariance matrix
+                             na.omit = FALSE,        #We don't want to drop missing data
+                             warn.dropped = TRUE)
+```
+
+This warning message isn't really a problem. If you look at the tree and data I provided, you'll see that the tree has about 200 species but the data contains data for only 91. Therefore we expected R to drop some species when compiling the comparative data object. In fact, we asked it warn us if it did so!
+
+We can inspect the structure of the comparative data object using str if necessary. You should see that the object contains both the tree and the data. Either one of these (pruned from the larger objects we specified) can be extracted again if needed.
+```{r, eval = TRUE}
+str(primates)
+```
+
+###Estimating Phylogenetic Signal
+
+Let's estimate the phylogenetic signal of gestation length in primates. The key is to remember that we need to call our comparative data object and not the data file we loaded up at the start. We're running the trait on its own (hence the "~ 1") and estimating lambda by maximum likelihood.
+```{r}
+signal <- pgls(log10(GestationLen_d) ~ 1,
+               data = primates,
+               lambda = "ML")
+```
+
+The object "signal" should have appeared in your environment now. We can inspect the object using the ever-useful summary function.
+```{r}
+summary(signal)
+```
+
+This output has a lot in common with a basic regression output. That's because it is one! We used the pgls function which performs a regression with phylogenetic correction. Because we included no predictors, the value of $\lambda$ we estimate here corresponds only to this one trait.
+
+The key part for us is the \textit{Branch length transformations} section of the output. $\kappa$ and $\delta$ are fixed at 1 and so we aren't concerned with those for now. $\lambda$ is estimated at 0.957. That's a pretty strong phylogenetic signal.
+
+We also have lower bound and upper bound tests. We can see that $\lambda$ is significantly different from the lower bound of 0 (p < 2.2 x 10^-16^). This isn't surprising at all!
+
+The upper bound test shows us that $\lambda$ is (narrowly) not significantly different from 1 (p = 0.051). This means that we can assume that gestation length has evolved by Brownian Motion, in which case $\lambda$ would equal 1 and the variation in trait would simply reflect the pattern of relatedness amongst species.
+
+##Phylogenetic Regression
+
+Now let's have a go at performing a PGLS regression!
+
+Let's say we have an idea that larger species of primate have longer gestations. Our plot seems to back this up but how strong is this relationship?
+```{r, echo=FALSE}
+ggplot(data = primate.data) +
+  geom_point(mapping = aes(x = log10(AdultBodyMass_g), y = GestationLen_d),
+             colour = "blue") +
+  labs(x = "Log Body Mass", y = "Gestation Length")
+```
+
+We found earlier that there does seem to be a relationship but ordinary least squares linear regression can't really be relied upon in this situation. This is because of the statistical non-independence of data points due to shared evolutionary history!
+
+A phylogenetic generalised least squares regression (PGLS) uses a covariance matrix to correct the analysis for this statistical non-independence. Put simply, the PGLS assumes the residuals are more similar in more closely related species rather than being randomly distributed as in linear regression.
+
+As you've already seen, the function we need here is "pgls". The model is constructed exactly as before but this time, we need to construct a full model. We'll be estimating $\lambda$ by maximum likelihood again.
+```{r}
+m2 <- pgls(GestationLen_d ~ log10(AdultBodyMass_g), data = primates, lambda = "ML")
+```
+
+The summary function gets the key details we need.
+```{r}
+summary(m2)
+```
+
+As you can see, our model is a significant fit to the data (F = 33.3, R^2^ = 0.29, p = 1.39 x 10^-7^). More importantly, We've confirmed that body size has a positive effect on gestation length ($\beta$ = 33.75, s.e. = 5.85, p = 1.39 x 10^-7^). Time to plot!
+```{r, echo = FALSE}
+m1 <- lm(GestationLen_d ~ log10(AdultBodyMass_g), 
+         data = primates$data)
+```
+
+A brief note here. The syntax to get ggplot to do this is a little more complex than base graphics (where we can just use abline(m2)!). Here I've plotted both the OLS (blue) and PGLS (red) lines so you can see how they differ.
+```{r, fig.height=4}
+primates$data %>%
+  mutate(my_model = predict(m2)) %>%
+  ggplot() +
+  geom_point(aes(log10(AdultBodyMass_g), GestationLen_d)) +
+  geom_line(aes(log10(AdultBodyMass_g), my_model), 
+            colour = "red", lwd = 1) +
+  geom_smooth(aes(log10(AdultBodyMass_g), GestationLen_d), 
+              method = 'lm', se = FALSE) +
+  labs(x = "Log Body Mass", y = "Gestation Length") +
+  geom_text(x = 2, y = 230, label = "PGLS", colour = "red", size = 4) +
+  geom_text(x = 2, y = 218, label = "OLS", colour = "blue", size = 4)
+```
+
+###Model Checking
+
+That's the basic model run nicely. Now, we need to run some diagnostic checks. We should start with the likelihood surface of $\lambda$ since we estimated it by maximum likelihood.
+
+We begin by using the pgls.profile function to extract the likelihoods and then simply plot them. I'm going to keep it simple by using base graphics for this. What we are looking for is a single peak around our estimated value. If we get a flat surface or multiple peaks, there might be an issue somewhere.
+```{r}
+lambda.profile <- pgls.profile(m2, which = "lambda")
+plot(lambda.profile)
+```
+
+This plot describes the log likelihood of $\lambda$ across its possible range of values (0 - 1). We can clearly see that the likelihood is highest around a single point around 0.8. Check back against the model output earlier to see if this is what we would expect.
+
+Next we need to identify any outliers in the model residuals. The first step here is to extract the residuals from the model, making sure to tell R that we want the phylogenetic residuals. The model output of pgls actually stores both phylogenetic and non-phylogenetic residuals. We can then standardise the residuals by dividing through by the square root of the variance.
+```{r}
+res <- residuals(m2, phylo = TRUE)
+res <- res/sqrt(var(res))[1]
+```
+
+The general rule is that any standardised residual with an absolute value greater than 3 is an outlier and needs to be removed from any analysis. Here, I'm just assigning the species names to the res object so we can tell which species are the outliers (if any).
+```{r}
+rownames(res) <- rownames(m2$residuals)
+rownames(res)[abs(res)>3]
+```
+
+Outliers! Maybe they're causing problems and maybe they aren't. We need to check that by re-running our analysis without them. A simple line of code will take our existing comparative data object and drop out the named outliers.
+```{r}
+primates.nooutliers <- primates[-which(abs(res)>3),]
+```
+
+Now simply re-run the model, remembering to direct R to the new data object.
+```{r}
+m3 <- pgls(GestationLen_d ~ log10(AdultBodyMass_g),
+           data = primates.nooutliers, 
+           lambda = "ML")
+summary(m3)
+```
+
+The results have barely changed. So it seems that although those two lemurs were outliers, they weren't effecting the analysis too much. Let's check for outliers in this new model.
+```{r}
+res <- residuals(m3, phylo = TRUE)
+res <- res/sqrt(var(res))[1]
+rownames(res) <- rownames(m3$residuals)
+rownames(res)[abs(res)>3]
+```
+
+Another one! Don't worry. This can happen. We need to drop the new outlier again to run the same checks.
+
+Finally, we can check the diagnostic plots of the model. I've included some lines to help arrange the plots. To view the plots for model diagnostics, we can simply plot the model object!
+```{r, fig.height = 7}
+par.default <- par(no.readonly = T) #Save default plotting parameters
+par(mfrow=c(2,2)) #Set the plot window to show 4 different plots
+
+plot(m3)
+
+par(par.default) #Reset plot window to default
+```
+
+The top left panel shows the distribution of our residuals. We can see a bump near +3. That will be our outlier that needs to be dropped before we proceed any further. The top right plot closely approximates a straight line so that's good. The bottom left shows no real pattern which is also good. The bottom right graph should show a correlation (and it seems to) with the points more or less equally scattered above and below the 45^o^ diagonal. Along that line, the observed and fitted values would be exactly equal.
+
+##Conclusion
+
+So that's how to perform a simple PGLS analysis. This kind of analysis is great for attempting make causal connections between traits of extant species, thus inferring a connection over evolutionary history. For example, we hypothesised that the reason some primates have longer gestation periods is that they have larger body sizes and the pgls confirmed our suspicion. More complex regressions can include multpile predictors and that's what we'll look at next.
+
+By the way, always make sure to check your models for outliers! In this analysis the gray mouse lemur was an outlier and we had to drop it. Outliers like this can throw off your analysis. If we hadn't checked, we would have presented the analysis in a paper and then had it invalidated when someone checked up on it. Fortunately in this case, the outliers didn't really change the outcome so the gray mouse lemur is off the hook. Look how relieved he is!
+
+```{r, echo = FALSE}
+knitr::include_graphics('~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Images/mouse lemur.jpg')
+```
+
