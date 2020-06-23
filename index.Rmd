@@ -3,7 +3,10 @@ title: "Comparative Methods Workshops"
 author: "Chris Mitchell"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
-output: bookdown::gitbook
+output: 
+  bookdown::gitbook:
+    includes:
+      in_header: header.html
 documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
@@ -22,3 +25,13 @@ knitr::write_bib(c(
 ```
 
 This book contains a series of workshops on the use of phylogenetically controlled comparative methods. The workshops assume a basic familiarity with R. You should revisit the material from LIFE223 if you need a quick refresher on R.
+
+<!---LEARNR EX 1-->
+
+<iframe style="margin:0 auto; min-width: 100%;" id="myIframe1" class="interactive" src="https://chrismitchell42.shinyapps.io/learnr_app1" scrolling="no" frameborder="no"></iframe>
+
+<!---------------->
+
+<script>
+  iFrameResize({}, ".interactive");
+</script>

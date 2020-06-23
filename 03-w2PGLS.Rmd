@@ -20,6 +20,8 @@ As usual, remember to set your working directory to wherever you have saved the 
 ##Data
 
 Let's load up some primate data. You should see the dataframe appear in your environment. If you inspect the object, you will find a number of continuous variables in there for us to investigate.
+
+
 ```{r}
 primate.data <- read.table("primates_data.txt", header = T)
 names(primate.data)
