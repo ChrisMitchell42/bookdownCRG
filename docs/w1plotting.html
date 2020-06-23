@@ -203,13 +203,15 @@ BiocManager<span class="op">::</span><span class="kw">install</span>(<span class
 <div id="geoms" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Geoms</h3>
 <p>Geoms are new layers to plot on or alongside your tree. Now let's try plotting it whilst adding new layers. These geoms can be combined as you see fit. This gives you a lot of flexibility in how you plot your trees.</p>
-<p>PLACEHOLDER FOR SECOND APP ITERATION</p>
+<!---LEARNR EX 2-->
+<iframe style="margin:0 auto; min-width: 100%;" id="myIframe2" class="interactive" src="https://chrismitchell42.shinyapps.io/learnr_app1" scrolling="no" frameborder="no">
+</iframe>
+<!---------------->
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="dt">offset =</span> <span class="dv">2</span>, <span class="dt">color =</span> <span class="st">&quot;purple&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_nodepoint</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_tippoint</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;A phylogeny of letters. For some reason...&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="labelling-clades" class="section level3">
 <h3><span class="header-section-number">3.3.2</span> Labelling clades</h3>

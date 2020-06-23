@@ -73,9 +73,13 @@ We'll start by using ggtree to plot our tree. Below is the base layer of the plo
 ###Geoms
 Geoms are new layers to plot on or alongside your tree. Now let's try plotting it whilst adding new layers. These geoms can be combined as you see fit. This gives you a lot of flexibility in how you plot your trees.
 
-PLACEHOLDER FOR SECOND APP ITERATION
+<!---LEARNR EX 2-->
 
-```{r, echo=TRUE}
+<iframe style="margin:0 auto; min-width: 100%;" id="myIframe2" class="interactive" src="https://chrismitchell42.shinyapps.io/learnr_app1" scrolling="no" frameborder="no"></iframe>
+
+<!---------------->
+
+```{r, echo=TRUE, eval=FALSE}
 ggtree(tree) + 
   geom_tiplab(offset = 2, color = "purple") +
   geom_nodepoint(color = "blue", size = 2) +
