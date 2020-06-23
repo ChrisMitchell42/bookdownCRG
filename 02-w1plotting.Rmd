@@ -62,47 +62,21 @@ This plot is fine for a quick check to make sure the tree looks as we expected i
 ##ggtree
 The syntax we'll be using here is a little different that what you may be used to so don't get intimidated. **ggtree** uses the same syntax as a package called **ggplot2**. This works by creating layers (known as **geoms**) and plotting them over each other. 
 
-We'll start by using ggtree to plot our tree. This is the base layer of the plot.
-```{r, echo=TRUE}
-ggtree(tree)
-```
+We'll start by using ggtree to plot our tree. Below is the base layer of the plot. There are many other options we can include to customise our tree. Try some out in this R window to see how they effect your plot
 
-You may want to plot the same tree as a **cladogram**. To do this, disable branch lengths.
-```{r, echo=TRUE}
-ggtree(tree, branch.length = "none")
-```
+<!---LEARNR EX 1-->
 
-There are many other options we can include to customise our tree.
-```{r, echo=TRUE}
-ggtree(tree, 
-       branch.length="none", 
-       color="blue", 
-       size=2, 
-       linetype=3)
-```
+<iframe style="margin:0 auto; min-width: 100%;" id="myIframe1" class="interactive" src="https://chrismitchell42.shinyapps.io/learnr_app1" scrolling="no" frameborder="no"></iframe>
+
+<!---------------->
 
 ###Geoms
-Geoms are new layers to plot on or alongside your tree. Here I'm creating the plot as an object in R. You should see "p" appear in your environment but no plot will appear.
-```{r, echo=TRUE}
-p <- ggtree(tree)
-```
+Geoms are new layers to plot on or alongside your tree. Now let's try plotting it whilst adding new layers. These geoms can be combined as you see fit. This gives you a lot of flexibility in how you plot your trees.
 
-Now let's plot it whilst adding new layers. Note that the hash denotes text not to be interpreted by R. This is a great way to annotate your code so that you can recall what it does!
-```{r, echo=TRUE}
-p + geom_nodepoint() #Add node points
-```
+PLACEHOLDER FOR SECOND APP ITERATION
 
 ```{r, echo=TRUE}
-p + geom_tippoint() # add tip points
-```
-
-```{r, echo=TRUE}
-p + geom_tiplab() # Label the tips
-```
-
-These geoms can be combined as you see fit. This gives you a lot of flexibility in how you plot your trees.
-```{r, echo=TRUE}
-p + 
+ggtree(tree) + 
   geom_tiplab(offset = 2, color = "purple") +
   geom_nodepoint(color = "blue", size = 2) +
   geom_tippoint(color = "red", size = 4) +

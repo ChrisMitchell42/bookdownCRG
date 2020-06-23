@@ -233,88 +233,21 @@ be used to so don't get intimidated. \textbf{ggtree} uses the same
 syntax as a package called \textbf{ggplot2}. This works by creating
 layers (known as \textbf{geoms}) and plotting them over each other.
 
-We'll start by using ggtree to plot our tree. This is the base layer of
-the plot.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggtree}\NormalTok{(tree)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-8-1} \end{center}
-
-You may want to plot the same tree as a \textbf{cladogram}. To do this,
-disable branch lengths.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggtree}\NormalTok{(tree, }\DataTypeTok{branch.length =} \StringTok{"none"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-9-1} \end{center}
-
-There are many other options we can include to customise our tree.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{ggtree}\NormalTok{(tree, }
-       \DataTypeTok{branch.length=}\StringTok{"none"}\NormalTok{, }
-       \DataTypeTok{color=}\StringTok{"blue"}\NormalTok{, }
-       \DataTypeTok{size=}\DecValTok{2}\NormalTok{, }
-       \DataTypeTok{linetype=}\DecValTok{3}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-10-1} \end{center}
+We'll start by using ggtree to plot our tree. Below is the base layer of
+the plot. There are many other options we can include to customise our
+tree. Try some out in this R window to see how they effect your plot
 
 \subsection{Geoms}\label{geoms}
 
-Geoms are new layers to plot on or alongside your tree. Here I'm
-creating the plot as an object in R. You should see ``p'' appear in your
-environment but no plot will appear.
+Geoms are new layers to plot on or alongside your tree. Now let's try
+plotting it whilst adding new layers. These geoms can be combined as you
+see fit. This gives you a lot of flexibility in how you plot your trees.
+
+PLACEHOLDER FOR SECOND APP ITERATION
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{p <-}\StringTok{ }\KeywordTok{ggtree}\NormalTok{(tree)}
-\end{Highlighting}
-\end{Shaded}
-
-Now let's plot it whilst adding new layers. Note that the hash denotes
-text not to be interpreted by R. This is a great way to annotate your
-code so that you can recall what it does!
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_nodepoint}\NormalTok{() }\CommentTok{#Add node points}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-12-1} \end{center}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_tippoint}\NormalTok{() }\CommentTok{# add tip points}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-13-1} \end{center}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_tiplab}\NormalTok{() }\CommentTok{# Label the tips}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-14-1} \end{center}
-
-These geoms can be combined as you see fit. This gives you a lot of
-flexibility in how you plot your trees.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{p }\OperatorTok{+}\StringTok{ }
+\KeywordTok{ggtree}\NormalTok{(tree) }\OperatorTok{+}\StringTok{ }
 \StringTok{  }\KeywordTok{geom_tiplab}\NormalTok{(}\DataTypeTok{offset =} \DecValTok{2}\NormalTok{, }\DataTypeTok{color =} \StringTok{"purple"}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_nodepoint}\NormalTok{(}\DataTypeTok{color =} \StringTok{"blue"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{2}\NormalTok{) }\OperatorTok{+}
 \StringTok{  }\KeywordTok{geom_tippoint}\NormalTok{(}\DataTypeTok{color =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{4}\NormalTok{) }\OperatorTok{+}
@@ -322,7 +255,7 @@ flexibility in how you plot your trees.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-15-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 \subsection{Labelling clades}\label{labelling-clades}
 
@@ -353,7 +286,7 @@ Let's use a new geom to label the clade.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-17-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 Pretty good. But there are other options. Again it's a matter of
 personal preference. You may prefer to overlay a translucent rectangle
@@ -367,7 +300,7 @@ over your clade of interest.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-11-1} \end{center}
 
 \section{Example Phylogeny}\label{example-phylogeny}
 
@@ -375,7 +308,7 @@ Let's now have a look at how we can include images on our plots. Using
 images is a great way to annotate a phylogeny. Here's the kind of thing
 I mean.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-19-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 This phylogeny is annotated in a number of useful ways. The tip labels
 are the most common type you probably recognise and in this case,
@@ -416,7 +349,7 @@ Let's plot the new tree first.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-22-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-15-1} \end{center}
 
 Let's use what we know about ggtree to customise this plot into
 something more useful. In particular, this plot is quite useful because
@@ -432,7 +365,7 @@ it tells us the numbers of each node and we will need that later on.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-23-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 Let's label the 6 primate superfamilies.
 
@@ -451,7 +384,7 @@ Let's label the 6 primate superfamilies.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-24-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
 So far so good. Let's add on bars like I did for the cephalopod version.
 This time, I'll add the new details to the object p3 to save some
@@ -476,7 +409,7 @@ typing.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-25-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 There are some helpful details here, such as the fact that the label for
 Tarsioidea is off at an angle to avoid overlapping with other labels.
@@ -543,7 +476,7 @@ build the plot from scratch.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-28-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 \chapter{Workshop 2: PGLS}\label{w2PGLS}
 
@@ -603,7 +536,7 @@ blank plot
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-32-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-25-1} \end{center}
 
 Let's add a layer with the points. We can add a layer of points with the
 function geom\_point. This creates our basic scatterplot. Each geom
@@ -619,7 +552,7 @@ transformed before we plot it!
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-33-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
 In practice, exactly how you add geoms and layers seems to be affected
 by exactly what you want to do with the plot. As we'll see later, if you
@@ -641,7 +574,7 @@ legend is also created automatically.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-34-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-27-1} \end{center}
 
 If you prefer, you can manually set the colour for all points. Be aware
 of the difference here! In the code below, the difference is that colour
@@ -657,7 +590,7 @@ the plot.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-35-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
 Let's clean up the plot with some axis labels.
 
@@ -670,7 +603,7 @@ Let's clean up the plot with some axis labels.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-36-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-29-1} \end{center}
 
 \section{Linear Regression}\label{linear-regression}
 
@@ -738,7 +671,7 @@ the hive-mind of R users on the internet told me to.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-39-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-32-1} \end{center}
 
 \section{Trees and Phylogenetic
 Signal}\label{trees-and-phylogenetic-signal}
@@ -774,7 +707,7 @@ which the trait varies at random with respect to the phylogeny. The
 trait is not equal across the tree but rather the variation in the trait
 does not correlate to the pattern of relatedness.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-40-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
 \subsection{caper}\label{caper}
 
@@ -954,7 +887,7 @@ Let's say we have an idea that larger species of primate have longer
 gestations. Our plot seems to back this up but how strong is this
 relationship?
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-47-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-40-1} \end{center}
 
 We found earlier that there does seem to be a relationship but ordinary
 least squares linear regression can't really be relied upon in this
@@ -1043,7 +976,7 @@ they differ.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-51-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 \subsection{Model Checking}\label{model-checking}
 
@@ -1064,7 +997,7 @@ be an issue somewhere.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-52-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-45-1} \end{center}
 
 This plot describes the log likelihood of \(\lambda\) across its
 possible range of values (0 - 1). We can clearly see that the likelihood
@@ -1188,7 +1121,7 @@ diagnostics, we can simply plot the model object!
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-58-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-51-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]

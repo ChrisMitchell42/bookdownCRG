@@ -195,37 +195,21 @@ BiocManager<span class="op">::</span><span class="kw">install</span>(<span class
 <div id="ggtree" class="section level2">
 <h2><span class="header-section-number">3.3</span> ggtree</h2>
 <p>The syntax we'll be using here is a little different that what you may be used to so don't get intimidated. <strong>ggtree</strong> uses the same syntax as a package called <strong>ggplot2</strong>. This works by creating layers (known as <strong>geoms</strong>) and plotting them over each other.</p>
-<p>We'll start by using ggtree to plot our tree. This is the base layer of the plot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggtree</span>(tree)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>You may want to plot the same tree as a <strong>cladogram</strong>. To do this, disable branch lengths.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggtree</span>(tree, <span class="dt">branch.length =</span> <span class="st">&quot;none&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>There are many other options we can include to customise our tree.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggtree</span>(tree, 
-       <span class="dt">branch.length=</span><span class="st">&quot;none&quot;</span>, 
-       <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>, 
-       <span class="dt">size=</span><span class="dv">2</span>, 
-       <span class="dt">linetype=</span><span class="dv">3</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We'll start by using ggtree to plot our tree. Below is the base layer of the plot. There are many other options we can include to customise our tree. Try some out in this R window to see how they effect your plot</p>
+<!---LEARNR EX 1-->
+<iframe style="margin:0 auto; min-width: 100%;" id="myIframe1" class="interactive" src="https://chrismitchell42.shinyapps.io/learnr_app1" scrolling="no" frameborder="no">
+</iframe>
+<!---------------->
 <div id="geoms" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Geoms</h3>
-<p>Geoms are new layers to plot on or alongside your tree. Here I'm creating the plot as an object in R. You should see &quot;p&quot; appear in your environment but no plot will appear.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span><span class="kw">ggtree</span>(tree)</code></pre></div>
-<p>Now let's plot it whilst adding new layers. Note that the hash denotes text not to be interpreted by R. This is a great way to annotate your code so that you can recall what it does!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p <span class="op">+</span><span class="st"> </span><span class="kw">geom_nodepoint</span>() <span class="co">#Add node points</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p <span class="op">+</span><span class="st"> </span><span class="kw">geom_tippoint</span>() <span class="co"># add tip points</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p <span class="op">+</span><span class="st"> </span><span class="kw">geom_tiplab</span>() <span class="co"># Label the tips</span></code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>These geoms can be combined as you see fit. This gives you a lot of flexibility in how you plot your trees.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p <span class="op">+</span><span class="st"> </span>
+<p>Geoms are new layers to plot on or alongside your tree. Now let's try plotting it whilst adding new layers. These geoms can be combined as you see fit. This gives you a lot of flexibility in how you plot your trees.</p>
+<p>PLACEHOLDER FOR SECOND APP ITERATION</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="dt">offset =</span> <span class="dv">2</span>, <span class="dt">color =</span> <span class="st">&quot;purple&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_nodepoint</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_tippoint</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;A phylogeny of letters. For some reason...&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="labelling-clades" class="section level3">
 <h3><span class="header-section-number">3.3.2</span> Labelling clades</h3>
@@ -239,18 +223,18 @@ BiocManager<span class="op">::</span><span class="kw">install</span>(<span class
                   <span class="dt">label=</span><span class="st">&quot;A clade&quot;</span>, 
                   <span class="dt">color=</span><span class="st">&quot;red2&quot;</span>, 
                   <span class="dt">offset=</span><span class="dv">1</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Pretty good. But there are other options. Again it's a matter of personal preference. You may prefer to overlay a translucent rectangle over your clade of interest.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_tiplab</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">17</span>, <span class="dt">fill=</span><span class="st">&quot;gold&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="example-phylogeny" class="section level2">
 <h2><span class="header-section-number">3.4</span> Example Phylogeny</h2>
 <p>Let's now have a look at how we can include images on our plots. Using images is a great way to annotate a phylogeny. Here's the kind of thing I mean.</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This phylogeny is annotated in a number of useful ways. The tip labels are the most common type you probably recognise and in this case, describe cephalopod families. The superorders (octopodiformes and decapodiformes) are highlighted by gold and red rectangles as well as a bar across the tips.</p>
 <p>The most interesting thing for our purposes are the silhouettes at the root of each superorder. The octopodiformes have an octopus and the decapodiformes have a squid as example taxa from within the superorder.</p>
 <div id="phylopic" class="section level3">
@@ -261,14 +245,14 @@ BiocManager<span class="op">::</span><span class="kw">install</span>(<span class
 <p>Let's plot the new tree first.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw">ggtree</span>(primates)
 p1</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Let's use what we know about ggtree to customise this plot into something more useful. In particular, this plot is quite useful because it tells us the numbers of each node and we will need that later on.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 &lt;-<span class="st"> </span><span class="kw">ggtree</span>(primates) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>,<span class="dv">90</span>) <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="dt">size=</span><span class="fl">1.5</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_label2</span>(<span class="kw">aes</span>(<span class="dt">subset=</span><span class="op">!</span>isTip, <span class="dt">label=</span>node), <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">color=</span><span class="st">&quot;darkred&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>)
 p2</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Let's label the 6 primate superfamilies.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p3 &lt;-<span class="st"> </span><span class="kw">ggtree</span>(primates) <span class="op">+</span>
 <span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>,<span class="dv">100</span>) <span class="op">+</span>
@@ -280,7 +264,7 @@ p2</code></pre></div>
 <span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">89</span>, <span class="dt">fill=</span><span class="st">&quot;beige&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">70</span>, <span class="dt">fill=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) 
 p3</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>So far so good. Let's add on bars like I did for the cephalopod version. This time, I'll add the new details to the object p3 to save some typing.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 &lt;-<span class="st"> </span>p3 <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">124</span>, <span class="st">&quot;Galagoidea&quot;</span>, <span class="dt">offset=</span><span class="dv">15</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,
@@ -296,7 +280,7 @@ p3</code></pre></div>
 <span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">70</span>, <span class="st">&quot;Cercopithecoidea&quot;</span>, <span class="dt">offset=</span><span class="dv">15</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,
                   <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">3</span>)
 p4</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>There are some helpful details here, such as the fact that the label for Tarsioidea is off at an angle to avoid overlapping with other labels. The extra arguments in these options demonstrate how much control you can exercise over each geom.</p>
 <p>Now let's get to adding images. the way to do this is a little awkward with ggtree but I think it's worth the hassle. The first thing we have to do is gather the links for each image we want to use. I've chosen to do this by building a small data frame containing the urls to the images on phylopic, the names of the super families I want to label and the nodes I want to plot the images on.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">images &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">node =</span> <span class="kw">c</span>(<span class="dv">124</span>,<span class="dv">113</span>,<span class="dv">110</span>,<span class="dv">96</span>,<span class="dv">89</span>,<span class="dv">70</span>),
@@ -340,7 +324,7 @@ p4</code></pre></div>
 p5 <span class="op">%&lt;+%</span><span class="st"> </span>images <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_nodelab</span>(<span class="kw">aes</span>(<span class="dt">image =</span> phylopic), <span class="dt">geom =</span> <span class="st">&quot;image&quot;</span>, 
                <span class="dt">size =</span> .<span class="dv">04</span>, <span class="dt">nudge_x =</span> <span class="op">-</span><span class="dv">4</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-28-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-21-1.png" width="864" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

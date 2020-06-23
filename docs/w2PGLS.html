@@ -176,28 +176,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">library</span>(ggplot2)</code></pre></div>
 <p>ggplot2 builds plots in layers similar to ggtree which you have met before in workshop 1. In fact, the ggtree package was built based upon ggplot2. We start with the function ggplot which creates a coordinate system to which we can add layers. This function alone just creates a blank plot</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> primate.data)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Let's add a layer with the points. We can add a layer of points with the function geom_point. This creates our basic scatterplot. Each geom function (the ones that add layers) takes a mapping argument which controls how the layer is mapped onto the plot. This argument usually takes the form seen below. Remember that body mass should be log transformed before we plot it!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> primate.data) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">y =</span> GestationLen_d))</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>In practice, exactly how you add geoms and layers seems to be affected by exactly what you want to do with the plot. As we'll see later, if you want to add regression lines or other statistical features to your plot, you may want to reorganise this code. My advice is to google what you want to do and work backwards from someone else's code. That's what I do.</p>
 <p>The plot isn't done yet. We can display a bit more information by adding another mapping argument. Here, I've coloured the points according to their family. The unique colours are assigned auotmatically and the legend is also created automatically.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> primate.data) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">y =</span> GestationLen_d, 
                            <span class="dt">colour =</span> Family))</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>If you prefer, you can manually set the colour for all points. Be aware of the difference here! In the code below, the difference is that colour here is outside of the mapping argument. This means that the colour doesn't display any real information but does change the aesthetic of the plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> primate.data) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">y =</span> GestationLen_d),
              <span class="dt">colour =</span> <span class="st">&quot;green&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Let's clean up the plot with some axis labels.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> primate.data) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">y =</span> GestationLen_d,
                            <span class="dt">colour =</span> Family)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Log Body Mass&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Gestation Length&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="linear-regression" class="section level2">
 <h2><span class="header-section-number">4.3</span> Linear Regression</h2>
@@ -228,7 +228,7 @@ F-statistic: 90.35 on 1 and 89 DF,  p-value: 3.374e-15</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> primate.data, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">y =</span> GestationLen_d)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="trees-and-phylogenetic-signal" class="section level2">
 <h2><span class="header-section-number">4.4</span> Trees and Phylogenetic Signal</h2>
@@ -238,7 +238,7 @@ F-statistic: 90.35 on 1 and 89 DF,  p-value: 3.374e-15</code></pre>
 <p>Importantly, you need to understand the concept of phylogenetic signal which is defined as <em>the tendency for closely related species to resemble each other more than distantly related species</em>.</p>
 <p>For example, body mass is (usually) a trait with a strong phylogenetic signal. What this means in primates is that although there is a broad range of body sizes from a few tens of grams up to around 200kg, the distribution of body masses closely follows the pattern of relatedness. Large primates like orangutan, gorillas, chimps and humans are all closely related for example.</p>
 <p>The degree of phylogenetic signal in a trait is often described using the scaling parameter <span class="math inline">\(\lambda\)</span>. <span class="math inline">\(\lambda\)</span> varies between 0 and 1 and is used to multiply the internal branch lengths so that the tree describes the pattern of variation in the trait.</p>
-<p>For example, take the case on the left, where <span class="math inline">\(\lambda = 1\)</span>. In this case the tree is untransformed because the variation in the trait follows the structure of the tree. On the right, where <span class="math inline">\(\lambda = 0\)</span>, all the internal branch lengths have been multiplied by 0 and therefore collapsed. This &quot;star phylogeny&quot; describes a pattern of variation in which the trait varies at random with respect to the phylogeny. The trait is not equal across the tree but rather the variation in the trait does not correlate to the pattern of relatedness. <img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>For example, take the case on the left, where <span class="math inline">\(\lambda = 1\)</span>. In this case the tree is untransformed because the variation in the trait follows the structure of the tree. On the right, where <span class="math inline">\(\lambda = 0\)</span>, all the internal branch lengths have been multiplied by 0 and therefore collapsed. This &quot;star phylogeny&quot; describes a pattern of variation in which the trait varies at random with respect to the phylogeny. The trait is not equal across the tree but rather the variation in the trait does not correlate to the pattern of relatedness. <img src="bookdown-demo_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="caper" class="section level3">
 <h3><span class="header-section-number">4.4.2</span> caper</h3>
@@ -330,7 +330,7 @@ F-statistic:   NaN on 0 and 82 DF,  p-value: NA </code></pre>
 <div id="phylogenetic-regression" class="section level2">
 <h2><span class="header-section-number">4.5</span> Phylogenetic Regression</h2>
 <p>Now let's have a go at performing a PGLS regression!</p>
-<p>Let's say we have an idea that larger species of primate have longer gestations. Our plot seems to back this up but how strong is this relationship? <img src="bookdown-demo_files/figure-html/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Let's say we have an idea that larger species of primate have longer gestations. Our plot seems to back this up but how strong is this relationship? <img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>We found earlier that there does seem to be a relationship but ordinary least squares linear regression can't really be relied upon in this situation. This is because of the statistical non-independence of data points due to shared evolutionary history!</p>
 <p>A phylogenetic generalised least squares regression (PGLS) uses a covariance matrix to correct the analysis for this statistical non-independence. Put simply, the PGLS assumes the residuals are more similar in more closely related species rather than being randomly distributed as in linear regression.</p>
 <p>As you've already seen, the function we need here is &quot;pgls&quot;. The model is constructed exactly as before but this time, we need to construct a full model. We'll be estimating <span class="math inline">\(\lambda\)</span> by maximum likelihood again.</p>
@@ -378,14 +378,14 @@ F-statistic:  33.3 on 1 and 81 DF,  p-value: 1.394e-07 </code></pre>
 <span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Log Body Mass&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Gestation Length&quot;</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">x =</span> <span class="dv">2</span>, <span class="dt">y =</span> <span class="dv">230</span>, <span class="dt">label =</span> <span class="st">&quot;PGLS&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">x =</span> <span class="dv">2</span>, <span class="dt">y =</span> <span class="dv">218</span>, <span class="dt">label =</span> <span class="st">&quot;OLS&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="model-checking" class="section level3">
 <h3><span class="header-section-number">4.5.1</span> Model Checking</h3>
 <p>That's the basic model run nicely. Now, we need to run some diagnostic checks. We should start with the likelihood surface of <span class="math inline">\(\lambda\)</span> since we estimated it by maximum likelihood.</p>
 <p>We begin by using the pgls.profile function to extract the likelihoods and then simply plot them. I'm going to keep it simple by using base graphics for this. What we are looking for is a single peak around our estimated value. If we get a flat surface or multiple peaks, there might be an issue somewhere.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lambda.profile &lt;-<span class="st"> </span><span class="kw">pgls.profile</span>(m2, <span class="dt">which =</span> <span class="st">&quot;lambda&quot;</span>)
 <span class="kw">plot</span>(lambda.profile)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-52-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This plot describes the log likelihood of <span class="math inline">\(\lambda\)</span> across its possible range of values (0 - 1). We can clearly see that the likelihood is highest around a single point around 0.8. Check back against the model output earlier to see if this is what we would expect.</p>
 <p>Next we need to identify any outliers in the model residuals. The first step here is to extract the residuals from the model, making sure to tell R that we want the phylogenetic residuals. The model output of pgls actually stores both phylogenetic and non-phylogenetic residuals. We can then standardise the residuals by dividing through by the square root of the variance.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span><span class="kw">residuals</span>(m2, <span class="dt">phylo =</span> <span class="ot">TRUE</span>)
@@ -441,7 +441,7 @@ res &lt;-<span class="st"> </span>res<span class="op">/</span><span class="kw">s
 <span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co">#Set the plot window to show 4 different plots</span>
 
 <span class="kw">plot</span>(m3)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(par.default) <span class="co">#Reset plot window to default</span></code></pre></div>
 <p>The top left panel shows the distribution of our residuals. We can see a bump near +3. That will be our outlier that needs to be dropped before we proceed any further. The top right plot closely approximates a straight line so that's good. The bottom left shows no real pattern which is also good. The bottom right graph should show a correlation (and it seems to) with the points more or less equally scattered above and below the 45<sup>o</sup> diagonal. Along that line, the observed and fitted values would be exactly equal.</p>
 </div>
