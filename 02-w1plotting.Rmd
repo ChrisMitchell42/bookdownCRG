@@ -265,3 +265,6 @@ p5 %<+% images +
 ```
 
 
+<script>
+  iFrameResize({}, ".interactive");
+</script>

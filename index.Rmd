@@ -25,8 +25,3 @@ knitr::write_bib(c(
 ```
 
 This book contains a series of workshops on the use of phylogenetically controlled comparative methods. The workshops assume a basic familiarity with R. You should revisit the material from LIFE223 if you need a quick refresher on R.
-
-
-<script>
-  iFrameResize({}, ".interactive");
-</script>
