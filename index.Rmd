@@ -1,27 +1,50 @@
 --- 
 title: "Comparative Methods Workshops"
 author: "Chris Mitchell"
-date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: 
   bookdown::gitbook:
     includes:
       in_header: header.html
 documentclass: book
-bibliography: [book.bib, packages.bib]
-biblio-style: apalike
+bibliography: [CRG.bib, book.bib, packages.bib]
+csl: harvard.csl
 link-citations: yes
 github-repo: ChrisMitchell42/bookdownCRG
 description: "These are the workshops for the Comparative Research Group as part of LIFE363"
 ---
 
-# Preamble
+# Welcome
 
 ```{r include=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
+knitr::opts_chunk$set(comment = '')
 ```
 
-This book contains a series of workshops on the use of phylogenetically controlled comparative methods. The workshops assume a basic familiarity with R. You should revisit the material from LIFE223 if you need a quick refresher on R.
+Welcome to the online support materials for the Comparative Research Group at the University of Liverpool. The CRG is made up of staff and students engaging in comparative research across various areas of evolutionary biology.
+
+## For students
+
+The materials here are intended to support you through your LIFE363 honours project. For this project you will be performing a comparative study (see **chapter 1** for more information) on an area of your choosing. At first, this is a daunting task but developing your own research here is excellent experience and gives you the opportunity to research an area that really interests you.
+
+The vast majority of statistics here are performed in R [@R]. You were introduced to R in LIFE223 as a powerful and flexible tool for statistical analysis. **Chapter 2** contains a brief refresher on some of the basics of R in case you need it. For more detailed recaps, please revisit your materials from LIFE223 as some of the code you wrote is likely to be useful this year!
+
+Throughout this book you will see examples of R code and output like this.
+```{r, echo=FALSE}
+hidden.message <- "Forty-two"
+```
+
+```{r}
+print(hidden.message)
+```
+
+The code can be copied and pasted into your own version of R as you see fit. However, I would recommend that for the first time you are using a piece of code, type it out for yourself. This will help you get to grips with what each argument means.
+
+You will also see some interactive R windows where you can enter your code directly into this book and an online version of R will run it. This should give you an opportunity to learn more complex things and develop your R skills dramatically.
+
+The rest of the book is populated with workshops and materials to help you learn specific comparative statistical methods. Some of these will be extensions of what you already met in LIFE223. **Chapter 6** looks at phylogenetically controlled ANOVA and **chapter 14** is all about phylogenetic regression. 
+
+Other methods may be entirely new to you such as ancestral state reconstruction (**chapters 7 - 10**) or path analysis (**chapter 15**). Don't be intimidated by this. All the code you need is gathered here and will remain available as long as you need it. 

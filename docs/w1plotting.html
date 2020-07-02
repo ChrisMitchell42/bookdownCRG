@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3 Workshop 1: Plotting phylogenies in R | Comparative Methods Workshops</title>
+  <title>5 Plotting trees in R | Comparative Methods Workshops</title>
   <meta name="description" content="These are the workshops for the Comparative Research Group as part of LIFE363" />
   <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3 Workshop 1: Plotting phylogenies in R | Comparative Methods Workshops" />
+  <meta property="og:title" content="5 Plotting trees in R | Comparative Methods Workshops" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="ChrisMitchell42/bookdownCRG" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3 Workshop 1: Plotting phylogenies in R | Comparative Methods Workshops" />
+  <meta name="twitter:title" content="5 Plotting trees in R | Comparative Methods Workshops" />
   
   <meta name="twitter:description" content="These are the workshops for the Comparative Research Group as part of LIFE363" />
   
@@ -24,15 +24,15 @@
 <meta name="author" content="Chris Mitchell" />
 
 
-<meta name="date" content="2020-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="intro.html"/>
-<link rel="next" href="w2PGLS.html"/>
+<link rel="prev" href="phylogenetics.html"/>
+<link rel="next" href="bibliography.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,45 +50,72 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.16/iframeResizer.min.js" type="text/javascript"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -107,35 +134,56 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">Comparative Research Group</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preamble</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
-<li class="chapter" data-level="3" data-path="w1plotting.html"><a href="w1plotting.html"><i class="fa fa-check"></i><b>3</b> Workshop 1: Plotting phylogenies in R</a><ul>
-<li class="chapter" data-level="3.1" data-path="w1plotting.html"><a href="w1plotting.html#phylogenetics-in-r"><i class="fa fa-check"></i><b>3.1</b> Phylogenetics in R</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="w1plotting.html"><a href="w1plotting.html#packages-used"><i class="fa fa-check"></i><b>3.1.1</b> Packages used</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#for-students"><i class="fa fa-check"></i><b>1.1</b> For students</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="w1plotting.html"><a href="w1plotting.html#importing-your-tree"><i class="fa fa-check"></i><b>3.2</b> Importing your tree</a></li>
-<li class="chapter" data-level="3.3" data-path="w1plotting.html"><a href="w1plotting.html#ggtree"><i class="fa fa-check"></i><b>3.3</b> ggtree</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="w1plotting.html"><a href="w1plotting.html#geoms"><i class="fa fa-check"></i><b>3.3.1</b> Geoms</a></li>
-<li class="chapter" data-level="3.3.2" data-path="w1plotting.html"><a href="w1plotting.html#labelling-clades"><i class="fa fa-check"></i><b>3.3.2</b> Labelling clades</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-the-comparative-method"><i class="fa fa-check"></i><b>2.1</b> What is the comparative method?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#tree-thinking"><i class="fa fa-check"></i><b>2.2</b> Tree thinking</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="w1plotting.html"><a href="w1plotting.html#example-phylogeny"><i class="fa fa-check"></i><b>3.4</b> Example Phylogeny</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="w1plotting.html"><a href="w1plotting.html#phylopic"><i class="fa fa-check"></i><b>3.4.1</b> Phylopic</a></li>
+<li class="chapter" data-level="3" data-path="recap.html"><a href="recap.html"><i class="fa fa-check"></i><b>3</b> R recap</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="recap.html"><a href="recap.html#basics"><i class="fa fa-check"></i><b>3.1</b> Basics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="recap.html"><a href="recap.html#plotting"><i class="fa fa-check"></i><b>3.1.1</b> Plotting</a></li>
+<li class="chapter" data-level="3.1.2" data-path="recap.html"><a href="recap.html#the-working-directory"><i class="fa fa-check"></i><b>3.1.2</b> The working directory</a></li>
+<li class="chapter" data-level="3.1.3" data-path="recap.html"><a href="recap.html#loading-data"><i class="fa fa-check"></i><b>3.1.3</b> Loading data</a></li>
+<li class="chapter" data-level="3.1.4" data-path="recap.html"><a href="recap.html#subsetting"><i class="fa fa-check"></i><b>3.1.4</b> Subsetting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="recap.html"><a href="recap.html#errors"><i class="fa fa-check"></i><b>3.2</b> Errors</a></li>
+<li class="chapter" data-level="3.3" data-path="recap.html"><a href="recap.html#google"><i class="fa fa-check"></i><b>3.3</b> Google</a></li>
+<li class="chapter" data-level="3.4" data-path="recap.html"><a href="recap.html#stealing"><i class="fa fa-check"></i><b>3.4</b> Stealing</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="phylogenetics.html"><a href="phylogenetics.html"><i class="fa fa-check"></i><b>4</b> Phylogenetic trees and where to find them</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="phylogenetics.html"><a href="phylogenetics.html#phylogeny"><i class="fa fa-check"></i><b>4.1</b> Phylogeny</a></li>
+<li class="chapter" data-level="4.2" data-path="phylogenetics.html"><a href="phylogenetics.html#building-trees"><i class="fa fa-check"></i><b>4.2</b> Building trees</a></li>
+<li class="chapter" data-level="4.3" data-path="phylogenetics.html"><a href="phylogenetics.html#locating-trees"><i class="fa fa-check"></i><b>4.3</b> Locating trees</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="phylogenetics.html"><a href="phylogenetics.html#file-format"><i class="fa fa-check"></i><b>4.3.1</b> File format</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="w2PGLS.html"><a href="w2PGLS.html"><i class="fa fa-check"></i><b>4</b> Workshop 2: PGLS</a><ul>
-<li class="chapter" data-level="4.1" data-path="w2PGLS.html"><a href="w2PGLS.html#data"><i class="fa fa-check"></i><b>4.1</b> Data</a></li>
-<li class="chapter" data-level="4.2" data-path="w2PGLS.html"><a href="w2PGLS.html#plotting-with-ggplot2"><i class="fa fa-check"></i><b>4.2</b> Plotting with ggplot2</a></li>
-<li class="chapter" data-level="4.3" data-path="w2PGLS.html"><a href="w2PGLS.html#linear-regression"><i class="fa fa-check"></i><b>4.3</b> Linear Regression</a></li>
-<li class="chapter" data-level="4.4" data-path="w2PGLS.html"><a href="w2PGLS.html#trees-and-phylogenetic-signal"><i class="fa fa-check"></i><b>4.4</b> Trees and Phylogenetic Signal</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-signal"><i class="fa fa-check"></i><b>4.4.1</b> Phylogenetic signal</a></li>
-<li class="chapter" data-level="4.4.2" data-path="w2PGLS.html"><a href="w2PGLS.html#caper"><i class="fa fa-check"></i><b>4.4.2</b> caper</a></li>
-<li class="chapter" data-level="4.4.3" data-path="w2PGLS.html"><a href="w2PGLS.html#estimating-phylogenetic-signal"><i class="fa fa-check"></i><b>4.4.3</b> Estimating Phylogenetic Signal</a></li>
+<li class="chapter" data-level="5" data-path="w1plotting.html"><a href="w1plotting.html"><i class="fa fa-check"></i><b>5</b> Plotting trees in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="w1plotting.html"><a href="w1plotting.html#phylogenies-in-r"><i class="fa fa-check"></i><b>5.1</b> Phylogenies in R</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="w1plotting.html"><a href="w1plotting.html#packages-used"><i class="fa fa-check"></i><b>5.1.1</b> Packages used</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-regression"><i class="fa fa-check"></i><b>4.5</b> Phylogenetic Regression</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="w2PGLS.html"><a href="w2PGLS.html#model-checking"><i class="fa fa-check"></i><b>4.5.1</b> Model Checking</a></li>
+<li class="chapter" data-level="5.2" data-path="w1plotting.html"><a href="w1plotting.html#importing-your-tree"><i class="fa fa-check"></i><b>5.2</b> Importing your tree</a></li>
+<li class="chapter" data-level="5.3" data-path="w1plotting.html"><a href="w1plotting.html#ggtree"><i class="fa fa-check"></i><b>5.3</b> ggtree</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="w1plotting.html"><a href="w1plotting.html#geoms"><i class="fa fa-check"></i><b>5.3.1</b> Geoms</a></li>
+<li class="chapter" data-level="5.3.2" data-path="w1plotting.html"><a href="w1plotting.html#labelling-clades"><i class="fa fa-check"></i><b>5.3.2</b> Labelling clades</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="w2PGLS.html"><a href="w2PGLS.html#conclusion"><i class="fa fa-check"></i><b>4.6</b> Conclusion</a></li>
+<li class="chapter" data-level="5.4" data-path="w1plotting.html"><a href="w1plotting.html#adding-images-to-trees"><i class="fa fa-check"></i><b>5.4</b> Adding images to trees</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="w1plotting.html"><a href="w1plotting.html#phylopic"><i class="fa fa-check"></i><b>5.4.1</b> Phylopic</a></li>
 </ul></li>
+<li class="chapter" data-level="5.5" data-path="w1plotting.html"><a href="w1plotting.html#further-info"><i class="fa fa-check"></i><b>5.5</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>6</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -156,29 +204,30 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="w1plotting" class="section level1">
-<h1><span class="header-section-number">3</span> Workshop 1: Plotting phylogenies in R</h1>
-<div id="phylogenetics-in-r" class="section level2">
-<h2><span class="header-section-number">3.1</span> Phylogenetics in R</h2>
+<div id="w1plotting" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Plotting trees in R</h1>
+<div id="phylogenies-in-r" class="section level2" number="5.1">
+<h2><span class="header-section-number">5.1</span> Phylogenies in R</h2>
 <p>From LIFE223, you know R as a powerful statistical tool. You will also be aware that it is an incredibly flexible tool for plotting data. In this workshop, we will be working with phylogenies in R and manipulating them to produce informative plots.</p>
-<div id="packages-used" class="section level3">
-<h3><span class="header-section-number">3.1.1</span> Packages used</h3>
-<p>In this tutorial we'll mostly be using a package called ggtree. To install it, we need another package called BiocManager.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)
-BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="st">&quot;ggtree&quot;</span>)
-<span class="kw">library</span>(ggtree)</code></pre></div>
-<p>We will also need to use phylobase, ggimage and it would help to have the tidyverse packages loaded since we'll be using the syntax of ggplot2. If you get an error message, make sure the packages are installed first.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(phylobase)
-<span class="kw">library</span>(ggimage)</code></pre></div>
+<div id="packages-used" class="section level3" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Packages used</h3>
+<p>In this section we’ll mostly be using a package called ggtree <span class="citation">(Yu et al. <a href="#ref-Yu17" role="doc-biblioref">2017</a>, <a href="#ref-Yu18" role="doc-biblioref">2018</a>)</span>. To install it, we need another package called <strong>BiocManager</strong> <span class="citation">(Morgan <a href="#ref-Morgan19" role="doc-biblioref">2019</a>)</span>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="w1plotting.html#cb21-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb21-2"><a href="w1plotting.html#cb21-2"></a>BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="st">&quot;ggtree&quot;</span>)</span>
+<span id="cb21-3"><a href="w1plotting.html#cb21-3"></a><span class="kw">library</span>(ggtree)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="w1plotting.html#cb22-1"></a><span class="kw">library</span>(ggtree)</span></code></pre></div>
+<p>We will also need to use phylobase <span class="citation">(R Hackathon et al. <a href="#ref-phylobase" role="doc-biblioref">2019</a>)</span>, ggimage <span class="citation">(Yu <a href="#ref-Yu19" role="doc-biblioref">2019</a>)</span> and it would help to have the tidyverse packages loaded <span class="citation">(Wickham <a href="#ref-Wickham17" role="doc-biblioref">2017</a>)</span> since we’ll be using the syntax of ggplot2. If you get an error message, make sure the packages are installed first.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="w1plotting.html#cb23-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb23-2"><a href="w1plotting.html#cb23-2"></a><span class="kw">library</span>(phylobase)</span>
+<span id="cb23-3"><a href="w1plotting.html#cb23-3"></a><span class="kw">library</span>(ggimage)</span></code></pre></div>
 </div>
 </div>
-<div id="importing-your-tree" class="section level2">
-<h2><span class="header-section-number">3.2</span> Importing your tree</h2>
-<p>Let's start by importing a tree. Make sure your working directory is set to wherever you have saved the tree_newick file. If you run this line, you should see an object called &quot;tree&quot; appear in your global environment.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tree &lt;-<span class="st"> </span><span class="kw">read.tree</span>(<span class="st">&quot;tree_newick.nwk&quot;</span>)</code></pre></div>
-<p>If we take a look at the structure of our tree object using the <strong>str</strong> function. The tree is stored as an object of class <strong>phylo</strong>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(tree)</code></pre></div>
+<div id="importing-your-tree" class="section level2" number="5.2">
+<h2><span class="header-section-number">5.2</span> Importing your tree</h2>
+<p>Let’s start by importing a tree. Make sure your working directory is set to wherever you have saved the tree_newick file. If you run this line, you should see an object called “tree” appear in your global environment.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="w1plotting.html#cb24-1"></a>tree &lt;-<span class="st"> </span><span class="kw">read.tree</span>(<span class="st">&quot;tree_newick.nwk&quot;</span>)</span></code></pre></div>
+<p>If we take a look at the structure of our tree object using the <strong>str</strong> function we can see that the tree is stored as an object of class <strong>phylo</strong>. If you are using a block of trees (more on this subsequent chapters) it will be an object of class <strong>multiphylo</strong>.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="w1plotting.html#cb25-1"></a><span class="kw">str</span>(tree)</span></code></pre></div>
 <pre><code>List of 4
  $ edge       : int [1:24, 1:2] 14 15 16 17 18 19 20 20 19 18 ...
  $ edge.length: num [1:24] 4 13 10 3 8 6 4 4 5 6 ...
@@ -186,152 +235,168 @@ BiocManager<span class="op">::</span><span class="kw">install</span>(<span class
  $ tip.label  : chr [1:13] &quot;A&quot; &quot;B&quot; &quot;C&quot; &quot;D&quot; ...
  - attr(*, &quot;class&quot;)= chr &quot;phylo&quot;
  - attr(*, &quot;order&quot;)= chr &quot;cladewise&quot;</code></pre>
-<p>We can see a list of 4 elements of the tree object. The first (<strong>edge</strong>) contains the edges (also known as branches) of the phylogeny and their labels. The next is <strong>edge.length</strong> which contains the lengths of the branches. <strong>Nnode</strong> specifies the number of nodes and finally <strong>tip.label</strong> contains the labels of the tips. In this case, we just have letters for tip labels.</p>
-<p>Things become clearer when we plot the tree. We can do this with the <strong>plot</strong> function in base R.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(tree)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>This plot is fine for a quick check to make sure the tree looks as we expected it to. Let's look at making a more attractive plot with ggtree.</p>
+<p>We can see a list of 4 elements of the tree object. The first (<strong>edge</strong>) contains the edges (also known as branches) of the phylogeny and their labels. The next is <strong>edge.length</strong> which contains the lengths of the branches if present (see <strong>chapter 3</strong> for more details). <strong>Nnode</strong> specifies the number of nodes and finally <strong>tip.label</strong> contains the labels of the tips. In this case, we just have letters for tip labels.</p>
+<p>Things are often clearer when we plot them. We can do this for trees with the <strong>plot</strong> function in base R. This function is incredibly versatile and you should recognise it from LIFE223. Here we are using very different arguments.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="w1plotting.html#cb27-1"></a><span class="kw">plot</span>(tree)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>This plot is fine for a quick check to make sure the tree looks as we expected it to. Let’s look at making a more attractive plot with ggtree.</p>
 </div>
-<div id="ggtree" class="section level2">
-<h2><span class="header-section-number">3.3</span> ggtree</h2>
-<p>The syntax we'll be using here is a little different that what you may be used to so don't get intimidated. <strong>ggtree</strong> uses the same syntax as a package called <strong>ggplot2</strong>. This works by creating layers (known as <strong>geoms</strong>) and plotting them over each other.</p>
-<p>We'll start by using ggtree to plot our tree. Below is the base layer of the plot. There are many other options we can include to customise our tree. Try some out in this R window to see how they effect your plot</p>
+<div id="ggtree" class="section level2" number="5.3">
+<h2><span class="header-section-number">5.3</span> ggtree</h2>
+<p>The package ggtree is an extension of <strong>ggplot2</strong>, a popular plotting package from the <strong>tidyverse</strong> family of packages. The syntax we’ll be using here is a little different that what you may be used to so don’t get intimidated. <strong>ggtree</strong> uses the same syntax as <strong>ggplot2</strong>. This works by creating layers (known as <strong>geoms</strong>) and plotting them over each other to build up the plot.</p>
+<p>We’ll start by using ggtree to plot our tree. Below is the base layer of the plot. There are many other options we can include to customise our tree. Try some out in this R window to see how they effect your plot.</p>
 <!---LEARNR EX 1-->
 <iframe style="margin:0 auto; min-width: 100%;" id="myIframe1" class="interactive" src="https://chrismitchell42.shinyapps.io/learnr_app1" scrolling="no" frameborder="no">
 </iframe>
 <!---------------->
-<div id="geoms" class="section level3">
-<h3><span class="header-section-number">3.3.1</span> Geoms</h3>
-<p>Geoms are new layers to plot on or alongside your tree. Now let's try plotting it whilst adding new layers. These geoms can be combined as you see fit. This gives you a lot of flexibility in how you plot your trees.</p>
-<!---LEARNR EX 2-->
+<div id="geoms" class="section level3" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Geoms</h3>
+<p>Geoms are new layers to plot on or alongside your tree. Now let’s try plotting it whilst adding new layers. These geoms can be combined as you see fit. This gives you a lot of flexibility in how you plot your trees. For example, we can add a geom to include the tip labels for our tree.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="w1plotting.html#cb28-1"></a><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb28-2"><a href="w1plotting.html#cb28-2"></a><span class="st">  </span><span class="kw">geom_tiplab</span>()</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p>And we can add a title</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="w1plotting.html#cb29-1"></a><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb29-2"><a href="w1plotting.html#cb29-2"></a><span class="st">  </span><span class="kw">geom_tiplab</span>() <span class="op">+</span></span>
+<span id="cb29-3"><a href="w1plotting.html#cb29-3"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;A phylogeny of letters. For some reason...&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
+<p>There are many geoms you can use to add more information to your plot. Here are just a few that you may want to investigate.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="w1plotting.html#cb30-1"></a><span class="kw">geom_tiplab</span>() <span class="co">#adds tiplables</span></span>
+<span id="cb30-2"><a href="w1plotting.html#cb30-2"></a><span class="kw">geom_tippoint</span>() <span class="co">#adds points at the tips</span></span>
+<span id="cb30-3"><a href="w1plotting.html#cb30-3"></a><span class="kw">geom_nodepoint</span>() <span class="co">#adds points at the nodes</span></span>
+<span id="cb30-4"><a href="w1plotting.html#cb30-4"></a><span class="kw">geom_nodelab</span>() <span class="co">#adds labels for nodes</span></span>
+<span id="cb30-5"><a href="w1plotting.html#cb30-5"></a><span class="kw">geom_cladelabel</span>() <span class="co">#adds labels for clades</span></span></code></pre></div>
+</div>
+<div id="labelling-clades" class="section level3" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Labelling clades</h3>
+<p>As an example of what you might like to do with ggtree, let’s have a look at adding some labels to identify some clades on our tree. To label clades, we need to be able to identify the node of the most recent common ancestor. The function <strong>MRCA</strong> in the package <strong>phylobase</strong> <span class="citation">(R Hackathon et al. <a href="#ref-phylobase" role="doc-biblioref">2019</a>)</span> tells us that the common ancestor of C and E is node 17.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="w1plotting.html#cb31-1"></a>phylobase<span class="op">::</span><span class="kw">MRCA</span>(tree, <span class="dt">tip =</span> <span class="kw">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;E&quot;</span>))</span></code></pre></div>
+<pre><code>[1] 17</code></pre>
+<p>We can now use the <strong>geom_cladelabel</strong> geom to add a simple label for the clade descended from the appropriate node. Take note of the arguments I’ve added to customise the geom. You may want to play around with these options yourself to see how they work.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="w1plotting.html#cb33-1"></a><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb33-2"><a href="w1plotting.html#cb33-2"></a><span class="st">  </span><span class="kw">geom_tiplab</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb33-3"><a href="w1plotting.html#cb33-3"></a><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dt">node=</span><span class="dv">17</span>, <span class="dt">label=</span><span class="st">&quot;A clade&quot;</span>, </span>
+<span id="cb33-4"><a href="w1plotting.html#cb33-4"></a>                  <span class="dt">color=</span><span class="st">&quot;red2&quot;</span>, <span class="dt">offset=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p>Pretty good but there are other options. This is a matter of personal preference. You may prefer to overlay a translucent rectangle over your clade of interest.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="w1plotting.html#cb34-1"></a><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb34-2"><a href="w1plotting.html#cb34-2"></a><span class="st">  </span><span class="kw">geom_tiplab</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb34-3"><a href="w1plotting.html#cb34-3"></a><span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">17</span>, <span class="dt">fill=</span><span class="st">&quot;gold&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p>Use the R window below to experiment with the available geoms in ggtree. Find a combination that suits you and your tree.
+<!---LEARNR EX 2--></p>
 <iframe style="margin:0 auto; min-width: 100%;" id="myIframe2" class="interactive" src="https://chrismitchell42.shinyapps.io/learnr_app1" scrolling="no" frameborder="no">
 </iframe>
 <!---------------->
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="dt">offset =</span> <span class="dv">2</span>, <span class="dt">color =</span> <span class="st">&quot;purple&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_nodepoint</span>(<span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_tippoint</span>(<span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;A phylogeny of letters. For some reason...&quot;</span>)</code></pre></div>
-</div>
-<div id="labelling-clades" class="section level3">
-<h3><span class="header-section-number">3.3.2</span> Labelling clades</h3>
-<p>To label clades, we need to be able to identify the node of the most recent common ancestor. The function <strong>MRCA</strong> tells us that the common ancestor of C and E is node 17.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">MRCA</span>(tree, <span class="dt">tip =</span> <span class="kw">c</span>(<span class="st">&quot;C&quot;</span>, <span class="st">&quot;E&quot;</span>))</code></pre></div>
-<pre><code>[1] 17</code></pre>
-<p>Let's use a new geom to label the clade.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_tiplab</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dt">node=</span><span class="dv">17</span>, 
-                  <span class="dt">label=</span><span class="st">&quot;A clade&quot;</span>, 
-                  <span class="dt">color=</span><span class="st">&quot;red2&quot;</span>, 
-                  <span class="dt">offset=</span><span class="dv">1</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Pretty good. But there are other options. Again it's a matter of personal preference. You may prefer to overlay a translucent rectangle over your clade of interest.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggtree</span>(tree) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_tiplab</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">17</span>, <span class="dt">fill=</span><span class="st">&quot;gold&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="example-phylogeny" class="section level2">
-<h2><span class="header-section-number">3.4</span> Example Phylogeny</h2>
-<p>Let's now have a look at how we can include images on our plots. Using images is a great way to annotate a phylogeny. Here's the kind of thing I mean.</p>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>This phylogeny is annotated in a number of useful ways. The tip labels are the most common type you probably recognise and in this case, describe cephalopod families. The superorders (octopodiformes and decapodiformes) are highlighted by gold and red rectangles as well as a bar across the tips.</p>
+<div id="adding-images-to-trees" class="section level2" number="5.4">
+<h2><span class="header-section-number">5.4</span> Adding images to trees</h2>
+<p>As you probably noted in chapter 3, adding images to a plot is an excellent way to annotate your tree. The ggtree package can do this as you can see here.</p>
+<div class="figure"><span id="fig:unnamed-chunk-35"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-35-1.png" alt="Plot of cephalopod families annotated using ggtree and Phylopic." width="672" />
+<p class="caption">
+Figure 5.1: Plot of cephalopod families annotated using ggtree and Phylopic.
+</p>
+</div>
+<p>This phylogeny is annotated in a number of useful ways. The tip labels describe cephalopod families. The superorders (octopodiformes and decapodiformes) are highlighted by gold and red rectangles as well as a bar across the tips. this demonstrates how multiple geoms can combine to make a plot easy to interpret.</p>
 <p>The most interesting thing for our purposes are the silhouettes at the root of each superorder. The octopodiformes have an octopus and the decapodiformes have a squid as example taxa from within the superorder.</p>
-<div id="phylopic" class="section level3">
-<h3><span class="header-section-number">3.4.1</span> Phylopic</h3>
-<p>The silhouettes I used for that plot are from a website (<a href="http://phylopic.org/" class="uri">http://phylopic.org/</a>). Phylopic provides open source biological silhouettes that are free to use. We're now going to look at how to do this.</p>
-<p>Let's start with loading an example tree. This one is a primate tree courtesy of Randi Griffin. You'll notice that I'm loading this tree using a url. This is because I'm loading a file directly from GitHub, a sort of social network of coding and the host of this site! Randi (and many other coders) make some of the things they produce freely available through GitHub. This can be data, files or code.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">primates &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;https://raw.githubusercontent.com/rgriff23/Dissertation/master/Chapter_2/data/tree.nex&quot;</span>)</code></pre></div>
-<p>Let's plot the new tree first.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw">ggtree</span>(primates)
-p1</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Let's use what we know about ggtree to customise this plot into something more useful. In particular, this plot is quite useful because it tells us the numbers of each node and we will need that later on.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 &lt;-<span class="st"> </span><span class="kw">ggtree</span>(primates) <span class="op">+</span>
-<span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>,<span class="dv">90</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="dt">size=</span><span class="fl">1.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_label2</span>(<span class="kw">aes</span>(<span class="dt">subset=</span><span class="op">!</span>isTip, <span class="dt">label=</span>node), <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">color=</span><span class="st">&quot;darkred&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>)
-p2</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Let's label the 6 primate superfamilies.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p3 &lt;-<span class="st"> </span><span class="kw">ggtree</span>(primates) <span class="op">+</span>
-<span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>,<span class="dv">100</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="dt">size=</span><span class="fl">1.5</span>, <span class="dt">offset=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">124</span>, <span class="dt">fill=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">113</span>, <span class="dt">fill=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">110</span>, <span class="dt">fill=</span><span class="st">&quot;gray&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">96</span>, <span class="dt">fill=</span><span class="st">&quot;pink&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">89</span>, <span class="dt">fill=</span><span class="st">&quot;beige&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">70</span>, <span class="dt">fill=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) 
-p3</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-17-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>So far so good. Let's add on bars like I did for the cephalopod version. This time, I'll add the new details to the object p3 to save some typing.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p4 &lt;-<span class="st"> </span>p3 <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">124</span>, <span class="st">&quot;Galagoidea&quot;</span>, <span class="dt">offset=</span><span class="dv">15</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,
-                  <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">113</span>, <span class="st">&quot;Lemuroidea&quot;</span>, <span class="dt">offset=</span><span class="dv">15</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,
-                  <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">3</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">110</span>, <span class="st">&quot;Tarsioidea&quot;</span>, <span class="dt">offset=</span><span class="dv">15</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">75</span>,
-                  <span class="dt">offset.text=</span><span class="fl">2.5</span>, <span class="dt">hjust=</span><span class="fl">0.2</span>, <span class="dt">fontsize=</span><span class="dv">2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">96</span>, <span class="st">&quot;Ceboidea&quot;</span>, <span class="dt">offset=</span><span class="dv">15</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,
-                  <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">3</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">89</span>, <span class="st">&quot;Hominoidea&quot;</span>, <span class="dt">offset=</span><span class="dv">15</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,
-                  <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">3</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">70</span>, <span class="st">&quot;Cercopithecoidea&quot;</span>, <span class="dt">offset=</span><span class="dv">15</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,
-                  <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">3</span>)
-p4</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>There are some helpful details here, such as the fact that the label for Tarsioidea is off at an angle to avoid overlapping with other labels. The extra arguments in these options demonstrate how much control you can exercise over each geom.</p>
-<p>Now let's get to adding images. the way to do this is a little awkward with ggtree but I think it's worth the hassle. The first thing we have to do is gather the links for each image we want to use. I've chosen to do this by building a small data frame containing the urls to the images on phylopic, the names of the super families I want to label and the nodes I want to plot the images on.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">images &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">node =</span> <span class="kw">c</span>(<span class="dv">124</span>,<span class="dv">113</span>,<span class="dv">110</span>,<span class="dv">96</span>,<span class="dv">89</span>,<span class="dv">70</span>),
-                     <span class="dt">phylopic =</span> <span class="kw">c</span>(<span class="st">&quot;http://phylopic.org/assets/images/submissions/</span>
-<span class="st">                                  7fb9bea8-e758-4986-afb2-95a2c3bf983d.512.png&quot;</span>,
-                                  <span class="st">&quot;http://phylopic.org/assets/images/submissions/</span>
-<span class="st">                                  bac25f49-97a4-4aec-beb6-f542158ebd23.512.png&quot;</span>,
-                                  <span class="st">&quot;http://phylopic.org/assets/images/submissions/</span>
-<span class="st">                                  f598fb39-facf-43ea-a576-1861304b2fe4.512.png&quot;</span>,
-                                  <span class="st">&quot;http://phylopic.org/assets/images/submissions/</span>
-<span class="st">                                  aceb287d-84cf-46f1-868c-4797c4ac54a8.512.png&quot;</span>,
-                                  <span class="st">&quot;http://phylopic.org/assets/images/submissions/</span>
-<span class="st">                                  0174801d-15a6-4668-bfe0-4c421fbe51e8.512.png&quot;</span>,
-                                  <span class="st">&quot;http://phylopic.org/assets/images/submissions/</span>
-<span class="st">                                  72f2f854-f3cd-4666-887c-35d5c256ab0f.512.png&quot;</span>),
-                     <span class="dt">species =</span> <span class="kw">c</span>(<span class="st">&quot;Galagoidea&quot;</span>,<span class="st">&quot;Lemuroidea&quot;</span>,<span class="st">&quot;Tarsioidea&quot;</span>,
-                                 <span class="st">&quot;Ceboidea&quot;</span>,<span class="st">&quot;Hominoidea&quot;</span>,<span class="st">&quot;Cercopithecoidea&quot;</span>))</code></pre></div>
-<p>This is a way of plotting them all at once with all the code included to build the plot from scratch.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p5 &lt;-<span class="st"> </span><span class="kw">ggtree</span>(primates) <span class="op">+</span>
-<span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>,<span class="dv">110</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="dt">size=</span><span class="dv">2</span>, <span class="dt">offset=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">124</span>, <span class="dt">fill=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">113</span>, <span class="dt">fill=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">110</span>, <span class="dt">fill=</span><span class="st">&quot;gray&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">96</span>, <span class="dt">fill=</span><span class="st">&quot;pink&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">89</span>, <span class="dt">fill=</span><span class="st">&quot;beige&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">70</span>, <span class="dt">fill=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">124</span>, <span class="st">&quot;Galagoidea&quot;</span>, <span class="dt">offset=</span><span class="dv">22</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,
-                  <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">5</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">113</span>, <span class="st">&quot;Lemuroidea&quot;</span>, <span class="dt">offset=</span><span class="dv">22</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,
-                  <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">110</span>, <span class="st">&quot;Tarsioidea&quot;</span>, <span class="dt">offset=</span><span class="dv">22</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">75</span>,
-                  <span class="dt">offset.text=</span><span class="fl">2.5</span>, <span class="dt">hjust=</span><span class="fl">0.2</span>, <span class="dt">fontsize=</span><span class="dv">4</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">96</span>, <span class="st">&quot;Ceboidea&quot;</span>, <span class="dt">offset=</span><span class="dv">22</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,
-                  <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">89</span>, <span class="st">&quot;Hominoidea&quot;</span>, <span class="dt">offset=</span><span class="dv">22</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,
-                  <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">70</span>, <span class="st">&quot;Cercopithecoidea&quot;</span>, <span class="dt">offset=</span><span class="dv">22</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,
-                  <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">5</span>)
-
-p5 <span class="op">%&lt;+%</span><span class="st"> </span>images <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_nodelab</span>(<span class="kw">aes</span>(<span class="dt">image =</span> phylopic), <span class="dt">geom =</span> <span class="st">&quot;image&quot;</span>, 
-               <span class="dt">size =</span> .<span class="dv">04</span>, <span class="dt">nudge_x =</span> <span class="op">-</span><span class="dv">4</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-21-1.png" width="864" style="display: block; margin: auto;" /></p>
+<div id="phylopic" class="section level3" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Phylopic</h3>
+<p>The silhouettes used for that plot are from a website called <a href="http://phylopic.org/" title="Phylopic">Phylopic</a>. Phylopic provides open source biological silhouettes that are free to use. We’re now going to look at how to get these silhouettes and use them to annotate our trees.</p>
+<p>Let’s start with loading an example tree. This one is a primate tree courtesy of <a href="https://www.randigriffin.com/" title="Randi Griffin">Randi Griffin</a>. You’ll notice that I’m loading this tree using a url. This is because I’m loading a file directly from GitHub, a repository for all sorts of code and the host of this site! Randi (and many other coders) make some of the things they produce freely available through GitHub. This can be data, files or code.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="w1plotting.html#cb35-1"></a>primates &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;https://raw.githubusercontent.com/rgriff23/Dissertation/master/Chapter_2/data/tree.nex&quot;</span>)</span></code></pre></div>
+<p>Let’s plot the new tree first. Here I’m assigning the plot to a named object (p1) in R. This means that instead of immediately printing out the plot, R stores it in the working directory. The reason for doing this will become clear as we go on. It saves us typing out every line of code each time we want to add a new geom!</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="w1plotting.html#cb36-1"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggtree</span>(primates)</span>
+<span id="cb36-2"><a href="w1plotting.html#cb36-2"></a>p1</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p>Let’s use what we already know about ggtree to customise this plot into something more useful. In particular, this plot is quite useful because it tells us the numbers of each node and we will need that later on.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="w1plotting.html#cb37-1"></a><span class="kw">ggtree</span>(primates) <span class="op">+</span></span>
+<span id="cb37-2"><a href="w1plotting.html#cb37-2"></a><span class="st">   </span><span class="kw">xlim</span>(<span class="dv">0</span>,<span class="dv">90</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb37-3"><a href="w1plotting.html#cb37-3"></a><span class="st">   </span><span class="kw">geom_tiplab</span>(<span class="dt">size=</span><span class="fl">1.5</span>) <span class="op">+</span></span>
+<span id="cb37-4"><a href="w1plotting.html#cb37-4"></a><span class="st">   </span><span class="kw">geom_label2</span>(<span class="kw">aes</span>(<span class="dt">subset=</span><span class="op">!</span>isTip, <span class="dt">label=</span>node), <span class="dt">size=</span><span class="dv">2</span>, <span class="dt">color=</span><span class="st">&quot;darkred&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>Let’s label the 6 primate superfamilies using the node numbers I have extracted from the previous plot. You can choose whatever colours you prefer here. I’ve also added some useful features to this code. the use of <strong>xlim()</strong> can be very useful when plotting a tree with some extra space for more details. Here I’ve set the limits of the x dimension (the horizontal) to be between 0 and 100. This gives me space for later annotations.</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="w1plotting.html#cb38-1"></a>p2 &lt;-<span class="st"> </span><span class="kw">ggtree</span>(primates) <span class="op">+</span></span>
+<span id="cb38-2"><a href="w1plotting.html#cb38-2"></a><span class="st">  </span><span class="kw">xlim</span>(<span class="dv">0</span>,<span class="dv">100</span>) <span class="op">+</span></span>
+<span id="cb38-3"><a href="w1plotting.html#cb38-3"></a><span class="st">  </span><span class="kw">geom_tiplab</span>(<span class="dt">size=</span><span class="fl">1.5</span>, <span class="dt">offset=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb38-4"><a href="w1plotting.html#cb38-4"></a><span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">124</span>, <span class="dt">fill=</span><span class="st">&quot;steelblue&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb38-5"><a href="w1plotting.html#cb38-5"></a><span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">113</span>, <span class="dt">fill=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb38-6"><a href="w1plotting.html#cb38-6"></a><span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">110</span>, <span class="dt">fill=</span><span class="st">&quot;gray&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb38-7"><a href="w1plotting.html#cb38-7"></a><span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">96</span>, <span class="dt">fill=</span><span class="st">&quot;pink&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb38-8"><a href="w1plotting.html#cb38-8"></a><span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">89</span>, <span class="dt">fill=</span><span class="st">&quot;beige&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb38-9"><a href="w1plotting.html#cb38-9"></a><span class="st">  </span><span class="kw">geom_hilight</span>(<span class="dt">node=</span><span class="dv">70</span>, <span class="dt">fill=</span><span class="st">&quot;yellow&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) </span>
+<span id="cb38-10"><a href="w1plotting.html#cb38-10"></a>p2</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p>So far so good. Let’s add on bars to label the superfamilies like I did for the cephalopod version. This time, I’ll add the new details to the object p3 to save retyping. Take note of the arguments in each label. You may need to twist these with some trial-and-error to make sure they suit your plot window.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="w1plotting.html#cb39-1"></a>p3 &lt;-<span class="st"> </span>p2 <span class="op">+</span></span>
+<span id="cb39-2"><a href="w1plotting.html#cb39-2"></a><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">124</span>, <span class="st">&quot;Galagoidea&quot;</span>, <span class="dt">offset=</span><span class="dv">15</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,</span>
+<span id="cb39-3"><a href="w1plotting.html#cb39-3"></a>                  <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">3</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb39-4"><a href="w1plotting.html#cb39-4"></a><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">113</span>, <span class="st">&quot;Lemuroidea&quot;</span>, <span class="dt">offset=</span><span class="dv">15</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,</span>
+<span id="cb39-5"><a href="w1plotting.html#cb39-5"></a>                  <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb39-6"><a href="w1plotting.html#cb39-6"></a><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">110</span>, <span class="st">&quot;Tarsioidea&quot;</span>, <span class="dt">offset=</span><span class="dv">15</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">75</span>,</span>
+<span id="cb39-7"><a href="w1plotting.html#cb39-7"></a>                  <span class="dt">offset.text=</span><span class="fl">2.5</span>, <span class="dt">hjust=</span><span class="fl">0.2</span>, <span class="dt">fontsize=</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb39-8"><a href="w1plotting.html#cb39-8"></a><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">96</span>, <span class="st">&quot;Ceboidea&quot;</span>, <span class="dt">offset=</span><span class="dv">15</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,</span>
+<span id="cb39-9"><a href="w1plotting.html#cb39-9"></a>                  <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb39-10"><a href="w1plotting.html#cb39-10"></a><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">89</span>, <span class="st">&quot;Hominoidea&quot;</span>, <span class="dt">offset=</span><span class="dv">15</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,</span>
+<span id="cb39-11"><a href="w1plotting.html#cb39-11"></a>                  <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb39-12"><a href="w1plotting.html#cb39-12"></a><span class="st">  </span><span class="kw">geom_cladelabel</span>(<span class="dv">70</span>, <span class="st">&quot;Cercopithecoidea&quot;</span>, <span class="dt">offset=</span><span class="dv">15</span>, <span class="dt">barsize=</span><span class="dv">2</span>, <span class="dt">angle=</span><span class="dv">90</span>,</span>
+<span id="cb39-13"><a href="w1plotting.html#cb39-13"></a>                  <span class="dt">offset.text=</span><span class="fl">1.5</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">fontsize=</span><span class="dv">3</span>)</span>
+<span id="cb39-14"><a href="w1plotting.html#cb39-14"></a>p3</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>There are some helpful details here, such as the fact that the label for Tarsioidea is off at an angle to avoid overlapping with other labels (<em>angle = 75</em>). The extra arguments in these options demonstrate how much control you can exercise over each geom.</p>
+<p>Now let’s get to adding images. The way to do this is a little awkward but I think it’s worth the hassle. The first thing we have to do is gather the links for each image we want to use. I’ve chosen to do this by building a small data frame containing the urls to the images on phylopic, the names of the super families I want to label and the nodes I want to plot the images on.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="w1plotting.html#cb40-1"></a>images &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">node =</span> <span class="kw">c</span>(<span class="dv">124</span>,<span class="dv">113</span>,<span class="dv">110</span>,<span class="dv">96</span>,<span class="dv">89</span>,<span class="dv">70</span>),</span>
+<span id="cb40-2"><a href="w1plotting.html#cb40-2"></a><span class="dt">phylopic =</span> <span class="kw">c</span>(<span class="st">&quot;http://phylopic.org/assets/images/submissions/</span></span>
+<span id="cb40-3"><a href="w1plotting.html#cb40-3"></a><span class="st">7fb9bea8-e758-4986-afb2-95a2c3bf983d.512.png&quot;</span>,</span>
+<span id="cb40-4"><a href="w1plotting.html#cb40-4"></a><span class="st">&quot;http://phylopic.org/assets/images/submissions/</span></span>
+<span id="cb40-5"><a href="w1plotting.html#cb40-5"></a><span class="st">bac25f49-97a4-4aec-beb6-f542158ebd23.512.png&quot;</span>,</span>
+<span id="cb40-6"><a href="w1plotting.html#cb40-6"></a><span class="st">&quot;http://phylopic.org/assets/images/submissions/</span></span>
+<span id="cb40-7"><a href="w1plotting.html#cb40-7"></a><span class="st">f598fb39-facf-43ea-a576-1861304b2fe4.512.png&quot;</span>,</span>
+<span id="cb40-8"><a href="w1plotting.html#cb40-8"></a><span class="st">&quot;http://phylopic.org/assets/images/submissions/</span></span>
+<span id="cb40-9"><a href="w1plotting.html#cb40-9"></a><span class="st">aceb287d-84cf-46f1-868c-4797c4ac54a8.512.png&quot;</span>,</span>
+<span id="cb40-10"><a href="w1plotting.html#cb40-10"></a><span class="st">&quot;http://phylopic.org/assets/images/submissions/</span></span>
+<span id="cb40-11"><a href="w1plotting.html#cb40-11"></a><span class="st">0174801d-15a6-4668-bfe0-4c421fbe51e8.512.png&quot;</span>,</span>
+<span id="cb40-12"><a href="w1plotting.html#cb40-12"></a><span class="st">&quot;http://phylopic.org/assets/images/submissions/</span></span>
+<span id="cb40-13"><a href="w1plotting.html#cb40-13"></a><span class="st">72f2f854-f3cd-4666-887c-35d5c256ab0f.512.png&quot;</span>),</span>
+<span id="cb40-14"><a href="w1plotting.html#cb40-14"></a><span class="dt">species =</span> <span class="kw">c</span>(<span class="st">&quot;Galagoidea&quot;</span>,<span class="st">&quot;Lemuroidea&quot;</span>,<span class="st">&quot;Tarsioidea&quot;</span>,</span>
+<span id="cb40-15"><a href="w1plotting.html#cb40-15"></a><span class="st">&quot;Ceboidea&quot;</span>,<span class="st">&quot;Hominoidea&quot;</span>,<span class="st">&quot;Cercopithecoidea&quot;</span>))</span></code></pre></div>
+<p>Once we have the urls we need in a nice dataframe, we can pipe them into the <strong>geom_nodelab</strong> geom and the end product should appear.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="w1plotting.html#cb41-1"></a>p3 <span class="op">%&lt;+%</span><span class="st"> </span>images <span class="op">+</span></span>
+<span id="cb41-2"><a href="w1plotting.html#cb41-2"></a><span class="st">  </span><span class="kw">geom_nodelab</span>(<span class="kw">aes</span>(<span class="dt">image =</span> phylopic), <span class="dt">geom =</span> <span class="st">&quot;image&quot;</span>, <span class="dt">size =</span> <span class="fl">.04</span>, <span class="dt">nudge_x =</span> <span class="dv">-4</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p>As you can probably tell, the images don’t have to be from Phylopic. You can use any images you have the rights to in exactly the same way!</p>
+</div>
+</div>
+<div id="further-info" class="section level2" number="5.5">
+<h2><span class="header-section-number">5.5</span> Further info</h2>
+<p>This chapter barely scratches the surface of what ggtree is capable of. For much more detail, have a look at Guangchuang Yu’s very own Bookdown covering the topic. You can access the book by clicking <a href="https://yulab-smu.github.io/treedata-book/" title="here">here</a> or by running the following code in R once you have ggtree installed.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="w1plotting.html#cb42-1"></a><span class="kw">vignette</span>(<span class="st">&quot;ggtree&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;ggtree&quot;</span>)</span></code></pre></div>
 <script>
-  iFrameResize({}, ".interactive");
+iFrameResize({}, ".interactive");
 </script>
 
 </div>
+</div>
+<h3> Bibliography</h3>
+<div id="refs" class="references">
+<div id="ref-Morgan19">
+<p>Morgan, M. (2019) <em>BiocManager: Access the Bioconductor Project Package Repository</em> [online] available from &lt;<a href="https://CRAN.R-project.org/package=BiocManager">https://CRAN.R-project.org/package=BiocManager</a>&gt;</p>
+</div>
+<div id="ref-phylobase">
+<p>R Hackathon et al. (2019) <em>Phylobase: Base Package for Phylogenetic Structures and Comparative Data</em> [online] available from &lt;<a href="https://CRAN.R-project.org/package=phylobase">https://CRAN.R-project.org/package=phylobase</a>&gt;</p>
+</div>
+<div id="ref-Wickham17">
+<p>Wickham, H. (2017) <em>Tidyverse: Easily Install and Load the ’Tidyverse’</em> [online] available from &lt;<a href="https://CRAN.R-project.org/package=tidyverse">https://CRAN.R-project.org/package=tidyverse</a>&gt;</p>
+</div>
+<div id="ref-Yu19">
+<p>Yu, G. (2019) <em>Ggimage: Use Image in ’Ggplot2’</em> [online] available from &lt;<a href="https://CRAN.R-project.org/package=ggimage">https://CRAN.R-project.org/package=ggimage</a>&gt;</p>
+</div>
+<div id="ref-Yu18">
+<p>Yu, G., Lam, T.T.-Y., Zhu, H., and Guan, Y. (2018) ‘Two Methods for Mapping and Visualizing Associated Data on Phylogeny Using Ggtree.’ <em>Molecular Biology and Evolution</em> [online] 35 (2), 3041–3043. available from &lt;<a href="https://doi.org/10.1093/molbev/msy194">https://doi.org/10.1093/molbev/msy194</a>&gt;</p>
+</div>
+<div id="ref-Yu17">
+<p>Yu, G., Smith, D., Zhu, H., Guan, Y., and Lam, T.T.-Y. (2017) ‘Ggtree: An R Package for Visualization and Annotation of Phylogenetic Trees with Their Covariates and Other Associated Data.’ <em>Methods in Ecology and Evolution</em> [online] 8 (1), 28–36. available from &lt;<a href="http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract">http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12628/abstract</a>&gt;</p>
 </div>
 </div>
             </section>
@@ -339,8 +404,8 @@ p5 <span class="op">%&lt;+%</span><span class="st"> </span>images <span class="o
           </div>
         </div>
       </div>
-<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="w2PGLS.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="phylogenetics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bibliography.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -390,20 +455,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

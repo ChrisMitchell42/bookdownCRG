@@ -1,2 +1,55 @@
 # Introduction {#intro}
 
+This chapter contains a very brief overview of the research we do in the **Comparative Research Group**. Taxonomically, the work done by group members is extremely broad. We've had projects on primates, octopuses, domestic mammals, birds and more! Here is a sample of titles from previous students.
+
+* Identification of a cognitive niche in benthic octopods and possible areas for future study on cephalopod intelligence.
+* Evolutionary precursors for the domestication of Artiodactyla.
+* You are not what you eat: Lack of morphological convergence in beak and body size between the nectarivorous avian families Trochilidae and Meliphagidae.
+* Investigating how lifestyle factors affect lifespan in reptiles.
+* Ecological processes causing encephalisation in Madagascan lemurs.
+
+## What is the comparative method?
+
+The comparative method is a catch-all term for a suite of approaches that involve using comparisons to answer scientific questions. In evolutionary biology, the comparative method refers to making comparisons between species or populations in order to identify patterns and relationships between traits of interest. Used correctly, this approach can be very powerful and allows us to ask large-scale questions about evolutionary patterns, adaptive processes and coevolutionary relationships.
+
+The most basic kind of comparative study is comparing one species or lineage to another. For example, a recent paper made waves in the paleontology community by demostrating (after years of debate) that _Spinosaurus aegypticus_ lived an aquatic lifestyle [@Ibrahim20]. The analysis centered around some newly recovered tail vertebrae with extremely long (1m!) spines. The tail of _Spinosaurus_ was compared to other animals including terrestrial theropods like _Allosaurus_ and semi-aquatic tetratpods such as the crocodile. This comparison showed that the _Spinosaurus_ tail was indeed specialised for powerful propulsion through the water (like a crocodile), seemingly settling the debate over whether any non-avian dinosaurs invaded the water.
+
+Other comparative studies take data gathered from many species and search for patterns within that group. Studies like this rely a great deal on work done by others. For example, Simon Reader and colleagues [-@Reader11] carried out an extensive literature search looking for examples of five behavioural traits in many species of primate in over 4000 articles published over 75 years. The resulting database included examples of innovation, social learning, tool use, extractive foraging and tactical deception and was used to demonstrate a correlation between these behaviours and brain size, providing evidence of a general intelligence factor in primates similar to that in humans.
+
+## Tree thinking
+
+Comparative studies can be great but there is a problem. In LIFE223 you learned about statistical assumptions. One of the most common and important assumptions of most statistical tests is that data are independent. To run a good comparative study we need to know that the data points we have are independent of each other. In evolutionary biology, we know that this isn't the case!
+
+All living things exhibit a pattern of relatedness which depends on how much shared evolutionary history they have. For example, chimpanzees and human beings diverged about 6-7 million years ago. This means that they have much more shared evolutionary history than chimpanzees and _Spinosaurus_ which are separated by hundreds of millions of years.
+
+The best way of visualising this pattern of relatedness is with a phylogenetic tree.
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, fig.height=6, fig.cap="A cladogram of 42 cetacean species."}
+t <- ape::read.nexus("~/Google Drive/University of Liverpool/CRG19:20/Comparative Methods Course/07 and 08 - Ancestral State Reconstruction/ASR files/whales_tree.nex")
+d <- read.table("~/Google Drive/University of Liverpool/CRG19:20/Comparative Methods Course/07 and 08 - Ancestral State Reconstruction/ASR files/whales_data.txt", header = T)
+rownames(d) <- d$species
+t <- ape::drop.tip(t, geiger::name.check(t, d)$tree_not_data)
+t$tip.label <- gsub("_", " ", t$tip.label)
+require(ggtree)
+ggtree(t, branch.length = "none") +
+  xlim(0,22) +
+  geom_tiplab(size = 2.75, offset = 0.05) +
+  geom_cladelabel(node = 44, label = "Mysticeti", 
+                  colour = "black", offset = 6.2,
+                  fontsize = 4) +
+  geom_cladelabel(node = 49, label = "Odonotoceti", 
+                  colour = "black", offset = 6.2,
+                  fontsize = 4)
+
+```
+
+The extant species are displayed on the **tips** of the tree and are connected to each other according to the degree of relatedness by the **branches**. Figure 2.1 shows us the pattern of relatedness of 42 cetacean species. If we wanted to use these species in a comparative study to investigate the evolutionary history of the group, we would not have independent data points. This means that the assumptions of most statistical tests would be violated and we couldn't trust the results!
+
+This is where phylogenetics comes to the rescue. We can use the pattern of relatedness described by the phylogeny to control for the non-indepedence of data points. To show you what I mean, let's consider body size in those 42 species of cetacean. If we were to show the distribution of body size in the group, we would see that the vast majority of the largest sizes are found in the mysticetes whereas the smaller species tend to be odontocetes. If we viewed these data points as all independent we might say that very large bodies have evolved 7 times in the group (once for each mysticete and once for the sperm whale) whilst small body size has evolved in all the other species (35 times).
+
+In fact, the close relatedness of 6 of the large bodied species suggests that large body size evolved once and not independently for each of these species. Their shared evolutionary history explains why their traits (body size in this case) are so similar. The seventh example of a large body (sperm whales) does not share very much history with the other 6 and this may be of some interest to us. It suggests an independent evolution of large body size and potentially something of interest to us as researchers.
+
+So hopefully you can see how taking phylogeny into account can be illuminating. For a broader (and much more useful) introduction to phylogenetics and its use in evolutionary biology, check out these sources:
+
+* Tree Thinking: An Introduction to Phylogenetic Biology [@baum12]
+* The Comparative Approach in Evolutionary Anthropology and Biology [@Nunn11]

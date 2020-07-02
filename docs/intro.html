@@ -24,7 +24,6 @@
 <meta name="author" content="Chris Mitchell" />
 
 
-<meta name="date" content="2020-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +31,8 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="w1plotting.html"/>
+<link rel="next" href="recap.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,45 +50,72 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.16/iframeResizer.min.js" type="text/javascript"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -107,35 +134,56 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">Comparative Research Group</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preamble</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
-<li class="chapter" data-level="3" data-path="w1plotting.html"><a href="w1plotting.html"><i class="fa fa-check"></i><b>3</b> Workshop 1: Plotting phylogenies in R</a><ul>
-<li class="chapter" data-level="3.1" data-path="w1plotting.html"><a href="w1plotting.html#phylogenetics-in-r"><i class="fa fa-check"></i><b>3.1</b> Phylogenetics in R</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="w1plotting.html"><a href="w1plotting.html#packages-used"><i class="fa fa-check"></i><b>3.1.1</b> Packages used</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#for-students"><i class="fa fa-check"></i><b>1.1</b> For students</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="w1plotting.html"><a href="w1plotting.html#importing-your-tree"><i class="fa fa-check"></i><b>3.2</b> Importing your tree</a></li>
-<li class="chapter" data-level="3.3" data-path="w1plotting.html"><a href="w1plotting.html#ggtree"><i class="fa fa-check"></i><b>3.3</b> ggtree</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="w1plotting.html"><a href="w1plotting.html#geoms"><i class="fa fa-check"></i><b>3.3.1</b> Geoms</a></li>
-<li class="chapter" data-level="3.3.2" data-path="w1plotting.html"><a href="w1plotting.html#labelling-clades"><i class="fa fa-check"></i><b>3.3.2</b> Labelling clades</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-the-comparative-method"><i class="fa fa-check"></i><b>2.1</b> What is the comparative method?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#tree-thinking"><i class="fa fa-check"></i><b>2.2</b> Tree thinking</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="w1plotting.html"><a href="w1plotting.html#example-phylogeny"><i class="fa fa-check"></i><b>3.4</b> Example Phylogeny</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="w1plotting.html"><a href="w1plotting.html#phylopic"><i class="fa fa-check"></i><b>3.4.1</b> Phylopic</a></li>
+<li class="chapter" data-level="3" data-path="recap.html"><a href="recap.html"><i class="fa fa-check"></i><b>3</b> R recap</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="recap.html"><a href="recap.html#basics"><i class="fa fa-check"></i><b>3.1</b> Basics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="recap.html"><a href="recap.html#plotting"><i class="fa fa-check"></i><b>3.1.1</b> Plotting</a></li>
+<li class="chapter" data-level="3.1.2" data-path="recap.html"><a href="recap.html#the-working-directory"><i class="fa fa-check"></i><b>3.1.2</b> The working directory</a></li>
+<li class="chapter" data-level="3.1.3" data-path="recap.html"><a href="recap.html#loading-data"><i class="fa fa-check"></i><b>3.1.3</b> Loading data</a></li>
+<li class="chapter" data-level="3.1.4" data-path="recap.html"><a href="recap.html#subsetting"><i class="fa fa-check"></i><b>3.1.4</b> Subsetting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="recap.html"><a href="recap.html#errors"><i class="fa fa-check"></i><b>3.2</b> Errors</a></li>
+<li class="chapter" data-level="3.3" data-path="recap.html"><a href="recap.html#google"><i class="fa fa-check"></i><b>3.3</b> Google</a></li>
+<li class="chapter" data-level="3.4" data-path="recap.html"><a href="recap.html#stealing"><i class="fa fa-check"></i><b>3.4</b> Stealing</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="phylogenetics.html"><a href="phylogenetics.html"><i class="fa fa-check"></i><b>4</b> Phylogenetic trees and where to find them</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="phylogenetics.html"><a href="phylogenetics.html#phylogeny"><i class="fa fa-check"></i><b>4.1</b> Phylogeny</a></li>
+<li class="chapter" data-level="4.2" data-path="phylogenetics.html"><a href="phylogenetics.html#building-trees"><i class="fa fa-check"></i><b>4.2</b> Building trees</a></li>
+<li class="chapter" data-level="4.3" data-path="phylogenetics.html"><a href="phylogenetics.html#locating-trees"><i class="fa fa-check"></i><b>4.3</b> Locating trees</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="phylogenetics.html"><a href="phylogenetics.html#file-format"><i class="fa fa-check"></i><b>4.3.1</b> File format</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="w2PGLS.html"><a href="w2PGLS.html"><i class="fa fa-check"></i><b>4</b> Workshop 2: PGLS</a><ul>
-<li class="chapter" data-level="4.1" data-path="w2PGLS.html"><a href="w2PGLS.html#data"><i class="fa fa-check"></i><b>4.1</b> Data</a></li>
-<li class="chapter" data-level="4.2" data-path="w2PGLS.html"><a href="w2PGLS.html#plotting-with-ggplot2"><i class="fa fa-check"></i><b>4.2</b> Plotting with ggplot2</a></li>
-<li class="chapter" data-level="4.3" data-path="w2PGLS.html"><a href="w2PGLS.html#linear-regression"><i class="fa fa-check"></i><b>4.3</b> Linear Regression</a></li>
-<li class="chapter" data-level="4.4" data-path="w2PGLS.html"><a href="w2PGLS.html#trees-and-phylogenetic-signal"><i class="fa fa-check"></i><b>4.4</b> Trees and Phylogenetic Signal</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-signal"><i class="fa fa-check"></i><b>4.4.1</b> Phylogenetic signal</a></li>
-<li class="chapter" data-level="4.4.2" data-path="w2PGLS.html"><a href="w2PGLS.html#caper"><i class="fa fa-check"></i><b>4.4.2</b> caper</a></li>
-<li class="chapter" data-level="4.4.3" data-path="w2PGLS.html"><a href="w2PGLS.html#estimating-phylogenetic-signal"><i class="fa fa-check"></i><b>4.4.3</b> Estimating Phylogenetic Signal</a></li>
+<li class="chapter" data-level="5" data-path="w1plotting.html"><a href="w1plotting.html"><i class="fa fa-check"></i><b>5</b> Plotting trees in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="w1plotting.html"><a href="w1plotting.html#phylogenies-in-r"><i class="fa fa-check"></i><b>5.1</b> Phylogenies in R</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="w1plotting.html"><a href="w1plotting.html#packages-used"><i class="fa fa-check"></i><b>5.1.1</b> Packages used</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-regression"><i class="fa fa-check"></i><b>4.5</b> Phylogenetic Regression</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="w2PGLS.html"><a href="w2PGLS.html#model-checking"><i class="fa fa-check"></i><b>4.5.1</b> Model Checking</a></li>
+<li class="chapter" data-level="5.2" data-path="w1plotting.html"><a href="w1plotting.html#importing-your-tree"><i class="fa fa-check"></i><b>5.2</b> Importing your tree</a></li>
+<li class="chapter" data-level="5.3" data-path="w1plotting.html"><a href="w1plotting.html#ggtree"><i class="fa fa-check"></i><b>5.3</b> ggtree</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="w1plotting.html"><a href="w1plotting.html#geoms"><i class="fa fa-check"></i><b>5.3.1</b> Geoms</a></li>
+<li class="chapter" data-level="5.3.2" data-path="w1plotting.html"><a href="w1plotting.html#labelling-clades"><i class="fa fa-check"></i><b>5.3.2</b> Labelling clades</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="w2PGLS.html"><a href="w2PGLS.html#conclusion"><i class="fa fa-check"></i><b>4.6</b> Conclusion</a></li>
+<li class="chapter" data-level="5.4" data-path="w1plotting.html"><a href="w1plotting.html#adding-images-to-trees"><i class="fa fa-check"></i><b>5.4</b> Adding images to trees</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="w1plotting.html"><a href="w1plotting.html#phylopic"><i class="fa fa-check"></i><b>5.4.1</b> Phylopic</a></li>
 </ul></li>
+<li class="chapter" data-level="5.5" data-path="w1plotting.html"><a href="w1plotting.html#further-info"><i class="fa fa-check"></i><b>5.5</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>6</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -156,9 +204,58 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intro" class="section level1">
+<div id="intro" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Introduction</h1>
+<p>This chapter contains a very brief overview of the research we do in the <strong>Comparative Research Group</strong>. Taxonomically, the work done by group members is extremely broad. We’ve had projects on primates, octopuses, domestic mammals, birds and more! Here is a sample of titles from previous students.</p>
+<ul>
+<li>Identification of a cognitive niche in benthic octopods and possible areas for future study on cephalopod intelligence.</li>
+<li>Evolutionary precursors for the domestication of Artiodactyla.</li>
+<li>You are not what you eat: Lack of morphological convergence in beak and body size between the nectarivorous avian families Trochilidae and Meliphagidae.</li>
+<li>Investigating how lifestyle factors affect lifespan in reptiles.</li>
+<li>Ecological processes causing encephalisation in Madagascan lemurs.</li>
+</ul>
+<div id="what-is-the-comparative-method" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> What is the comparative method?</h2>
+<p>The comparative method is a catch-all term for a suite of approaches that involve using comparisons to answer scientific questions. In evolutionary biology, the comparative method refers to making comparisons between species or populations in order to identify patterns and relationships between traits of interest. Used correctly, this approach can be very powerful and allows us to ask large-scale questions about evolutionary patterns, adaptive processes and coevolutionary relationships.</p>
+<p>The most basic kind of comparative study is comparing one species or lineage to another. For example, a recent paper made waves in the paleontology community by demostrating (after years of debate) that <em>Spinosaurus aegypticus</em> lived an aquatic lifestyle <span class="citation">(Ibrahim et al. <a href="#ref-Ibrahim20" role="doc-biblioref">2020</a>)</span>. The analysis centered around some newly recovered tail vertebrae with extremely long (1m!) spines. The tail of <em>Spinosaurus</em> was compared to other animals including terrestrial theropods like <em>Allosaurus</em> and semi-aquatic tetratpods such as the crocodile. This comparison showed that the <em>Spinosaurus</em> tail was indeed specialised for powerful propulsion through the water (like a crocodile), seemingly settling the debate over whether any non-avian dinosaurs invaded the water.</p>
+<p>Other comparative studies take data gathered from many species and search for patterns within that group. Studies like this rely a great deal on work done by others. For example, Simon Reader and colleagues <span class="citation">(<a href="#ref-Reader11" role="doc-biblioref">2011</a>)</span> carried out an extensive literature search looking for examples of five behavioural traits in many species of primate in over 4000 articles published over 75 years. The resulting database included examples of innovation, social learning, tool use, extractive foraging and tactical deception and was used to demonstrate a correlation between these behaviours and brain size, providing evidence of a general intelligence factor in primates similar to that in humans.</p>
+</div>
+<div id="tree-thinking" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Tree thinking</h2>
+<p>Comparative studies can be great but there is a problem. In LIFE223 you learned about statistical assumptions. One of the most common and important assumptions of most statistical tests is that data are independent. To run a good comparative study we need to know that the data points we have are independent of each other. In evolutionary biology, we know that this isn’t the case!</p>
+<p>All living things exhibit a pattern of relatedness which depends on how much shared evolutionary history they have. For example, chimpanzees and human beings diverged about 6-7 million years ago. This means that they have much more shared evolutionary history than chimpanzees and <em>Spinosaurus</em> which are separated by hundreds of millions of years.</p>
+<p>The best way of visualising this pattern of relatedness is with a phylogenetic tree.</p>
+<div class="figure"><span id="fig:unnamed-chunk-4"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-4-1.png" alt="A cladogram of 42 cetacean species." width="672" />
+<p class="caption">
+Figure 2.1: A cladogram of 42 cetacean species.
+</p>
+</div>
+<p>The extant species are displayed on the <strong>tips</strong> of the tree and are connected to each other according to the degree of relatedness by the <strong>branches</strong>. Figure 2.1 shows us the pattern of relatedness of 42 cetacean species. If we wanted to use these species in a comparative study to investigate the evolutionary history of the group, we would not have independent data points. This means that the assumptions of most statistical tests would be violated and we couldn’t trust the results!</p>
+<p>This is where phylogenetics comes to the rescue. We can use the pattern of relatedness described by the phylogeny to control for the non-indepedence of data points. To show you what I mean, let’s consider body size in those 42 species of cetacean. If we were to show the distribution of body size in the group, we would see that the vast majority of the largest sizes are found in the mysticetes whereas the smaller species tend to be odontocetes. If we viewed these data points as all independent we might say that very large bodies have evolved 7 times in the group (once for each mysticete and once for the sperm whale) whilst small body size has evolved in all the other species (35 times).</p>
+<p>In fact, the close relatedness of 6 of the large bodied species suggests that large body size evolved once and not independently for each of these species. Their shared evolutionary history explains why their traits (body size in this case) are so similar. The seventh example of a large body (sperm whales) does not share very much history with the other 6 and this may be of some interest to us. It suggests an independent evolution of large body size and potentially something of interest to us as researchers.</p>
+<p>So hopefully you can see how taking phylogeny into account can be illuminating. For a broader (and much more useful) introduction to phylogenetics and its use in evolutionary biology, check out these sources:</p>
+<ul>
+<li>Tree Thinking: An Introduction to Phylogenetic Biology <span class="citation">(Baum and Smith <a href="#ref-baum12" role="doc-biblioref">2012</a>)</span></li>
+<li>The Comparative Approach in Evolutionary Anthropology and Biology <span class="citation">(Nunn <a href="#ref-Nunn11" role="doc-biblioref">2011</a>)</span></li>
+</ul>
 
+</div>
+</div>
+<h3> Bibliography</h3>
+<div id="refs" class="references">
+<div id="ref-baum12">
+<p>Baum, D.A. and Smith, S.D. (2012) <em>Tree Thinking: An Introduction to Phylogenetic Biology</em> [online] Macmillan Learning. available from &lt;<a href="https://books.google.co.uk/books?id=zW\_ApwAACAAJ">https://books.google.co.uk/books?id=zW\_ApwAACAAJ</a>&gt;</p>
+</div>
+<div id="ref-Ibrahim20">
+<p>Ibrahim, N., Maganuco, S., Dal Sasso, C., Fabbri, M., Auditore, M., Bindellini, G., Martill, D.M., Zouhri, S., Mattarelli, D.A., Unwin, D.M., Wiemann, J., Bonadonna, D., Amane, A., Jakubczak, J., Joger, U., Lauder, G.V., and Pierce, S.E. (2020) ‘Tail-Propelled Aquatic Locomotion in a Theropod Dinosaur’. <em>Nature</em> [online] 581 (7806), 67–70. available from &lt;<a href="https://doi.org/10.1038/s41586-020-2190-3">https://doi.org/10.1038/s41586-020-2190-3</a>&gt;</p>
+</div>
+<div id="ref-Nunn11">
+<p>Nunn, C.L. (2011) <em>The Comparative Approach in Evolutionary Anthropology and Biology</em> [online] University of Chicago Press. available from &lt;<a href="https://books.google.co.uk/books?id=qj4cSzJGQJAC">https://books.google.co.uk/books?id=qj4cSzJGQJAC</a>&gt;</p>
+</div>
+<div id="ref-Reader11">
+<p>Reader, S.M., Hager, Y., and Laland, K.N. (2011) ‘The Evolution of Primate General and Cultural Intelligence’. <em>Philosophical Transactions of the Royal Society B: Biological Sciences</em> [online] 366 (1567), 1017–1027. available from &lt;<a href="https://royalsocietypublishing.org/doi/abs/10.1098/rstb.2010.0342">https://royalsocietypublishing.org/doi/abs/10.1098/rstb.2010.0342</a>&gt;</p>
+</div>
 </div>
             </section>
 
@@ -166,7 +263,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="w1plotting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="recap.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -216,20 +313,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

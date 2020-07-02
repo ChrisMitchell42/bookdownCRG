@@ -1,0 +1,37 @@
+# Phylogenetic trees and where to find them {#phylogenetics}
+
+This chapter is a brief overview of some key concepts that may be useful when performing comparative research.
+```{r , include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Phylogeny
+
+Phylogeny is the term used to describe the evolutionary history of a group of species. The most common representation of phylogeny is a phylogenetic tree. There is a lot of terminology around phylogenetic trees. Here we will start with the very basics that will come up a lot in this book.
+
+The **tips** of the tree represent the species/populations/individuals described by the tree. The **branches** of the tree represent the pattern of relationships between species. The **nodes** of a tree represent the most recent common ancestor of the lineages that diverge from that node. A **clade** is a monophyletic grouping of lineages. A grouping is **monophyletic** only if all members of that group descend from a common ancestor to the exclusion of others. for example, humans and apes form a monophyletic grouping but humans, apes and parrots do not.
+
+Here is an example of a phylogenetic tree displaying the relationships of modern dog breeds taken from a nice paper investigating the evolutionary history of the domestic dog [@Parker17]
+```{r, echo = FALSE, fig.cap="Cladogram of 161 domestic dog breeds taken from Parker et al 2017."}
+knitr::include_graphics('~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Images/dogs.jpg')
+```
+
+The tree shown above is a **cladogram** meaning that the lengths of the branches do not carry any real meaning. This tree is only useful for interpreting the relatedness of the species. It does not give us any information about the amount of evolutionary change or the amount time between nodes.
+
+By contrast, the following tree has **branch lengths**. The tree is based on genetic analysis of 173 species of hymenoptera (bees, ants and wasps) [@Peters17]. In this tree, the branch lengths represent time (in millions of years) as calculated from analysis of over 3,000 genes and calibrated using fossils.
+```{r, echo=FALSE, fig.cap="Time-calibrated phylogeny of Hymenoptera from Peters et al 2018."}
+knitr::include_graphics('~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Images/hymenoptera.jpg')
+```
+
+Branch lengths do not always represent evolutionary distance as time. In some cases, evolutionary distance is represented as the amount of change on each branch. The next tree was built based on a brain development gene (MCPH1) in cetaceans (whales, dolphins and porpoises) [@McGowen11]. On a tree like this, longer branches indicate more character changes along the branch. In this case the character changes will be changes in genetic sequence but for other trees it may be morphological characters, protein sequences characters or a combination.
+```{r, echo=FALSE, fig.cap="Phylogeny of MCPH1 brain development gene in 38 cetacean species from McGowen et al 2011."}
+knitr::include_graphics('~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Images/whales.jpg')
+```
+
+## Building trees
+
+Developments in the field of phylogenetics have meant that there are many ways to construct a phylogeny. Many of the modern methods are highly sophistaicated and for now, these are not the subject of this book. However, it may help you to have a brief introduction to the logic behind building a phylogeny.
+
+## Locating trees
+
+### File format
