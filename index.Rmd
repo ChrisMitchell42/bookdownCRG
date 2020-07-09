@@ -22,6 +22,7 @@ knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'
 ), 'packages.bib')
 knitr::opts_chunk$set(comment = '')
+knitr::opts_chunk$set(fig.pos = "H", fig.align = 'center', fig.height = 5)
 ```
 
 Welcome to the online support materials for the Comparative Research Group at the University of Liverpool. The CRG is made up of staff and students engaging in comparative research across various areas of evolutionary biology.

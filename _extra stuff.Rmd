@@ -1,0 +1,101 @@
+#extras
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# section on plotting data and reconstructions on trees (largely in phytools)
+
+## Plotting reconstructions of traits
+
+Let's have a look at plotting trees and plotting data on them. Because it's cool and I can, I'm going to use a dinosaur phylogeny.
+```{r}
+theropods <- read.tree("Theropod trees Hedman Benson 2017.tre")[[1]]
+theropods <- compute.brlen(theropods, method = "Grafen")
+```
+
+\begin{center}
+\includegraphics[height=5in,width=5in]{~/Google Drive/University of Liverpool/2018-19/PhyloGroup/Workshops/Workshop 4/Files/TheropodaInfobox.png}
+\end{center}
+
+\newpage
+
+Here's the basic tree with some options for customisation.
+```{r, fig.height=7.5, fig.width=6}
+plot(theropods, 
+     cex = 0.5,                     #Tip label font size
+     no.margin = T,                 #Get rid of the margin around the plot
+     label.offset = 0.01,           #Set the tips away from the labels
+     edge.width = 2,                #Thickness of the branches
+     edge.color = "skyblue",        #Colour of the branches
+     tip.color = "red")             #Colour of the tip labels
+```
+
+Liam Revell's package Phytools is great for plotting data along with phylogenies. We've used the package throughout these tutorial so you should be pretty familiar with it by now.
+
+First I'm going to simulate some data.
+```{r}
+x <- fastBM(theropods)
+```
+
+This first plot is a phenogram and shows the trait of interest and how it changes over time with the tree. As you can see it's not terribly clear but depending on your trait, it can reveal some interesting groupings.
+```{r, fig.height=5, fig.width=6}
+phenogram(theropods, x, fsize = 0.7, ftype = "i")
+```
+
+\newpage
+
+As the data we've simulated in continuous, we can plot it as a cont map. This plot mapps the change onto the branches of the phylogeny itself.
+```{r, fig.height=8.5, fig.width=6}
+obj <- contMap(theropods, x, fsize = 0.6, lwd = 2, outline = F)
+```
+
+\newpage
+
+If this doesn't tickle your fancy, you can plot the data on the tips as bars. This commapnd creates a hybrid of a tree and a barplot.
+```{r, fig.height=7, fig.width=6}
+plotTree.wBars(theropods, x, scale = 0.04)
+```
+
+\newpage
+
+If that looks a little odd, remember that our data was simulated either side of 0 and so has positive and negative values. Real data might look more like this.
+```{r, fig.height=7, fig.width=6}
+y <-fastBM(theropods, bounds = c(0,1))
+plotTree.wBars(theropods, y, scale = 0.04)
+```
+
+\newpage
+
+With a bit more experience, you can combine some features!
+```{r, fig.height=7, fig.width=6}
+obj <- contMap(theropods, y, plot = F)
+plotTree.wBars(obj$tree, y,
+               method = "plotSimmap",
+               colors = obj$cols,
+               scale = 0.04)
+add.color.bar(.5, obj$cols, 
+              title = "trait value",
+              lims = obj$lims,
+              prompt = F,
+              x = -1*par()$usr[1],
+              y = -32*par()$usr[3])
+```
+
+\newpage
+
+For binary character states, we can plot a density map.
+```{r}
+Q <- matrix(c(-1,1,1,-1),2,2)
+rownames(Q) <- colnames(Q) <- c(0,1)
+tree <- sim.history(theropods, Q)
+z <- tree$states
+```
+
+```{r}
+trees <- make.simmap(tree, z, nsim = 100)
+```
+
+```{r, fig.height=8.5, fig.width=6}
+obj <- densityMap(trees, lwd = 3, fsize = 0.6, outline = F)
+```
+

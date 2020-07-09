@@ -1,0 +1,357 @@
+# Ancestral State Reconstruction II {#asr2}
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(comment = '')
+require(ggtree)
+require(ggplot2)
+require(devtools)
+require(btw)
+require(geiger)
+require(ape)
+require(phytools)
+require(RRphylo)
+```
+
+Previously, we looked at reconstructing the evolutionary history of binary traits, such as the presence or absence of sexual swellings in macaques, and categorical traits such as the modes of burrowing in carnivores. In this chapter, we'll be applying the same principles to continuous data.
+
+The logic of ancestral state reconstruction applies equally to continuous traits like body size as it does to categorical traits. Here, we'll be looking at the evolutionary history of whales, dolphins and porpoises (Cetacea).
+
+As always, check that you have set your working directory!
+
+## Data
+
+The data we have here is taken from a study of the evolution of cetacean brain and body size [@Montgomery13]. The reduced version here contains only body mass and the log transformed body mass for 42 species.
+```{r, echo=FALSE, eval = TRUE}
+whale.data <- read.table("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/whales_data.txt", header = T)
+rownames(whale.data) <- whale.data$species
+```
+
+```{r, echo=TRUE, eval = FALSE}
+whale.data <- read.table("whales_data.txt", header = T)
+rownames(whale.data) <- whale.data$species
+```
+
+## Tree
+
+We also have a tree from the [10ktrees][10ktrees] project [@Arnold10]. For more information about this website, see chapter 3.
+```{r, echo=FALSE, eval=TRUE}
+require(ape)
+whale.tree <- read.nexus("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/whales_tree.nex")
+```
+
+```{r, echo=TRUE, eval=FALSE}
+whale.tree <- read.nexus("whales_tree.nex")
+```
+
+We need to check the data and tree match up. Get into this habit! It will save you a lot of time and patience.
+```{r, echo=TRUE, eval=TRUE}
+rownames(whale.data) <- whale.data$species
+geiger::name.check(whale.tree, whale.data)
+```
+
+Clearly some species need to be dropped from the tree!
+```{r, echo=TRUE, eval=TRUE}
+whale.tree <- drop.tip(whale.tree, 
+                       geiger::name.check(whale.tree, whale.data)$tree_not_data)
+geiger::name.check(whale.tree, whale.data)
+```
+
+## Ancestral State Reconstructions
+
+Now we're going to dive in with a reconstruction. We are using **phytools** for this analysis so we should load the package and create a named data vector [@phytools].
+```{r, echo = TRUE, eval=TRUE}
+require(phytools)
+x <- whale.data$log.body.mass
+names(x) <- whale.data$species
+```
+
+The function we need is called **fastAnc** and it returns the ancestral states in a simple list.
+```{r, echo = TRUE, eval=TRUE}
+ancstates <- fastAnc(tree = whale.tree,   #Our phylogeny
+                     x,                   #Our data vector
+                     CI = TRUE)           #Estimate 95% confidence intervals
+ancstates
+```
+
+To get an idea of what these results show, we should probably plot it. The **nodelabels** function maps the ancestral states listed in our **ancstates** object onto the nodes of the tree which are listed in the same order.
+```{r, echo = TRUE, eval=TRUE, fig.align='center', fig.height=7}
+plot(whale.tree, cex = .8, label.offset = .01, no.margin = TRUE)
+nodelabels(round(ancstates$ace, digits = 2), cex = .67)
+```
+
+As is often the case, there are better ways to plot this information! The function **contMap** calls **fastAnc** and then maps the history of the trait onto the tree as a heatmap. This is a much clearer plot.
+```{r, echo=TRUE, eval = TRUE, fig.height=7}
+contMap(whale.tree, x, fsize = .7)
+```
+
+## BayesTraits
+
+Simply reconstructing the history of a trait can be very interesting. See some papers by Montgomery *et al*. [-@Montgomery10;-@Montgomery13] for just a few great examples. However, this methodology is not limited to simply estimating the past.
+
+Most of what we are going to do here could probably be acheived in R either with existing packages or some clever coding. However, the standard package for several analyses has been [BayesTraits][BT] for some time.
+
+BayesTraits is a command line program, which can make it kind of intimidating. Actually (like R), it's relatively easy to use but can take some getting used to. Fortunately, [Randi Griffin][rgriff] has written an excellent R package **btw** that can operate the program from within R. 
+
+It's worth noting at this point that **btw** is not written to run BayesTraits for you so that you don't have to understand the program. Randi states very clearly that the package is purely for optimising workflow. In other words, this allows you to have all your data, results and code in one place. You still need to understand how to use the program. Fortunately the [manual][BTmanual] is very detailed.
+
+First up, download [BayesTraits][BT] version 3 for your operating system.
+
+**IMPORTANT!** BayesTraits output files will be written into your working directory. They will overwrite any files with the same name so don't have any files called "data.txt", "tree.nex" or "inputfile.txt" in this directory unless you are ok with losing them.
+
+Next, we need to install **btw**. This isn't a CRAN archived package so we'll be installing directly from Randi Griffin's GitHub. Once installed, we can use BayesTraits from within R!
+```{r, echo = TRUE, eval = FALSE}
+install.packages("devtools")
+library(devtools)
+install_github("rgriff23/btw")
+library(btw)
+```
+
+```{r, echo=FALSE, eval = TRUE}
+require(devtools)
+require(btw)
+```
+
+There are some important differences in how R and BayesTraits read data that need to be summarised here.
+
+* The first column of your data must contain species names.
+* Species names must match exactly between tree and data (but don't worry about the order).
+* No spaces in species names.
+* Discrete characters have to be of class character or factor (between 0-9) and NOT integer.
+* Ambiguous discrete characters can be represented as 01.
+* Missing data must be represented as - rather than NA.
+
+BayesTraits consists of modules (see [manual][BTmanual] for details) that are numbered and can be called up for different analyses.
+
+If you can't get R and Bayestraits to play nicely together, you may want to consider using Bayestraits directly from the command prompt (Windows) or terminal (Mac). It's fairly straightforward once you've got the hang of it so be patient. Alternatively, all of this can be done with R packages like ape [@ape], geiger [@geiger] and phytools [@phytools] amongst others.
+
+## Modelling Evolution
+
+If we have some data about traits across a group of animals and an associated tree, we may want to ask about how that trait has evolved over time. For this we can compare the trait to models of evolutionary change.
+
+### Brownian Motion
+
+Brownian motion (BM) is the most commonly used model of evolutionary change. In some ways, it can represent a kind of *null model* but do not confuse this! It doesn't mean nothing is changing or that evolution is not taking place.
+
+Brownian motion assumes three things; 
+
+* Evolutionary changes in a trait are randomly distributed around a mean of 0.
+* Evolutionary changes in a trait are independent of previous changes and changes on other branches.
+* Larger changes are more likely to occur on longer branches.
+
+All this means that BM is a *random walk* model in which the trait varies along the branches essentially at random.
+
+We can use BayesTraits (via R) to model the evolution of body size in cetaceans with the assumption of Brownian motion. First we need to isolate our variables into a data table for **btw**. The way to do this is quite simple. We can simply extract the two columns we need (1 and 2) into a new object.
+```{r, echo=TRUE, eval=TRUE}
+BT.data <- whale.data[,c(1,2)]
+rownames(BT.data) <- NULL
+head(BT.data)
+```
+
+This first analysis corresponds to **Continuous: Random Walk Model A ML** in the BayesTraits [manual][BTmanual]. We can see from the manual that the commands to run this are "4 1 Run". You need to be familiar with BayesTraits to interpret this so the first time you do it, you may want to do it in BayesTraits directly (via the command prompt or terminal). In essence, BayesTraits asks us questions and provides us with options for what we want it to do and **4, 1, Run** are the options to run this analysis. 
+
+Given that we know what we want to do ahead of time, we can enter the commands into a command vector in R. To run these commands through BayesTraits, R will write them into a text file so BayesTraits can interpret them when needed. Note that you don't need to enter **Run** into this vector as **btw** will take care of that for us.
+```{r, echo=TRUE, eval=TRUE}
+command_vec1 <- c("4", "1")
+```
+
+Note that if you have nodelabels in your tree, there will be an error when running BayesTraits. You can remove nodelabels without effecting the structure of your tree like this.
+```{r, echo = TRUE, eval = TRUE}
+whale.tree$node.label <- NULL
+```
+
+I have a path on my desktop just for BayesTraits analyses. Remember that there must be a copy of BayesTraitsV3 stored here. That's all you need as the output will be read back into R by **btw**. You also should remember to change your working directory back if you are finished with BayesTraits. In this chunk, I've saved the existing directory at the start and reset it immediately after the analysis is completed.
+```{r, echo = TRUE, eval = TRUE, warning=FALSE, message = FALSE}
+wd.reset <- getwd()
+setwd("~/Desktop/BayesTraits")
+m1 <- bayestraits(data = BT.data, tree = whale.tree, commands = command_vec1)
+setwd(wd.reset)
+```
+
+On we go! The object that should have appeared in your R environment contains all the outputs you need from BayesTraits. Let's have a look at the **results** component of the **Log**.
+```{r, echo = TRUE, eval = TRUE}
+m1$Log$results
+```
+
+These results give us the Log likelihood (**Lh**), the reconstructed ancestral node (**Alpha.1**) and the phylogenetically corrected variance of the data (**Sigma.2.1**). The important thing to look at here is the log likelihood. We will use that to compare the BM model to other models.
+
+### Directional Evolution
+
+So far we've looked at the random walk model of evolution. In reality, what we are usually interested in is deviations from the random walk model. We can investigate this using similar methods, but with a **directional** model.
+
+An example of a case when we might be interested in a directional model is Cope's rule [@Kingsolver04;@Hone05]. Cope's rule states that over time, lineages tend to have larger body sizes. So basically, on average animals tend to get bigger over evolutionary time.
+
+Let's see if we can detect a trend in cetacean body mass. For this analysis, we need a non-ultrametric tree (a phylogram rather than a chronogram). Luckily that's what we already have. The branch lengths here describe evolutionary distance in terms of genetic change and so shorter branches indicate fewer genetic changes.
+```{r, echo=FALSE, eval=TRUE, fig.cap="Phylogenetic tree of 42 species of cetcaeans with branch lengths proportional to molecular change."}
+require(ggtree)
+t <- whale.tree
+t$tip.label <- gsub("_", " ", t$tip.label)
+ggtree(t) +
+  geom_tiplab(size = 2) +
+  xlim(0,.25)
+```
+
+We're using BayesTraits again so the first step is to get our data into the right format.
+```{r}
+BT.data <- whale.data[,c(1,2)]
+rownames(BT.data) <- NULL
+```
+
+As before, we run the random walk (BM) model first. Remember we need to set the working directory to a path where BayesTraits is stored.
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+setwd("~/Desktop/BayesTraits")
+RW.commands <- c("4", "1")
+RWmod <- bayestraits(BT.data, whale.tree, RW.commands)
+RWmod$Log$results
+setwd(wd.reset)
+```
+
+The directional model takes a different set of commands.
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+setwd("~/Desktop/BayesTraits")
+D.commands <- c("5", "1")
+Dmod <- bayestraits(BT.data, whale.tree, D.commands)
+Dmod$Log$results
+setwd(wd.reset)
+```
+
+Now we need to compare these models! What he have so far is two models and a log likelihood assigned to each. This means we can compare them using a **likelihood ratio test**. The general formula for an LR test is;
+
+$$LR=2*(Lh_{ModelB} - Lh_{ModelA})$$
+
+The result is the **likelhood ratio statistic** (LR) which is asymptotically $\chi^2$ distributed with degrees of freedom equal to the difference in the number of parameters between the models. Model A has 1 parameter (the root value) and model B has 2 (the root and the direction of change) so the degrees of freedom are 1.
+```{r, echo=TRUE, eval=TRUE}
+2*(Dmod$Log$results$Lh[1] - RWmod$Log$results$Lh[1])
+1-pchisq(3.515352, df = 1) 
+```
+
+Note: pchisq gives the proportion of the distribution to the left of the value. To test if the model is better than the null model, we use 1 - pchisq.
+
+The **btw** package has a function that will do all this for us. Be careful with interpretation though. Note that the p-value is different. Take this away from 1 and you have your p-value as above.
+```{r, echo=TRUE, eval = TRUE}
+lrtest(RWmod, Dmod)
+```
+
+So what have we got here? Well we have tested two models of the evolution of body size in cetacea. The first is a random walk (Brownian motion) model of evolution in which we have estimated two parameters. The second is a directional model in which we have estimated 3 parameters. Model comparison showed no significant difference between them (LR = 3.52, p = 0.06) and so we should favour the simpler, 2 parameter model. Thus we have no evidence for a directional trend in cetacean body mass evolution.
+
+## Changes in the rate of evolution of a trait
+
+Often when investigating the evolution of a continuous trait, we might have reason to suggest that in some lineages, the rate of evolution of that trait changed.
+```{r, echo=FALSE, eval = TRUE, fig.height=7}
+t <- read.nexus("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/whales_tree.nex")
+t <- drop.tip(t, geiger::name.check(t, whale.data)$tree_not_data)
+require(ggtree)
+t$tip.label <- gsub("_", " ", t$tip.label)
+ggtree(t) +
+  geom_tiplab(size = 3) +
+  xlim(0,.25) +
+  geom_label2(aes(subset=!isTip, label=node), size=3, color="blue", alpha=0.9, nudge_x = -.004)
+```
+
+Let's say we have a hypothesis that says the rate of change of body mass changed at the root of mysticetes (node 44). We can paint that onto the tree for demonstration using **paintSubTree** and **plotSimmap** in **phytools** [@phytools].
+```{r, echo=TRUE, eval = TRUE, warning=FALSE, message=FALSE, results="hide", fig.height=7}
+require(phytools)
+tree1 <- paintSubTree(whale.tree, 44, "2")
+plotSimmap(tree1, lwd = 2, fsize = 0.7)
+```
+
+Now we can run the test. Here the function **brownie.lite** in **phytools** compares the single rate model to the multi-rate model we have specified!
+```{r, echo=TRUE, eval=TRUE}
+x <- whale.data$log.body.mass
+names(x) <- whale.data$species
+fit <- brownie.lite(tree1, x)
+fit
+```
+
+Here we've found no evidence of a regime shift in mysticete cetaceans (p = 0.083).
+
+## Uncertainty
+
+If you are familiar with cetaceans and their evolutionary history, you might be surprised by our findings so far in this chapter. The prevailing state of knowledge suggests that cetaceans have evolved large body sizes since the transition to the water of an approximately dog-sized ancestor at the root of our tree. Given what we know about the fossil record of cetacea, we would expect to detect an increase in body size over the tree. To solve this puzzle, we need to look at what information we provided our analysis with.
+
+As the old saying goes, *if you put garbage in, you'll get garbage out* and this seems to apply here. For example, let's look closely at our reconstructions. You can see here that both reconstructions have estimated the mass of the ancestor of cetaceans. Remember that these are log transformed data so we have to transform them back if we want to get a straightforward measurement of mass.
+
+```{r, echo=TRUE, eval=TRUE}
+10^(RWmod$Log$results$Alpha.1)
+10^(Dmod$Log$results$Alpha.1)
+```
+
+So depending on our model of evolution the ancestor was either 2,648.1 kg or 89,375.2 kg. A big difference between models so which one we choose really matters. 
+
+This is even more of a problem when we look at the fossil record of cetaceans. *Indohyus* (Raoellidae) is thought to be the species that most closely represents the transition to the water by cetacean ancestors [@Thewissen09] and its mass is estimated at around 10kg. An early species of cetacean called *Pakicetus* was estimated at around 45kg. So we are orders of magnitude away from what the fossil record shows us!
+
+This problem is well understood in phylogenetic comparative methods. In fact, all methods of ancestral state reconstruction perform very poorly when compared to what we know from the fossil record [@Webster02]. As you might expect, the deeper into your tree you try to estimate an ancestral state, the greater the uncertainty. This is especially clear when you look at estimating the root [@Gascuel14]. The solution is to incorporate fossil data in the analysis [@Slater12].
+
+### Fossils
+
+To demonstrate the importance of fossil data, let's take a closer look at the evolution of body size in cetaceans. With **fastAnc**, we found a mass of around 2,650kg for the root of the cetaceans.
+
+The package **RRphylo** [@rrphylo] contains data on fossil and living cetaceans [@Serio19]. Using these data, we can hopefully perform a more rigorous ancestral state reconstruction [@Castiglione20]. Note that the values here differ betwwen datasets because the previous dataset used a log10 transformation whereas this one uses a natural log transformation!
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+library(RRphylo)
+data("DataCetaceans")
+DataCetaceans$treecet -> treecet
+DataCetaceans$masscet -> masscet
+```
+
+The **RRphylo** function performs a variant of ancestral state reconstruction called **phylogenetic ridge regression** [@Castiglione20].
+```{r, echo=TRUE, eval=TRUE}
+RR <- RRphylo(treecet, masscet)
+```
+
+RRphylo returns a lot of information as a list. Included in this list is the **tree** used (useful for plotting) and **aces** which contains the estimates for the traits at the nodes.
+```{r, echo=TRUE, eval=TRUE, fig.height=10, fig.width=9}
+plot(RR$tree, cex = .4, label.offset = .5, no.margin = TRUE)
+nodelabels(round(RR$aces, digits = 1), cex = .5)
+```
+
+Using this reconstruction, we can extract the mass of the root. Remember that we need **exp** to calculate the untransformed value rather than raising to the power of 10 because of the natural log transformation.
+```{r, echo=TRUE, eval=TRUE}
+exp(RR$aces[[1]])
+```
+
+So our new estimate of the mass of the ancestor of cetaceans is 727.1kg. This is much closer to the estimated mass of early archeocete cetaceans like *Ambulocetus natans* at about 430kg and *Indocetus ramani* at around 630kg.
+
+If we still aren't satisfied that we have included the best information we have available, we can actually *fossilise* a node by passing a named list of ancestral states to the **RRphylo** function. Following the example of Castiglione *et al*. [-@Castiglione20], we can set the node of the ancestor of mysticetes to a known mass. Here we are assuming that the most recent common ancestor of all mysticetes can be represented by the species *Mystacodon selenensis* which weighed arond 150kg. Also we need to know that this ancestor is represented by the node labelled 128 in our tree object.
+```{r, echo=TRUE, eval=TRUE}
+x <- log(150000)
+names(x) <- "128"
+```
+
+Now we can pass this state to the argument **aces** in **RRphylo** and the analysis will hold node 128 at the value we have set. You should be able to see that in the following plot, the ancestor of mysticetes is reconstructed as 11.9 rather than 12.9 in the previous reconstruction.
+```{r, echo=TRUE, eval=TRUE, fig.height=10, fig.width=9}
+RR2 <- RRphylo(treecet, masscet, aces = x)
+plot(RR2$tree, cex = .4, label.offset = .5, no.margin = TRUE)
+nodelabels(round(RR2$aces, digits = 1), cex = .5)
+```
+
+Hopefully you can see that the more fossil information you include in your reconstructions, the more reliable they are.
+
+### Revisiting Mysticete Body Mass
+
+In using the fossil data we have added in here, Castiglione *et al*. [-@Castiglione20] demonstrated that mysticetes actually do conform to Cope's rule because they have an increasing trend in body size over time. This shows just how important adding in fossil data can be if you want the full picture.
+
+This seems to suggest that we should also find a regime shift in mysticetes. Let's have a closer look. We begin again by painting the tree at the specific node leading to mysticetes.
+```{r, echo=TRUE, eval=TRUE, fig.height=10, fig.width=9, results = "hide"}
+require(phytools)
+tree2 <- paintSubTree(treecet, 128, "2")
+plotSimmap(tree2, lwd = 2, fsize = 0.5)
+```
+
+Next we run **brownie.lite** on our expanded dataset.
+```{r, echo=TRUE, eval=TRUE}
+fit <- brownie.lite(tree2, masscet)
+fit
+```
+
+There you have it! We can now say that we have evidence in favour of a regime shift in mysticete body size (p = 0.02).
+
+## Further info
+
+We've only just scratched the surface of what is possible with ancestral state reconstruction. For some background reading, have a look at chapter 4 of *The comparative approach in evolutionary anthropology and biology* [@Nunn11].
+
+
+
+[10ktrees]: https://10ktrees.nunn-lab.org/ "10ktrees"
+[BT]: http://www.evolution.rdg.ac.uk/BayesTraitsV3.0.2/BayesTraitsV3.0.2.html "BT"
+[rgriff]: https://www.randigriffin.com/ "Randi Griffin"
+[BTmanual]: http://www.evolution.rdg.ac.uk/BayesTraitsV3.0.2/Files/BayesTraitsV3.0.2Manual.pdf "manual"

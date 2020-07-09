@@ -1,0 +1,345 @@
+# Ancestral State Reconstruction I {#asr1}
+
+```{r , include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(comment = '')
+require(magick)
+require(png)
+require(ggtree)
+require(ggplot2)
+```
+
+This chapter will take you through the code we can use to run ancestral state reconstruction with **categorical** characters. As always, remember to begin by setting your working directory to wherever you have saved the data files.
+
+## Data
+
+The first thing we need to do is load some data. When you're doing this, you need to keep in mind that you should keep your workspace as well organised as possible. In practice, this means giving things good names. "RicksDataV1.1" is not a great name depending on how many datasets you want in there. Neither is "data1" if you plan on having multiple datasets (which we do). So give your data object, and all other objects, simple, useful names. My personal preference is to use the name of the group but whatever works is fine. You need to be able to keep track of everything.
+```{r, echo=FALSE, eval=TRUE}
+macaques <- read.table("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/macaque_data.txt", header = TRUE)
+```
+
+```{r, echo=TRUE, eval=FALSE}
+macaques <- read.table("macaque_data.txt", header = TRUE)
+```
+
+In your environment panel there should be a data frame with 16 observations of 2 variables. This command will show us the top 6 rows of data. It's helpful to have a quick look and see R has loaded what we expected. In this case our data contains 15 species of macaque and one species of baboon alongside data regarding whether they exhibit sexual swellings or not (1/0).
+```{r, echo=TRUE, eval=TRUE}
+head(macaques)
+```
+
+## Trees
+
+Now we need to load the tree using the **read.nexus** function in the package **ape** [@ape].
+```{r, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+require(ape)
+macaque.tree <- read.nexus("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/macaque_tree.nex")
+```
+
+```{r, echo=TRUE, eval=FALSE}
+macaque.tree <- read.nexus("macaque_tree.nex")
+```
+
+Let's plot the tree to make sure it loaded correctly. I've used base graphics here rather than ggtree (annotated to let you know what it does). Feel free to have a mess around with these options so you get a feel for what they do. The second function "tiplabels" adds some extra tip labels containing the data from the second column of our macaque data.
+```{r, echo=TRUE, eval=TRUE}
+plot(macaque.tree,        #Tree object
+     cex = 0.7,           #Font size for tip labels
+     label.offset = 0.3,  #Create a space between tip and label
+     edge.color = "blue", #Paint the branches blue
+     edge.width = 2)      #Make the branches thicker
+tiplabels(macaques[,2], bg = "white", cex = 0.7)
+```
+
+## Parsimony
+
+Let's first generate the most parsimonious reconstruction of the history of this trait. Remember that the most parsimonious history is the one that has the fewest evolutionary transitions. Parsimony is conceptually based upon Occam's razor which states that all else being equal, the simplest explanantion is always the correct one.
+
+The function for this is **MPR**. It takes an unrooted tree and asks you to specify the root. In our case, we'll have to unroot our tree and then re-root it by specifying that *Papio anubis* is our outgroup.
+```{r, echo=TRUE, eval=TRUE}
+mp1 <- MPR(macaques[,2], unroot(macaque.tree), "Papio_anubis")
+```
+
+When we investigate mp1, we can see a list of results matched up to numbered nodes on the tree. Some nodes are clearly in state 1 and others in state 0. Interestingly some are indeterminate and could be either 0 or 1 such as nodes 19 and 20.
+```{r, echo=TRUE, eval=TRUE}
+mp1
+```
+
+To get an idea of what this means, we should plot it on the tree. This loop cycles through our results list and combines the lower and upper estimates for each node into a text string that we can then overlay onto that node.
+```{r, echo=TRUE, eval=TRUE}
+mp.nodes <- numeric(0)
+for(i in 1:length(mp1[,1])){
+  mp.nodes <- append(mp.nodes, paste(mp1[i,1], ",", mp1[i,2]))
+}
+```
+
+Once we've done that we can plot those expressions onto the tree with the function nodelabels.
+```{r, echo=TRUE, eval=TRUE}
+plot(macaque.tree, cex = 0.7, label.offset = 0.3,
+     edge.color = "blue", edge.width = 2)      
+tiplabels(macaques[,2], bg = "white", cex = 0.7)
+nodelabels(mp.nodes, c(18:31), bg = "white")
+```
+
+You should note that this isn't a very good plot! There are better ways to represent this information with a little code manipulation. Here's a version using **ggtree** that plots the character states as points on the tips and the reconstructed nodes.
+```{r, echo=FALSE, eval=TRUE, message = FALSE, warning = FALSE, fig.cap="Maximum parsimony reconstruction of the evolution of conspicuous sexual swellings in macaques"}
+mp.nodes <- numeric(0)
+for(i in 1:length(mp1[,1])){
+  mp.nodes <- append(mp.nodes, paste(mp1[i,1], ",", mp1[i,2]))
+}
+mp.nodes <- as.data.frame(mp.nodes)
+mp.nodes$label <- as.factor(c(17:30))
+mp.nodes$value <- mp.nodes$mp.nodes
+mp.nodes <- mp.nodes[,c(2,3)]
+mp.nodes$value <- gsub("0 , 0", "black",mp.nodes$value)
+mp.nodes$value <- gsub("1 , 1", "red",mp.nodes$value)
+mp.nodes$value <- gsub("0 , 1", "gray",mp.nodes$value)
+mp.nodes$node <- as.integer(mp.nodes$value)
+macaques$swelling <- as.factor(macaques$swelling)
+macaque.tree$tip.label <- gsub("_", " ", macaque.tree$tip.label)
+macaques$species <- gsub("_", " ", macaques$species)
+cols <- c("red", mp.nodes$value)
+p <- ggtree(macaque.tree) %<+% macaques + xlim(-.1, 20)
+p2 <- p + geom_tiplab(offset = 1, cex = 4) +
+  geom_tippoint(aes(color = swelling), cex = 5) +
+  scale_color_manual(values = c("0" = "black", "1" = "red", "i" = "gray", "NA" = "red"))+ 
+  theme(legend.position = c(0.1,.7)) +
+  theme(legend.text = element_text(size=15, face="bold")) +
+  theme(legend.title = element_text(size=20, face="bold")) +
+  theme(legend.background = element_rect(fill="lightblue", size=0.5, linetype="solid")) +
+  geom_nodepoint(color = cols, size = 5)
+p2
+macaques <- read.table("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/macaque_data.txt", header = TRUE)
+macaque.tree <- read.nexus("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/macaque_tree.nex")
+mp1 <- MPR(macaques[,2], unroot(macaque.tree), "Papio_anubis")
+mp.nodes <- numeric(0)
+for(i in 1:length(mp1[,1])){
+  mp.nodes <- append(mp.nodes, paste(mp1[i,1], ",", mp1[i,2]))
+}
+```
+
+As you can see, the uncertainty in some nodes comes from the fact that there seems to be at least two equally parsimonious histories with gains and losses ocurring in different places. For any serious analysis, this is a highly unsatisfactory outcome!
+
+## Maximum Likelihood
+
+Let's try a different approach. Maximum likelihood is different from parsimony for many reasons but most significantly, it can make use of branch length information. This is very useful in discriminating between possible histories. A longer branch means more evolutionary change (either in time or character change) and so transitions are more likely to occur on longer branches.
+
+Let's replot the tree. Here I've changed the tiplabels function to plot the character states as colours rather than numbers. The **bg** argument is what lets me do this. In this argument I list the states (adding 1 because the first is 0) and then the function passes those states to R to assign colours based on a numbered list of standard colours.
+```{r, echo=TRUE, eval=TRUE}
+plot(macaque.tree, cex = 0.7, label.offset = 0.4, edge.width = 2)
+tiplabels(pch = 21, bg = as.numeric(macaques$swelling)+1, cex = 1.7)
+```
+
+To run an ancestral state reconstruction using maximum likelihood we can use the function **ace** (ancestral character estimation) in the ape package [@ape]. In our first reconstruction, we will make the assumption that the rate of evolution of the trait is equal across the tree by setting the model to *ER* (equal rates).
+```{r, echo=TRUE, eval=TRUE}
+m1 <- ace(x = macaques$swelling,  #trait data
+          phy = macaque.tree,     #phylogeny
+          method = "ML",          #method (Maximum likelihood)
+          type = "discrete",      #type of data (continuous or discrete)
+          model = "ER")           #Model of evolution
+m1
+```
+
+Looking at the results shows us the likelihood at the root (91% in favour of state 1 here). However, it's always best to plot the results. We can represent the likelihoods at each node with a piechart. Generally speaking, piecharts are awful but when used in this way, they can actually add useful information to a plot and that's the most important point about plotting any data. In this plot, the piecharts represent the probability that each node exhibited sexual swelling (red) or concealed estrus (black). We can see that the two uncertain nodes from our parsimony analysis are now more certain. Visual inspection shows that these nodes have a greater tha 75% probability of having exhibited sexual swellings.
+```{r, echo=TRUE, eval=FALSE, fig.cap="Maximum likelihood reconstruction of the evolution of conspicuous sexual swellings in macaques using an equal rates model of evolution."}
+plot(macaque.tree, cex = 0.7, label.offset = 0.4, edge.width = 2)
+tiplabels(pch = 21, bg = as.numeric(macaques$swelling)+1, cex = 1.7)
+nodelabels(pie = m1$lik.anc, piecol = c("black", "red"), cex = 0.8)
+```
+
+Now we can run a similar analysis but let's assume that rates of evolution can vary by setting model to **ARD** (All Rates Different).
+```{r, echo=TRUE, eval=TRUE}
+m2 <- ace(x = macaques$swelling, phy = macaque.tree,
+          method = "ML", type = "discrete", model = "ARD")
+
+plot(macaque.tree, cex = 0.7, label.offset = 0.4, edge.width = 2)
+tiplabels(pch = 21, bg = as.numeric(macaques$swelling)+1, cex = 1.7)
+nodelabels(pie = m2$lik.anc, piecol = c("black", "red"), cex = 0.8)
+```
+As you can see, the different model of evolution makes a big difference to the results. Which model you choose to use depends on which assumptions you think are justified. Is it fair to assume that the rate of evolution of conspicuous sexual swelling would be constant across the tree as in the equal rates model? 
+
+## Stochastic Character Mapping
+
+Stochastic character mapping uses an **MCMC** (Markov chain Monte-Carlo) approach to sample possible reconstructions from a posterior probability distribution.
+
+Think of the posterior probability distribution as containing all the possible evolutionary histories of the trait in question. This includes some histories in which everything was in one state right up until a few generations from the present when everything swapped around at the same time to give us the distribution we see today. It also contains a history in which the trait switches between 0 and 1 every other generation essentially at random.
+
+Obviously these kind of histories are biologically absurd but not mathematically impossible. They have low statistical probability. Certain other histories will have a high statistical probability and so there will be many similar histories in the distribution. The distribution can be thought of as a histogram with some parameter that defines each particular history. 
+
+### An Analogy
+
+Let's say that we were to plot the entire multiverse as such a distribution using the evil tendencies of one particular occupant (Rick Sanchez) of the multiverse as our parameter. All the different Ricks in all the different universes will vary in their evil tendencies. But overall, Rick's character is actually a nihilist meaning his mean evilness is around 0 when taken over the whole multiverse. Given all this, the posterior distribution of evil Ricks in the multiverse might look like this.
+
+```{r, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+require(magick)
+require(png)
+ricks <- rnorm(n = 10000, mean = 0, sd = 1)
+hist(ricks, breaks = 100, 
+     ylab = "Density",
+     xlab = "Rick's Evilness",
+     main = "Posterior Probability of Evil Ricks")
+
+evil <- image_read("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Images/Evil_Rick_Sprite.webp")
+doof <- image_read("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Images/Doofus_Rick_Sprite.webp")
+
+evil <- image_convert(evil, "png")
+doof <- image_convert(doof, "png")
+
+rasterImage(evil, xleft = 2, ybottom = 100, xright = 3.8, ytop = 400)
+rasterImage(doof, xleft = -4, ybottom = 100, xright = -2, ytop = 400)
+
+```
+
+MCMC samples this distribution of histories in a chain. If a history has a higher likelihood than the previous sampling, it is accepted. If it is lower then it is rejected from the sample. In this way, MCMC quickly narrows down the possibilities and gives us a sample of quite likely histories.
+
+### 2-State Characters
+
+Let's see it in action. We'll need the **phytools** package [@phytools] to create our stochastic character map.
+```{r, echo=TRUE, eval=TRUE, message = FALSE, warning=FALSE}
+library(phytools)
+```
+
+For this analysis (like other phytools functions) we'll need our data in a named vector rather than a data table. Let's call it swelling. The **names** function attaches the species name to each value in our new vector.
+```{r, echo=TRUE, eval=TRUE}
+swelling <- macaques$swelling
+names(swelling) <- macaques$species
+swelling
+```
+
+Now we can sample character histories assuming an *equal rates* model of evolution using the **make.simmap** function.
+```{r, echo=TRUE, eval = TRUE}
+scm1 <- make.simmap(macaque.tree, x = swelling, model = "ER")
+```
+
+Q here is the matrix of transition rates which we have constrained to be equal (model = "ER") which explains why the numbers match. As usual with reconstructions, the best thing is to plot them. Here we can use the phytools function **plotSimmap** to plot the special object we've created. It even has a companion function to add a legend. The first line here assigns colours to the traits.
+
+```{r, echo=FALSE, eval=TRUE}
+rm(scm1)
+load(file = "~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/scm example.RData")
+```
+
+```{r, echo=TRUE, eval=TRUE, fig.cap="Simmap showing a single possible evolutionary history of sexual swelling in macaques."}
+cols <- setNames(c("black", "red"), sort(unique(swelling)))
+plotSimmap(scm1, cols, pts = F, lwd = 3, fsize = .8)
+add.simmap.legend(colors = cols, vertical = F, prompt = F, x = 0, y = 10, fsize = .8)
+```
+
+Here you can see the single history we have sampled (yours will likely differ). The history contains branches painted according to the trait colour we specified and the position of the transitions on the branch mark the exact position the changes are theorised to have taken place. This is an awful lot of certainty for an ancestral state reconstruction! You should note that the one plotted here is very odd. It says that the ancestor of the group had concealed estrus and then this trait was lost 3 times independently, leaving no trace in the extant species. Given the data and tree we provided, it is hard to see how we can have any confidence in this reconstruction. What evidence have we collected that actually supports this?
+
+However, we need to remember that this only one of the many possible histories! Our next step should be to extract a reasonable sample of these histories!
+
+Let's sample 500 and when R has done that, we can use **describe.simmap** to summarize the sample.
+```{r, echo = TRUE, eval = TRUE}
+scm2 <- make.simmap(macaque.tree, swelling, model = "ER", nsim = 500)
+scm2.sum <- describe.simmap(scm2, plot = FALSE)
+```
+
+When we call up the summary, we can see some interesting details about our sample. It seems to be saying that transitions from 1 to 0 (a loss of sexual swelling) happen more frequently than gains of sexual swelling.
+```{r, echo=TRUE, eval = TRUE}
+scm2.sum
+```
+
+As usual, we're going to want a summary plot. The backbone of this plot won't look quite the same as the previous one. You don't want confusing information on your plot so here it would be better to plot a blank backbone (ie a tree with just one colour of branch that doesn't match the colour of the traits) and represent the trait transitions as we did previously with pie charts. In this case the pies represent the proportion of histories in each state (1 or 0) at each node.
+```{r, echo = TRUE, eval = TRUE, fig.cap="Summary of 500 sampled discrete character histories showing the evolution of sexual swellings in macaques."}
+cols.null <- setNames(c("darkgrey", "darkgrey"), sort(unique(swelling)))
+plotSimmap(scm2[[1]], lwd = 3, pts = F, setEnv = T, colors = cols.null, offset = .6)
+nodelabels(pie = scm2.sum$ace, piecol = cols, cex = 0.6)
+add.simmap.legend(colors = cols, vertical = F, prompt = F, x = 0, y = 10, fsize = .8)
+tiplabels(pch = 21, bg = as.numeric(macaques$swelling)+1, cex = 2)
+```
+
+This analysis gives us a very similar output to the maximum likelihood analysis in the previous section. If you're intrested, give this analysis another try with different models of evolution.
+
+### 3-State Characters
+
+Stochastic character mapping can also be used for traits with more than one state. For example, burrowing in carnivores can be classified as 0 (no burrowing), 1 (use a burrow dug by another animal) or 2 (dig your own burrow).
+
+#### Data
+Let's load some data from a paper which investigated aposematism in terrestrial carnivores [@Stankowich11]. Don't forget to assign the species names to rownames to keep everything tidy while we manipulate the data. We also have a tree covering all carnivores [@Nyakatura12].
+```{r, echo=FALSE, eval = TRUE}
+carn.tree <- read.nexus("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/carnivores_tree.nex")
+carn.data <- read.table("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/carnivores_data.txt", header = T)
+rownames(carn.data) <- carn.data$Species
+```
+
+```{r, echo=TRUE, eval = FALSE}
+carn.tree <- read.nexus("carnivores_tree.nex")
+carn.data <- read.table("carnivores_data.txt", header = T)
+rownames(carn.data) <- carn.data$Species
+```
+
+If you look at the new object **carn.tree** you'll notice it is a multiPhylo object. This means it actually contains a number of trees rather than just one. For more details about this class of object, see chapter 3.
+
+For now, we just want the first one in the list (based on the best estimates used to date the tree). I'll also prune it a bit to get rid of some of the species I'm not interested in for now.
+```{r, echo=TRUE, eval = TRUE}
+carn.tree <- carn.tree[[1]]
+carn.tree <- extract.clade(carn.tree, node = "'123'")
+```
+
+Unlike the macaque data from earlier, the carnivore data needs a little more tidying. Now that you're more comfortable using R, you should make this standard practice whenever you load data and a tree for an analysis!
+
+We can use the function **name.check** in the package **geiger** to help us out here [@geiger]. This function returns two lists. The first contains all the species that appear in the phylogeny but not in the dataset. The second has the species that occur in the data but not in the tree.
+```{r, echo=TRUE, eval = TRUE, message=F, warning=F}
+geiger::name.check(phy = carn.tree, data = carn.data)
+```
+
+The easiest thing to do first is drop the tips from the tree that we're not interested in. We can pass the whole list to the **drop.tip** function in **ape** for this [@ape].
+```{r, echo=TRUE, eval = TRUE}
+carn.tree <- drop.tip(carn.tree, geiger::name.check(carn.tree, carn.data)$tree_not_data)
+geiger::name.check(carn.tree, carn.data)
+```
+
+Dropping species from your dataframe is a little more complex (and in truth not always necessary). One way of doing this is to create a **for loop** that will cycle through the list above and take a subset of the dataframe each time, removing the species in the list as it goes. There are better ways to do this but it might be helpful to become familiar with for loops which are a useful programming tool!
+```{r, echo=TRUE, eval = TRUE}
+pruned.data <- carn.data
+for(i in 1:length(geiger::name.check(carn.tree, carn.data)$data_not_tree)){
+  pruned.data <- subset(pruned.data, Species!=geiger::name.check(carn.tree, carn.data)$data_not_tree[i])
+}
+geiger::name.check(carn.tree, pruned.data)
+```
+
+Once your tree and data are cleaned up we're ready to go!
+
+#### Analysis
+
+As before we need to create a named vector for analysis.
+```{r, echo = TRUE, eval = TRUE}
+burrow<-pruned.data$Burrowing
+names(burrow)<-pruned.data$Species
+```
+
+```{r, echo=FALSE, eval = TRUE}
+burrow <- as.character(gsub("0", "No Burrowing", burrow))
+burrow <- as.character(gsub("2", "Dig a Burrow", burrow))
+burrow <- as.character(gsub("1", "Use existing Burrows", burrow))
+names(burrow)<-pruned.data$Species
+```
+
+Now we can sample a single history and plot it, this time with three colours!
+```{r, echo = TRUE, eval = TRUE, fig.height=10}
+scm3<-make.simmap(carn.tree, burrow, model="ER")
+cols <- setNames(c("blue", "red", "green"), sort(unique(burrow)))
+plotSimmap(scm3, cols, pts = FALSE, lwd = 2, fsize = 0.5)
+add.simmap.legend(colors = cols, vertical = TRUE, prompt = FALSE, x = 2, y = 80, fsize = 1.4, shape = "circle")
+```
+
+Let's sample 200 possible histories. This may take a few moments. For reports and publications, you should sample more than this. There's no hard rule but 1000 seems to be a good minimum for a proper analysis.
+```{r, echo = TRUE, eval = TRUE}
+scm4 <- make.simmap(carn.tree, burrow, model = "ER", nsim = 200)
+scm4.sum<-describe.simmap(scm4, plot = FALSE)
+scm4.sum
+```
+
+Finally we can plot the summary of the analysis as before.
+```{r, echo = FALSE, eval = TRUE, fig.align='center', fig.height=10}
+cols2 <- setNames(c("darkgrey", "darkgrey", "darkgrey"), sort(unique(burrow)))
+plotSimmap(scm4[[1]], cols2, lwd = 2, pts = F, setEnv = T, fsize = 0.5, offset = 1)
+nodelabels(pie = scm4.sum$ace, piecol = cols, cex = 0.6)
+add.simmap.legend(colors = cols, vertical = TRUE, prompt = FALSE, x = 2, y = 80, fsize = 1.4, shape = "circle")
+```
+
+## Further info
+
+For more information about ancestral state reconstruction check out a review of the method by Joy *et al*. [@Joy16] and chapter 3 of *The comparative approach in evolutionary anthropology and biology* [@Nunn11].
+
+For more information about the phytools package [@phytools], the package author Liam Revell maintains an excellent blog [here][phytools] where you'll find lots of useful tips and demonstrations of the package's capabilities as well as some helpful troubleshooting.
+
+[phytools]: http://blog.phytools.org/ "phytools"

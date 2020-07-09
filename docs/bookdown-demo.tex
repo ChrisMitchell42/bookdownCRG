@@ -109,6 +109,7 @@
 \setcounter{secnumdepth}{5}
 \usepackage{booktabs}
 \usepackage{amsthm}
+\usepackage{float}
 \makeatletter
 \def\thm@space@setup{%
   \thm@preskip=8pt plus 2pt minus 4pt
@@ -198,10 +199,13 @@ All living things exhibit a pattern of relatedness which depends on how much sha
 
 The best way of visualising this pattern of relatedness is with a phylogenetic tree.
 
-\begin{figure}
-\centering
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-4-1.pdf}
-\caption{\label{fig:unnamed-chunk-4}A cladogram of 42 cetacean species.}
+\begin{figure}[H]
+
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-4-1} 
+
+}
+
+\caption{A cladogram of 42 cetacean species.}\label{fig:unnamed-chunk-4}
 \end{figure}
 
 The extant species are displayed on the \textbf{tips} of the tree and are connected to each other according to the degree of relatedness by the \textbf{branches}. Figure 2.1 shows us the pattern of relatedness of 42 cetacean species. If we wanted to use these species in a comparative study to investigate the evolutionary history of the group, we would not have independent data points. This means that the assumptions of most statistical tests would be violated and we couldn't trust the results!
@@ -249,7 +253,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 41.97773
+[1] 41.94244
 \end{verbatim}
 
 \begin{Shaded}
@@ -259,7 +263,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 4.185262
+[1] 4.190698
 \end{verbatim}
 
 \hypertarget{plotting}{%
@@ -273,7 +277,7 @@ R is also a very flexible graphical tool. From LIFE223, you probably remember a 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-9-1.pdf}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-9-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -281,7 +285,7 @@ R is also a very flexible graphical tool. From LIFE223, you probably remember a 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-9-2.pdf}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-9-2} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -289,11 +293,11 @@ R is also a very flexible graphical tool. From LIFE223, you probably remember a 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-9-3.pdf}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-9-3} \end{center}
 
 For much of this book, I will actually be doing most plotting in a package called \textbf{ggplot2}. This package has a slightly different syntax to get used to but the increased flexibility you have will be a good payoff. Plus the plots look quite nice.
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-10-1.pdf}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 \hypertarget{the-working-directory}{%
 \subsection{The working directory}\label{the-working-directory}}
@@ -503,7 +507,7 @@ Things are often clearer when we plot them. We can do this for trees with the \t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-28-1.pdf}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
 This plot is fine for a quick check to make sure the tree looks as we expected it to. Let's look at making a more attractive plot with ggtree.
 
@@ -526,7 +530,7 @@ Geoms are new layers to plot on or alongside your tree. Now let's try plotting i
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-29-1.pdf}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-29-1} \end{center}
 
 And we can add a title
 
@@ -538,7 +542,7 @@ And we can add a title
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-30-1.pdf}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-30-1} \end{center}
 
 There are many geoms you can use to add more information to your plot. Here are just a few that you may want to investigate.
 
@@ -578,7 +582,7 @@ We can now use the \textbf{geom\_cladelabel} geom to add a simple label for the 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-33-1.pdf}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-33-1} \end{center}
 
 Pretty good but there are other options. This is a matter of personal preference. You may prefer to overlay a translucent rectangle over your clade of interest.
 
@@ -590,7 +594,7 @@ Pretty good but there are other options. This is a matter of personal preference
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-34-1.pdf}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-34-1} \end{center}
 
 Use the R window below to experiment with the available geoms in ggtree. Find a combination that suits you and your tree.
 
@@ -599,10 +603,13 @@ Use the R window below to experiment with the available geoms in ggtree. Find a 
 
 As you probably noted in chapter 3, adding images to a plot is an excellent way to annotate your tree. The ggtree package can do this as you can see here.
 
-\begin{figure}
-\centering
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-35-1.pdf}
-\caption{\label{fig:unnamed-chunk-35}Plot of cephalopod families annotated using ggtree and Phylopic.}
+\begin{figure}[H]
+
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-35-1} 
+
+}
+
+\caption{Plot of cephalopod families annotated using ggtree and Phylopic.}\label{fig:unnamed-chunk-35}
 \end{figure}
 
 This phylogeny is annotated in a number of useful ways. The tip labels describe cephalopod families. The superorders (octopodiformes and decapodiformes) are highlighted by gold and red rectangles as well as a bar across the tips. this demonstrates how multiple geoms can combine to make a plot easy to interpret.
@@ -631,7 +638,7 @@ Let's plot the new tree first. Here I'm assigning the plot to a named object (p1
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-38-1.pdf}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-38-1} \end{center}
 
 Let's use what we already know about ggtree to customise this plot into something more useful. In particular, this plot is quite useful because it tells us the numbers of each node and we will need that later on.
 
@@ -644,7 +651,7 @@ Let's use what we already know about ggtree to customise this plot into somethin
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-39-1.pdf}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-39-1} \end{center}
 
 Let's label the 6 primate superfamilies using the node numbers I have extracted from the previous plot. You can choose whatever colours you prefer here. I've also added some useful features to this code. the use of \textbf{xlim()} can be very useful when plotting a tree with some extra space for more details. Here I've set the limits of the x dimension (the horizontal) to be between 0 and 100. This gives me space for later annotations.
 
@@ -663,7 +670,7 @@ Let's label the 6 primate superfamilies using the node numbers I have extracted 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-40-1.pdf}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-40-1} \end{center}
 
 So far so good. Let's add on bars to label the superfamilies like I did for the cephalopod version. This time, I'll add the new details to the object p3 to save retyping. Take note of the arguments in each label. You may need to twist these with some trial-and-error to make sure they suit your plot window.
 
@@ -686,7 +693,7 @@ So far so good. Let's add on bars to label the superfamilies like I did for the 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-41-1.pdf}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-41-1} \end{center}
 
 There are some helpful details here, such as the fact that the label for Tarsioidea is off at an angle to avoid overlapping with other labels (\emph{angle = 75}). The extra arguments in these options demonstrate how much control you can exercise over each geom.
 
@@ -721,7 +728,7 @@ Once we have the urls we need in a nice dataframe, we can pipe them into the \te
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-44-1.pdf}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 As you can probably tell, the images don't have to be from Phylopic. You can use any images you have the rights to in exactly the same way!
 
@@ -735,6 +742,1551 @@ This chapter barely scratches the surface of what ggtree is capable of. For much
 \KeywordTok{vignette}\NormalTok{(}\StringTok{"ggtree"}\NormalTok{, }\DataTypeTok{package =} \StringTok{"ggtree"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{anova}{%
+\chapter{ANOVA}\label{anova}}
+
+Analysis of variance (ANOVA) is something you should recognise from your quantitative skills course. This chapter will begin with a brief recap before showing you how to perform phylogenetically corrected ANOVA.
+
+\hypertarget{analysis-of-variance}{%
+\section{Analysis of variance}\label{analysis-of-variance}}
+
+Analysis of variance asks if there are differences in the mean values between 3 or more categories. If there are only two categories (Terrestrial/Aquatic for example), then you need a t-test.
+
+In LIFE223 you analysed the results of an experiment in which corncrake hatchlings were raised on four different supplements in addition to their normal diet.
+
+\begin{verbatim}
+Warning: Ignoring unknown parameters: fun.y
+\end{verbatim}
+
+\begin{verbatim}
+No summary function supplied, defaulting to `mean_se()`
+\end{verbatim}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-48-1} 
+
+}
+
+\caption{Plot of weight gain in corncrake hatchlings reared on four different nutritional supplements and a control group. The mean and standard deviation of each group is plotted in blue. the mean weight gain across the entire sample is plotted in red.}\label{fig:unnamed-chunk-48}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corncrake.model \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(WeightGain }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{Supplement, }\DataTypeTok{data =}\NormalTok{ corncrake)}
+\KeywordTok{anova}\NormalTok{(corncrake.model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Analysis of Variance Table
+
+Response: WeightGain
+           Df Sum Sq Mean Sq F value   Pr(>F)   
+Supplement  4 357.65  89.413  5.1281 0.002331 **
+Residuals  35 610.25  17.436                    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+The one-way ANOVA shows that there was a significant effect of supplement on the weight gain of the corncrake hatchlings (F = 5.1, df = 4, 35, p \textless{} 0.01). The final step is to perform our multiple comparisons test.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corncrake.aov \textless{}{-}}\StringTok{ }\KeywordTok{aov}\NormalTok{(corncrake.model)}
+\KeywordTok{TukeyHSD}\NormalTok{(corncrake.aov, }\DataTypeTok{ordered =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  Tukey multiple comparisons of means
+    95% family-wise confidence level
+    factor levels have been ordered
+
+Fit: aov(formula = corncrake.model)
+
+$Supplement
+                    diff       lwr       upr     p adj
+None-Allvit        1.375 -4.627565  7.377565 0.9638453
+Linseed-Allvit     4.250 -1.752565 10.252565 0.2707790
+Sizefast-Allvit    4.750 -1.252565 10.752565 0.1771593
+Earlybird-Allvit   8.625  2.622435 14.627565 0.0018764
+Linseed-None       2.875 -3.127565  8.877565 0.6459410
+Sizefast-None      3.375 -2.627565  9.377565 0.4971994
+Earlybird-None     7.250  1.247435 13.252565 0.0113786
+Sizefast-Linseed   0.500 -5.502565  6.502565 0.9992352
+Earlybird-Linseed  4.375 -1.627565 10.377565 0.2447264
+Earlybird-Sizefast 3.875 -2.127565  9.877565 0.3592201
+\end{verbatim}
+
+The \textbf{TukeyHSD} functions shows us the pairwise comparisons between groups. We can see (for example) that \emph{Allvit} was not significantly different from the control (difference = 1.375g, p = 0.96) but \emph{Earlybird} was significantly better than the control group (difference = 7.25g, p = 0.01).
+
+\hypertarget{phylogenetic-correction}{%
+\section{Phylogenetic correction}\label{phylogenetic-correction}}
+
+As you know, when trying to run a similar analysis on non-independent data (such as species) we will run into problems. Garland \emph{et al} \citeyearpar{garland93} developed a simulation based approach to solve this problem. The phylogenetic ANOVA uses computer simulations of traits evolving the phylogenetic tree. The next section contains some example data and a phylogeny to demonstrate the method.
+
+\hypertarget{example-data-analysis}{%
+\section{Example data \& analysis}\label{example-data-analysis}}
+
+The data we're using is taken from the package geiger \citep{geiger} so make sure the package is installed and loaded.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"geiger"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(geiger)}
+\end{Highlighting}
+\end{Shaded}
+
+Load the data as follows. The tree and data are stored together so we'll need to save the to separate objects called \textbf{dat} and \textbf{phy}. You probably don't \emph{need} to do this but this is more similar to what you're likely to see when using your own data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(}\StringTok{"geospiza"}\NormalTok{)}
+\NormalTok{dat \textless{}{-}}\StringTok{ }\NormalTok{geospiza}\OperatorTok{$}\NormalTok{dat}
+\NormalTok{tree \textless{}{-}}\StringTok{ }\NormalTok{geospiza}\OperatorTok{$}\NormalTok{phy}
+\KeywordTok{head}\NormalTok{(dat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                wingL  tarsusL  culmenL    beakD   gonysW
+magnirostris 4.404200 3.038950 2.724667 2.823767 2.675983
+conirostris  4.349867 2.984200 2.654400 2.513800 2.360167
+difficilis   4.224067 2.898917 2.277183 2.011100 1.929983
+scandens     4.261222 2.929033 2.621789 2.144700 2.036944
+fortis       4.244008 2.894717 2.407025 2.362658 2.221867
+fuliginosa   4.132957 2.806514 2.094971 1.941157 1.845379
+\end{verbatim}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-54-1} 
+
+}
+
+\caption{Phylogeny of the species contained within the 'geospiza' dataset of the package geiger.}\label{fig:unnamed-chunk-54}
+\end{figure}
+
+We need to start by defining the categories for the data. It is likely that you will have already done this in your data frame. If so, just make sure the groups are stored as a factor. In this case, we'll just create some random categories to work with for the example.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{groups \textless{}{-}}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"A"}\NormalTok{, }\DecValTok{4}\NormalTok{), }\KeywordTok{rep}\NormalTok{(}\StringTok{"B"}\NormalTok{, }\DecValTok{5}\NormalTok{), }\KeywordTok{rep}\NormalTok{(}\StringTok{"C"}\NormalTok{, }\DecValTok{4}\NormalTok{)))}
+\KeywordTok{names}\NormalTok{(groups) \textless{}{-}}\StringTok{ }\KeywordTok{rownames}\NormalTok{(dat)}
+\end{Highlighting}
+\end{Shaded}
+
+An important step here (and for every phylogenetic analysis) is making sure the tree and data can be compared. To do this, we should make sure that the rownames of the data are species names and not just numbers. In this case they already are but if they aren't for you data, you can use the following code.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rownames}\NormalTok{(data) \textless{}{-}}\StringTok{ }\NormalTok{data}\OperatorTok{$}\NormalTok{SPECIES }\CommentTok{\#the column with species names in the data}
+\end{Highlighting}
+\end{Shaded}
+
+The geiger package has a very useful function called \textbf{name.check} to allow us to check that the rownames of our data match the tip labels of our tree.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{name.check}\NormalTok{(tree, dat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$tree_not_data
+[1] "olivacea"
+
+$data_not_tree
+character(0)
+\end{verbatim}
+
+We can see that \emph{olivacea} is not in our data. For some analyses, mismatches like this are a problem and you will need to drop the tip from the tree. It actually doesn't matter here because the function we will be using can drop it automatically for us. However, let's see how it's done. Note the use of the function \textbf{drop.tip} from the package \textbf{ape} \citep{ape} which is an essential package to have for this kind of work!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tree \textless{}{-}}\StringTok{ }\NormalTok{ape}\OperatorTok{::}\KeywordTok{drop.tip}\NormalTok{(tree, }\DataTypeTok{tip =} \StringTok{"olivacea"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Now we have overwritten the old tree with our pruned tree. Let's check the new one matches the data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{name.check}\NormalTok{(tree, dat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "OK"
+\end{verbatim}
+
+All that's left now is to run the analysis. First we extract the column of interest from our data and then simply use the function \textbf{aov.phylo}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d1 \textless{}{-}}\StringTok{ }\NormalTok{dat[,}\DecValTok{1}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+You should notice some similarities and differences from the way you have run ANOVA before. We are still using a formula (the part with \(\sim\)) but not in a separate \textbf{lm} function. We need to specify the tree we want to use (\textbf{tree}) and also how many simulations we want to run. There isn't a firm rule about this but general convention is around 1000 when sampling/bootstrapping/simulations are involved.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x \textless{}{-}}\StringTok{ }\KeywordTok{aov.phylo}\NormalTok{(d1 }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{groups, }\DataTypeTok{phy =}\NormalTok{ tree, }\DataTypeTok{nsim =} \DecValTok{1000}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Analysis of Variance Table
+
+Response: dat
+          Df   Sum-Sq  Mean-Sq F-value  Pr(>F) Pr(>F) given phy
+group      2 0.063237 0.031619  3.0067 0.09497           0.1538
+Residuals 10 0.105161 0.010516                                 
+\end{verbatim}
+
+The results table should be very familiar! The only real difference here is that you have been provided with two p-values. The first (\emph{Pr(\textgreater F)}) is the p-value without accounting for phylogeny and the second (\emph{Pr(\textgreater F) given phy}) is the value when we account for phylogeny. In both cases, there is no significant difference between groups.
+
+As you can see, accounting for phylogeny \emph{usually} raises the p-value (makes it less significant). This shows us that not accounting for phylogeny increases the risk of type I errors (false positives).
+
+\hypertarget{further-info-1}{%
+\section{Further info}\label{further-info-1}}
+
+For further information about the phylogenetic ANOVA, you can read the original paper by Garland \emph{et al} \citeyearpar{garland93}.
+
+\hypertarget{asr1}{%
+\chapter{Ancestral State Reconstruction I}\label{asr1}}
+
+This chapter will take you through the code we can use to run ancestral state reconstruction with \textbf{categorical} characters. As always, remember to begin by setting your working directory to wherever you have saved the data files.
+
+\hypertarget{data}{%
+\section{Data}\label{data}}
+
+The first thing we need to do is load some data. When you're doing this, you need to keep in mind that you should keep your workspace as well organised as possible. In practice, this means giving things good names. ``RicksDataV1.1'' is not a great name depending on how many datasets you want in there. Neither is ``data1'' if you plan on having multiple datasets (which we do). So give your data object, and all other objects, simple, useful names. My personal preference is to use the name of the group but whatever works is fine. You need to be able to keep track of everything.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{macaques \textless{}{-}}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"macaque\_data.txt"}\NormalTok{, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+In your environment panel there should be a data frame with 16 observations of 2 variables. This command will show us the top 6 rows of data. It's helpful to have a quick look and see R has loaded what we expected. In this case our data contains 15 species of macaque and one species of baboon alongside data regarding whether they exhibit sexual swellings or not (1/0).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{head}\NormalTok{(macaques)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+              species swelling
+1    Macaca_arctoides        0
+2   Macaca_assamensis        0
+3     Macaca_cyclopis        1
+4 Macaca_fascicularis        1
+5      Macaca_fuscata        1
+6        Macaca_maura        1
+\end{verbatim}
+
+\hypertarget{trees}{%
+\section{Trees}\label{trees}}
+
+Now we need to load the tree using the \textbf{read.nexus} function in the package \textbf{ape} \citep{ape}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{macaque.tree \textless{}{-}}\StringTok{ }\KeywordTok{read.nexus}\NormalTok{(}\StringTok{"macaque\_tree.nex"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Let's plot the tree to make sure it loaded correctly. I've used base graphics here rather than ggtree (annotated to let you know what it does). Feel free to have a mess around with these options so you get a feel for what they do. The second function ``tiplabels'' adds some extra tip labels containing the data from the second column of our macaque data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(macaque.tree,        }\CommentTok{\#Tree object}
+     \DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{,           }\CommentTok{\#Font size for tip labels}
+     \DataTypeTok{label.offset =} \FloatTok{0.3}\NormalTok{,  }\CommentTok{\#Create a space between tip and label}
+     \DataTypeTok{edge.color =} \StringTok{"blue"}\NormalTok{, }\CommentTok{\#Paint the branches blue}
+     \DataTypeTok{edge.width =} \DecValTok{2}\NormalTok{)      }\CommentTok{\#Make the branches thicker}
+\KeywordTok{tiplabels}\NormalTok{(macaques[,}\DecValTok{2}\NormalTok{], }\DataTypeTok{bg =} \StringTok{"white"}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-68-1} \end{center}
+
+\hypertarget{parsimony}{%
+\section{Parsimony}\label{parsimony}}
+
+Let's first generate the most parsimonious reconstruction of the history of this trait. Remember that the most parsimonious history is the one that has the fewest evolutionary transitions. Parsimony is conceptually based upon Occam's razor which states that all else being equal, the simplest explanantion is always the correct one.
+
+The function for this is \textbf{MPR}. It takes an unrooted tree and asks you to specify the root. In our case, we'll have to unroot our tree and then re-root it by specifying that \emph{Papio anubis} is our outgroup.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mp1 \textless{}{-}}\StringTok{ }\KeywordTok{MPR}\NormalTok{(macaques[,}\DecValTok{2}\NormalTok{], }\KeywordTok{unroot}\NormalTok{(macaque.tree), }\StringTok{"Papio\_anubis"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+When we investigate mp1, we can see a list of results matched up to numbered nodes on the tree. Some nodes are clearly in state 1 and others in state 0. Interestingly some are indeterminate and could be either 0 or 1 such as nodes 19 and 20.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mp1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   lower upper
+17     1     1
+18     1     1
+19     0     1
+20     0     1
+21     1     1
+22     1     1
+23     1     1
+24     0     0
+25     0     0
+26     0     0
+27     1     1
+28     1     1
+29     1     1
+30     1     1
+\end{verbatim}
+
+To get an idea of what this means, we should plot it on the tree. This loop cycles through our results list and combines the lower and upper estimates for each node into a text string that we can then overlay onto that node.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mp.nodes \textless{}{-}}\StringTok{ }\KeywordTok{numeric}\NormalTok{(}\DecValTok{0}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(mp1[,}\DecValTok{1}\NormalTok{]))\{}
+\NormalTok{  mp.nodes \textless{}{-}}\StringTok{ }\KeywordTok{append}\NormalTok{(mp.nodes, }\KeywordTok{paste}\NormalTok{(mp1[i,}\DecValTok{1}\NormalTok{], }\StringTok{","}\NormalTok{, mp1[i,}\DecValTok{2}\NormalTok{]))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Once we've done that we can plot those expressions onto the tree with the function nodelabels.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(macaque.tree, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{, }\DataTypeTok{label.offset =} \FloatTok{0.3}\NormalTok{,}
+     \DataTypeTok{edge.color =} \StringTok{"blue"}\NormalTok{, }\DataTypeTok{edge.width =} \DecValTok{2}\NormalTok{)      }
+\KeywordTok{tiplabels}\NormalTok{(macaques[,}\DecValTok{2}\NormalTok{], }\DataTypeTok{bg =} \StringTok{"white"}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{)}
+\KeywordTok{nodelabels}\NormalTok{(mp.nodes, }\KeywordTok{c}\NormalTok{(}\DecValTok{18}\OperatorTok{:}\DecValTok{31}\NormalTok{), }\DataTypeTok{bg =} \StringTok{"white"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-72-1} \end{center}
+
+You should note that this isn't a very good plot! There are better ways to represent this information with a little code manipulation. Here's a version using \textbf{ggtree} that plots the character states as points on the tips and the reconstructed nodes.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-73-1} 
+
+}
+
+\caption{Maximum parsimony reconstruction of the evolution of conspicuous sexual swellings in macaques}\label{fig:unnamed-chunk-73}
+\end{figure}
+
+As you can see, the uncertainty in some nodes comes from the fact that there seems to be at least two equally parsimonious histories with gains and losses ocurring in different places. For any serious analysis, this is a highly unsatisfactory outcome!
+
+\hypertarget{maximum-likelihood}{%
+\section{Maximum Likelihood}\label{maximum-likelihood}}
+
+Let's try a different approach. Maximum likelihood is different from parsimony for many reasons but most significantly, it can make use of branch length information. This is very useful in discriminating between possible histories. A longer branch means more evolutionary change (either in time or character change) and so transitions are more likely to occur on longer branches.
+
+Let's replot the tree. Here I've changed the tiplabels function to plot the character states as colours rather than numbers. The \textbf{bg} argument is what lets me do this. In this argument I list the states (adding 1 because the first is 0) and then the function passes those states to R to assign colours based on a numbered list of standard colours.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(macaque.tree, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{, }\DataTypeTok{label.offset =} \FloatTok{0.4}\NormalTok{, }\DataTypeTok{edge.width =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{tiplabels}\NormalTok{(}\DataTypeTok{pch =} \DecValTok{21}\NormalTok{, }\DataTypeTok{bg =} \KeywordTok{as.numeric}\NormalTok{(macaques}\OperatorTok{$}\NormalTok{swelling)}\OperatorTok{+}\DecValTok{1}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{1.7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-74-1} \end{center}
+
+To run an ancestral state reconstruction using maximum likelihood we can use the function \textbf{ace} (ancestral character estimation) in the ape package \citep{ape}. In our first reconstruction, we will make the assumption that the rate of evolution of the trait is equal across the tree by setting the model to \emph{ER} (equal rates).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m1 \textless{}{-}}\StringTok{ }\KeywordTok{ace}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ macaques}\OperatorTok{$}\NormalTok{swelling,  }\CommentTok{\#trait data}
+          \DataTypeTok{phy =}\NormalTok{ macaque.tree,     }\CommentTok{\#phylogeny}
+          \DataTypeTok{method =} \StringTok{"ML"}\NormalTok{,          }\CommentTok{\#method (Maximum likelihood)}
+          \DataTypeTok{type =} \StringTok{"discrete"}\NormalTok{,      }\CommentTok{\#type of data (continuous or discrete)}
+          \DataTypeTok{model =} \StringTok{"ER"}\NormalTok{)           }\CommentTok{\#Model of evolution}
+\NormalTok{m1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    Ancestral Character Estimation
+
+Call: ace(x = macaques$swelling, phy = macaque.tree, type = "discrete", 
+    method = "ML", model = "ER")
+
+    Log-likelihood: -6.906593 
+
+Rate index matrix:
+  0 1
+0 . 1
+1 1 .
+
+Parameter estimates:
+ rate index estimate std-err
+          1   0.0319  0.0191
+
+Scaled likelihoods at the root (type '...$lik.anc' to get them for all nodes):
+         0          1 
+0.08625654 0.91374346 
+\end{verbatim}
+
+Looking at the results shows us the likelihood at the root (91\% in favour of state 1 here). However, it's always best to plot the results. We can represent the likelihoods at each node with a piechart. Generally speaking, piecharts are awful but when used in this way, they can actually add useful information to a plot and that's the most important point about plotting any data. In this plot, the piecharts represent the probability that each node exhibited sexual swelling (red) or concealed estrus (black). We can see that the two uncertain nodes from our parsimony analysis are now more certain. Visual inspection shows that these nodes have a greater tha 75\% probability of having exhibited sexual swellings.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(macaque.tree, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{, }\DataTypeTok{label.offset =} \FloatTok{0.4}\NormalTok{, }\DataTypeTok{edge.width =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{tiplabels}\NormalTok{(}\DataTypeTok{pch =} \DecValTok{21}\NormalTok{, }\DataTypeTok{bg =} \KeywordTok{as.numeric}\NormalTok{(macaques}\OperatorTok{$}\NormalTok{swelling)}\OperatorTok{+}\DecValTok{1}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{1.7}\NormalTok{)}
+\KeywordTok{nodelabels}\NormalTok{(}\DataTypeTok{pie =}\NormalTok{ m1}\OperatorTok{$}\NormalTok{lik.anc, }\DataTypeTok{piecol =} \KeywordTok{c}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\StringTok{"red"}\NormalTok{), }\DataTypeTok{cex =} \FloatTok{0.8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can run a similar analysis but let's assume that rates of evolution can vary by setting model to \textbf{ARD} (All Rates Different).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m2 \textless{}{-}}\StringTok{ }\KeywordTok{ace}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ macaques}\OperatorTok{$}\NormalTok{swelling, }\DataTypeTok{phy =}\NormalTok{ macaque.tree,}
+          \DataTypeTok{method =} \StringTok{"ML"}\NormalTok{, }\DataTypeTok{type =} \StringTok{"discrete"}\NormalTok{, }\DataTypeTok{model =} \StringTok{"ARD"}\NormalTok{)}
+
+\KeywordTok{plot}\NormalTok{(macaque.tree, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{, }\DataTypeTok{label.offset =} \FloatTok{0.4}\NormalTok{, }\DataTypeTok{edge.width =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{tiplabels}\NormalTok{(}\DataTypeTok{pch =} \DecValTok{21}\NormalTok{, }\DataTypeTok{bg =} \KeywordTok{as.numeric}\NormalTok{(macaques}\OperatorTok{$}\NormalTok{swelling)}\OperatorTok{+}\DecValTok{1}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{1.7}\NormalTok{)}
+\KeywordTok{nodelabels}\NormalTok{(}\DataTypeTok{pie =}\NormalTok{ m2}\OperatorTok{$}\NormalTok{lik.anc, }\DataTypeTok{piecol =} \KeywordTok{c}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\StringTok{"red"}\NormalTok{), }\DataTypeTok{cex =} \FloatTok{0.8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-77-1} \end{center}
+
+As you can see, the different model of evolution makes a big difference to the results. Which model you choose to use depends on which assumptions you think are justified. Is it fair to assume that the rate of evolution of conspicuous sexual swelling would be constant across the tree as in the equal rates model?
+
+\hypertarget{stochastic-character-mapping}{%
+\section{Stochastic Character Mapping}\label{stochastic-character-mapping}}
+
+Stochastic character mapping uses an \textbf{MCMC} (Markov chain Monte-Carlo) approach to sample possible reconstructions from a posterior probability distribution.
+
+Think of the posterior probability distribution as containing all the possible evolutionary histories of the trait in question. This includes some histories in which everything was in one state right up until a few generations from the present when everything swapped around at the same time to give us the distribution we see today. It also contains a history in which the trait switches between 0 and 1 every other generation essentially at random.
+
+Obviously these kind of histories are biologically absurd but not mathematically impossible. They have low statistical probability. Certain other histories will have a high statistical probability and so there will be many similar histories in the distribution. The distribution can be thought of as a histogram with some parameter that defines each particular history.
+
+\hypertarget{an-analogy}{%
+\subsection{An Analogy}\label{an-analogy}}
+
+Let's say that we were to plot the entire multiverse as such a distribution using the evil tendencies of one particular occupant (Rick Sanchez) of the multiverse as our parameter. All the different Ricks in all the different universes will vary in their evil tendencies. But overall, Rick's character is actually a nihilist meaning his mean evilness is around 0 when taken over the whole multiverse. Given all this, the posterior distribution of evil Ricks in the multiverse might look like this.
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-78-1} \end{center}
+
+MCMC samples this distribution of histories in a chain. If a history has a higher likelihood than the previous sampling, it is accepted. If it is lower then it is rejected from the sample. In this way, MCMC quickly narrows down the possibilities and gives us a sample of quite likely histories.
+
+\hypertarget{state-characters}{%
+\subsection{2-State Characters}\label{state-characters}}
+
+Let's see it in action. We'll need the \textbf{phytools} package \citep{phytools} to create our stochastic character map.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(phytools)}
+\end{Highlighting}
+\end{Shaded}
+
+For this analysis (like other phytools functions) we'll need our data in a named vector rather than a data table. Let's call it swelling. The \textbf{names} function attaches the species name to each value in our new vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{swelling \textless{}{-}}\StringTok{ }\NormalTok{macaques}\OperatorTok{$}\NormalTok{swelling}
+\KeywordTok{names}\NormalTok{(swelling) \textless{}{-}}\StringTok{ }\NormalTok{macaques}\OperatorTok{$}\NormalTok{species}
+\NormalTok{swelling}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   Macaca_arctoides   Macaca_assamensis     Macaca_cyclopis Macaca_fascicularis 
+                  0                   0                   1                   1 
+     Macaca_fuscata        Macaca_maura      Macaca_mulatta   Macaca_nemestrina 
+                  1                   1                   1                   1 
+       Macaca_nigra      Macaca_radiata      Macaca_silenus       Macaca_sinica 
+                  1                   0                   1                   0 
+    Macaca_sylvanus    Macaca_thibetana     Macaca_tonkeana        Papio_anubis 
+                  1                   0                   1                   1 
+\end{verbatim}
+
+Now we can sample character histories assuming an \emph{equal rates} model of evolution using the \textbf{make.simmap} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scm1 \textless{}{-}}\StringTok{ }\KeywordTok{make.simmap}\NormalTok{(macaque.tree, }\DataTypeTok{x =}\NormalTok{ swelling, }\DataTypeTok{model =} \StringTok{"ER"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+make.simmap is sampling character histories conditioned on the transition matrix
+
+Q =
+            0           1
+0 -0.03185011  0.03185011
+1  0.03185011 -0.03185011
+(estimated using likelihood);
+and (mean) root node prior probabilities
+pi =
+  0   1 
+0.5 0.5 
+\end{verbatim}
+
+\begin{verbatim}
+Done.
+\end{verbatim}
+
+Q here is the matrix of transition rates which we have constrained to be equal (model = ``ER'') which explains why the numbers match. As usual with reconstructions, the best thing is to plot them. Here we can use the phytools function \textbf{plotSimmap} to plot the special object we've created. It even has a companion function to add a legend. The first line here assigns colours to the traits.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cols \textless{}{-}}\StringTok{ }\KeywordTok{setNames}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\StringTok{"red"}\NormalTok{), }\KeywordTok{sort}\NormalTok{(}\KeywordTok{unique}\NormalTok{(swelling)))}
+\KeywordTok{plotSimmap}\NormalTok{(scm1, cols, }\DataTypeTok{pts =}\NormalTok{ F, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{, }\DataTypeTok{fsize =} \FloatTok{.8}\NormalTok{)}
+\KeywordTok{add.simmap.legend}\NormalTok{(}\DataTypeTok{colors =}\NormalTok{ cols, }\DataTypeTok{vertical =}\NormalTok{ F, }\DataTypeTok{prompt =}\NormalTok{ F, }\DataTypeTok{x =} \DecValTok{0}\NormalTok{, }\DataTypeTok{y =} \DecValTok{10}\NormalTok{, }\DataTypeTok{fsize =} \FloatTok{.8}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-83-1} 
+
+}
+
+\caption{Simmap showing a single possible evolutionary history of sexual swelling in macaques.}\label{fig:unnamed-chunk-83}
+\end{figure}
+
+Here you can see the single history we have sampled (yours will likely differ). The history contains branches painted according to the trait colour we specified and the position of the transitions on the branch mark the exact position the changes are theorised to have taken place. This is an awful lot of certainty for an ancestral state reconstruction! You should note that the one plotted here is very odd. It says that the ancestor of the group had concealed estrus and then this trait was lost 3 times independently, leaving no trace in the extant species. Given the data and tree we provided, it is hard to see how we can have any confidence in this reconstruction. What evidence have we collected that actually supports this?
+
+However, we need to remember that this only one of the many possible histories! Our next step should be to extract a reasonable sample of these histories!
+
+Let's sample 500 and when R has done that, we can use \textbf{describe.simmap} to summarize the sample.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scm2 \textless{}{-}}\StringTok{ }\KeywordTok{make.simmap}\NormalTok{(macaque.tree, swelling, }\DataTypeTok{model =} \StringTok{"ER"}\NormalTok{, }\DataTypeTok{nsim =} \DecValTok{500}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+make.simmap is sampling character histories conditioned on the transition matrix
+
+Q =
+            0           1
+0 -0.03185011  0.03185011
+1  0.03185011 -0.03185011
+(estimated using likelihood);
+and (mean) root node prior probabilities
+pi =
+  0   1 
+0.5 0.5 
+\end{verbatim}
+
+\begin{verbatim}
+Done.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scm2.sum \textless{}{-}}\StringTok{ }\KeywordTok{describe.simmap}\NormalTok{(scm2, }\DataTypeTok{plot =} \OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+When we call up the summary, we can see some interesting details about our sample. It seems to be saying that transitions from 1 to 0 (a loss of sexual swelling) happen more frequently than gains of sexual swelling.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scm2.sum}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+500 trees with a mapped discrete character with states:
+ 0, 1 
+
+trees have 2.872 changes between states on average
+
+changes are of the following types:
+       0,1   1,0
+x->y 0.758 2.114
+
+mean total time spent in each state is:
+              0          1   total
+raw  17.6835904 71.4988096 89.1824
+prop  0.1982857  0.8017143  1.0000
+\end{verbatim}
+
+As usual, we're going to want a summary plot. The backbone of this plot won't look quite the same as the previous one. You don't want confusing information on your plot so here it would be better to plot a blank backbone (ie a tree with just one colour of branch that doesn't match the colour of the traits) and represent the trait transitions as we did previously with pie charts. In this case the pies represent the proportion of histories in each state (1 or 0) at each node.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cols.null \textless{}{-}}\StringTok{ }\KeywordTok{setNames}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"darkgrey"}\NormalTok{, }\StringTok{"darkgrey"}\NormalTok{), }\KeywordTok{sort}\NormalTok{(}\KeywordTok{unique}\NormalTok{(swelling)))}
+\KeywordTok{plotSimmap}\NormalTok{(scm2[[}\DecValTok{1}\NormalTok{]], }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{, }\DataTypeTok{pts =}\NormalTok{ F, }\DataTypeTok{setEnv =}\NormalTok{ T, }\DataTypeTok{colors =}\NormalTok{ cols.null, }\DataTypeTok{offset =} \FloatTok{.6}\NormalTok{)}
+\KeywordTok{nodelabels}\NormalTok{(}\DataTypeTok{pie =}\NormalTok{ scm2.sum}\OperatorTok{$}\NormalTok{ace, }\DataTypeTok{piecol =}\NormalTok{ cols, }\DataTypeTok{cex =} \FloatTok{0.6}\NormalTok{)}
+\KeywordTok{add.simmap.legend}\NormalTok{(}\DataTypeTok{colors =}\NormalTok{ cols, }\DataTypeTok{vertical =}\NormalTok{ F, }\DataTypeTok{prompt =}\NormalTok{ F, }\DataTypeTok{x =} \DecValTok{0}\NormalTok{, }\DataTypeTok{y =} \DecValTok{10}\NormalTok{, }\DataTypeTok{fsize =} \FloatTok{.8}\NormalTok{)}
+\KeywordTok{tiplabels}\NormalTok{(}\DataTypeTok{pch =} \DecValTok{21}\NormalTok{, }\DataTypeTok{bg =} \KeywordTok{as.numeric}\NormalTok{(macaques}\OperatorTok{$}\NormalTok{swelling)}\OperatorTok{+}\DecValTok{1}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-86-1} 
+
+}
+
+\caption{Summary of 500 sampled discrete character histories showing the evolution of sexual swellings in macaques.}\label{fig:unnamed-chunk-86}
+\end{figure}
+
+This analysis gives us a very similar output to the maximum likelihood analysis in the previous section. If you're intrested, give this analysis another try with different models of evolution.
+
+\hypertarget{state-characters-1}{%
+\subsection{3-State Characters}\label{state-characters-1}}
+
+Stochastic character mapping can also be used for traits with more than one state. For example, burrowing in carnivores can be classified as 0 (no burrowing), 1 (use a burrow dug by another animal) or 2 (dig your own burrow).
+
+\hypertarget{data-1}{%
+\subsubsection{Data}\label{data-1}}
+
+Let's load some data from a paper which investigated aposematism in terrestrial carnivores \citep{Stankowich11}. Don't forget to assign the species names to rownames to keep everything tidy while we manipulate the data. We also have a tree covering all carnivores \citep{Nyakatura12}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{carn.tree \textless{}{-}}\StringTok{ }\KeywordTok{read.nexus}\NormalTok{(}\StringTok{"carnivores\_tree.nex"}\NormalTok{)}
+\NormalTok{carn.data \textless{}{-}}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"carnivores\_data.txt"}\NormalTok{, }\DataTypeTok{header =}\NormalTok{ T)}
+\KeywordTok{rownames}\NormalTok{(carn.data) \textless{}{-}}\StringTok{ }\NormalTok{carn.data}\OperatorTok{$}\NormalTok{Species}
+\end{Highlighting}
+\end{Shaded}
+
+If you look at the new object \textbf{carn.tree} you'll notice it is a multiPhylo object. This means it actually contains a number of trees rather than just one. For more details about this class of object, see chapter 3.
+
+For now, we just want the first one in the list (based on the best estimates used to date the tree). I'll also prune it a bit to get rid of some of the species I'm not interested in for now.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{carn.tree \textless{}{-}}\StringTok{ }\NormalTok{carn.tree[[}\DecValTok{1}\NormalTok{]]}
+\NormalTok{carn.tree \textless{}{-}}\StringTok{ }\KeywordTok{extract.clade}\NormalTok{(carn.tree, }\DataTypeTok{node =} \StringTok{"\textquotesingle{}123\textquotesingle{}"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Unlike the macaque data from earlier, the carnivore data needs a little more tidying. Now that you're more comfortable using R, you should make this standard practice whenever you load data and a tree for an analysis!
+
+We can use the function \textbf{name.check} in the package \textbf{geiger} to help us out here \citep{geiger}. This function returns two lists. The first contains all the species that appear in the phylogeny but not in the dataset. The second has the species that occur in the data but not in the tree.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{geiger}\OperatorTok{::}\KeywordTok{name.check}\NormalTok{(}\DataTypeTok{phy =}\NormalTok{ carn.tree, }\DataTypeTok{data =}\NormalTok{ carn.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$tree_not_data
+ [1] "Arctocephalus_australis"     "Arctocephalus_forsteri"     
+ [3] "Arctocephalus_galapagoensis" "Arctocephalus_gazella"      
+ [5] "Arctocephalus_philippii"     "Arctocephalus_pusillus"     
+ [7] "Arctocephalus_townsendi"     "Arctocephalus_tropicalis"   
+ [9] "Bassaricyon_alleni"          "Bassaricyon_beddardi"       
+[11] "Bassaricyon_lasius"          "Bassaricyon_pauli"          
+[13] "Callorhinus_ursinus"         "Conepatus_chinga"           
+[15] "Conepatus_humboldtii"        "Conepatus_semistriatus"     
+[17] "Cystophora_cristata"         "Dusicyon_australis"         
+[19] "Erignathus_barbatus"         "Eumetopias_jubatus"         
+[21] "Halichoerus_grypus"          "Histriophoca_fasciata"      
+[23] "Hydrurga_leptonyx"           "Leptonychotes_weddellii"    
+[25] "Lobodon_carcinophaga"        "Lontra_provocax"            
+[27] "Lutra_nippon"                "Lutra_sumatrana"            
+[29] "Lycalopex_fulvipes"          "Lycalopex_griseus"          
+[31] "Lycalopex_gymnocercus"       "Lycalopex_sechurae"         
+[33] "Lyncodon_patagonicus"        "Martes_gwatkinsii"          
+[35] "Meles_anakuma"               "Meles_leucurus"             
+[37] "Melogale_everetti"           "Melogale_orientalis"        
+[39] "Melogale_personata"          "Mirounga_angustirostris"    
+[41] "Mirounga_leonina"            "Monachus_monachus"          
+[43] "Monachus_schauinslandi"      "Monachus_tropicalis"        
+[45] "Mustela_felipei"             "Mustela_itatsi"             
+[47] "Mustela_kathiah"             "Mustela_lutreolina"         
+[49] "Mustela_nudipes"             "Mustela_strigidorsa"        
+[51] "Mustela_subpalmata"          "Nasuella_olivacea"          
+[53] "Neophoca_cinerea"            "Neovison_macrodon"          
+[55] "Odobenus_rosmarus"           "Ommatophoca_rossii"         
+[57] "Otaria_flavescens"           "Pagophilus_groenlandicus"   
+[59] "Phoca_largha"                "Phoca_vitulina"             
+[61] "Phocarctos_hookeri"          "Procyon_pygmaeus"           
+[63] "Pusa_caspica"                "Pusa_hispida"               
+[65] "Pusa_sibirica"               "Spilogale_angustifrons"     
+[67] "Urocyon_littoralis"          "Vulpes_bengalensis"         
+[69] "Vulpes_ferrilata"            "Zalophus_californianus"     
+[71] "Zalophus_japonicus"          "Zalophus_wollebaeki"        
+
+$data_not_tree
+ [1] "Acinonyx_jubatus"             "Arctictis_binturong"         
+ [3] "Arctogalidia_trivirgata"      "Atilax_paludinosus"          
+ [5] "Bdeogale_crassicauda"         "Caracal_caracal"             
+ [7] "Catopuma_temminckii"          "Chrotogale_owstoni"          
+ [9] "Civettictis_civetta"          "Crocuta_crocuta"             
+[11] "Crossarchus_obscurus"         "Cryptoprocta_ferox"          
+[13] "Cynictis_penicillata"         "Cynogale_bennettii"          
+[15] "Dologale_dybowskii"           "Eupleres_goudotii"           
+[17] "Felis_chaus"                  "Felis_manul"                 
+[19] "Felis_margarita"              "Felis_nigripes"              
+[21] "Felis_silvestris"             "Fossa_fossana"               
+[23] "Galerella_sanguinea"          "Galidia_elegans"             
+[25] "Genetta_abyssinica"           "Genetta_angolensis"          
+[27] "Genetta_genetta"              "Genetta_servalina"           
+[29] "Genetta_thierryi"             "Helogale_parvula"            
+[31] "Hemigalus_derbyanus"          "Herpestes_ichneumon"         
+[33] "Herpestes_javanicus"          "Herpestes_urva"              
+[35] "Hyaena_brunnea"               "Hyaena_hyaena"               
+[37] "Ichneumia_albicauda"          "Leopardus_geoffroyi"         
+[39] "Leopardus_guigna"             "Leopardus_jacobitus"         
+[41] "Leopardus_pardalis"           "Leopardus_wiedii"            
+[43] "Leptailurus_serval"           "Liberiictis_kuhni"           
+[45] "Lynx_canadensis"              "Lynx_lynx"                   
+[47] "Lynx_pardinus"                "Lynx_rufus"                  
+[49] "Macrogalidia_musschenbroekii" "Mungos_gambianus"            
+[51] "Mungos_mungo"                 "Mungotictis_decemlineata"    
+[53] "Nandinia_binotata"            "Neofelis_nebulosa"           
+[55] "Paguma_larvata"               "Panthera_leo"                
+[57] "Panthera_onca"                "Panthera_pardus"             
+[59] "Panthera_tigris"              "Paracynictis_selousi"        
+[61] "Paradoxurus_hermaphroditus"   "Paradoxurus_zeylonensis"     
+[63] "Pardofelis_marmorata"         "Poiana_richardsonii"         
+[65] "Prionailurus_bengalensis"     "Prionailurus_iriomotensis"   
+[67] "Prionailurus_rubiginosus"     "Prionodon_linsang"           
+[69] "Prionodon_pardicolor"         "Proteles_cristata"           
+[71] "Puma_concolor"                "Salanoia_concolor"           
+[73] "Suricata_suricatta"           "Uncia_uncia"                 
+[75] "Viverra_megaspila"            "Viverra_tangalunga"          
+[77] "Viverra_zibetha"              "Viverricula_indica"          
+\end{verbatim}
+
+The easiest thing to do first is drop the tips from the tree that we're not interested in. We can pass the whole list to the \textbf{drop.tip} function in \textbf{ape} for this \citep{ape}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{carn.tree \textless{}{-}}\StringTok{ }\KeywordTok{drop.tip}\NormalTok{(carn.tree, geiger}\OperatorTok{::}\KeywordTok{name.check}\NormalTok{(carn.tree, carn.data)}\OperatorTok{$}\NormalTok{tree\_not\_data)}
+\NormalTok{geiger}\OperatorTok{::}\KeywordTok{name.check}\NormalTok{(carn.tree, carn.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$tree_not_data
+character(0)
+
+$data_not_tree
+ [1] "Acinonyx_jubatus"             "Arctictis_binturong"         
+ [3] "Arctogalidia_trivirgata"      "Atilax_paludinosus"          
+ [5] "Bdeogale_crassicauda"         "Caracal_caracal"             
+ [7] "Catopuma_temminckii"          "Chrotogale_owstoni"          
+ [9] "Civettictis_civetta"          "Crocuta_crocuta"             
+[11] "Crossarchus_obscurus"         "Cryptoprocta_ferox"          
+[13] "Cynictis_penicillata"         "Cynogale_bennettii"          
+[15] "Dologale_dybowskii"           "Eupleres_goudotii"           
+[17] "Felis_chaus"                  "Felis_manul"                 
+[19] "Felis_margarita"              "Felis_nigripes"              
+[21] "Felis_silvestris"             "Fossa_fossana"               
+[23] "Galerella_sanguinea"          "Galidia_elegans"             
+[25] "Genetta_abyssinica"           "Genetta_angolensis"          
+[27] "Genetta_genetta"              "Genetta_servalina"           
+[29] "Genetta_thierryi"             "Helogale_parvula"            
+[31] "Hemigalus_derbyanus"          "Herpestes_ichneumon"         
+[33] "Herpestes_javanicus"          "Herpestes_urva"              
+[35] "Hyaena_brunnea"               "Hyaena_hyaena"               
+[37] "Ichneumia_albicauda"          "Leopardus_geoffroyi"         
+[39] "Leopardus_guigna"             "Leopardus_jacobitus"         
+[41] "Leopardus_pardalis"           "Leopardus_wiedii"            
+[43] "Leptailurus_serval"           "Liberiictis_kuhni"           
+[45] "Lynx_canadensis"              "Lynx_lynx"                   
+[47] "Lynx_pardinus"                "Lynx_rufus"                  
+[49] "Macrogalidia_musschenbroekii" "Mungos_gambianus"            
+[51] "Mungos_mungo"                 "Mungotictis_decemlineata"    
+[53] "Nandinia_binotata"            "Neofelis_nebulosa"           
+[55] "Paguma_larvata"               "Panthera_leo"                
+[57] "Panthera_onca"                "Panthera_pardus"             
+[59] "Panthera_tigris"              "Paracynictis_selousi"        
+[61] "Paradoxurus_hermaphroditus"   "Paradoxurus_zeylonensis"     
+[63] "Pardofelis_marmorata"         "Poiana_richardsonii"         
+[65] "Prionailurus_bengalensis"     "Prionailurus_iriomotensis"   
+[67] "Prionailurus_rubiginosus"     "Prionodon_linsang"           
+[69] "Prionodon_pardicolor"         "Proteles_cristata"           
+[71] "Puma_concolor"                "Salanoia_concolor"           
+[73] "Suricata_suricatta"           "Uncia_uncia"                 
+[75] "Viverra_megaspila"            "Viverra_tangalunga"          
+[77] "Viverra_zibetha"              "Viverricula_indica"          
+\end{verbatim}
+
+Dropping species from your dataframe is a little more complex (and in truth not always necessary). One way of doing this is to create a \textbf{for loop} that will cycle through the list above and take a subset of the dataframe each time, removing the species in the list as it goes. There are better ways to do this but it might be helpful to become familiar with for loops which are a useful programming tool!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pruned.data \textless{}{-}}\StringTok{ }\NormalTok{carn.data}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\KeywordTok{length}\NormalTok{(geiger}\OperatorTok{::}\KeywordTok{name.check}\NormalTok{(carn.tree, carn.data)}\OperatorTok{$}\NormalTok{data\_not\_tree))\{}
+\NormalTok{  pruned.data \textless{}{-}}\StringTok{ }\KeywordTok{subset}\NormalTok{(pruned.data, Species}\OperatorTok{!=}\NormalTok{geiger}\OperatorTok{::}\KeywordTok{name.check}\NormalTok{(carn.tree, carn.data)}\OperatorTok{$}\NormalTok{data\_not\_tree[i])}
+\NormalTok{\}}
+\NormalTok{geiger}\OperatorTok{::}\KeywordTok{name.check}\NormalTok{(carn.tree, pruned.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "OK"
+\end{verbatim}
+
+Once your tree and data are cleaned up we're ready to go!
+
+\hypertarget{analysis}{%
+\subsubsection{Analysis}\label{analysis}}
+
+As before we need to create a named vector for analysis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{burrow\textless{}{-}pruned.data}\OperatorTok{$}\NormalTok{Burrowing}
+\KeywordTok{names}\NormalTok{(burrow)\textless{}{-}pruned.data}\OperatorTok{$}\NormalTok{Species}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can sample a single history and plot it, this time with three colours!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scm3\textless{}{-}}\KeywordTok{make.simmap}\NormalTok{(carn.tree, burrow, }\DataTypeTok{model=}\StringTok{"ER"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+make.simmap is sampling character histories conditioned on the transition matrix
+
+Q =
+                     Dig a Burrow No Burrowing Use existing Burrows
+Dig a Burrow          -0.05640412   0.02820206           0.02820206
+No Burrowing           0.02820206  -0.05640412           0.02820206
+Use existing Burrows   0.02820206   0.02820206          -0.05640412
+(estimated using likelihood);
+and (mean) root node prior probabilities
+pi =
+        Dig a Burrow         No Burrowing Use existing Burrows 
+           0.3333333            0.3333333            0.3333333 
+\end{verbatim}
+
+\begin{verbatim}
+Done.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cols \textless{}{-}}\StringTok{ }\KeywordTok{setNames}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{"blue"}\NormalTok{, }\StringTok{"red"}\NormalTok{, }\StringTok{"green"}\NormalTok{), }\KeywordTok{sort}\NormalTok{(}\KeywordTok{unique}\NormalTok{(burrow)))}
+\KeywordTok{plotSimmap}\NormalTok{(scm3, cols, }\DataTypeTok{pts =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{, }\DataTypeTok{fsize =} \FloatTok{0.5}\NormalTok{)}
+\KeywordTok{add.simmap.legend}\NormalTok{(}\DataTypeTok{colors =}\NormalTok{ cols, }\DataTypeTok{vertical =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{prompt =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{x =} \DecValTok{2}\NormalTok{, }\DataTypeTok{y =} \DecValTok{80}\NormalTok{, }\DataTypeTok{fsize =} \FloatTok{1.4}\NormalTok{, }\DataTypeTok{shape =} \StringTok{"circle"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-95-1} \end{center}
+
+Let's sample 200 possible histories. This may take a few moments. For reports and publications, you should sample more than this. There's no hard rule but 1000 seems to be a good minimum for a proper analysis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scm4 \textless{}{-}}\StringTok{ }\KeywordTok{make.simmap}\NormalTok{(carn.tree, burrow, }\DataTypeTok{model =} \StringTok{"ER"}\NormalTok{, }\DataTypeTok{nsim =} \DecValTok{200}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+make.simmap is sampling character histories conditioned on the transition matrix
+
+Q =
+                     Dig a Burrow No Burrowing Use existing Burrows
+Dig a Burrow          -0.05640412   0.02820206           0.02820206
+No Burrowing           0.02820206  -0.05640412           0.02820206
+Use existing Burrows   0.02820206   0.02820206          -0.05640412
+(estimated using likelihood);
+and (mean) root node prior probabilities
+pi =
+        Dig a Burrow         No Burrowing Use existing Burrows 
+           0.3333333            0.3333333            0.3333333 
+\end{verbatim}
+
+\begin{verbatim}
+Done.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scm4.sum\textless{}{-}}\KeywordTok{describe.simmap}\NormalTok{(scm4, }\DataTypeTok{plot =} \OtherTok{FALSE}\NormalTok{)}
+\NormalTok{scm4.sum}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+200 trees with a mapped discrete character with states:
+ Dig a Burrow, No Burrowing, Use existing Burrows 
+
+trees have 52 changes between states on average
+
+changes are of the following types:
+     Dig a Burrow,No Burrowing Dig a Burrow,Use existing Burrows
+x->y                      7.26                             12.24
+     No Burrowing,Dig a Burrow No Burrowing,Use existing Burrows
+x->y                     6.925                              5.99
+     Use existing Burrows,Dig a Burrow Use existing Burrows,No Burrowing
+x->y                            12.265                              7.32
+
+mean total time spent in each state is:
+     Dig a Burrow No Burrowing Use existing Burrows total
+raw   366.1971509  214.5972284          350.2056207   931
+prop    0.3933374    0.2305019            0.3761607     1
+\end{verbatim}
+
+Finally we can plot the summary of the analysis as before.
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-97-1} \end{center}
+
+\hypertarget{further-info-2}{%
+\section{Further info}\label{further-info-2}}
+
+For more information about ancestral state reconstruction check out a review of the method by Joy \emph{et al}. \citep{Joy16} and chapter 3 of \emph{The comparative approach in evolutionary anthropology and biology} \citep{Nunn11}.
+
+For more information about the phytools package \citep{phytools}, the package author Liam Revell maintains an excellent blog \href{http://blog.phytools.org/}{here} where you'll find lots of useful tips and demonstrations of the package's capabilities as well as some helpful troubleshooting.
+
+\hypertarget{asr2}{%
+\chapter{Ancestral State Reconstruction II}\label{asr2}}
+
+Previously, we looked at reconstructing the evolutionary history of binary traits, such as the presence or absence of sexual swellings in macaques, and categorical traits such as the modes of burrowing in carnivores. In this chapter, we'll be applying the same principles to continuous data.
+
+The logic of ancestral state reconstruction applies equally to continuous traits like body size as it does to categorical traits. Here, we'll be looking at the evolutionary history of whales, dolphins and porpoises (Cetacea).
+
+As always, check that you have set your working directory!
+
+\hypertarget{data-2}{%
+\section{Data}\label{data-2}}
+
+The data we have here is taken from a study of the evolution of cetacean brain and body size \citep{Montgomery13}. The reduced version here contains only body mass and the log transformed body mass for 42 species.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{whale.data \textless{}{-}}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"whales\_data.txt"}\NormalTok{, }\DataTypeTok{header =}\NormalTok{ T)}
+\KeywordTok{rownames}\NormalTok{(whale.data) \textless{}{-}}\StringTok{ }\NormalTok{whale.data}\OperatorTok{$}\NormalTok{species}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{tree}{%
+\section{Tree}\label{tree}}
+
+We also have a tree from the \href{https://10ktrees.nunn-lab.org/}{10ktrees} project \citep{Arnold10}. For more information about this website, see chapter 3.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{whale.tree \textless{}{-}}\StringTok{ }\KeywordTok{read.nexus}\NormalTok{(}\StringTok{"whales\_tree.nex"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We need to check the data and tree match up. Get into this habit! It will save you a lot of time and patience.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rownames}\NormalTok{(whale.data) \textless{}{-}}\StringTok{ }\NormalTok{whale.data}\OperatorTok{$}\NormalTok{species}
+\NormalTok{geiger}\OperatorTok{::}\KeywordTok{name.check}\NormalTok{(whale.tree, whale.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$tree_not_data
+ [1] "Balaenoptera_acutorostrata" "Balaenoptera_bonaerensis"  
+ [3] "Balaenoptera_edeni"         "Berardius_arnuxii"         
+ [5] "Berardius_bairdii"          "Caperea_marginata"         
+ [7] "Cephalorhynchus_eutropia"   "Cephalorhynchus_hectori"   
+ [9] "Delphinus_capensis"         "Delphinus_tropicalis"      
+[11] "Eubalaena_australis"        "Eubalaena_glacialis"       
+[13] "Eubalaena_japonica"         "Feresa_attenuata"          
+[15] "Hyperoodon_ampullatus"      "Hyperoodon_planifrons"     
+[17] "Indopacetus_pacificus"      "Lagenodelphis_hosei"       
+[19] "Lagenorhynchus_australis"   "Lagenorhynchus_cruciger"   
+[21] "Lissodelphis_peronii"       "Mesoplodon_bidens"         
+[23] "Mesoplodon_bowdoini"        "Mesoplodon_carlhubbsi"     
+[25] "Mesoplodon_ginkgodens"      "Mesoplodon_grayi"          
+[27] "Mesoplodon_hectori"         "Mesoplodon_layardii"       
+[29] "Mesoplodon_perrini"         "Mesoplodon_peruvianus"     
+[31] "Mesoplodon_stejnegeri"      "Orcaella_brevirostris"     
+[33] "Orcaella_heinsohni"         "Peponocephala_electra"     
+[35] "Phocoena_dioptrica"         "Phocoena_sinus"            
+[37] "Platanista_minor"           "Sousa_chinensis"           
+[39] "Stenella_attenuata"         "Stenella_frontalis"        
+[41] "Tasmacetus_shepherdi"       "Tursiops_aduncus"          
+
+$data_not_tree
+character(0)
+\end{verbatim}
+
+Clearly some species need to be dropped from the tree!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{whale.tree \textless{}{-}}\StringTok{ }\KeywordTok{drop.tip}\NormalTok{(whale.tree, }
+\NormalTok{                       geiger}\OperatorTok{::}\KeywordTok{name.check}\NormalTok{(whale.tree, whale.data)}\OperatorTok{$}\NormalTok{tree\_not\_data)}
+\NormalTok{geiger}\OperatorTok{::}\KeywordTok{name.check}\NormalTok{(whale.tree, whale.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "OK"
+\end{verbatim}
+
+\hypertarget{ancestral-state-reconstructions}{%
+\section{Ancestral State Reconstructions}\label{ancestral-state-reconstructions}}
+
+Now we're going to dive in with a reconstruction. We are using \textbf{phytools} for this analysis so we should load the package and create a named data vector \citep{phytools}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(phytools)}
+\NormalTok{x \textless{}{-}}\StringTok{ }\NormalTok{whale.data}\OperatorTok{$}\NormalTok{log.body.mass}
+\KeywordTok{names}\NormalTok{(x) \textless{}{-}}\StringTok{ }\NormalTok{whale.data}\OperatorTok{$}\NormalTok{species}
+\end{Highlighting}
+\end{Shaded}
+
+The function we need is called \textbf{fastAnc} and it returns the ancestral states in a simple list.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ancstates \textless{}{-}}\StringTok{ }\KeywordTok{fastAnc}\NormalTok{(}\DataTypeTok{tree =}\NormalTok{ whale.tree,   }\CommentTok{\#Our phylogeny}
+\NormalTok{                     x,                   }\CommentTok{\#Our data vector}
+                     \DataTypeTok{CI =} \OtherTok{TRUE}\NormalTok{)           }\CommentTok{\#Estimate 95\% confidence intervals}
+\NormalTok{ancstates}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Ancestral character estimates using fastAnc:
+      43       44       45       46       47       48       49       50 
+6.422936 7.205471 7.440591 7.465284 7.456463 7.511707 6.248774 6.097254 
+      51       52       53       54       55       56       57       58 
+6.044864 6.078069 5.983733 5.962172 5.641527 5.423179 5.255812 5.204571 
+      59       60       61       62       63       64       65       66 
+5.225028 5.260263 4.960018 4.901903 4.871755 4.888973 5.503471 5.567067 
+      67       68       69       70       71       72       73       74 
+5.710190 5.130854 4.989830 5.001555 4.960103 4.976035 5.039423 5.403331 
+      75       76       77       78       79       80       81       82 
+5.850745 4.870560 4.871380 4.883752 5.590679 5.292187 6.267476 5.540614 
+
+Lower & upper 95% CIs:
+      lower    upper
+43 5.745860 7.100012
+44 6.599516 7.811426
+45 7.009526 7.871657
+46 7.037792 7.892775
+47 7.023487 7.889440
+48 7.078101 7.945312
+49 5.617637 6.879912
+50 5.480639 6.713870
+51 5.396996 6.692732
+52 5.495449 6.660689
+53 5.489021 6.478445
+54 5.474786 6.449558
+55 4.977189 6.305864
+56 4.818460 6.027899
+57 4.833079 5.678546
+58 4.834286 5.574857
+59 4.930739 5.519317
+60 4.970172 5.550353
+61 4.679687 5.240349
+62 4.656292 5.147513
+63 4.621817 5.121692
+64 4.661301 5.116645
+65 5.175817 5.831126
+66 5.231290 5.902844
+67 5.455762 5.964619
+68 4.810518 5.451190
+69 4.731256 5.248405
+70 4.760819 5.242292
+71 4.767162 5.153044
+72 4.800446 5.151624
+73 4.692067 5.386779
+74 4.792073 6.014589
+75 5.352644 6.348847
+76 4.380205 5.360915
+77 4.449659 5.293101
+78 4.482168 5.285335
+79 4.892863 6.288496
+80 4.417990 6.166384
+81 5.492347 7.042604
+82 4.959783 6.121445
+\end{verbatim}
+
+To get an idea of what these results show, we should probably plot it. The \textbf{nodelabels} function maps the ancestral states listed in our \textbf{ancstates} object onto the nodes of the tree which are listed in the same order.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(whale.tree, }\DataTypeTok{cex =} \FloatTok{.8}\NormalTok{, }\DataTypeTok{label.offset =} \FloatTok{.01}\NormalTok{, }\DataTypeTok{no.margin =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{nodelabels}\NormalTok{(}\KeywordTok{round}\NormalTok{(ancstates}\OperatorTok{$}\NormalTok{ace, }\DataTypeTok{digits =} \DecValTok{2}\NormalTok{), }\DataTypeTok{cex =} \FloatTok{.67}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-107-1} \end{center}
+
+As is often the case, there are better ways to plot this information! The function \textbf{contMap} calls \textbf{fastAnc} and then maps the history of the trait onto the tree as a heatmap. This is a much clearer plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{contMap}\NormalTok{(whale.tree, x, }\DataTypeTok{fsize =} \FloatTok{.7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-108-1} \end{center}
+
+\hypertarget{bayestraits}{%
+\section{BayesTraits}\label{bayestraits}}
+
+Simply reconstructing the history of a trait can be very interesting. See some papers by Montgomery \emph{et al}. \citetext{\citeyear{Montgomery10}; \citeyear{Montgomery13}} for just a few great examples. However, this methodology is not limited to simply estimating the past.
+
+Most of what we are going to do here could probably be acheived in R either with existing packages or some clever coding. However, the standard package for several analyses has been \href{http://www.evolution.rdg.ac.uk/BayesTraitsV3.0.2/BayesTraitsV3.0.2.html}{BayesTraits} for some time.
+
+BayesTraits is a command line program, which can make it kind of intimidating. Actually (like R), it's relatively easy to use but can take some getting used to. Fortunately, \href{https://www.randigriffin.com/}{Randi Griffin} has written an excellent R package \textbf{btw} that can operate the program from within R.
+
+It's worth noting at this point that \textbf{btw} is not written to run BayesTraits for you so that you don't have to understand the program. Randi states very clearly that the package is purely for optimising workflow. In other words, this allows you to have all your data, results and code in one place. You still need to understand how to use the program. Fortunately the \href{http://www.evolution.rdg.ac.uk/BayesTraitsV3.0.2/Files/BayesTraitsV3.0.2Manual.pdf}{manual} is very detailed.
+
+First up, download \href{http://www.evolution.rdg.ac.uk/BayesTraitsV3.0.2/BayesTraitsV3.0.2.html}{BayesTraits} version 3 for your operating system.
+
+\textbf{IMPORTANT!} BayesTraits output files will be written into your working directory. They will overwrite any files with the same name so don't have any files called ``data.txt'', ``tree.nex'' or ``inputfile.txt'' in this directory unless you are ok with losing them.
+
+Next, we need to install \textbf{btw}. This isn't a CRAN archived package so we'll be installing directly from Randi Griffin's GitHub. Once installed, we can use BayesTraits from within R!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"devtools"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(devtools)}
+\KeywordTok{install\_github}\NormalTok{(}\StringTok{"rgriff23/btw"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(btw)}
+\end{Highlighting}
+\end{Shaded}
+
+There are some important differences in how R and BayesTraits read data that need to be summarised here.
+
+\begin{itemize}
+\tightlist
+\item
+  The first column of your data must contain species names.
+\item
+  Species names must match exactly between tree and data (but don't worry about the order).
+\item
+  No spaces in species names.
+\item
+  Discrete characters have to be of class character or factor (between 0-9) and NOT integer.
+\item
+  Ambiguous discrete characters can be represented as 01.
+\item
+  Missing data must be represented as - rather than NA.
+\end{itemize}
+
+BayesTraits consists of modules (see \href{http://www.evolution.rdg.ac.uk/BayesTraitsV3.0.2/Files/BayesTraitsV3.0.2Manual.pdf}{manual} for details) that are numbered and can be called up for different analyses.
+
+If you can't get R and Bayestraits to play nicely together, you may want to consider using Bayestraits directly from the command prompt (Windows) or terminal (Mac). It's fairly straightforward once you've got the hang of it so be patient. Alternatively, all of this can be done with R packages like ape \citep{ape}, geiger \citep{geiger} and phytools \citep{phytools} amongst others.
+
+\hypertarget{modelling-evolution}{%
+\section{Modelling Evolution}\label{modelling-evolution}}
+
+If we have some data about traits across a group of animals and an associated tree, we may want to ask about how that trait has evolved over time. For this we can compare the trait to models of evolutionary change.
+
+\hypertarget{brownian-motion}{%
+\subsection{Brownian Motion}\label{brownian-motion}}
+
+Brownian motion (BM) is the most commonly used model of evolutionary change. In some ways, it can represent a kind of \emph{null model} but do not confuse this! It doesn't mean nothing is changing or that evolution is not taking place.
+
+Brownian motion assumes three things;
+
+\begin{itemize}
+\tightlist
+\item
+  Evolutionary changes in a trait are randomly distributed around a mean of 0.
+\item
+  Evolutionary changes in a trait are independent of previous changes and changes on other branches.
+\item
+  Larger changes are more likely to occur on longer branches.
+\end{itemize}
+
+All this means that BM is a \emph{random walk} model in which the trait varies along the branches essentially at random.
+
+We can use BayesTraits (via R) to model the evolution of body size in cetaceans with the assumption of Brownian motion. First we need to isolate our variables into a data table for \textbf{btw}. The way to do this is quite simple. We can simply extract the two columns we need (1 and 2) into a new object.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{BT.data \textless{}{-}}\StringTok{ }\NormalTok{whale.data[,}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{)]}
+\KeywordTok{rownames}\NormalTok{(BT.data) \textless{}{-}}\StringTok{ }\OtherTok{NULL}
+\KeywordTok{head}\NormalTok{(BT.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                species log.body.mass
+1       Kogia_breviceps      5.523746
+2            Kogia_sima      5.226600
+3      Physeter_catodon      7.573065
+4  Platanista_gangetica      4.775465
+5 Delphinapterus_leucas      5.803457
+6     Monodon_monoceros      6.198198
+\end{verbatim}
+
+This first analysis corresponds to \textbf{Continuous: Random Walk Model A ML} in the BayesTraits \href{http://www.evolution.rdg.ac.uk/BayesTraitsV3.0.2/Files/BayesTraitsV3.0.2Manual.pdf}{manual}. We can see from the manual that the commands to run this are ``4 1 Run''. You need to be familiar with BayesTraits to interpret this so the first time you do it, you may want to do it in BayesTraits directly (via the command prompt or terminal). In essence, BayesTraits asks us questions and provides us with options for what we want it to do and \textbf{4, 1, Run} are the options to run this analysis.
+
+Given that we know what we want to do ahead of time, we can enter the commands into a command vector in R. To run these commands through BayesTraits, R will write them into a text file so BayesTraits can interpret them when needed. Note that you don't need to enter \textbf{Run} into this vector as \textbf{btw} will take care of that for us.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{command\_vec1 \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"4"}\NormalTok{, }\StringTok{"1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Note that if you have nodelabels in your tree, there will be an error when running BayesTraits. You can remove nodelabels without effecting the structure of your tree like this.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{whale.tree}\OperatorTok{$}\NormalTok{node.label \textless{}{-}}\StringTok{ }\OtherTok{NULL}
+\end{Highlighting}
+\end{Shaded}
+
+I have a path on my desktop just for BayesTraits analyses. Remember that there must be a copy of BayesTraitsV3 stored here. That's all you need as the output will be read back into R by \textbf{btw}. You also should remember to change your working directory back if you are finished with BayesTraits. In this chunk, I've saved the existing directory at the start and reset it immediately after the analysis is completed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wd.reset \textless{}{-}}\StringTok{ }\KeywordTok{getwd}\NormalTok{()}
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"\textasciitilde{}/Desktop/BayesTraits"}\NormalTok{)}
+\NormalTok{m1 \textless{}{-}}\StringTok{ }\KeywordTok{bayestraits}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ BT.data, }\DataTypeTok{tree =}\NormalTok{ whale.tree, }\DataTypeTok{commands =}\NormalTok{ command\_vec1)}
+\KeywordTok{setwd}\NormalTok{(wd.reset)}
+\end{Highlighting}
+\end{Shaded}
+
+On we go! The object that should have appeared in your R environment contains all the outputs you need from BayesTraits. Let's have a look at the \textbf{results} component of the \textbf{Log}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m1}\OperatorTok{$}\NormalTok{Log}\OperatorTok{$}\NormalTok{results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  Tree.No       Lh  Alpha.1 Sigma.2.1
+1       1 -31.9823 6.422936  6.315406
+\end{verbatim}
+
+These results give us the Log likelihood (\textbf{Lh}), the reconstructed ancestral node (\textbf{Alpha.1}) and the phylogenetically corrected variance of the data (\textbf{Sigma.2.1}). The important thing to look at here is the log likelihood. We will use that to compare the BM model to other models.
+
+\hypertarget{directional-evolution}{%
+\subsection{Directional Evolution}\label{directional-evolution}}
+
+So far we've looked at the random walk model of evolution. In reality, what we are usually interested in is deviations from the random walk model. We can investigate this using similar methods, but with a \textbf{directional} model.
+
+An example of a case when we might be interested in a directional model is Cope's rule \citep{Kingsolver04, Hone05}. Cope's rule states that over time, lineages tend to have larger body sizes. So basically, on average animals tend to get bigger over evolutionary time.
+
+Let's see if we can detect a trend in cetacean body mass. For this analysis, we need a non-ultrametric tree (a phylogram rather than a chronogram). Luckily that's what we already have. The branch lengths here describe evolutionary distance in terms of genetic change and so shorter branches indicate fewer genetic changes.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-116-1} 
+
+}
+
+\caption{Phylogenetic tree of 42 species of cetcaeans with branch lengths proportional to molecular change.}\label{fig:unnamed-chunk-116}
+\end{figure}
+
+We're using BayesTraits again so the first step is to get our data into the right format.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{BT.data \textless{}{-}}\StringTok{ }\NormalTok{whale.data[,}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{)]}
+\KeywordTok{rownames}\NormalTok{(BT.data) \textless{}{-}}\StringTok{ }\OtherTok{NULL}
+\end{Highlighting}
+\end{Shaded}
+
+As before, we run the random walk (BM) model first. Remember we need to set the working directory to a path where BayesTraits is stored.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"\textasciitilde{}/Desktop/BayesTraits"}\NormalTok{)}
+\NormalTok{RW.commands \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"4"}\NormalTok{, }\StringTok{"1"}\NormalTok{)}
+\NormalTok{RWmod \textless{}{-}}\StringTok{ }\KeywordTok{bayestraits}\NormalTok{(BT.data, whale.tree, RW.commands)}
+\NormalTok{RWmod}\OperatorTok{$}\NormalTok{Log}\OperatorTok{$}\NormalTok{results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  Tree.No       Lh  Alpha.1 Sigma.2.1
+1       1 -31.9823 6.422936  6.315406
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{setwd}\NormalTok{(wd.reset)}
+\end{Highlighting}
+\end{Shaded}
+
+The directional model takes a different set of commands.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{setwd}\NormalTok{(}\StringTok{"\textasciitilde{}/Desktop/BayesTraits"}\NormalTok{)}
+\NormalTok{D.commands \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"5"}\NormalTok{, }\StringTok{"1"}\NormalTok{)}
+\NormalTok{Dmod \textless{}{-}}\StringTok{ }\KeywordTok{bayestraits}\NormalTok{(BT.data, whale.tree, D.commands)}
+\NormalTok{Dmod}\OperatorTok{$}\NormalTok{Log}\OperatorTok{$}\NormalTok{results}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  Tree.No        Lh  Alpha.1    Beta.1 Sigma.2.1
+1       1 -30.22462 7.951217 -12.37922  5.808331
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{setwd}\NormalTok{(wd.reset)}
+\end{Highlighting}
+\end{Shaded}
+
+Now we need to compare these models! What he have so far is two models and a log likelihood assigned to each. This means we can compare them using a \textbf{likelihood ratio test}. The general formula for an LR test is;
+
+\[LR=2*(Lh_{ModelB} - Lh_{ModelA})\]
+
+The result is the \textbf{likelhood ratio statistic} (LR) which is asymptotically \(\chi^2\) distributed with degrees of freedom equal to the difference in the number of parameters between the models. Model A has 1 parameter (the root value) and model B has 2 (the root and the direction of change) so the degrees of freedom are 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{2}\OperatorTok{*}\NormalTok{(Dmod}\OperatorTok{$}\NormalTok{Log}\OperatorTok{$}\NormalTok{results}\OperatorTok{$}\NormalTok{Lh[}\DecValTok{1}\NormalTok{] }\OperatorTok{{-}}\StringTok{ }\NormalTok{RWmod}\OperatorTok{$}\NormalTok{Log}\OperatorTok{$}\NormalTok{results}\OperatorTok{$}\NormalTok{Lh[}\DecValTok{1}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 3.515352
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1}\OperatorTok{{-}}\KeywordTok{pchisq}\NormalTok{(}\FloatTok{3.515352}\NormalTok{, }\DataTypeTok{df =} \DecValTok{1}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.06080274
+\end{verbatim}
+
+Note: pchisq gives the proportion of the distribution to the left of the value. To test if the model is better than the null model, we use 1 - pchisq.
+
+The \textbf{btw} package has a function that will do all this for us. Be careful with interpretation though. Note that the p-value is different. Take this away from 1 and you have your p-value as above.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{lrtest}\NormalTok{(RWmod, Dmod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  model1.Lh model2.Lh   LRstat      pval
+1  -31.9823 -30.22462 3.515352 0.9391973
+\end{verbatim}
+
+So what have we got here? Well we have tested two models of the evolution of body size in cetacea. The first is a random walk (Brownian motion) model of evolution in which we have estimated two parameters. The second is a directional model in which we have estimated 3 parameters. Model comparison showed no significant difference between them (LR = 3.52, p = 0.06) and so we should favour the simpler, 2 parameter model. Thus we have no evidence for a directional trend in cetacean body mass evolution.
+
+\hypertarget{changes-in-the-rate-of-evolution-of-a-trait}{%
+\section{Changes in the rate of evolution of a trait}\label{changes-in-the-rate-of-evolution-of-a-trait}}
+
+Often when investigating the evolution of a continuous trait, we might have reason to suggest that in some lineages, the rate of evolution of that trait changed.
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-122-1} \end{center}
+
+Let's say we have a hypothesis that says the rate of change of body mass changed at the root of mysticetes (node 44). We can paint that onto the tree for demonstration using \textbf{paintSubTree} and \textbf{plotSimmap} in \textbf{phytools} \citep{phytools}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(phytools)}
+\NormalTok{tree1 \textless{}{-}}\StringTok{ }\KeywordTok{paintSubTree}\NormalTok{(whale.tree, }\DecValTok{44}\NormalTok{, }\StringTok{"2"}\NormalTok{)}
+\KeywordTok{plotSimmap}\NormalTok{(tree1, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{, }\DataTypeTok{fsize =} \FloatTok{0.7}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-123-1} \end{center}
+
+Now we can run the test. Here the function \textbf{brownie.lite} in \textbf{phytools} compares the single rate model to the multi-rate model we have specified!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x \textless{}{-}}\StringTok{ }\NormalTok{whale.data}\OperatorTok{$}\NormalTok{log.body.mass}
+\KeywordTok{names}\NormalTok{(x) \textless{}{-}}\StringTok{ }\NormalTok{whale.data}\OperatorTok{$}\NormalTok{species}
+\NormalTok{fit \textless{}{-}}\StringTok{ }\KeywordTok{brownie.lite}\NormalTok{(tree1, x)}
+\NormalTok{fit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ML single-rate model:
+    s^2 se  a   k   logL
+value   6.165   1.3453  6.4229  2   -31.9823    
+
+ML multi-rate model:
+    s^2(1)  se(1)   s^2(2)  se(2)   a   k   logL    
+value   7.1119  1.6786  1.2663  0.8687  6.6116  3   -30.475
+
+P-value (based on X^2): 0.0825 
+
+R thinks it has found the ML solution.
+\end{verbatim}
+
+Here we've found no evidence of a regime shift in mysticete cetaceans (p = 0.083).
+
+\hypertarget{uncertainty}{%
+\section{Uncertainty}\label{uncertainty}}
+
+If you are familiar with cetaceans and their evolutionary history, you might be surprised by our findings so far in this chapter. The prevailing state of knowledge suggests that cetaceans have evolved large body sizes since the transition to the water of an approximately dog-sized ancestor at the root of our tree. Given what we know about the fossil record of cetacea, we would expect to detect an increase in body size over the tree. To solve this puzzle, we need to look at what information we provided our analysis with.
+
+As the old saying goes, \emph{if you put garbage in, you'll get garbage out} and this seems to apply here. For example, let's look closely at our reconstructions. You can see here that both reconstructions have estimated the mass of the ancestor of cetaceans. Remember that these are log transformed data so we have to transform them back if we want to get a straightforward measurement of mass.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{10}\OperatorTok{\^{}}\NormalTok{(RWmod}\OperatorTok{$}\NormalTok{Log}\OperatorTok{$}\NormalTok{results}\OperatorTok{$}\NormalTok{Alpha}\FloatTok{.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 2648111
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{10}\OperatorTok{\^{}}\NormalTok{(Dmod}\OperatorTok{$}\NormalTok{Log}\OperatorTok{$}\NormalTok{results}\OperatorTok{$}\NormalTok{Alpha}\FloatTok{.1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 89375216
+\end{verbatim}
+
+So depending on our model of evolution the ancestor was either 2,648.1 kg or 89,375.2 kg. A big difference between models so which one we choose really matters.
+
+This is even more of a problem when we look at the fossil record of cetaceans. \emph{Indohyus} (Raoellidae) is thought to be the species that most closely represents the transition to the water by cetacean ancestors \citep{Thewissen09} and its mass is estimated at around 10kg. An early species of cetacean called \emph{Pakicetus} was estimated at around 45kg. So we are orders of magnitude away from what the fossil record shows us!
+
+This problem is well understood in phylogenetic comparative methods. In fact, all methods of ancestral state reconstruction perform very poorly when compared to what we know from the fossil record \citep{Webster02}. As you might expect, the deeper into your tree you try to estimate an ancestral state, the greater the uncertainty. This is especially clear when you look at estimating the root \citep{Gascuel14}. The solution is to incorporate fossil data in the analysis \citep{Slater12}.
+
+\hypertarget{fossils}{%
+\subsection{Fossils}\label{fossils}}
+
+To demonstrate the importance of fossil data, let's take a closer look at the evolution of body size in cetaceans. With \textbf{fastAnc}, we found a mass of around 2,650kg for the root of the cetaceans.
+
+The package \textbf{RRphylo} \citep{rrphylo} contains data on fossil and living cetaceans \citep{Serio19}. Using these data, we can hopefully perform a more rigorous ancestral state reconstruction \citep{Castiglione20}. Note that the values here differ betwwen datasets because the previous dataset used a log10 transformation whereas this one uses a natural log transformation!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(RRphylo)}
+\KeywordTok{data}\NormalTok{(}\StringTok{"DataCetaceans"}\NormalTok{)}
+\NormalTok{DataCetaceans}\OperatorTok{$}\NormalTok{treecet {-}\textgreater{}}\StringTok{ }\NormalTok{treecet}
+\NormalTok{DataCetaceans}\OperatorTok{$}\NormalTok{masscet {-}\textgreater{}}\StringTok{ }\NormalTok{masscet}
+\end{Highlighting}
+\end{Shaded}
+
+The \textbf{RRphylo} function performs a variant of ancestral state reconstruction called \textbf{phylogenetic ridge regression} \citep{Castiglione20}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RR \textless{}{-}}\StringTok{ }\KeywordTok{RRphylo}\NormalTok{(treecet, masscet)}
+\end{Highlighting}
+\end{Shaded}
+
+RRphylo returns a lot of information as a list. Included in this list is the \textbf{tree} used (useful for plotting) and \textbf{aces} which contains the estimates for the traits at the nodes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(RR}\OperatorTok{$}\NormalTok{tree, }\DataTypeTok{cex =} \FloatTok{.4}\NormalTok{, }\DataTypeTok{label.offset =} \FloatTok{.5}\NormalTok{, }\DataTypeTok{no.margin =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{nodelabels}\NormalTok{(}\KeywordTok{round}\NormalTok{(RR}\OperatorTok{$}\NormalTok{aces, }\DataTypeTok{digits =} \DecValTok{1}\NormalTok{), }\DataTypeTok{cex =} \FloatTok{.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-128-1} \end{center}
+
+Using this reconstruction, we can extract the mass of the root. Remember that we need \textbf{exp} to calculate the untransformed value rather than raising to the power of 10 because of the natural log transformation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{exp}\NormalTok{(RR}\OperatorTok{$}\NormalTok{aces[[}\DecValTok{1}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 727063.9
+\end{verbatim}
+
+So our new estimate of the mass of the ancestor of cetaceans is 727.1kg. This is much closer to the estimated mass of early archeocete cetaceans like \emph{Ambulocetus natans} at about 430kg and \emph{Indocetus ramani} at around 630kg.
+
+If we still aren't satisfied that we have included the best information we have available, we can actually \emph{fossilise} a node by passing a named list of ancestral states to the \textbf{RRphylo} function. Following the example of Castiglione \emph{et al}. \citeyearpar{Castiglione20}, we can set the node of the ancestor of mysticetes to a known mass. Here we are assuming that the most recent common ancestor of all mysticetes can be represented by the species \emph{Mystacodon selenensis} which weighed arond 150kg. Also we need to know that this ancestor is represented by the node labelled 128 in our tree object.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x \textless{}{-}}\StringTok{ }\KeywordTok{log}\NormalTok{(}\DecValTok{150000}\NormalTok{)}
+\KeywordTok{names}\NormalTok{(x) \textless{}{-}}\StringTok{ "128"}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can pass this state to the argument \textbf{aces} in \textbf{RRphylo} and the analysis will hold node 128 at the value we have set. You should be able to see that in the following plot, the ancestor of mysticetes is reconstructed as 11.9 rather than 12.9 in the previous reconstruction.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RR2 \textless{}{-}}\StringTok{ }\KeywordTok{RRphylo}\NormalTok{(treecet, masscet, }\DataTypeTok{aces =}\NormalTok{ x)}
+\KeywordTok{plot}\NormalTok{(RR2}\OperatorTok{$}\NormalTok{tree, }\DataTypeTok{cex =} \FloatTok{.4}\NormalTok{, }\DataTypeTok{label.offset =} \FloatTok{.5}\NormalTok{, }\DataTypeTok{no.margin =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{nodelabels}\NormalTok{(}\KeywordTok{round}\NormalTok{(RR2}\OperatorTok{$}\NormalTok{aces, }\DataTypeTok{digits =} \DecValTok{1}\NormalTok{), }\DataTypeTok{cex =} \FloatTok{.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-131-1} \end{center}
+
+Hopefully you can see that the more fossil information you include in your reconstructions, the more reliable they are.
+
+\hypertarget{revisiting-mysticete-body-mass}{%
+\subsection{Revisiting Mysticete Body Mass}\label{revisiting-mysticete-body-mass}}
+
+In using the fossil data we have added in here, Castiglione \emph{et al}. \citeyearpar{Castiglione20} demonstrated that mysticetes actually do conform to Cope's rule because they have an increasing trend in body size over time. This shows just how important adding in fossil data can be if you want the full picture.
+
+This seems to suggest that we should also find a regime shift in mysticetes. Let's have a closer look. We begin again by painting the tree at the specific node leading to mysticetes.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(phytools)}
+\NormalTok{tree2 \textless{}{-}}\StringTok{ }\KeywordTok{paintSubTree}\NormalTok{(treecet, }\DecValTok{128}\NormalTok{, }\StringTok{"2"}\NormalTok{)}
+\KeywordTok{plotSimmap}\NormalTok{(tree2, }\DataTypeTok{lwd =} \DecValTok{2}\NormalTok{, }\DataTypeTok{fsize =} \FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-132-1} \end{center}
+
+Next we run \textbf{brownie.lite} on our expanded dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit \textless{}{-}}\StringTok{ }\KeywordTok{brownie.lite}\NormalTok{(tree2, masscet)}
+\NormalTok{fit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ML single-rate model:
+    s^2 se  a   k   logL
+value   0.2047  0.0265  13.2057 2   -178.7922   
+
+ML multi-rate model:
+    s^2(1)  se(1)   s^2(2)  se(2)   a   k   logL    
+value   0.176   0.0245  0.4012  0.147   13.2056 3   -176.0958
+
+P-value (based on X^2): 0.0202 
+
+R thinks it has found the ML solution.
+\end{verbatim}
+
+There you have it! We can now say that we have evidence in favour of a regime shift in mysticete body size (p = 0.02).
+
+\hypertarget{further-info-3}{%
+\section{Further info}\label{further-info-3}}
+
+We've only just scratched the surface of what is possible with ancestral state reconstruction. For some background reading, have a look at chapter 4 of \emph{The comparative approach in evolutionary anthropology and biology} \citep{Nunn11}.
 
 \hypertarget{bibliography}{%
 \chapter{Bibliography}\label{bibliography}}

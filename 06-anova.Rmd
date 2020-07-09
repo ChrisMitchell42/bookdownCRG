@@ -1,0 +1,125 @@
+# ANOVA {#anova}
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(comment = '')
+knitr::opts_chunk$set(fig.pos = 'H', fig.align = 'center', fig.height = 5)
+knitr::opts_knit$set(root.dir = '~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data')
+corncrake <- read.csv("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/corncrake.csv")
+require(ggplot2)
+require(geiger)
+```
+
+Analysis of variance (ANOVA) is something you should recognise from your quantitative skills course. This chapter will begin with a brief recap before showing you how to perform phylogenetically corrected ANOVA.
+
+## Analysis of variance
+
+Analysis of variance asks if there are differences in the mean values between 3 or more categories. If there are only two categories (Terrestrial/Aquatic for example), then you need a t-test. 
+
+In LIFE223 you analysed the results of an experiment in which corncrake hatchlings were raised on four different supplements in addition to their normal diet.
+
+```{r, echo=FALSE, eval=TRUE}
+corncrake <- read.csv("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/corncrake.csv")
+corncrake$Supplement <- factor(corncrake$Supplement, levels = c("None", "Sizefast", "Linseed", "Allvit", "Earlybird"))
+```
+
+```{r, echo=FALSE, eval=TRUE, fig.cap="Plot of weight gain in corncrake hatchlings reared on four different nutritional supplements and a control group. The mean and standard deviation of each group is plotted in blue. the mean weight gain across the entire sample is plotted in red.", fig.width=5}
+ggplot(data = corncrake, aes(x = Supplement, y = WeightGain)) +
+  geom_point(colour = "darkgrey", position = position_dodge2(width = 0.3)) +
+  ylim(0, 32) +
+  geom_hline(yintercept = mean(corncrake$WeightGain), linetype = "dashed", colour = "red", size = 1) +
+  geom_point(stat = "summary", fun.y = "mean", size = 3, colour = "blue") +
+  geom_errorbar(stat="summary", fun.data="mean_se", width = 0.15, colour = "blue") +
+  ylab("Weight Gain (g)")
+```
+
+```{r, echo=TRUE, eval=TRUE}
+corncrake.model <- lm(WeightGain ~ Supplement, data = corncrake)
+anova(corncrake.model)
+```
+
+The one-way ANOVA shows that there was a significant effect of supplement on the weight gain of the corncrake hatchlings (F = 5.1, df = 4, 35, p < 0.01). The final step is to perform our multiple comparisons test.
+
+```{r, echo=TRUE, eval=TRUE}
+corncrake.aov <- aov(corncrake.model)
+TukeyHSD(corncrake.aov, ordered = TRUE)
+```
+
+The **TukeyHSD** functions shows us the pairwise comparisons between groups. We can see (for example) that *Allvit* was not significantly different from the control (difference = 1.375g, p = 0.96) but *Earlybird* was significantly better than the control group (difference = 7.25g, p = 0.01).
+
+## Phylogenetic correction
+
+As you know, when trying to run a similar analysis on non-independent data (such as species) we will run into problems. Garland *et al* [-@garland93] developed a simulation based approach to solve this problem. The phylogenetic ANOVA uses computer simulations of traits evolving the phylogenetic tree. The next section contains some example data and a phylogeny to demonstrate the method.
+
+## Example data & analysis
+
+The data we're using is taken from the package geiger [@geiger] so make sure the package is installed and loaded.
+```{r, echo=TRUE, eval = FALSE}
+install.packages("geiger")
+library(geiger)
+```
+
+```{r, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
+require(geiger)
+```
+
+Load the data as follows. The tree and data are stored together so we'll need to save the to separate objects called **dat** and **phy**. You probably don't *need* to do this but this is more similar to what you're likely to see when using your own data.
+```{r,echo=TRUE, eval=TRUE}
+data("geospiza")
+dat <- geospiza$dat
+tree <- geospiza$phy
+head(dat)
+```
+
+```{r, eval=TRUE, echo=FALSE, warning = FALSE, message=FALSE, fig.cap="Phylogeny of the species contained within the 'geospiza' dataset of the package geiger."}
+require(ggtree)
+ggtree(tree) +
+  geom_tiplab(offset = 0.01) +
+  xlim(0,1.1)
+```
+
+We need to start by defining the categories for the data. It is likely that you will have already done this in your data frame. If so, just make sure the groups are stored as a factor. In this case, we'll just create some random categories to work with for the example.
+```{r, echo=TRUE, eval=TRUE}
+groups <- as.factor(c(rep("A", 4), rep("B", 5), rep("C", 4)))
+names(groups) <- rownames(dat)
+```
+
+An important step here (and for every phylogenetic analysis) is making sure the tree and data can be compared. To do this, we should make sure that the rownames of the data are species names and not just numbers. In this case they already are but if they aren't for you data, you can use the following code.
+```{r, eval=FALSE, echo=TRUE}
+rownames(data) <- data$SPECIES #the column with species names in the data
+```
+
+The geiger package has a very useful function called **name.check** to allow us to check that the rownames of our data match the tip labels of our tree.
+```{r, echo=TRUE, eval=TRUE}
+name.check(tree, dat)
+```
+
+We can see that *olivacea* is not in our data. For some analyses, mismatches like this are a problem and you will need to drop the tip from the tree. It actually doesn't matter here because the function we will be using can drop it automatically for us. However, let's see how it's done. Note the use of the function **drop.tip** from the package **ape** [@ape] which is an essential package to have for this kind of work!
+```{r, echo=TRUE, eval=TRUE}
+tree <- ape::drop.tip(tree, tip = "olivacea")
+```
+
+Now we have overwritten the old tree with our pruned tree. Let's check the new one matches the data.
+```{r, echo=TRUE, eval=TRUE}
+name.check(tree, dat)
+```
+
+All that's left now is to run the analysis. First we extract the column of interest from our data and then simply use the function **aov.phylo**. 
+```{r, echo=TRUE, eval=TRUE}
+d1 <- dat[,1]
+```
+
+You should notice some similarities and differences from the way you have run ANOVA before. We are still using a formula (the part with $\sim$) but not in a separate **lm** function. We need to specify the tree we want to use (**tree**) and also how many simulations we want to run. There isn't a firm rule about this but general convention is around 1000 when sampling/bootstrapping/simulations are involved.
+```{r, echo=TRUE, eval=TRUE}
+x <- aov.phylo(d1 ~ groups, phy = tree, nsim = 1000)
+```
+
+The results table should be very familiar! The only real difference here is that you have been provided with two p-values. The first (*Pr(>F)*) is the p-value without accounting for phylogeny and the second (*Pr(>F) given phy*) is the value when we account for phylogeny. In both cases, there is no significant difference between groups.
+
+As you can see, accounting for phylogeny *usually* raises the p-value (makes it less significant). This shows us that not accounting for phylogeny increases the risk of type I errors (false positives).
+
+## Further info
+
+For further information about the phylogenetic ANOVA, you can read the original paper by Garland *et al* [-@garland93].
+
+
