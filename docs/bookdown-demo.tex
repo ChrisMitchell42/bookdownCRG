@@ -146,7 +146,7 @@ Throughout this book you will see examples of R code and output like this.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{print}\NormalTok{(hidden.message)}
+\KeywordTok{print}\NormalTok{(answer)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -253,7 +253,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 41.94244
+[1] 41.98682
 \end{verbatim}
 
 \begin{Shaded}
@@ -263,7 +263,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 4.190698
+[1] 4.164916
 \end{verbatim}
 
 \hypertarget{plotting}{%
@@ -943,7 +943,7 @@ Analysis of Variance Table
 
 Response: dat
           Df   Sum-Sq  Mean-Sq F-value  Pr(>F) Pr(>F) given phy
-group      2 0.063237 0.031619  3.0067 0.09497           0.1538
+group      2 0.063237 0.031619  3.0067 0.09497           0.1718
 Residuals 10 0.105161 0.010516                                 
 \end{verbatim}
 
@@ -2287,6 +2287,442 @@ There you have it! We can now say that we have evidence in favour of a regime sh
 \section{Further info}\label{further-info-3}}
 
 We've only just scratched the surface of what is possible with ancestral state reconstruction. For some background reading, have a look at chapter 4 of \emph{The comparative approach in evolutionary anthropology and biology} \citep{Nunn11}.
+
+\hypertarget{w2PGLS}{%
+\chapter{Phylogenetic Regression}\label{w2PGLS}}
+
+This chapter will show you how to perform phylogenetically correct regression analyses on continuous data in R. As usual, remember to set your working directory to wherever you have saved the necessary files.
+
+\hypertarget{data-3}{%
+\section{Data}\label{data-3}}
+
+Let's load up some example primate data. You should see the dataframe appear in your environment. If you inspect the object, you will find a number of continuous variables in there for us to investigate.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{primate.data \textless{}{-}}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"primates\_data.txt"}\NormalTok{, }\DataTypeTok{header =}\NormalTok{ T)}
+\KeywordTok{names}\NormalTok{(primate.data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Order"           "Family"          "Binomial"        "AdultBodyMass_g"
+[5] "GestationLen_d"  "HomeRange_km2"   "MaxLongevity_m"  "SocialGroupSize"
+\end{verbatim}
+
+\hypertarget{linear-regression}{%
+\section{Linear Regression}\label{linear-regression}}
+
+Simple linear regression will be familiar to you from LIFE223. The principle is to find out what the relationship is between two or more variables.
+
+To see if body mass and gestation length are related in primate, the best way to go would seem to be a traditional linear regression. The funtion to perform an ordinary least squares linear regression is \textbf{lm()}. The first argument is our model, stating in this case that body mass predicts gestation length. Then we specify the data object to tell R where to find the data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m1 \textless{}{-}}\StringTok{ }\KeywordTok{lm}\NormalTok{(GestationLen\_d }\OperatorTok{\textasciitilde{}}\StringTok{ }\KeywordTok{log10}\NormalTok{(AdultBodyMass\_g), }\DataTypeTok{data =}\NormalTok{ primate.data)}
+\end{Highlighting}
+\end{Shaded}
+
+You can use the summary function to see the output of your regression.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(m1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Call:
+lm(formula = GestationLen_d ~ log10(AdultBodyMass_g), data = primate.data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-66.665 -15.762  -3.987  16.869  67.121 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)              31.775     13.927   2.281   0.0249 *  
+log10(AdultBodyMass_g)   38.319      4.031   9.505 3.37e-15 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 27.31 on 89 degrees of freedom
+Multiple R-squared:  0.5038,    Adjusted R-squared:  0.4982 
+F-statistic: 90.35 on 1 and 89 DF,  p-value: 3.374e-15
+\end{verbatim}
+
+The key parts of our output are the coefficients table and the three lines of output below which contain the R\textsuperscript{2} value. Here, it's telling us that our model is a significant fit to the data as we might expect. Also, the mid-range R\textsuperscript{2} (0.50) is what we'd expect given the spread of data in the plot.
+
+We can also plot this line with \textbf{ggplot} with the following code. To plot the regression line, add the function geom\_smooth amd used the method ``lm'' to specify that I want a linear model plotted.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ggplot2)}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ primate.data, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{log10}\NormalTok{(AdultBodyMass\_g), }\DataTypeTok{y =}\NormalTok{ GestationLen\_d)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom\_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{geom\_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-139-1} \end{center}
+
+\hypertarget{phylogenetic-signal}{%
+\section{Phylogenetic Signal}\label{phylogenetic-signal}}
+
+As you know, the fact that comparative data points are not statistically independent is a problem for these kind of analyses. Therefore we need to run a phylogenetically corrected analysis.
+
+Phylogenetic regression dates back a while and there have been many different ways to do it \citep{Grafen89, Nunn11}. To understand the logic behind the method, we will first consider the concept of phylogenetic signal.
+
+\hypertarget{phylogenetic-signal-1}{%
+\subsection{Phylogenetic signal}\label{phylogenetic-signal-1}}
+
+Phylogenetic signal is defined as \emph{the tendency for closely related species to resemble each other more than distantly related species}.
+
+For example, body mass is (usually) a trait with a strong phylogenetic signal. What this means in primates is that although there is a broad range of body sizes from a few tens of grams up to around 200kg, the distribution of body masses closely follows the pattern of relatedness. Large primates like orangutan, gorillas, chimps and humans are all closely related for example.
+
+The degree of phylogenetic signal in a trait is often described using the scaling parameter \(\lambda\). \(\lambda\) varies between 0 and 1 and is used to multiply the internal branch lengths so that the tree describes the pattern of variation in the trait.
+
+For example, take the case on the left, where \(\lambda\) = 1. In this case the tree is untransformed because the variation in the trait follows the structure of the tree. On the right, where \(\lambda\) = 0, all the internal branch lengths have been multiplied by 0 and therefore collapsed. This ``star phylogeny'' describes a pattern of variation in which the trait varies at random with respect to the phylogeny. The trait is not equal across the tree but rather the variation in the trait does not correlate to the pattern of relatedness.
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-140-1} \end{center}
+
+\hypertarget{caper}{%
+\subsection{caper}\label{caper}}
+
+Let's run through some examples. There are a few packages that can run phylogenetic regressions in R but the one I usually go with is called caper (Comparative Analysis of Phylogenetics and Evolution in R) \citep{caper}. So first we'll need to load caper.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(caper)}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can load up our phylogeny using read.nexus from the ape package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ape)}
+\NormalTok{primate.tree \textless{}{-}}\StringTok{ }\KeywordTok{read.nexus}\NormalTok{(}\StringTok{"primate\_tree.nex"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The regression command in \textbf{caper} (along with some other functions) requires the data and tree to be combined in a \textbf{comparative data object}. This type of object is simply a tree and comparative data set concatenated and is created using the function \textbf{comparative.data}. We need to specify the tree object, data object, column name in the data where species names are stored and whether we want a variance-covariance matrix included (we do).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{primates \textless{}{-}}\StringTok{ }\KeywordTok{comparative.data}\NormalTok{(}\DataTypeTok{phy =}\NormalTok{ primate.tree,     }\CommentTok{\#Our tree}
+                             \DataTypeTok{data =}\NormalTok{ primate.data,    }\CommentTok{\#Our data}
+                             \DataTypeTok{names.col =}\NormalTok{ Binomial,   }\CommentTok{\#Data column with the species names}
+                             \DataTypeTok{vcv =} \OtherTok{TRUE}\NormalTok{,             }\CommentTok{\#Variance{-}covariance matrix}
+                             \DataTypeTok{na.omit =} \OtherTok{FALSE}\NormalTok{,        }\CommentTok{\#We don\textquotesingle{}t want to drop missing data}
+                             \DataTypeTok{warn.dropped =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Warning in comparative.data(phy = primate.tree, data = primate.data, names.col =
+Binomial, : Data dropped in compiling comparative data object
+\end{verbatim}
+
+This warning message isn't really a problem. If you look at the tree and data I provided, you'll see that the tree has about 200 species but the datafile contains data for only 91. Therefore we expected R to drop some species when compiling the comparative data object. In fact, we asked it warn us if it did so!
+
+We can inspect the structure of the comparative data object using \textbf{str} if necessary. You should see that the object contains both the tree and the data. Either one of these (pruned from the larger objects we specified) can be extracted again if needed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{(primates)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+List of 7
+ $ phy      :List of 5
+  ..$ edge       : int [1:163, 1:2] 84 85 86 87 88 89 90 91 92 93 ...
+  ..$ edge.length: num [1:163] 4.95 17.69 19.65 8.12 4.82 ...
+  ..$ Nnode      : int 81
+  ..$ tip.label  : chr [1:83] "Cercopithecus_ascanius" "Cercopithecus_cephus" "Cercopithecus_mitis" "Cercopithecus_neglectus" ...
+  ..$ node.label : int [1:81] 84 85 86 87 88 89 90 91 92 93 ...
+  ..- attr(*, "class")= chr "phylo"
+  ..- attr(*, "order")= chr "cladewise"
+ $ data     :'data.frame':  83 obs. of  7 variables:
+  ..$ Order          : Factor w/ 1 level "Primates": 1 1 1 1 1 1 1 1 1 1 ...
+  ..$ Family         : Factor w/ 15 levels "Aotidae","Atelidae",..: 4 4 4 4 4 4 4 5 5 6 ...
+  ..$ AdultBodyMass_g: num [1:83] 3540 3445 5041 5325 5257 ...
+  ..$ GestationLen_d : num [1:83] 148 170 138 172 170 ...
+  ..$ HomeRange_km2  : num [1:83] 0.16 0.24 0.1 0.06 1.15 ...
+  ..$ MaxLongevity_m : num [1:83] 340 276 325 316 276 ...
+  ..$ SocialGroupSize: num [1:83] 26.3 11 16 4.5 16 28 91.2 1 1 1 ...
+ $ data.name: chr "primate.data"
+ $ phy.name : chr "primate.tree"
+ $ dropped  :List of 2
+  ..$ tips          : chr [1:143] "Allenopithecus_nigroviridis" "Cercopithecus_cephus_cephus" "Cercopithecus_cephus_ngottoensis" "Cercopithecus_diana" ...
+  ..$ unmatched.rows: chr [1:8] "Cercopithecus_campbelli" "Cercopithecus_pogonias" "Chiropotes_albinasus" "Chiropotes_satanas" ...
+ $ vcv      : 'VCV.array' num [1:83, 1:83] 72.3 69 64 62.4 64 ...
+  ..- attr(*, "dimnames")=List of 2
+  .. ..$ : chr [1:83] "Cercopithecus_ascanius" "Cercopithecus_cephus" "Cercopithecus_mitis" "Cercopithecus_neglectus" ...
+  .. ..$ : chr [1:83] "Cercopithecus_ascanius" "Cercopithecus_cephus" "Cercopithecus_mitis" "Cercopithecus_neglectus" ...
+ $ vcv.dim  : num 2
+ - attr(*, "class")= chr "comparative.data"
+\end{verbatim}
+
+\hypertarget{estimating-phylogenetic-signal}{%
+\subsection{Estimating Phylogenetic Signal}\label{estimating-phylogenetic-signal}}
+
+Let's estimate the phylogenetic signal of gestation length in primates. The key is to remember that we need to call our comparative data object and not the data file we loaded up at the start. We're running the trait on its own (hence the ``\textasciitilde{} 1'') and estimating lambda by maximum likelihood.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{signal \textless{}{-}}\StringTok{ }\KeywordTok{pgls}\NormalTok{(}\KeywordTok{log10}\NormalTok{(GestationLen\_d) }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1}\NormalTok{,}
+               \DataTypeTok{data =}\NormalTok{ primates,}
+               \DataTypeTok{lambda =} \StringTok{"ML"}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(signal)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Call:
+pgls(formula = log10(GestationLen_d) ~ 1, data = primates, lambda = "ML")
+
+Residuals:
+      Min        1Q    Median        3Q       Max 
+-0.035946 -0.007060 -0.001217  0.008039  0.049662 
+
+Branch length transformations:
+
+kappa  [Fix]  : 1.000
+lambda [ ML]  : 0.957
+   lower bound : 0.000, p = < 2.22e-16
+   upper bound : 1.000, p = 0.050633
+   95.0% CI   : (0.879, NA)
+delta  [Fix]  : 1.000
+
+Coefficients:
+            Estimate Std. Error t value  Pr(>|t|)    
+(Intercept) 2.175175   0.051457  42.272 < 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.01462 on 82 degrees of freedom
+Multiple R-squared:     0,  Adjusted R-squared:     0 
+F-statistic:   NaN on 0 and 82 DF,  p-value: NA 
+\end{verbatim}
+
+This output has a lot in common with a basic regression output. That's because it is one! We used the \textbf{pgls} function which performs a regression with phylogenetic correction. Because we included no predictors, the value of \(\lambda\) we estimate here corresponds only to this one trait.
+
+The key part for us is the \textbf{Branch length transformations} section of the output. \(\kappa\) and \(\delta\) are fixed at 1 and so we aren't concerned with those for now. \(\lambda\) is estimated at 0.957. That's a pretty strong phylogenetic signal.
+
+We also have lower bound and upper bound tests. We can see that \(\lambda\) is significantly different from the lower bound of 0 (p \textless{} 2.2 x 10\textsuperscript{-16}).
+
+The upper bound test shows us that \(\lambda\) is (narrowly) not significantly different from 1 (p = 0.051). This means that we can assume that gestation length has evolved by Brownian motion, in which case \(\lambda\) would equal 1 and the variation in trait would simply reflect the pattern of relatedness amongst species.
+
+\hypertarget{phylogenetic-regression}{%
+\section{Phylogenetic Regression}\label{phylogenetic-regression}}
+
+Now let's have a go at performing a PGLS regression!
+
+Let's say we have an idea that larger species of primate have longer gestations. Our plot seems to back this up but how strong is this relationship?
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-147-1} \end{center}
+
+We found earlier that there does seem to be a relationship but ordinary least squares linear regression can't be relied upon in this situation. This is because of the statistical non-independence of data points due to shared evolutionary history!
+
+A \textbf{phylogenetic generalised least squares regression} (PGLS) uses a covariance matrix to correct the analysis for this statistical non-independence. Put simply, the PGLS assumes the residuals are more similar in more closely related species rather than being randomly distributed as in linear regression.
+
+As you've already seen, the function we need here is \textbf{pgls}. The model is constructed exactly as before but this time, we need to construct a full model. We'll be estimating \(\lambda\) by maximum likelihood again.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m2 \textless{}{-}}\StringTok{ }\KeywordTok{pgls}\NormalTok{(GestationLen\_d }\OperatorTok{\textasciitilde{}}\StringTok{ }\KeywordTok{log10}\NormalTok{(AdultBodyMass\_g), }\DataTypeTok{data =}\NormalTok{ primates, }\DataTypeTok{lambda =} \StringTok{"ML"}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(m2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Call:
+pgls(formula = GestationLen_d ~ log10(AdultBodyMass_g), data = primates, 
+    lambda = "ML")
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-13.0979  -2.4301  -0.8407   1.7269   6.9863 
+
+Branch length transformations:
+
+kappa  [Fix]  : 1.000
+lambda [ ML]  : 0.805
+   lower bound : 0.000, p = 2.6579e-12
+   upper bound : 1.000, p = 1.042e-06
+   95.0% CI   : (0.607, 0.920)
+delta  [Fix]  : 1.000
+
+Coefficients:
+                       Estimate Std. Error t value  Pr(>|t|)    
+(Intercept)             53.6444    20.9100  2.5655   0.01215 *  
+log10(AdultBodyMass_g)  33.7532     5.8487  5.7710 1.394e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.513 on 81 degrees of freedom
+Multiple R-squared: 0.2914, Adjusted R-squared: 0.2826 
+F-statistic:  33.3 on 1 and 81 DF,  p-value: 1.394e-07 
+\end{verbatim}
+
+As you can see, our model is a significant fit to the data (F = 33.3, R\textsuperscript{2} = 0.29, p = 1.39 x 10\textsuperscript{-7}). More importantly, We've confirmed that body size has a positive effect on gestation length (\(\beta\) = 33.75, s.e. = 5.85, p = 1.39 x 10\textsuperscript{-7}). Time to plot!
+
+A brief note here. The syntax to get \textbf{ggplot} to do this is a little more complex than base graphics (where we can just use abline(m2)!). Here I've plotted both the OLS (blue) and PGLS (red) lines so you can see how they differ.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(dplyr)}
+\NormalTok{primates}\OperatorTok{$}\NormalTok{data }\OperatorTok{\%\textgreater{}\%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{my\_model =} \KeywordTok{predict}\NormalTok{(m2)) }\OperatorTok{\%\textgreater{}\%}
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom\_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\KeywordTok{log10}\NormalTok{(AdultBodyMass\_g), GestationLen\_d)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom\_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\KeywordTok{log10}\NormalTok{(AdultBodyMass\_g), my\_model), }
+            \DataTypeTok{colour =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{1}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom\_smooth}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\KeywordTok{log10}\NormalTok{(AdultBodyMass\_g), GestationLen\_d), }
+              \DataTypeTok{method =} \StringTok{\textquotesingle{}lm\textquotesingle{}}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Log Body Mass"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Gestation Length"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom\_text}\NormalTok{(}\DataTypeTok{x =} \DecValTok{2}\NormalTok{, }\DataTypeTok{y =} \DecValTok{230}\NormalTok{, }\DataTypeTok{label =} \StringTok{"PGLS"}\NormalTok{, }\DataTypeTok{colour =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{4}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom\_text}\NormalTok{(}\DataTypeTok{x =} \DecValTok{2}\NormalTok{, }\DataTypeTok{y =} \DecValTok{218}\NormalTok{, }\DataTypeTok{label =} \StringTok{"OLS"}\NormalTok{, }\DataTypeTok{colour =} \StringTok{"blue"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-150-1} \end{center}
+
+\hypertarget{model-checking}{%
+\subsection{Model Checking}\label{model-checking}}
+
+That's the basic model run nicely. Now, we need to run some diagnostic checks. We should start with the likelihood surface of \(\lambda\) since we estimated it by maximum likelihood.
+
+We begin by using the \textbf{pgls.profile} function to extract the likelihoods and then simply plot them. What we are looking for is a single peak around our estimated value. If we get a flat surface or multiple peaks, there might be an issue somewhere.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lambda.profile \textless{}{-}}\StringTok{ }\KeywordTok{pgls.profile}\NormalTok{(m2, }\DataTypeTok{which =} \StringTok{"lambda"}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(lambda.profile)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-151-1} \end{center}
+
+This plot describes the log likelihood of \(\lambda\) across its possible range of values (0 - 1). We can clearly see that the likelihood is highest around a single point around 0.8. Check back against the model output earlier to see if this is what we would expect.
+
+Next we need to identify any outliers in the model residuals. The first step here is to extract the residuals from the model, making sure to tell R that we want the phylogenetic residuals. The model output of pgls actually stores both phylogenetic and non-phylogenetic residuals. We can then standardise the residuals by dividing through by the square root of the variance.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res \textless{}{-}}\StringTok{ }\KeywordTok{residuals}\NormalTok{(m2, }\DataTypeTok{phylo =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{res \textless{}{-}}\StringTok{ }\NormalTok{res}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{var}\NormalTok{(res))[}\DecValTok{1}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+The general rule of thumb is that any standardised residual with an absolute value greater than 3 is an outlier and needs to be removed from the analysis. Here, I'm just assigning the species names to the \textbf{res} object so we can tell which species are the outliers (if any).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rownames}\NormalTok{(res) \textless{}{-}}\StringTok{ }\KeywordTok{rownames}\NormalTok{(m2}\OperatorTok{$}\NormalTok{residuals)}
+\KeywordTok{rownames}\NormalTok{(res)[}\KeywordTok{abs}\NormalTok{(res)}\OperatorTok{\textgreater{}}\DecValTok{3}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Microcebus_murinus" "Prolemur_simus"    
+\end{verbatim}
+
+Outliers! Maybe they're causing problems and maybe they aren't. We need to check that by re-running our analysis without them. A simple line of code will take our existing comparative data object and drop out the named outliers.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{primates.nooutliers \textless{}{-}}\StringTok{ }\NormalTok{primates[}\OperatorTok{{-}}\KeywordTok{which}\NormalTok{(}\KeywordTok{abs}\NormalTok{(res)}\OperatorTok{\textgreater{}}\DecValTok{3}\NormalTok{),]}
+\end{Highlighting}
+\end{Shaded}
+
+Now simply re-run the model, remembering to direct R to the new data object.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m3 \textless{}{-}}\StringTok{ }\KeywordTok{pgls}\NormalTok{(GestationLen\_d }\OperatorTok{\textasciitilde{}}\StringTok{ }\KeywordTok{log10}\NormalTok{(AdultBodyMass\_g),}
+           \DataTypeTok{data =}\NormalTok{ primates.nooutliers, }\DataTypeTok{lambda =} \StringTok{"ML"}\NormalTok{)}
+\KeywordTok{summary}\NormalTok{(m3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Call:
+pgls(formula = GestationLen_d ~ log10(AdultBodyMass_g), data = primates.nooutliers, 
+    lambda = "ML")
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-10.2217  -2.0473  -0.4166   1.3041  11.2824 
+
+Branch length transformations:
+
+kappa  [Fix]  : 1.000
+lambda [ ML]  : 0.800
+   lower bound : 0.000, p = 1.6399e-11
+   upper bound : 1.000, p = 1.2064e-06
+   95.0% CI   : (0.595, 0.918)
+delta  [Fix]  : 1.000
+
+Coefficients:
+                       Estimate Std. Error t value  Pr(>|t|)    
+(Intercept)             54.8023    21.1816  2.5873   0.01151 *  
+log10(AdultBodyMass_g)  33.3672     5.9418  5.6156 2.815e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.53 on 79 degrees of freedom
+Multiple R-squared: 0.2853, Adjusted R-squared: 0.2762 
+F-statistic: 31.54 on 1 and 79 DF,  p-value: 2.815e-07 
+\end{verbatim}
+
+The results have barely changed. So it seems that although those two lemurs were outliers, they weren't effecting the analysis too much. Let's check for outliers in this new model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res \textless{}{-}}\StringTok{ }\KeywordTok{residuals}\NormalTok{(m3, }\DataTypeTok{phylo =} \OtherTok{TRUE}\NormalTok{)}
+\NormalTok{res \textless{}{-}}\StringTok{ }\NormalTok{res}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{var}\NormalTok{(res))[}\DecValTok{1}\NormalTok{]}
+\KeywordTok{rownames}\NormalTok{(res) \textless{}{-}}\StringTok{ }\KeywordTok{rownames}\NormalTok{(m3}\OperatorTok{$}\NormalTok{residuals)}
+\KeywordTok{rownames}\NormalTok{(res)[}\KeywordTok{abs}\NormalTok{(res)}\OperatorTok{\textgreater{}}\DecValTok{3}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Microcebus_rufus"
+\end{verbatim}
+
+Another one! Don't worry. This can happen. We need to drop the new outlier again to run the same checks.
+
+Finally, we can check the diagnostic plots of the model. I've included some lines to help arrange the plots. To view the plots for model diagnostics, we can simply plot the model object!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{par.default \textless{}{-}}\StringTok{ }\KeywordTok{par}\NormalTok{(}\DataTypeTok{no.readonly =}\NormalTok{ T) }\CommentTok{\#Save default plotting parameters}
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{2}\NormalTok{)) }\CommentTok{\#Set the plot window to show 4 different plots}
+\KeywordTok{plot}\NormalTok{(m3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-157-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(par.default) }\CommentTok{\#Reset plot window to default}
+\end{Highlighting}
+\end{Shaded}
+
+The top left panel shows the distribution of our residuals. We can see a bump near +3. That will be our outlier that needs to be dropped before we proceed any further. The top right plot closely approximates a straight line so that's good. The bottom left shows no real pattern which is also good. The bottom right graph should show a correlation (and it seems to) with the points more or less equally scattered above and below the 45\textsuperscript{o} diagonal. Along that line, the observed and fitted values would be exactly equal.
+
+\hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+So that's how to perform a simple PGLS analysis. This kind of analysis is great for attempting make causal connections between traits of extant species, thus inferring a connection over evolutionary history. For example, we hypothesised that the reason some primates have longer gestation periods is that they have larger body sizes and the PGLS confirmed our suspicion. More complex regressions can include multpile predictors and that's what we'll look at next.
+
+By the way, always make sure to check your models for outliers! In this analysis the gray mouse lemur was an outlier and we had to drop it. Outliers like this can throw off your analysis. If we hadn't checked, we would have presented the analysis in a paper and then had it invalidated when someone checked up on it. Fortunately in this case, the outliers didn't really change the outcome so the gray mouse lemur is off the hook. Look how relieved he is!
+
+\begin{center}\includegraphics[width=7.64in]{Images/mouselemur} \end{center}
 
 \hypertarget{bibliography}{%
 \chapter{Bibliography}\label{bibliography}}

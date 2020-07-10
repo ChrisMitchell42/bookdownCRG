@@ -99,3 +99,50 @@ trees <- make.simmap(tree, z, nsim = 100)
 obj <- densityMap(trees, lwd = 3, fsize = 0.6, outline = F)
 ```
 
+
+
+## Plotting with ggplot2
+
+A nice way of investigating data is by plotting it. For a quick visualisation I usually use the base graphics in R. They get the job done and are realtively simple to edit once you understand the syntax of R.
+
+However, most R users seem to agree that the package "ggplot2" gives better plots. This might be useful to you when you want to prepare your plots for reports. So here, I'm going to use ggplot2 just to show you what it can do.
+```{r, eval = FALSE}
+install.packages("ggplot2")
+library(ggplot2)
+```
+
+ggplot2 builds plots in layers similar to ggtree which you have met before in workshop 1. In fact, the ggtree package was built based upon ggplot2. We start with the function ggplot which creates a coordinate system to which we can add layers. This function alone just creates a blank plot
+```{r, fig.align='center'}
+ggplot(data = primate.data)
+```
+
+Let's add a layer with the points. We can add a layer of points with the function geom_point. This creates our basic scatterplot. Each geom function (the ones that add layers) takes a mapping argument which controls how the layer is mapped onto the plot. This argument usually takes the form seen below. Remember that body mass should be log transformed before we plot it!
+```{r, fig.align='center'}
+ggplot(data = primate.data) +
+  geom_point(mapping = aes(x = log10(AdultBodyMass_g), y = GestationLen_d))
+```
+
+In practice, exactly how you add geoms and layers seems to be affected by exactly what you want to do with the plot. As we'll see later, if you want to add regression lines or other statistical features to your plot, you may want to reorganise this code. My advice is to google what you want to do and work backwards from someone else's code. That's what I do.
+
+The plot isn't done yet. We can display a bit more information by adding another mapping argument. Here, I've coloured the points according to their family. The unique colours are assigned auotmatically and the legend is also created automatically.
+```{r, fig.align='center', fig.height = 4.5, fig.width = 7}
+ggplot(data = primate.data) +
+  geom_point(mapping = aes(x = log10(AdultBodyMass_g), y = GestationLen_d, 
+                           colour = Family))
+```
+
+If you prefer, you can manually set the colour for all points. Be aware of the difference here! In the code below, the difference is that colour here is outside of the mapping argument. This means that the colour doesn't display any real information but does change the aesthetic of the plot.
+```{r, fig.align='center'}
+ggplot(data = primate.data) +
+  geom_point(mapping = aes(x = log10(AdultBodyMass_g), y = GestationLen_d),
+             colour = "green")
+```
+
+Let's clean up the plot with some axis labels.
+```{r, fig.align='center', fig.height = 4.5, fig.width = 7}
+ggplot(data = primate.data) +
+  geom_point(mapping = aes(x = log10(AdultBodyMass_g), y = GestationLen_d,
+                           colour = Family)) +
+  labs(x = "Log Body Mass", y = "Gestation Length")
+```
+

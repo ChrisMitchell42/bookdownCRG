@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Workshop 2: PGLS | Comparative Methods Workshops</title>
+  <title>9 Phylogenetic Regression | Comparative Methods Workshops</title>
   <meta name="description" content="These are the workshops for the Comparative Research Group as part of LIFE363" />
   <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Workshop 2: PGLS | Comparative Methods Workshops" />
+  <meta property="og:title" content="9 Phylogenetic Regression | Comparative Methods Workshops" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="ChrisMitchell42/bookdownCRG" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Workshop 2: PGLS | Comparative Methods Workshops" />
+  <meta name="twitter:title" content="9 Phylogenetic Regression | Comparative Methods Workshops" />
   
   <meta name="twitter:description" content="These are the workshops for the Comparative Research Group as part of LIFE363" />
   
@@ -24,15 +24,15 @@
 <meta name="author" content="Chris Mitchell" />
 
 
-<meta name="date" content="2020-06-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="w1plotting.html"/>
-
+<link rel="prev" href="asr2.html"/>
+<link rel="next" href="bibliography.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,45 +50,72 @@
 
 
 
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.16/iframeResizer.min.js" type="text/javascript"></script>
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -107,35 +134,112 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><a href="./">Comparative Research Group</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Preamble</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
-<li class="chapter" data-level="3" data-path="w1plotting.html"><a href="w1plotting.html"><i class="fa fa-check"></i><b>3</b> Workshop 1: Plotting phylogenies in R</a><ul>
-<li class="chapter" data-level="3.1" data-path="w1plotting.html"><a href="w1plotting.html#phylogenetics-in-r"><i class="fa fa-check"></i><b>3.1</b> Phylogenetics in R</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="w1plotting.html"><a href="w1plotting.html#packages-used"><i class="fa fa-check"></i><b>3.1.1</b> Packages used</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#for-students"><i class="fa fa-check"></i><b>1.1</b> For students</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="w1plotting.html"><a href="w1plotting.html#importing-your-tree"><i class="fa fa-check"></i><b>3.2</b> Importing your tree</a></li>
-<li class="chapter" data-level="3.3" data-path="w1plotting.html"><a href="w1plotting.html#ggtree"><i class="fa fa-check"></i><b>3.3</b> ggtree</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="w1plotting.html"><a href="w1plotting.html#geoms"><i class="fa fa-check"></i><b>3.3.1</b> Geoms</a></li>
-<li class="chapter" data-level="3.3.2" data-path="w1plotting.html"><a href="w1plotting.html#labelling-clades"><i class="fa fa-check"></i><b>3.3.2</b> Labelling clades</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-the-comparative-method"><i class="fa fa-check"></i><b>2.1</b> What is the comparative method?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#tree-thinking"><i class="fa fa-check"></i><b>2.2</b> Tree thinking</a></li>
 </ul></li>
-<li class="chapter" data-level="3.4" data-path="w1plotting.html"><a href="w1plotting.html#example-phylogeny"><i class="fa fa-check"></i><b>3.4</b> Example Phylogeny</a><ul>
-<li class="chapter" data-level="3.4.1" data-path="w1plotting.html"><a href="w1plotting.html#phylopic"><i class="fa fa-check"></i><b>3.4.1</b> Phylopic</a></li>
+<li class="chapter" data-level="3" data-path="recap.html"><a href="recap.html"><i class="fa fa-check"></i><b>3</b> R recap</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="recap.html"><a href="recap.html#basics"><i class="fa fa-check"></i><b>3.1</b> Basics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="recap.html"><a href="recap.html#plotting"><i class="fa fa-check"></i><b>3.1.1</b> Plotting</a></li>
+<li class="chapter" data-level="3.1.2" data-path="recap.html"><a href="recap.html#the-working-directory"><i class="fa fa-check"></i><b>3.1.2</b> The working directory</a></li>
+<li class="chapter" data-level="3.1.3" data-path="recap.html"><a href="recap.html#loading-data"><i class="fa fa-check"></i><b>3.1.3</b> Loading data</a></li>
+<li class="chapter" data-level="3.1.4" data-path="recap.html"><a href="recap.html#subsetting"><i class="fa fa-check"></i><b>3.1.4</b> Subsetting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="recap.html"><a href="recap.html#errors"><i class="fa fa-check"></i><b>3.2</b> Errors</a></li>
+<li class="chapter" data-level="3.3" data-path="recap.html"><a href="recap.html#google"><i class="fa fa-check"></i><b>3.3</b> Google</a></li>
+<li class="chapter" data-level="3.4" data-path="recap.html"><a href="recap.html#stealing"><i class="fa fa-check"></i><b>3.4</b> Stealing</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="phylogenetics.html"><a href="phylogenetics.html"><i class="fa fa-check"></i><b>4</b> Phylogenetic trees and where to find them</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="phylogenetics.html"><a href="phylogenetics.html#phylogeny"><i class="fa fa-check"></i><b>4.1</b> Phylogeny</a></li>
+<li class="chapter" data-level="4.2" data-path="phylogenetics.html"><a href="phylogenetics.html#building-trees"><i class="fa fa-check"></i><b>4.2</b> Building trees</a></li>
+<li class="chapter" data-level="4.3" data-path="phylogenetics.html"><a href="phylogenetics.html#locating-trees"><i class="fa fa-check"></i><b>4.3</b> Locating trees</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="phylogenetics.html"><a href="phylogenetics.html#file-format"><i class="fa fa-check"></i><b>4.3.1</b> File format</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="w2PGLS.html"><a href="w2PGLS.html"><i class="fa fa-check"></i><b>4</b> Workshop 2: PGLS</a><ul>
-<li class="chapter" data-level="4.1" data-path="w2PGLS.html"><a href="w2PGLS.html#data"><i class="fa fa-check"></i><b>4.1</b> Data</a></li>
-<li class="chapter" data-level="4.2" data-path="w2PGLS.html"><a href="w2PGLS.html#plotting-with-ggplot2"><i class="fa fa-check"></i><b>4.2</b> Plotting with ggplot2</a></li>
-<li class="chapter" data-level="4.3" data-path="w2PGLS.html"><a href="w2PGLS.html#linear-regression"><i class="fa fa-check"></i><b>4.3</b> Linear Regression</a></li>
-<li class="chapter" data-level="4.4" data-path="w2PGLS.html"><a href="w2PGLS.html#trees-and-phylogenetic-signal"><i class="fa fa-check"></i><b>4.4</b> Trees and Phylogenetic Signal</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-signal"><i class="fa fa-check"></i><b>4.4.1</b> Phylogenetic signal</a></li>
-<li class="chapter" data-level="4.4.2" data-path="w2PGLS.html"><a href="w2PGLS.html#caper"><i class="fa fa-check"></i><b>4.4.2</b> caper</a></li>
-<li class="chapter" data-level="4.4.3" data-path="w2PGLS.html"><a href="w2PGLS.html#estimating-phylogenetic-signal"><i class="fa fa-check"></i><b>4.4.3</b> Estimating Phylogenetic Signal</a></li>
+<li class="chapter" data-level="5" data-path="w1plotting.html"><a href="w1plotting.html"><i class="fa fa-check"></i><b>5</b> Plotting trees in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="w1plotting.html"><a href="w1plotting.html#phylogenies-in-r"><i class="fa fa-check"></i><b>5.1</b> Phylogenies in R</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="w1plotting.html"><a href="w1plotting.html#packages-used"><i class="fa fa-check"></i><b>5.1.1</b> Packages used</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-regression"><i class="fa fa-check"></i><b>4.5</b> Phylogenetic Regression</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="w2PGLS.html"><a href="w2PGLS.html#model-checking"><i class="fa fa-check"></i><b>4.5.1</b> Model Checking</a></li>
+<li class="chapter" data-level="5.2" data-path="w1plotting.html"><a href="w1plotting.html#importing-your-tree"><i class="fa fa-check"></i><b>5.2</b> Importing your tree</a></li>
+<li class="chapter" data-level="5.3" data-path="w1plotting.html"><a href="w1plotting.html#ggtree"><i class="fa fa-check"></i><b>5.3</b> ggtree</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="w1plotting.html"><a href="w1plotting.html#geoms"><i class="fa fa-check"></i><b>5.3.1</b> Geoms</a></li>
+<li class="chapter" data-level="5.3.2" data-path="w1plotting.html"><a href="w1plotting.html#labelling-clades"><i class="fa fa-check"></i><b>5.3.2</b> Labelling clades</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="w2PGLS.html"><a href="w2PGLS.html#conclusion"><i class="fa fa-check"></i><b>4.6</b> Conclusion</a></li>
+<li class="chapter" data-level="5.4" data-path="w1plotting.html"><a href="w1plotting.html#adding-images-to-trees"><i class="fa fa-check"></i><b>5.4</b> Adding images to trees</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="w1plotting.html"><a href="w1plotting.html#phylopic"><i class="fa fa-check"></i><b>5.4.1</b> Phylopic</a></li>
 </ul></li>
+<li class="chapter" data-level="5.5" data-path="w1plotting.html"><a href="w1plotting.html#further-info"><i class="fa fa-check"></i><b>5.5</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>6</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="anova.html"><a href="anova.html#analysis-of-variance"><i class="fa fa-check"></i><b>6.1</b> Analysis of variance</a></li>
+<li class="chapter" data-level="6.2" data-path="anova.html"><a href="anova.html#phylogenetic-correction"><i class="fa fa-check"></i><b>6.2</b> Phylogenetic correction</a></li>
+<li class="chapter" data-level="6.3" data-path="anova.html"><a href="anova.html#example-data-analysis"><i class="fa fa-check"></i><b>6.3</b> Example data &amp; analysis</a></li>
+<li class="chapter" data-level="6.4" data-path="anova.html"><a href="anova.html#further-info-1"><i class="fa fa-check"></i><b>6.4</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="asr1.html"><a href="asr1.html"><i class="fa fa-check"></i><b>7</b> Ancestral State Reconstruction I</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="asr1.html"><a href="asr1.html#data"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
+<li class="chapter" data-level="7.2" data-path="asr1.html"><a href="asr1.html#trees"><i class="fa fa-check"></i><b>7.2</b> Trees</a></li>
+<li class="chapter" data-level="7.3" data-path="asr1.html"><a href="asr1.html#parsimony"><i class="fa fa-check"></i><b>7.3</b> Parsimony</a></li>
+<li class="chapter" data-level="7.4" data-path="asr1.html"><a href="asr1.html#maximum-likelihood"><i class="fa fa-check"></i><b>7.4</b> Maximum Likelihood</a></li>
+<li class="chapter" data-level="7.5" data-path="asr1.html"><a href="asr1.html#stochastic-character-mapping"><i class="fa fa-check"></i><b>7.5</b> Stochastic Character Mapping</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="asr1.html"><a href="asr1.html#an-analogy"><i class="fa fa-check"></i><b>7.5.1</b> An Analogy</a></li>
+<li class="chapter" data-level="7.5.2" data-path="asr1.html"><a href="asr1.html#state-characters"><i class="fa fa-check"></i><b>7.5.2</b> 2-State Characters</a></li>
+<li class="chapter" data-level="7.5.3" data-path="asr1.html"><a href="asr1.html#state-characters-1"><i class="fa fa-check"></i><b>7.5.3</b> 3-State Characters</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="asr1.html"><a href="asr1.html#further-info-2"><i class="fa fa-check"></i><b>7.6</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="asr2.html"><a href="asr2.html"><i class="fa fa-check"></i><b>8</b> Ancestral State Reconstruction II</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="asr2.html"><a href="asr2.html#data-2"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
+<li class="chapter" data-level="8.2" data-path="asr2.html"><a href="asr2.html#tree"><i class="fa fa-check"></i><b>8.2</b> Tree</a></li>
+<li class="chapter" data-level="8.3" data-path="asr2.html"><a href="asr2.html#ancestral-state-reconstructions"><i class="fa fa-check"></i><b>8.3</b> Ancestral State Reconstructions</a></li>
+<li class="chapter" data-level="8.4" data-path="asr2.html"><a href="asr2.html#bayestraits"><i class="fa fa-check"></i><b>8.4</b> BayesTraits</a></li>
+<li class="chapter" data-level="8.5" data-path="asr2.html"><a href="asr2.html#modelling-evolution"><i class="fa fa-check"></i><b>8.5</b> Modelling Evolution</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="asr2.html"><a href="asr2.html#brownian-motion"><i class="fa fa-check"></i><b>8.5.1</b> Brownian Motion</a></li>
+<li class="chapter" data-level="8.5.2" data-path="asr2.html"><a href="asr2.html#directional-evolution"><i class="fa fa-check"></i><b>8.5.2</b> Directional Evolution</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="asr2.html"><a href="asr2.html#changes-in-the-rate-of-evolution-of-a-trait"><i class="fa fa-check"></i><b>8.6</b> Changes in the rate of evolution of a trait</a></li>
+<li class="chapter" data-level="8.7" data-path="asr2.html"><a href="asr2.html#uncertainty"><i class="fa fa-check"></i><b>8.7</b> Uncertainty</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="asr2.html"><a href="asr2.html#fossils"><i class="fa fa-check"></i><b>8.7.1</b> Fossils</a></li>
+<li class="chapter" data-level="8.7.2" data-path="asr2.html"><a href="asr2.html#revisiting-mysticete-body-mass"><i class="fa fa-check"></i><b>8.7.2</b> Revisiting Mysticete Body Mass</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="asr2.html"><a href="asr2.html#further-info-3"><i class="fa fa-check"></i><b>8.8</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="w2PGLS.html"><a href="w2PGLS.html"><i class="fa fa-check"></i><b>9</b> Phylogenetic Regression</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="w2PGLS.html"><a href="w2PGLS.html#data-3"><i class="fa fa-check"></i><b>9.1</b> Data</a></li>
+<li class="chapter" data-level="9.2" data-path="w2PGLS.html"><a href="w2PGLS.html#linear-regression"><i class="fa fa-check"></i><b>9.2</b> Linear Regression</a></li>
+<li class="chapter" data-level="9.3" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-signal"><i class="fa fa-check"></i><b>9.3</b> Phylogenetic Signal</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-signal-1"><i class="fa fa-check"></i><b>9.3.1</b> Phylogenetic signal</a></li>
+<li class="chapter" data-level="9.3.2" data-path="w2PGLS.html"><a href="w2PGLS.html#caper"><i class="fa fa-check"></i><b>9.3.2</b> caper</a></li>
+<li class="chapter" data-level="9.3.3" data-path="w2PGLS.html"><a href="w2PGLS.html#estimating-phylogenetic-signal"><i class="fa fa-check"></i><b>9.3.3</b> Estimating Phylogenetic Signal</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-regression"><i class="fa fa-check"></i><b>9.4</b> Phylogenetic Regression</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="w2PGLS.html"><a href="w2PGLS.html#model-checking"><i class="fa fa-check"></i><b>9.4.1</b> Model Checking</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="w2PGLS.html"><a href="w2PGLS.html#conclusion"><i class="fa fa-check"></i><b>9.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>10</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -156,55 +260,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="w2PGLS" class="section level1">
-<h1><span class="header-section-number">4</span> Workshop 2: PGLS</h1>
-<p>This tutorial will show you how to perform phylogenetically correct regression analyses on continuous data in R.</p>
-<p>As usual, remember to set your working directory to wherever you have saved the necessary files. Other than that, this tutorial assumes you have already installed the packages ape and caper.</p>
-<div id="data" class="section level2">
-<h2><span class="header-section-number">4.1</span> Data</h2>
-<p>Let's load up some primate data. You should see the dataframe appear in your environment. If you inspect the object, you will find a number of continuous variables in there for us to investigate.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">primate.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;primates_data.txt&quot;</span>, <span class="dt">header =</span> T)
-<span class="kw">names</span>(primate.data)</code></pre></div>
+<div id="w2PGLS" class="section level1" number="9">
+<h1><span class="header-section-number">9</span> Phylogenetic Regression</h1>
+<p>This chapter will show you how to perform phylogenetically correct regression analyses on continuous data in R. As usual, remember to set your working directory to wherever you have saved the necessary files.</p>
+<div id="data-3" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Data</h2>
+<p>Let’s load up some example primate data. You should see the dataframe appear in your environment. If you inspect the object, you will find a number of continuous variables in there for us to investigate.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="w2PGLS.html#cb166-1"></a>primate.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;primates_data.txt&quot;</span>, <span class="dt">header =</span> T)</span>
+<span id="cb166-2"><a href="w2PGLS.html#cb166-2"></a><span class="kw">names</span>(primate.data)</span></code></pre></div>
 <pre><code>[1] &quot;Order&quot;           &quot;Family&quot;          &quot;Binomial&quot;        &quot;AdultBodyMass_g&quot;
 [5] &quot;GestationLen_d&quot;  &quot;HomeRange_km2&quot;   &quot;MaxLongevity_m&quot;  &quot;SocialGroupSize&quot;</code></pre>
 </div>
-<div id="plotting-with-ggplot2" class="section level2">
-<h2><span class="header-section-number">4.2</span> Plotting with ggplot2</h2>
-<p>A nice way of investigating data is by plotting it. For a quick visualisation I usually use the base graphics in R. They get the job done and are realtively simple to edit once you understand the syntax of R.</p>
-<p>However, most R users seem to agree that the package &quot;ggplot2&quot; gives better plots. This might be useful to you when you want to prepare your plots for reports. So here, I'm going to use ggplot2 just to show you what it can do.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;ggplot2&quot;</span>)
-<span class="kw">library</span>(ggplot2)</code></pre></div>
-<p>ggplot2 builds plots in layers similar to ggtree which you have met before in workshop 1. In fact, the ggtree package was built based upon ggplot2. We start with the function ggplot which creates a coordinate system to which we can add layers. This function alone just creates a blank plot</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> primate.data)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Let's add a layer with the points. We can add a layer of points with the function geom_point. This creates our basic scatterplot. Each geom function (the ones that add layers) takes a mapping argument which controls how the layer is mapped onto the plot. This argument usually takes the form seen below. Remember that body mass should be log transformed before we plot it!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> primate.data) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">y =</span> GestationLen_d))</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>In practice, exactly how you add geoms and layers seems to be affected by exactly what you want to do with the plot. As we'll see later, if you want to add regression lines or other statistical features to your plot, you may want to reorganise this code. My advice is to google what you want to do and work backwards from someone else's code. That's what I do.</p>
-<p>The plot isn't done yet. We can display a bit more information by adding another mapping argument. Here, I've coloured the points according to their family. The unique colours are assigned auotmatically and the legend is also created automatically.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> primate.data) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">y =</span> GestationLen_d, 
-                           <span class="dt">colour =</span> Family))</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>If you prefer, you can manually set the colour for all points. Be aware of the difference here! In the code below, the difference is that colour here is outside of the mapping argument. This means that the colour doesn't display any real information but does change the aesthetic of the plot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> primate.data) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">y =</span> GestationLen_d),
-             <span class="dt">colour =</span> <span class="st">&quot;green&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Let's clean up the plot with some axis labels.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> primate.data) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">y =</span> GestationLen_d,
-                           <span class="dt">colour =</span> Family)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Log Body Mass&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Gestation Length&quot;</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-29-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-<div id="linear-regression" class="section level2">
-<h2><span class="header-section-number">4.3</span> Linear Regression</h2>
-<p>To see if body mass and gestation length are related, the best way to go would seem to be a linear regression. The funtion to perform an ordinary least squares linear regression is lm(). The first argument is our model, stating in this case that body mass predicts gestation length. Then we specify the data object to tell R where to find the data.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m1 &lt;-<span class="st"> </span><span class="kw">lm</span>(GestationLen_d <span class="op">~</span><span class="st"> </span><span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">data =</span> primate.data)</code></pre></div>
-<p>You should now see a new object (m1) in your environment. This contains the output of your regression analysis and to view it, we can use the summary function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(m1)</code></pre></div>
+<div id="linear-regression" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> Linear Regression</h2>
+<p>Simple linear regression will be familiar to you from LIFE223. The principle is to find out what the relationship is between two or more variables.</p>
+<p>To see if body mass and gestation length are related in primate, the best way to go would seem to be a traditional linear regression. The funtion to perform an ordinary least squares linear regression is <strong>lm()</strong>. The first argument is our model, stating in this case that body mass predicts gestation length. Then we specify the data object to tell R where to find the data.</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="w2PGLS.html#cb168-1"></a>m1 &lt;-<span class="st"> </span><span class="kw">lm</span>(GestationLen_d <span class="op">~</span><span class="st"> </span><span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">data =</span> primate.data)</span></code></pre></div>
+<p>You can use the summary function to see the output of your regression.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="w2PGLS.html#cb169-1"></a><span class="kw">summary</span>(m1)</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = GestationLen_d ~ log10(AdultBodyMass_g), data = primate.data)
@@ -223,41 +296,45 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 Residual standard error: 27.31 on 89 degrees of freedom
 Multiple R-squared:  0.5038,    Adjusted R-squared:  0.4982 
 F-statistic: 90.35 on 1 and 89 DF,  p-value: 3.374e-15</code></pre>
-<p>The key parts of our output are the coefficients table and the three lines of output below which contain the R<sup>2</sup> value. Here, it's telling us that our model is a significant fit to the data as we might expect. Also, the mid-range R<sup>2</sup> (0.50) is what we'd expect given the spread of data in the plot.</p>
-<p>We can also plot this line with ggplot with the following code. There are some key differences here. Most importantly, I've specified x and y in ggplot rather than geom_point. I've then added the function geom_smooth amd used the method &quot;lm&quot; to specify that I want a linear model plotted. The reason I did this is quite simple; I Googled it and the hive-mind of R users on the internet told me to.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> primate.data, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">y =</span> GestationLen_d)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The key parts of our output are the coefficients table and the three lines of output below which contain the R<sup>2</sup> value. Here, it’s telling us that our model is a significant fit to the data as we might expect. Also, the mid-range R<sup>2</sup> (0.50) is what we’d expect given the spread of data in the plot.</p>
+<p>We can also plot this line with <strong>ggplot</strong> with the following code. To plot the regression line, add the function geom_smooth amd used the method “lm” to specify that I want a linear model plotted.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="w2PGLS.html#cb171-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb171-2"><a href="w2PGLS.html#cb171-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> primate.data, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">y =</span> GestationLen_d)) <span class="op">+</span></span>
+<span id="cb171-3"><a href="w2PGLS.html#cb171-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb171-4"><a href="w2PGLS.html#cb171-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-139-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="trees-and-phylogenetic-signal" class="section level2">
-<h2><span class="header-section-number">4.4</span> Trees and Phylogenetic Signal</h2>
+<div id="phylogenetic-signal" class="section level2" number="9.3">
+<h2><span class="header-section-number">9.3</span> Phylogenetic Signal</h2>
 <p>As you know, the fact that comparative data points are not statistically independent is a problem for these kind of analyses. Therefore we need to run a phylogenetically corrected analysis.</p>
-<div id="phylogenetic-signal" class="section level3">
-<h3><span class="header-section-number">4.4.1</span> Phylogenetic signal</h3>
-<p>Importantly, you need to understand the concept of phylogenetic signal which is defined as <em>the tendency for closely related species to resemble each other more than distantly related species</em>.</p>
+<p>Phylogenetic regression dates back a while and there have been many different ways to do it <span class="citation">(Grafen <a href="#ref-Grafen89" role="doc-biblioref">1989</a>, Nunn <a href="#ref-Nunn11" role="doc-biblioref">2011</a>)</span>. To understand the logic behind the method, we will first consider the concept of phylogenetic signal.</p>
+<div id="phylogenetic-signal-1" class="section level3" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> Phylogenetic signal</h3>
+<p>Phylogenetic signal is defined as <em>the tendency for closely related species to resemble each other more than distantly related species</em>.</p>
 <p>For example, body mass is (usually) a trait with a strong phylogenetic signal. What this means in primates is that although there is a broad range of body sizes from a few tens of grams up to around 200kg, the distribution of body masses closely follows the pattern of relatedness. Large primates like orangutan, gorillas, chimps and humans are all closely related for example.</p>
 <p>The degree of phylogenetic signal in a trait is often described using the scaling parameter <span class="math inline">\(\lambda\)</span>. <span class="math inline">\(\lambda\)</span> varies between 0 and 1 and is used to multiply the internal branch lengths so that the tree describes the pattern of variation in the trait.</p>
-<p>For example, take the case on the left, where <span class="math inline">\(\lambda = 1\)</span>. In this case the tree is untransformed because the variation in the trait follows the structure of the tree. On the right, where <span class="math inline">\(\lambda = 0\)</span>, all the internal branch lengths have been multiplied by 0 and therefore collapsed. This &quot;star phylogeny&quot; describes a pattern of variation in which the trait varies at random with respect to the phylogeny. The trait is not equal across the tree but rather the variation in the trait does not correlate to the pattern of relatedness. <img src="bookdown-demo_files/figure-html/unnamed-chunk-33-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>For example, take the case on the left, where <span class="math inline">\(\lambda\)</span> = 1. In this case the tree is untransformed because the variation in the trait follows the structure of the tree. On the right, where <span class="math inline">\(\lambda\)</span> = 0, all the internal branch lengths have been multiplied by 0 and therefore collapsed. This “star phylogeny” describes a pattern of variation in which the trait varies at random with respect to the phylogeny. The trait is not equal across the tree but rather the variation in the trait does not correlate to the pattern of relatedness.
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-140-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="caper" class="section level3">
-<h3><span class="header-section-number">4.4.2</span> caper</h3>
-<p>Let's run through some examples. There are a few packages that can run phylogenetic regressions in R but the one I usually go with is called caper (Comparative Analysis of Phylogenetics and Evolution in R). So first we'll need to load caper.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(caper)</code></pre></div>
+<div id="caper" class="section level3" number="9.3.2">
+<h3><span class="header-section-number">9.3.2</span> caper</h3>
+<p>Let’s run through some examples. There are a few packages that can run phylogenetic regressions in R but the one I usually go with is called caper (Comparative Analysis of Phylogenetics and Evolution in R) <span class="citation">(Orme et al. <a href="#ref-caper" role="doc-biblioref">2018</a>)</span>. So first we’ll need to load caper.</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="w2PGLS.html#cb172-1"></a><span class="kw">library</span>(caper)</span></code></pre></div>
 <p>Now we can load up our phylogeny using read.nexus from the ape package.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">primate.tree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;primate_tree.nex&quot;</span>)</code></pre></div>
-<p>The regression command in caper (along with some other functions) requires the data and tree to be combined in a comparative data object. This type of objectis simply a tree and comparative data set concatenated and is created using the function &quot;comparative.data&quot;. We need to specify the tree object, data object, column name in the data where species names are stored and whether we want a variance-covariance matrix included (we do).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">primates &lt;-<span class="st"> </span><span class="kw">comparative.data</span>(<span class="dt">phy =</span> primate.tree,     <span class="co">#Our tree</span>
-                             <span class="dt">data =</span> primate.data,    <span class="co">#Our data</span>
-                             <span class="dt">names.col =</span> Binomial,   <span class="co">#Data column with the species names</span>
-                             <span class="dt">vcv =</span> <span class="ot">TRUE</span>,             <span class="co">#Variance-covariance matrix</span>
-                             <span class="dt">na.omit =</span> <span class="ot">FALSE</span>,        <span class="co">#We don&#39;t want to drop missing data</span>
-                             <span class="dt">warn.dropped =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<pre><code>Warning in comparative.data(phy = primate.tree, data = primate.data,
-names.col = Binomial, : Data dropped in compiling comparative data object</code></pre>
-<p>This warning message isn't really a problem. If you look at the tree and data I provided, you'll see that the tree has about 200 species but the data contains data for only 91. Therefore we expected R to drop some species when compiling the comparative data object. In fact, we asked it warn us if it did so!</p>
-<p>We can inspect the structure of the comparative data object using str if necessary. You should see that the object contains both the tree and the data. Either one of these (pruned from the larger objects we specified) can be extracted again if needed.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(primates)</code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="w2PGLS.html#cb173-1"></a><span class="kw">library</span>(ape)</span>
+<span id="cb173-2"><a href="w2PGLS.html#cb173-2"></a>primate.tree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;primate_tree.nex&quot;</span>)</span></code></pre></div>
+<p>The regression command in <strong>caper</strong> (along with some other functions) requires the data and tree to be combined in a <strong>comparative data object</strong>. This type of object is simply a tree and comparative data set concatenated and is created using the function <strong>comparative.data</strong>. We need to specify the tree object, data object, column name in the data where species names are stored and whether we want a variance-covariance matrix included (we do).</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="w2PGLS.html#cb174-1"></a>primates &lt;-<span class="st"> </span><span class="kw">comparative.data</span>(<span class="dt">phy =</span> primate.tree,     <span class="co">#Our tree</span></span>
+<span id="cb174-2"><a href="w2PGLS.html#cb174-2"></a>                             <span class="dt">data =</span> primate.data,    <span class="co">#Our data</span></span>
+<span id="cb174-3"><a href="w2PGLS.html#cb174-3"></a>                             <span class="dt">names.col =</span> Binomial,   <span class="co">#Data column with the species names</span></span>
+<span id="cb174-4"><a href="w2PGLS.html#cb174-4"></a>                             <span class="dt">vcv =</span> <span class="ot">TRUE</span>,             <span class="co">#Variance-covariance matrix</span></span>
+<span id="cb174-5"><a href="w2PGLS.html#cb174-5"></a>                             <span class="dt">na.omit =</span> <span class="ot">FALSE</span>,        <span class="co">#We don&#39;t want to drop missing data</span></span>
+<span id="cb174-6"><a href="w2PGLS.html#cb174-6"></a>                             <span class="dt">warn.dropped =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>Warning in comparative.data(phy = primate.tree, data = primate.data, names.col =
+Binomial, : Data dropped in compiling comparative data object</code></pre>
+<p>This warning message isn’t really a problem. If you look at the tree and data I provided, you’ll see that the tree has about 200 species but the datafile contains data for only 91. Therefore we expected R to drop some species when compiling the comparative data object. In fact, we asked it warn us if it did so!</p>
+<p>We can inspect the structure of the comparative data object using <strong>str</strong> if necessary. You should see that the object contains both the tree and the data. Either one of these (pruned from the larger objects we specified) can be extracted again if needed.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="w2PGLS.html#cb176-1"></a><span class="kw">str</span>(primates)</span></code></pre></div>
 <pre><code>List of 7
  $ phy      :List of 5
   ..$ edge       : int [1:163, 1:2] 84 85 86 87 88 89 90 91 92 93 ...
@@ -287,14 +364,13 @@ names.col = Binomial, : Data dropped in compiling comparative data object</code>
  $ vcv.dim  : num 2
  - attr(*, &quot;class&quot;)= chr &quot;comparative.data&quot;</code></pre>
 </div>
-<div id="estimating-phylogenetic-signal" class="section level3">
-<h3><span class="header-section-number">4.4.3</span> Estimating Phylogenetic Signal</h3>
-<p>Let's estimate the phylogenetic signal of gestation length in primates. The key is to remember that we need to call our comparative data object and not the data file we loaded up at the start. We're running the trait on its own (hence the &quot;~ 1&quot;) and estimating lambda by maximum likelihood.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">signal &lt;-<span class="st"> </span><span class="kw">pgls</span>(<span class="kw">log10</span>(GestationLen_d) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,
-               <span class="dt">data =</span> primates,
-               <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</code></pre></div>
-<p>The object &quot;signal&quot; should have appeared in your environment now. We can inspect the object using the ever-useful summary function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(signal)</code></pre></div>
+<div id="estimating-phylogenetic-signal" class="section level3" number="9.3.3">
+<h3><span class="header-section-number">9.3.3</span> Estimating Phylogenetic Signal</h3>
+<p>Let’s estimate the phylogenetic signal of gestation length in primates. The key is to remember that we need to call our comparative data object and not the data file we loaded up at the start. We’re running the trait on its own (hence the “~ 1”) and estimating lambda by maximum likelihood.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="w2PGLS.html#cb178-1"></a>signal &lt;-<span class="st"> </span><span class="kw">pgls</span>(<span class="kw">log10</span>(GestationLen_d) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,</span>
+<span id="cb178-2"><a href="w2PGLS.html#cb178-2"></a>               <span class="dt">data =</span> primates,</span>
+<span id="cb178-3"><a href="w2PGLS.html#cb178-3"></a>               <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span>
+<span id="cb178-4"><a href="w2PGLS.html#cb178-4"></a><span class="kw">summary</span>(signal)</span></code></pre></div>
 <pre><code>
 Call:
 pgls(formula = log10(GestationLen_d) ~ 1, data = primates, lambda = &quot;ML&quot;)
@@ -321,22 +397,22 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 Residual standard error: 0.01462 on 82 degrees of freedom
 Multiple R-squared:     0,  Adjusted R-squared:     0 
 F-statistic:   NaN on 0 and 82 DF,  p-value: NA </code></pre>
-<p>This output has a lot in common with a basic regression output. That's because it is one! We used the pgls function which performs a regression with phylogenetic correction. Because we included no predictors, the value of <span class="math inline">\(\lambda\)</span> we estimate here corresponds only to this one trait.</p>
-<p>The key part for us is the  section of the output. <span class="math inline">\(\kappa\)</span> and <span class="math inline">\(\delta\)</span> are fixed at 1 and so we aren't concerned with those for now. <span class="math inline">\(\lambda\)</span> is estimated at 0.957. That's a pretty strong phylogenetic signal.</p>
-<p>We also have lower bound and upper bound tests. We can see that <span class="math inline">\(\lambda\)</span> is significantly different from the lower bound of 0 (p &lt; 2.2 x 10<sup>-16</sup>). This isn't surprising at all!</p>
-<p>The upper bound test shows us that <span class="math inline">\(\lambda\)</span> is (narrowly) not significantly different from 1 (p = 0.051). This means that we can assume that gestation length has evolved by Brownian Motion, in which case <span class="math inline">\(\lambda\)</span> would equal 1 and the variation in trait would simply reflect the pattern of relatedness amongst species.</p>
+<p>This output has a lot in common with a basic regression output. That’s because it is one! We used the <strong>pgls</strong> function which performs a regression with phylogenetic correction. Because we included no predictors, the value of <span class="math inline">\(\lambda\)</span> we estimate here corresponds only to this one trait.</p>
+<p>The key part for us is the <strong>Branch length transformations</strong> section of the output. <span class="math inline">\(\kappa\)</span> and <span class="math inline">\(\delta\)</span> are fixed at 1 and so we aren’t concerned with those for now. <span class="math inline">\(\lambda\)</span> is estimated at 0.957. That’s a pretty strong phylogenetic signal.</p>
+<p>We also have lower bound and upper bound tests. We can see that <span class="math inline">\(\lambda\)</span> is significantly different from the lower bound of 0 (p &lt; 2.2 x 10<sup>-16</sup>).</p>
+<p>The upper bound test shows us that <span class="math inline">\(\lambda\)</span> is (narrowly) not significantly different from 1 (p = 0.051). This means that we can assume that gestation length has evolved by Brownian motion, in which case <span class="math inline">\(\lambda\)</span> would equal 1 and the variation in trait would simply reflect the pattern of relatedness amongst species.</p>
 </div>
 </div>
-<div id="phylogenetic-regression" class="section level2">
-<h2><span class="header-section-number">4.5</span> Phylogenetic Regression</h2>
-<p>Now let's have a go at performing a PGLS regression!</p>
-<p>Let's say we have an idea that larger species of primate have longer gestations. Our plot seems to back this up but how strong is this relationship? <img src="bookdown-demo_files/figure-html/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>We found earlier that there does seem to be a relationship but ordinary least squares linear regression can't really be relied upon in this situation. This is because of the statistical non-independence of data points due to shared evolutionary history!</p>
-<p>A phylogenetic generalised least squares regression (PGLS) uses a covariance matrix to correct the analysis for this statistical non-independence. Put simply, the PGLS assumes the residuals are more similar in more closely related species rather than being randomly distributed as in linear regression.</p>
-<p>As you've already seen, the function we need here is &quot;pgls&quot;. The model is constructed exactly as before but this time, we need to construct a full model. We'll be estimating <span class="math inline">\(\lambda\)</span> by maximum likelihood again.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m2 &lt;-<span class="st"> </span><span class="kw">pgls</span>(GestationLen_d <span class="op">~</span><span class="st"> </span><span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">data =</span> primates, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</code></pre></div>
-<p>The summary function gets the key details we need.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(m2)</code></pre></div>
+<div id="phylogenetic-regression" class="section level2" number="9.4">
+<h2><span class="header-section-number">9.4</span> Phylogenetic Regression</h2>
+<p>Now let’s have a go at performing a PGLS regression!</p>
+<p>Let’s say we have an idea that larger species of primate have longer gestations. Our plot seems to back this up but how strong is this relationship?
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-147-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We found earlier that there does seem to be a relationship but ordinary least squares linear regression can’t be relied upon in this situation. This is because of the statistical non-independence of data points due to shared evolutionary history!</p>
+<p>A <strong>phylogenetic generalised least squares regression</strong> (PGLS) uses a covariance matrix to correct the analysis for this statistical non-independence. Put simply, the PGLS assumes the residuals are more similar in more closely related species rather than being randomly distributed as in linear regression.</p>
+<p>As you’ve already seen, the function we need here is <strong>pgls</strong>. The model is constructed exactly as before but this time, we need to construct a full model. We’ll be estimating <span class="math inline">\(\lambda\)</span> by maximum likelihood again.</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="w2PGLS.html#cb180-1"></a>m2 &lt;-<span class="st"> </span><span class="kw">pgls</span>(GestationLen_d <span class="op">~</span><span class="st"> </span><span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">data =</span> primates, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span>
+<span id="cb180-2"><a href="w2PGLS.html#cb180-2"></a><span class="kw">summary</span>(m2)</span></code></pre></div>
 <pre><code>
 Call:
 pgls(formula = GestationLen_d ~ log10(AdultBodyMass_g), data = primates, 
@@ -365,42 +441,42 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 Residual standard error: 3.513 on 81 degrees of freedom
 Multiple R-squared: 0.2914, Adjusted R-squared: 0.2826 
 F-statistic:  33.3 on 1 and 81 DF,  p-value: 1.394e-07 </code></pre>
-<p>As you can see, our model is a significant fit to the data (F = 33.3, R<sup>2</sup> = 0.29, p = 1.39 x 10<sup>-7</sup>). More importantly, We've confirmed that body size has a positive effect on gestation length (<span class="math inline">\(\beta\)</span> = 33.75, s.e. = 5.85, p = 1.39 x 10<sup>-7</sup>). Time to plot!</p>
-<p>A brief note here. The syntax to get ggplot to do this is a little more complex than base graphics (where we can just use abline(m2)!). Here I've plotted both the OLS (blue) and PGLS (red) lines so you can see how they differ.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">primates<span class="op">$</span>data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">my_model =</span> <span class="kw">predict</span>(m2)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="kw">log10</span>(AdultBodyMass_g), GestationLen_d)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="kw">log10</span>(AdultBodyMass_g), my_model), 
-            <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">lwd =</span> <span class="dv">1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="kw">log10</span>(AdultBodyMass_g), GestationLen_d), 
-              <span class="dt">method =</span> <span class="st">&#39;lm&#39;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Log Body Mass&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Gestation Length&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">x =</span> <span class="dv">2</span>, <span class="dt">y =</span> <span class="dv">230</span>, <span class="dt">label =</span> <span class="st">&quot;PGLS&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">x =</span> <span class="dv">2</span>, <span class="dt">y =</span> <span class="dv">218</span>, <span class="dt">label =</span> <span class="st">&quot;OLS&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-44-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div id="model-checking" class="section level3">
-<h3><span class="header-section-number">4.5.1</span> Model Checking</h3>
-<p>That's the basic model run nicely. Now, we need to run some diagnostic checks. We should start with the likelihood surface of <span class="math inline">\(\lambda\)</span> since we estimated it by maximum likelihood.</p>
-<p>We begin by using the pgls.profile function to extract the likelihoods and then simply plot them. I'm going to keep it simple by using base graphics for this. What we are looking for is a single peak around our estimated value. If we get a flat surface or multiple peaks, there might be an issue somewhere.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lambda.profile &lt;-<span class="st"> </span><span class="kw">pgls.profile</span>(m2, <span class="dt">which =</span> <span class="st">&quot;lambda&quot;</span>)
-<span class="kw">plot</span>(lambda.profile)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>As you can see, our model is a significant fit to the data (F = 33.3, R<sup>2</sup> = 0.29, p = 1.39 x 10<sup>-7</sup>). More importantly, We’ve confirmed that body size has a positive effect on gestation length (<span class="math inline">\(\beta\)</span> = 33.75, s.e. = 5.85, p = 1.39 x 10<sup>-7</sup>). Time to plot!</p>
+<p>A brief note here. The syntax to get <strong>ggplot</strong> to do this is a little more complex than base graphics (where we can just use abline(m2)!). Here I’ve plotted both the OLS (blue) and PGLS (red) lines so you can see how they differ.</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="w2PGLS.html#cb182-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb182-2"><a href="w2PGLS.html#cb182-2"></a>primates<span class="op">$</span>data <span class="op">%&gt;%</span></span>
+<span id="cb182-3"><a href="w2PGLS.html#cb182-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">my_model =</span> <span class="kw">predict</span>(m2)) <span class="op">%&gt;%</span></span>
+<span id="cb182-4"><a href="w2PGLS.html#cb182-4"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb182-5"><a href="w2PGLS.html#cb182-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="kw">log10</span>(AdultBodyMass_g), GestationLen_d)) <span class="op">+</span></span>
+<span id="cb182-6"><a href="w2PGLS.html#cb182-6"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="kw">log10</span>(AdultBodyMass_g), my_model), </span>
+<span id="cb182-7"><a href="w2PGLS.html#cb182-7"></a>            <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">lwd =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb182-8"><a href="w2PGLS.html#cb182-8"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="kw">log10</span>(AdultBodyMass_g), GestationLen_d), </span>
+<span id="cb182-9"><a href="w2PGLS.html#cb182-9"></a>              <span class="dt">method =</span> <span class="st">&#39;lm&#39;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb182-10"><a href="w2PGLS.html#cb182-10"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Log Body Mass&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Gestation Length&quot;</span>) <span class="op">+</span></span>
+<span id="cb182-11"><a href="w2PGLS.html#cb182-11"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">x =</span> <span class="dv">2</span>, <span class="dt">y =</span> <span class="dv">230</span>, <span class="dt">label =</span> <span class="st">&quot;PGLS&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span></span>
+<span id="cb182-12"><a href="w2PGLS.html#cb182-12"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">x =</span> <span class="dv">2</span>, <span class="dt">y =</span> <span class="dv">218</span>, <span class="dt">label =</span> <span class="st">&quot;OLS&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-150-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="model-checking" class="section level3" number="9.4.1">
+<h3><span class="header-section-number">9.4.1</span> Model Checking</h3>
+<p>That’s the basic model run nicely. Now, we need to run some diagnostic checks. We should start with the likelihood surface of <span class="math inline">\(\lambda\)</span> since we estimated it by maximum likelihood.</p>
+<p>We begin by using the <strong>pgls.profile</strong> function to extract the likelihoods and then simply plot them. What we are looking for is a single peak around our estimated value. If we get a flat surface or multiple peaks, there might be an issue somewhere.</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="w2PGLS.html#cb183-1"></a>lambda.profile &lt;-<span class="st"> </span><span class="kw">pgls.profile</span>(m2, <span class="dt">which =</span> <span class="st">&quot;lambda&quot;</span>)</span>
+<span id="cb183-2"><a href="w2PGLS.html#cb183-2"></a><span class="kw">plot</span>(lambda.profile)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-151-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This plot describes the log likelihood of <span class="math inline">\(\lambda\)</span> across its possible range of values (0 - 1). We can clearly see that the likelihood is highest around a single point around 0.8. Check back against the model output earlier to see if this is what we would expect.</p>
 <p>Next we need to identify any outliers in the model residuals. The first step here is to extract the residuals from the model, making sure to tell R that we want the phylogenetic residuals. The model output of pgls actually stores both phylogenetic and non-phylogenetic residuals. We can then standardise the residuals by dividing through by the square root of the variance.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span><span class="kw">residuals</span>(m2, <span class="dt">phylo =</span> <span class="ot">TRUE</span>)
-res &lt;-<span class="st"> </span>res<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">var</span>(res))[<span class="dv">1</span>]</code></pre></div>
-<p>The general rule is that any standardised residual with an absolute value greater than 3 is an outlier and needs to be removed from any analysis. Here, I'm just assigning the species names to the res object so we can tell which species are the outliers (if any).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rownames</span>(res) &lt;-<span class="st"> </span><span class="kw">rownames</span>(m2<span class="op">$</span>residuals)
-<span class="kw">rownames</span>(res)[<span class="kw">abs</span>(res)<span class="op">&gt;</span><span class="dv">3</span>]</code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="w2PGLS.html#cb184-1"></a>res &lt;-<span class="st"> </span><span class="kw">residuals</span>(m2, <span class="dt">phylo =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb184-2"><a href="w2PGLS.html#cb184-2"></a>res &lt;-<span class="st"> </span>res<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">var</span>(res))[<span class="dv">1</span>]</span></code></pre></div>
+<p>The general rule of thumb is that any standardised residual with an absolute value greater than 3 is an outlier and needs to be removed from the analysis. Here, I’m just assigning the species names to the <strong>res</strong> object so we can tell which species are the outliers (if any).</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="w2PGLS.html#cb185-1"></a><span class="kw">rownames</span>(res) &lt;-<span class="st"> </span><span class="kw">rownames</span>(m2<span class="op">$</span>residuals)</span>
+<span id="cb185-2"><a href="w2PGLS.html#cb185-2"></a><span class="kw">rownames</span>(res)[<span class="kw">abs</span>(res)<span class="op">&gt;</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>[1] &quot;Microcebus_murinus&quot; &quot;Prolemur_simus&quot;    </code></pre>
-<p>Outliers! Maybe they're causing problems and maybe they aren't. We need to check that by re-running our analysis without them. A simple line of code will take our existing comparative data object and drop out the named outliers.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">primates.nooutliers &lt;-<span class="st"> </span>primates[<span class="op">-</span><span class="kw">which</span>(<span class="kw">abs</span>(res)<span class="op">&gt;</span><span class="dv">3</span>),]</code></pre></div>
+<p>Outliers! Maybe they’re causing problems and maybe they aren’t. We need to check that by re-running our analysis without them. A simple line of code will take our existing comparative data object and drop out the named outliers.</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="w2PGLS.html#cb187-1"></a>primates.nooutliers &lt;-<span class="st"> </span>primates[<span class="op">-</span><span class="kw">which</span>(<span class="kw">abs</span>(res)<span class="op">&gt;</span><span class="dv">3</span>),]</span></code></pre></div>
 <p>Now simply re-run the model, remembering to direct R to the new data object.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m3 &lt;-<span class="st"> </span><span class="kw">pgls</span>(GestationLen_d <span class="op">~</span><span class="st"> </span><span class="kw">log10</span>(AdultBodyMass_g),
-           <span class="dt">data =</span> primates.nooutliers, 
-           <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)
-<span class="kw">summary</span>(m3)</code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="w2PGLS.html#cb188-1"></a>m3 &lt;-<span class="st"> </span><span class="kw">pgls</span>(GestationLen_d <span class="op">~</span><span class="st"> </span><span class="kw">log10</span>(AdultBodyMass_g),</span>
+<span id="cb188-2"><a href="w2PGLS.html#cb188-2"></a>           <span class="dt">data =</span> primates.nooutliers, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span>
+<span id="cb188-3"><a href="w2PGLS.html#cb188-3"></a><span class="kw">summary</span>(m3)</span></code></pre></div>
 <pre><code>
 Call:
 pgls(formula = GestationLen_d ~ log10(AdultBodyMass_g), data = primates.nooutliers, 
@@ -429,29 +505,40 @@ Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&
 Residual standard error: 3.53 on 79 degrees of freedom
 Multiple R-squared: 0.2853, Adjusted R-squared: 0.2762 
 F-statistic: 31.54 on 1 and 79 DF,  p-value: 2.815e-07 </code></pre>
-<p>The results have barely changed. So it seems that although those two lemurs were outliers, they weren't effecting the analysis too much. Let's check for outliers in this new model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span><span class="kw">residuals</span>(m3, <span class="dt">phylo =</span> <span class="ot">TRUE</span>)
-res &lt;-<span class="st"> </span>res<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">var</span>(res))[<span class="dv">1</span>]
-<span class="kw">rownames</span>(res) &lt;-<span class="st"> </span><span class="kw">rownames</span>(m3<span class="op">$</span>residuals)
-<span class="kw">rownames</span>(res)[<span class="kw">abs</span>(res)<span class="op">&gt;</span><span class="dv">3</span>]</code></pre></div>
+<p>The results have barely changed. So it seems that although those two lemurs were outliers, they weren’t effecting the analysis too much. Let’s check for outliers in this new model.</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="w2PGLS.html#cb190-1"></a>res &lt;-<span class="st"> </span><span class="kw">residuals</span>(m3, <span class="dt">phylo =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb190-2"><a href="w2PGLS.html#cb190-2"></a>res &lt;-<span class="st"> </span>res<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">var</span>(res))[<span class="dv">1</span>]</span>
+<span id="cb190-3"><a href="w2PGLS.html#cb190-3"></a><span class="kw">rownames</span>(res) &lt;-<span class="st"> </span><span class="kw">rownames</span>(m3<span class="op">$</span>residuals)</span>
+<span id="cb190-4"><a href="w2PGLS.html#cb190-4"></a><span class="kw">rownames</span>(res)[<span class="kw">abs</span>(res)<span class="op">&gt;</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>[1] &quot;Microcebus_rufus&quot;</code></pre>
-<p>Another one! Don't worry. This can happen. We need to drop the new outlier again to run the same checks.</p>
-<p>Finally, we can check the diagnostic plots of the model. I've included some lines to help arrange the plots. To view the plots for model diagnostics, we can simply plot the model object!</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">par.default &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">no.readonly =</span> T) <span class="co">#Save default plotting parameters</span>
-<span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co">#Set the plot window to show 4 different plots</span>
-
-<span class="kw">plot</span>(m3)</code></pre></div>
-<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(par.default) <span class="co">#Reset plot window to default</span></code></pre></div>
-<p>The top left panel shows the distribution of our residuals. We can see a bump near +3. That will be our outlier that needs to be dropped before we proceed any further. The top right plot closely approximates a straight line so that's good. The bottom left shows no real pattern which is also good. The bottom right graph should show a correlation (and it seems to) with the points more or less equally scattered above and below the 45<sup>o</sup> diagonal. Along that line, the observed and fitted values would be exactly equal.</p>
+<p>Another one! Don’t worry. This can happen. We need to drop the new outlier again to run the same checks.</p>
+<p>Finally, we can check the diagnostic plots of the model. I’ve included some lines to help arrange the plots. To view the plots for model diagnostics, we can simply plot the model object!</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="w2PGLS.html#cb192-1"></a>par.default &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">no.readonly =</span> T) <span class="co">#Save default plotting parameters</span></span>
+<span id="cb192-2"><a href="w2PGLS.html#cb192-2"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co">#Set the plot window to show 4 different plots</span></span>
+<span id="cb192-3"><a href="w2PGLS.html#cb192-3"></a><span class="kw">plot</span>(m3)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-157-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="w2PGLS.html#cb193-1"></a><span class="kw">par</span>(par.default) <span class="co">#Reset plot window to default</span></span></code></pre></div>
+<p>The top left panel shows the distribution of our residuals. We can see a bump near +3. That will be our outlier that needs to be dropped before we proceed any further. The top right plot closely approximates a straight line so that’s good. The bottom left shows no real pattern which is also good. The bottom right graph should show a correlation (and it seems to) with the points more or less equally scattered above and below the 45<sup>o</sup> diagonal. Along that line, the observed and fitted values would be exactly equal.</p>
 </div>
 </div>
-<div id="conclusion" class="section level2">
-<h2><span class="header-section-number">4.6</span> Conclusion</h2>
-<p>So that's how to perform a simple PGLS analysis. This kind of analysis is great for attempting make causal connections between traits of extant species, thus inferring a connection over evolutionary history. For example, we hypothesised that the reason some primates have longer gestation periods is that they have larger body sizes and the pgls confirmed our suspicion. More complex regressions can include multpile predictors and that's what we'll look at next.</p>
-<p>By the way, always make sure to check your models for outliers! In this analysis the gray mouse lemur was an outlier and we had to drop it. Outliers like this can throw off your analysis. If we hadn't checked, we would have presented the analysis in a paper and then had it invalidated when someone checked up on it. Fortunately in this case, the outliers didn't really change the outcome so the gray mouse lemur is off the hook. Look how relieved he is!</p>
-<p><img src="Images/mouse%20lemur.jpg" width="275" style="display: block; margin: auto;" /></p>
+<div id="conclusion" class="section level2" number="9.5">
+<h2><span class="header-section-number">9.5</span> Conclusion</h2>
+<p>So that’s how to perform a simple PGLS analysis. This kind of analysis is great for attempting make causal connections between traits of extant species, thus inferring a connection over evolutionary history. For example, we hypothesised that the reason some primates have longer gestation periods is that they have larger body sizes and the PGLS confirmed our suspicion. More complex regressions can include multpile predictors and that’s what we’ll look at next.</p>
+<p>By the way, always make sure to check your models for outliers! In this analysis the gray mouse lemur was an outlier and we had to drop it. Outliers like this can throw off your analysis. If we hadn’t checked, we would have presented the analysis in a paper and then had it invalidated when someone checked up on it. Fortunately in this case, the outliers didn’t really change the outcome so the gray mouse lemur is off the hook. Look how relieved he is!</p>
+<p><img src="Images/mouselemur.jpg" width="275" style="display: block; margin: auto;" /></p>
 
+</div>
+</div>
+<h3> Bibliography</h3>
+<div id="refs" class="references">
+<div id="ref-Grafen89">
+<p>Grafen, A. (1989) ‘The Phylogenetic Regression’. <em>Philosophical Transactions of the Royal Society of London. B, Biological Sciences</em> [online] 326 (1233), 119–157. available from &lt;<a href="https://doi.org/10.1098/rstb.1989.0106">https://doi.org/10.1098/rstb.1989.0106</a>&gt;</p>
+</div>
+<div id="ref-Nunn11">
+<p>Nunn, C.L. (2011) <em>The Comparative Approach in Evolutionary Anthropology and Biology</em> [online] University of Chicago Press. available from &lt;<a href="https://books.google.co.uk/books?id=qj4cSzJGQJAC">https://books.google.co.uk/books?id=qj4cSzJGQJAC</a>&gt;</p>
+</div>
+<div id="ref-caper">
+<p>Orme, D., Freckleton, R., Thomas, G., Petzoldt, T., Fritz, S., Isaac, N., and Pearse, W. (2018) <em>Caper: Comparative Analyses of Phylogenetics and Evolution in R</em> [online] available from &lt;<a href="https://CRAN.R-project.org/package=caper">https://CRAN.R-project.org/package=caper</a>&gt;</p>
 </div>
 </div>
             </section>
@@ -459,8 +546,8 @@ res &lt;-<span class="st"> </span>res<span class="op">/</span><span class="kw">s
           </div>
         </div>
       </div>
-<a href="w1plotting.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="asr2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bibliography.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -515,7 +602,7 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    var src = "";
+    var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))

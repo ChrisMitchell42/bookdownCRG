@@ -35,11 +35,11 @@ The vast majority of statistics here are performed in R [@R]. You were introduce
 
 Throughout this book you will see examples of R code and output like this.
 ```{r, echo=FALSE}
-hidden.message <- "Forty-two"
+answer <- "Forty-two"
 ```
 
 ```{r}
-print(hidden.message)
+print(answer)
 ```
 
 The code can be copied and pasted into your own version of R as you see fit. However, I would recommend that for the first time you are using a piece of code, type it out for yourself. This will help you get to grips with what each argument means.
