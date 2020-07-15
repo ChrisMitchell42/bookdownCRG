@@ -239,7 +239,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="9.5" data-path="w2PGLS.html"><a href="w2PGLS.html#conclusion"><i class="fa fa-check"></i><b>9.5</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>10</b> Bibliography</a></li>
+<li class="chapter" data-level="10" data-path="pathanalysis.html"><a href="pathanalysis.html"><i class="fa fa-check"></i><b>10</b> Path Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="pathanalysis.html"><a href="pathanalysis.html#pgls-regression"><i class="fa fa-check"></i><b>10.1</b> PGLS regression</a></li>
+<li class="chapter" data-level="10.2" data-path="pathanalysis.html"><a href="pathanalysis.html#variance-inflation"><i class="fa fa-check"></i><b>10.2</b> Variance Inflation</a></li>
+<li class="chapter" data-level="10.3" data-path="pathanalysis.html"><a href="pathanalysis.html#path-analysis"><i class="fa fa-check"></i><b>10.3</b> Path Analysis</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="pathanalysis.html"><a href="pathanalysis.html#example"><i class="fa fa-check"></i><b>10.3.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="pathanalysis.html"><a href="pathanalysis.html#conclusion-1"><i class="fa fa-check"></i><b>10.4</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>11</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -360,7 +370,7 @@ character(0)</code></pre>
 
 Response: dat
           Df   Sum-Sq  Mean-Sq F-value  Pr(&gt;F) Pr(&gt;F) given phy
-group      2 0.063237 0.031619  3.0067 0.09497           0.1538
+group      2 0.063237 0.031619  3.0067 0.09497           0.1848
 Residuals 10 0.105161 0.010516                                 </code></pre>
 <p>The results table should be very familiar! The only real difference here is that you have been provided with two p-values. The first (<em>Pr(&gt;F)</em>) is the p-value without accounting for phylogeny and the second (<em>Pr(&gt;F) given phy</em>) is the value when we account for phylogeny. In both cases, there is no significant difference between groups.</p>
 <p>As you can see, accounting for phylogeny <em>usually</em> raises the p-value (makes it less significant). This shows us that not accounting for phylogeny increases the risk of type I errors (false positives).</p>

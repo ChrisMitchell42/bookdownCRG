@@ -66,7 +66,8 @@ For example, body mass is (usually) a trait with a strong phylogenetic signal. W
 The degree of phylogenetic signal in a trait is often described using the scaling parameter $\lambda$. $\lambda$ varies between 0 and 1 and is used to multiply the internal branch lengths so that the tree describes the pattern of variation in the trait.
 
 For example, take the case on the left, where $\lambda$ = 1. In this case the tree is untransformed because the variation in the trait follows the structure of the tree. On the right, where $\lambda$ = 0, all the internal branch lengths have been multiplied by 0 and therefore collapsed. This "star phylogeny" describes a pattern of variation in which the trait varies at random with respect to the phylogeny. The trait is not equal across the tree but rather the variation in the trait does not correlate to the pattern of relatedness.
-```{r,echo=F, eval=TRUE, fig.align='center', fig.height = 4}
+```{r,echo=F, eval=TRUE, warning=FALSE, message = FALSE, fig.align='center', fig.height = 4}
+require(phytools)
 par(mfrow = c(1,2))
 par(mar = c(0.5,0.5,2,0.5))
 

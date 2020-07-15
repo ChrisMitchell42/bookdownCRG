@@ -1,0 +1,63 @@
+#NEXUS
+[R-package APE, Fri Jan 17 15:41:11 2020]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 25;
+	TAXLABELS
+		Superman
+		Wonder_Woman
+		Lex_Luthor
+		Harley_Quinn
+		The_Riddler
+		The_Joker
+		Batman
+		Commissioner_Gordon
+		Lois_Lane
+		Perry_White
+		Captain_America
+		Black_Panther
+		Thor
+		Captain_Marvel
+		Professor_X
+		Iron_Man
+		Jane_Foster
+		Vanessa_Carlysle
+		Doctor_Octopus
+		Magneto
+		Thanos
+		Colonel_Stryker
+		NJadaka
+		Deadpool
+		Nick_Fury
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Superman,
+		2	Wonder_Woman,
+		3	Lex_Luthor,
+		4	Harley_Quinn,
+		5	The_Riddler,
+		6	The_Joker,
+		7	Batman,
+		8	Commissioner_Gordon,
+		9	Lois_Lane,
+		10	Perry_White,
+		11	Captain_America,
+		12	Black_Panther,
+		13	Thor,
+		14	Captain_Marvel,
+		15	Professor_X,
+		16	Iron_Man,
+		17	Jane_Foster,
+		18	Vanessa_Carlysle,
+		19	Doctor_Octopus,
+		20	Magneto,
+		21	Thanos,
+		22	Colonel_Stryker,
+		23	NJadaka,
+		24	Deadpool,
+		25	Nick_Fury
+	;
+	TREE * UNTITLED = [&R] (((1:8.181431001,2:8.181431001)zzz3:0.7844963344,(((3:2.274842753,4:2.274842753)zzz6:4.211199582,(5:4.597731066,6:4.597731066)zzz7:1.88831127)zzz5:0.3051350544,((7:0.4509088564,8:0.4509088564)zzz9:1.003651333,(9:0.349407271,10:0.349407271)zzz10:1.105152919)zzz8:5.336617204)zzz4:2.174749944)zzz2:1.034072662,((((11:1.916927468,12:1.916927468)zzz14:2.010011566,((13:1.306377429,14:1.306377429)zzz16:0.587093235,15:1.893470664)zzz15:2.033468369)zzz13:2.265098497,(16:3.805181923,(17:1.370463607,18:1.370463607)zzz18:2.434718316)zzz17:2.386855608)zzz12:2.850885682,((((19:0.6364344395,20:0.6364344395)zzz22:2.721056474,21:3.357490913)zzz21:0.4806251105,(22:2.941263724,23:2.941263724)zzz23:0.8968522994)zzz20:4.107531486,(24:5.280111874,25:5.280111874)zzz24:2.665535636)zzz19:1.097275704)zzz11:0.9570767847)zzz1;
+END;
