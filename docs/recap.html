@@ -249,7 +249,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="pathanalysis.html"><a href="pathanalysis.html#conclusion-1"><i class="fa fa-check"></i><b>10.4</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>11</b> Bibliography</a></li>
+<li class="chapter" data-level="11" data-path="convergence.html"><a href="convergence.html"><i class="fa fa-check"></i><b>11</b> Studying Convergence</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="convergence.html"><a href="convergence.html#indentifying-convergent-evolution"><i class="fa fa-check"></i><b>11.1</b> Indentifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="convergence.html"><a href="convergence.html#surface"><i class="fa fa-check"></i><b>11.1.1</b> SURFACE</a></li>
+<li class="chapter" data-level="11.1.2" data-path="convergence.html"><a href="convergence.html#a-super-example"><i class="fa fa-check"></i><b>11.1.2</b> A Super Example</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="convergence.html"><a href="convergence.html#quantifying-convergent-evolution"><i class="fa fa-check"></i><b>11.2</b> Quantifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="convergence.html"><a href="convergence.html#the-wheatsheaf-index"><i class="fa fa-check"></i><b>11.2.1</b> The Wheatsheaf Index</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="convergence.html"><a href="convergence.html#further-info-4"><i class="fa fa-check"></i><b>11.3</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>12</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -276,21 +289,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="basics" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Basics</h2>
 <p>R works well as a calculator.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="recap.html#cb5-1"></a><span class="dv">6</span><span class="op">*</span><span class="dv">7</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="recap.html#cb3-1"></a><span class="dv">6</span><span class="op">*</span><span class="dv">7</span></span></code></pre></div>
 <pre><code>[1] 42</code></pre>
 <p>However, R is capable of a great deal more than just simple mathematical operations like multiply and divide. It also has functions that can calculate some common descriptive stats like mean and standard deviation.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="recap.html#cb7-1"></a><span class="kw">mean</span>(x)</span></code></pre></div>
-<pre><code>[1] 42.01143</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="recap.html#cb9-1"></a><span class="kw">sd</span>(x)</span></code></pre></div>
-<pre><code>[1] 4.201515</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="recap.html#cb5-1"></a><span class="kw">mean</span>(x)</span></code></pre></div>
+<pre><code>[1] 41.93681</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="recap.html#cb7-1"></a><span class="kw">sd</span>(x)</span></code></pre></div>
+<pre><code>[1] 4.179225</code></pre>
 <div id="plotting" class="section level3" number="3.1.1">
 <h3><span class="header-section-number">3.1.1</span> Plotting</h3>
 <p>R is also a very flexible graphical tool. From LIFE223, you probably remember a few basic plotting functions. Each function in R has arguments that can be added to label axes or change point size as you can see in these plots.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="recap.html#cb11-1"></a><span class="kw">boxplot</span>(x, <span class="dt">ylab =</span> <span class="st">&quot;Potential answers&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="recap.html#cb9-1"></a><span class="kw">boxplot</span>(x, <span class="dt">ylab =</span> <span class="st">&quot;Potential answers&quot;</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="recap.html#cb12-1"></a><span class="kw">hist</span>(x, <span class="dt">xlab =</span> <span class="st">&quot;Potential answers&quot;</span>, <span class="dt">breaks =</span> <span class="dv">25</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="recap.html#cb10-1"></a><span class="kw">hist</span>(x, <span class="dt">xlab =</span> <span class="st">&quot;Potential answers&quot;</span>, <span class="dt">breaks =</span> <span class="dv">25</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-9-2.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="recap.html#cb13-1"></a><span class="kw">plot</span>(x, y, <span class="dt">xlab =</span> <span class="st">&quot;Potential answers&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="fl">0.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="recap.html#cb11-1"></a><span class="kw">plot</span>(x, y, <span class="dt">xlab =</span> <span class="st">&quot;Potential answers&quot;</span>, <span class="dt">pch =</span> <span class="dv">19</span>, <span class="dt">cex =</span> <span class="fl">0.1</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-9-3.png" width="672" style="display: block; margin: auto;" /></p>
 <p>For much of this book, I will actually be doing most plotting in a package called <strong>ggplot2</strong>. This package has a slightly different syntax to get used to but the increased flexibility you have will be a good payoff. Plus the plots look quite nice.</p>
 <pre><code>Warning: package &#39;ggplot2&#39; was built under R version 3.6.2</code></pre>
@@ -299,24 +312,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="the-working-directory" class="section level3" number="3.1.2">
 <h3><span class="header-section-number">3.1.2</span> The working directory</h3>
 <p>The working directory is the folder on your computer where R’s attention is focused. This is where you should store any files you need R to open. You can find out the path of the current working directory using the function <strong>getwd()</strong></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="recap.html#cb15-1"></a><span class="kw">getwd</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="recap.html#cb13-1"></a><span class="kw">getwd</span>()</span></code></pre></div>
 <pre><code>[1] &quot;/Users/chrismitchell/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG&quot;</code></pre>
 <p>If this isn’t the folder we want as our working directory, we can just as easily change it with <strong>setwd()</strong></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="recap.html#cb17-1"></a><span class="kw">setwd</span>(<span class="st">&quot;~/Desktop/My R Folder&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="recap.html#cb15-1"></a><span class="kw">setwd</span>(<span class="st">&quot;~/Desktop/My R Folder&quot;</span>)</span></code></pre></div>
 <p>If you are using RStudio there is also a shortcut to do this in the <em>Files</em> pane (usually bottom right). Use this pane to navigate to your chosen directory and then use the drop down menu under <em>More</em> (look for a blue cog) to set the current folder as your working directory.</p>
 <p>If you aren’t using RStudio, I’d strongly suggest you start. It’s much more user friendly than base R.</p>
 </div>
 <div id="loading-data" class="section level3" number="3.1.3">
 <h3><span class="header-section-number">3.1.3</span> Loading data</h3>
 <p>Data comes in many forms and R is capable of reading most of them if you know the correct functions. One of the most common formats is <em>comma separated values</em>. This has the file extension .csv at the end of the filename. If you open a .csv file with MS Excel or Numbers, you will see that it usually looks much like a spreadsheet. To load a .csv data file into R, use the function <strong>read.csv()</strong> as shown here.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="recap.html#cb18-1"></a>data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;DATAFILE.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="recap.html#cb16-1"></a>data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;DATAFILE.csv&quot;</span>)</span></code></pre></div>
 <p>For other data formats, you may require a different function. For example, data may be provided as a text file (extension .txt). In this case, you need <strong>read.table()</strong>. Note that with this function you need to specify that your data has a header (a top row with names for columns) whereas <strong>read.csv()</strong> assumes this by default.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="recap.html#cb19-1"></a>data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file =</span> <span class="st">&quot;DATAFILE.txt&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="recap.html#cb17-1"></a>data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="dt">file =</span> <span class="st">&quot;DATAFILE.txt&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="subsetting" class="section level3" number="3.1.4">
 <h3><span class="header-section-number">3.1.4</span> Subsetting</h3>
 <p>Let’s say I want to subset my data based on a certain condition. I can achieve this multiple ways but one of the simplest is the function subset.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="recap.html#cb20-1"></a>newdata &lt;-<span class="st"> </span><span class="kw">subset</span>(data, species <span class="op">==</span><span class="st"> &quot;Homo sapiens&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="recap.html#cb18-1"></a>newdata &lt;-<span class="st"> </span><span class="kw">subset</span>(data, species <span class="op">==</span><span class="st"> &quot;Homo sapiens&quot;</span>)</span></code></pre></div>
 <p>This function takes a subset of the object <em>data</em> and applies the rule that the value of each row in the column <em>species</em> be <em>Homo sapiens</em>. Thus it extracts the lines of data that are from human beings.</p>
 </div>
 </div>
@@ -324,7 +337,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">3.2</span> Errors</h2>
 <p>Error messages are a part of life with R. You are not expected to be able to interpret every single one immediately and you definitely shouldn’t panic or give up when you get one.</p>
 <p>Here’s a basic error message:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="recap.html#cb21-1"></a>data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;mydaat.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="recap.html#cb19-1"></a>data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;mydaat.csv&quot;</span>)</span></code></pre></div>
 <pre><code>Warning in file(file, &quot;rt&quot;): cannot open file &#39;mydaat.csv&#39;: No such file or
 directory</code></pre>
 <pre><code>Error in file(file, &quot;rt&quot;): cannot open the connection</code></pre>

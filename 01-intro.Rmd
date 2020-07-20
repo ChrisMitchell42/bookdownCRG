@@ -24,7 +24,7 @@ All living things exhibit a pattern of relatedness which depends on how much sha
 
 The best way of visualising this pattern of relatedness is with a phylogenetic tree.
 
-```{r, echo=FALSE, eval=TRUE, message=FALSE, fig.height=6, fig.cap="A cladogram of 42 cetacean species."}
+```{r, echo=FALSE, eval=TRUE, message=FALSE, fig.height=6, fig.cap="A cladogram of 42 cetacean species.", message=FALSE, warning=FALSE}
 t <- ape::read.nexus("~/Google Drive/University of Liverpool/CRG19:20/Comparative Methods Course/07 and 08 - Ancestral State Reconstruction/ASR files/whales_tree.nex")
 d <- read.table("~/Google Drive/University of Liverpool/CRG19:20/Comparative Methods Course/07 and 08 - Ancestral State Reconstruction/ASR files/whales_data.txt", header = T)
 rownames(d) <- d$species

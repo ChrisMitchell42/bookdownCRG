@@ -249,7 +249,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="pathanalysis.html"><a href="pathanalysis.html#conclusion-1"><i class="fa fa-check"></i><b>10.4</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>11</b> Bibliography</a></li>
+<li class="chapter" data-level="11" data-path="convergence.html"><a href="convergence.html"><i class="fa fa-check"></i><b>11</b> Studying Convergence</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="convergence.html"><a href="convergence.html#indentifying-convergent-evolution"><i class="fa fa-check"></i><b>11.1</b> Indentifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="convergence.html"><a href="convergence.html#surface"><i class="fa fa-check"></i><b>11.1.1</b> SURFACE</a></li>
+<li class="chapter" data-level="11.1.2" data-path="convergence.html"><a href="convergence.html#a-super-example"><i class="fa fa-check"></i><b>11.1.2</b> A Super Example</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="convergence.html"><a href="convergence.html#quantifying-convergent-evolution"><i class="fa fa-check"></i><b>11.2</b> Quantifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="convergence.html"><a href="convergence.html#the-wheatsheaf-index"><i class="fa fa-check"></i><b>11.2.1</b> The Wheatsheaf Index</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="convergence.html"><a href="convergence.html#further-info-4"><i class="fa fa-check"></i><b>11.3</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>12</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -276,8 +289,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="data-3" class="section level2" number="9.1">
 <h2><span class="header-section-number">9.1</span> Data</h2>
 <p>Let’s load up some example primate data. You should see the dataframe appear in your environment. If you inspect the object, you will find a number of continuous variables in there for us to investigate.</p>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="w2PGLS.html#cb166-1"></a>primate.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;primates_data.txt&quot;</span>, <span class="dt">header =</span> T)</span>
-<span id="cb166-2"><a href="w2PGLS.html#cb166-2"></a><span class="kw">names</span>(primate.data)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="w2PGLS.html#cb164-1"></a>primate.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;primates_data.txt&quot;</span>, <span class="dt">header =</span> T)</span>
+<span id="cb164-2"><a href="w2PGLS.html#cb164-2"></a><span class="kw">names</span>(primate.data)</span></code></pre></div>
 <pre><code>[1] &quot;Order&quot;           &quot;Family&quot;          &quot;Binomial&quot;        &quot;AdultBodyMass_g&quot;
 [5] &quot;GestationLen_d&quot;  &quot;HomeRange_km2&quot;   &quot;MaxLongevity_m&quot;  &quot;SocialGroupSize&quot;</code></pre>
 </div>
@@ -285,9 +298,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">9.2</span> Linear Regression</h2>
 <p>Simple linear regression will be familiar to you from LIFE223. The principle is to find out what the relationship is between two or more variables.</p>
 <p>To see if body mass and gestation length are related in primate, the best way to go would seem to be a traditional linear regression. The funtion to perform an ordinary least squares linear regression is <strong>lm()</strong>. The first argument is our model, stating in this case that body mass predicts gestation length. Then we specify the data object to tell R where to find the data.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="w2PGLS.html#cb168-1"></a>m1 &lt;-<span class="st"> </span><span class="kw">lm</span>(GestationLen_d <span class="op">~</span><span class="st"> </span><span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">data =</span> primate.data)</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="w2PGLS.html#cb166-1"></a>m1 &lt;-<span class="st"> </span><span class="kw">lm</span>(GestationLen_d <span class="op">~</span><span class="st"> </span><span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">data =</span> primate.data)</span></code></pre></div>
 <p>You can use the summary function to see the output of your regression.</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="w2PGLS.html#cb169-1"></a><span class="kw">summary</span>(m1)</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="w2PGLS.html#cb167-1"></a><span class="kw">summary</span>(m1)</span></code></pre></div>
 <pre><code>
 Call:
 lm(formula = GestationLen_d ~ log10(AdultBodyMass_g), data = primate.data)
@@ -308,10 +321,10 @@ Multiple R-squared:  0.5038,    Adjusted R-squared:  0.4982
 F-statistic: 90.35 on 1 and 89 DF,  p-value: 3.374e-15</code></pre>
 <p>The key parts of our output are the coefficients table and the three lines of output below which contain the R<sup>2</sup> value. Here, it’s telling us that our model is a significant fit to the data as we might expect. Also, the mid-range R<sup>2</sup> (0.50) is what we’d expect given the spread of data in the plot.</p>
 <p>We can also plot this line with <strong>ggplot</strong> with the following code. To plot the regression line, add the function geom_smooth amd used the method “lm” to specify that I want a linear model plotted.</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="w2PGLS.html#cb171-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb171-2"><a href="w2PGLS.html#cb171-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> primate.data, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">y =</span> GestationLen_d)) <span class="op">+</span></span>
-<span id="cb171-3"><a href="w2PGLS.html#cb171-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb171-4"><a href="w2PGLS.html#cb171-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="w2PGLS.html#cb169-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb169-2"><a href="w2PGLS.html#cb169-2"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> primate.data, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">y =</span> GestationLen_d)) <span class="op">+</span></span>
+<span id="cb169-3"><a href="w2PGLS.html#cb169-3"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb169-4"><a href="w2PGLS.html#cb169-4"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-139-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="phylogenetic-signal" class="section level2" number="9.3">
@@ -329,22 +342,22 @@ F-statistic: 90.35 on 1 and 89 DF,  p-value: 3.374e-15</code></pre>
 <div id="caper" class="section level3" number="9.3.2">
 <h3><span class="header-section-number">9.3.2</span> caper</h3>
 <p>Let’s run through some examples. There are a few packages that can run phylogenetic regressions in R but the one I usually go with is called caper (Comparative Analysis of Phylogenetics and Evolution in R) <span class="citation">(Orme et al. <a href="#ref-caper" role="doc-biblioref">2018</a>)</span>. So first we’ll need to load caper.</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="w2PGLS.html#cb172-1"></a><span class="kw">library</span>(caper)</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="w2PGLS.html#cb170-1"></a><span class="kw">library</span>(caper)</span></code></pre></div>
 <p>Now we can load up our phylogeny using read.nexus from the ape package.</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="w2PGLS.html#cb173-1"></a><span class="kw">library</span>(ape)</span>
-<span id="cb173-2"><a href="w2PGLS.html#cb173-2"></a>primate.tree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;primate_tree.nex&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="w2PGLS.html#cb171-1"></a><span class="kw">library</span>(ape)</span>
+<span id="cb171-2"><a href="w2PGLS.html#cb171-2"></a>primate.tree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;primate_tree.nex&quot;</span>)</span></code></pre></div>
 <p>The regression command in <strong>caper</strong> (along with some other functions) requires the data and tree to be combined in a <strong>comparative data object</strong>. This type of object is simply a tree and comparative data set concatenated and is created using the function <strong>comparative.data</strong>. We need to specify the tree object, data object, column name in the data where species names are stored and whether we want a variance-covariance matrix included (we do).</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="w2PGLS.html#cb174-1"></a>primates &lt;-<span class="st"> </span><span class="kw">comparative.data</span>(<span class="dt">phy =</span> primate.tree,     <span class="co">#Our tree</span></span>
-<span id="cb174-2"><a href="w2PGLS.html#cb174-2"></a>                             <span class="dt">data =</span> primate.data,    <span class="co">#Our data</span></span>
-<span id="cb174-3"><a href="w2PGLS.html#cb174-3"></a>                             <span class="dt">names.col =</span> Binomial,   <span class="co">#Data column with the species names</span></span>
-<span id="cb174-4"><a href="w2PGLS.html#cb174-4"></a>                             <span class="dt">vcv =</span> <span class="ot">TRUE</span>,             <span class="co">#Variance-covariance matrix</span></span>
-<span id="cb174-5"><a href="w2PGLS.html#cb174-5"></a>                             <span class="dt">na.omit =</span> <span class="ot">FALSE</span>,        <span class="co">#We don&#39;t want to drop missing data</span></span>
-<span id="cb174-6"><a href="w2PGLS.html#cb174-6"></a>                             <span class="dt">warn.dropped =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="w2PGLS.html#cb172-1"></a>primates &lt;-<span class="st"> </span><span class="kw">comparative.data</span>(<span class="dt">phy =</span> primate.tree,     <span class="co">#Our tree</span></span>
+<span id="cb172-2"><a href="w2PGLS.html#cb172-2"></a>                             <span class="dt">data =</span> primate.data,    <span class="co">#Our data</span></span>
+<span id="cb172-3"><a href="w2PGLS.html#cb172-3"></a>                             <span class="dt">names.col =</span> Binomial,   <span class="co">#Data column with the species names</span></span>
+<span id="cb172-4"><a href="w2PGLS.html#cb172-4"></a>                             <span class="dt">vcv =</span> <span class="ot">TRUE</span>,             <span class="co">#Variance-covariance matrix</span></span>
+<span id="cb172-5"><a href="w2PGLS.html#cb172-5"></a>                             <span class="dt">na.omit =</span> <span class="ot">FALSE</span>,        <span class="co">#We don&#39;t want to drop missing data</span></span>
+<span id="cb172-6"><a href="w2PGLS.html#cb172-6"></a>                             <span class="dt">warn.dropped =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>Warning in comparative.data(phy = primate.tree, data = primate.data, names.col =
 Binomial, : Data dropped in compiling comparative data object</code></pre>
 <p>This warning message isn’t really a problem. If you look at the tree and data I provided, you’ll see that the tree has about 200 species but the datafile contains data for only 91. Therefore we expected R to drop some species when compiling the comparative data object. In fact, we asked it warn us if it did so!</p>
 <p>We can inspect the structure of the comparative data object using <strong>str</strong> if necessary. You should see that the object contains both the tree and the data. Either one of these (pruned from the larger objects we specified) can be extracted again if needed.</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="w2PGLS.html#cb176-1"></a><span class="kw">str</span>(primates)</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="w2PGLS.html#cb174-1"></a><span class="kw">str</span>(primates)</span></code></pre></div>
 <pre><code>List of 7
  $ phy      :List of 5
   ..$ edge       : int [1:163, 1:2] 84 85 86 87 88 89 90 91 92 93 ...
@@ -377,10 +390,10 @@ Binomial, : Data dropped in compiling comparative data object</code></pre>
 <div id="estimating-phylogenetic-signal" class="section level3" number="9.3.3">
 <h3><span class="header-section-number">9.3.3</span> Estimating Phylogenetic Signal</h3>
 <p>Let’s estimate the phylogenetic signal of gestation length in primates. The key is to remember that we need to call our comparative data object and not the data file we loaded up at the start. We’re running the trait on its own (hence the “~ 1”) and estimating lambda by maximum likelihood.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="w2PGLS.html#cb178-1"></a>signal &lt;-<span class="st"> </span><span class="kw">pgls</span>(<span class="kw">log10</span>(GestationLen_d) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,</span>
-<span id="cb178-2"><a href="w2PGLS.html#cb178-2"></a>               <span class="dt">data =</span> primates,</span>
-<span id="cb178-3"><a href="w2PGLS.html#cb178-3"></a>               <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span>
-<span id="cb178-4"><a href="w2PGLS.html#cb178-4"></a><span class="kw">summary</span>(signal)</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="w2PGLS.html#cb176-1"></a>signal &lt;-<span class="st"> </span><span class="kw">pgls</span>(<span class="kw">log10</span>(GestationLen_d) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>,</span>
+<span id="cb176-2"><a href="w2PGLS.html#cb176-2"></a>               <span class="dt">data =</span> primates,</span>
+<span id="cb176-3"><a href="w2PGLS.html#cb176-3"></a>               <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span>
+<span id="cb176-4"><a href="w2PGLS.html#cb176-4"></a><span class="kw">summary</span>(signal)</span></code></pre></div>
 <pre><code>
 Call:
 pgls(formula = log10(GestationLen_d) ~ 1, data = primates, lambda = &quot;ML&quot;)
@@ -421,8 +434,8 @@ F-statistic:   NaN on 0 and 82 DF,  p-value: NA </code></pre>
 <p>We found earlier that there does seem to be a relationship but ordinary least squares linear regression can’t be relied upon in this situation. This is because of the statistical non-independence of data points due to shared evolutionary history!</p>
 <p>A <strong>phylogenetic generalised least squares regression</strong> (PGLS) uses a covariance matrix to correct the analysis for this statistical non-independence. Put simply, the PGLS assumes the residuals are more similar in more closely related species rather than being randomly distributed as in linear regression.</p>
 <p>As you’ve already seen, the function we need here is <strong>pgls</strong>. The model is constructed exactly as before but this time, we need to construct a full model. We’ll be estimating <span class="math inline">\(\lambda\)</span> by maximum likelihood again.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="w2PGLS.html#cb180-1"></a>m2 &lt;-<span class="st"> </span><span class="kw">pgls</span>(GestationLen_d <span class="op">~</span><span class="st"> </span><span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">data =</span> primates, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span>
-<span id="cb180-2"><a href="w2PGLS.html#cb180-2"></a><span class="kw">summary</span>(m2)</span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="w2PGLS.html#cb178-1"></a>m2 &lt;-<span class="st"> </span><span class="kw">pgls</span>(GestationLen_d <span class="op">~</span><span class="st"> </span><span class="kw">log10</span>(AdultBodyMass_g), <span class="dt">data =</span> primates, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span>
+<span id="cb178-2"><a href="w2PGLS.html#cb178-2"></a><span class="kw">summary</span>(m2)</span></code></pre></div>
 <pre><code>
 Call:
 pgls(formula = GestationLen_d ~ log10(AdultBodyMass_g), data = primates, 
@@ -453,40 +466,40 @@ Multiple R-squared: 0.2914, Adjusted R-squared: 0.2826
 F-statistic:  33.3 on 1 and 81 DF,  p-value: 1.394e-07 </code></pre>
 <p>As you can see, our model is a significant fit to the data (F = 33.3, R<sup>2</sup> = 0.29, p = 1.39 x 10<sup>-7</sup>). More importantly, We’ve confirmed that body size has a positive effect on gestation length (<span class="math inline">\(\beta\)</span> = 33.75, s.e. = 5.85, p = 1.39 x 10<sup>-7</sup>). Time to plot!</p>
 <p>A brief note here. The syntax to get <strong>ggplot</strong> to do this is a little more complex than base graphics (where we can just use abline(m2)!). Here I’ve plotted both the OLS (blue) and PGLS (red) lines so you can see how they differ.</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="w2PGLS.html#cb182-1"></a><span class="kw">library</span>(dplyr)</span>
-<span id="cb182-2"><a href="w2PGLS.html#cb182-2"></a>primates<span class="op">$</span>data <span class="op">%&gt;%</span></span>
-<span id="cb182-3"><a href="w2PGLS.html#cb182-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">my_model =</span> <span class="kw">predict</span>(m2)) <span class="op">%&gt;%</span></span>
-<span id="cb182-4"><a href="w2PGLS.html#cb182-4"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
-<span id="cb182-5"><a href="w2PGLS.html#cb182-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="kw">log10</span>(AdultBodyMass_g), GestationLen_d)) <span class="op">+</span></span>
-<span id="cb182-6"><a href="w2PGLS.html#cb182-6"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="kw">log10</span>(AdultBodyMass_g), my_model), </span>
-<span id="cb182-7"><a href="w2PGLS.html#cb182-7"></a>            <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">lwd =</span> <span class="dv">1</span>) <span class="op">+</span></span>
-<span id="cb182-8"><a href="w2PGLS.html#cb182-8"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="kw">log10</span>(AdultBodyMass_g), GestationLen_d), </span>
-<span id="cb182-9"><a href="w2PGLS.html#cb182-9"></a>              <span class="dt">method =</span> <span class="st">&#39;lm&#39;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
-<span id="cb182-10"><a href="w2PGLS.html#cb182-10"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Log Body Mass&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Gestation Length&quot;</span>) <span class="op">+</span></span>
-<span id="cb182-11"><a href="w2PGLS.html#cb182-11"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">x =</span> <span class="dv">2</span>, <span class="dt">y =</span> <span class="dv">230</span>, <span class="dt">label =</span> <span class="st">&quot;PGLS&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span></span>
-<span id="cb182-12"><a href="w2PGLS.html#cb182-12"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">x =</span> <span class="dv">2</span>, <span class="dt">y =</span> <span class="dv">218</span>, <span class="dt">label =</span> <span class="st">&quot;OLS&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="w2PGLS.html#cb180-1"></a><span class="kw">library</span>(dplyr)</span>
+<span id="cb180-2"><a href="w2PGLS.html#cb180-2"></a>primates<span class="op">$</span>data <span class="op">%&gt;%</span></span>
+<span id="cb180-3"><a href="w2PGLS.html#cb180-3"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">my_model =</span> <span class="kw">predict</span>(m2)) <span class="op">%&gt;%</span></span>
+<span id="cb180-4"><a href="w2PGLS.html#cb180-4"></a><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></span>
+<span id="cb180-5"><a href="w2PGLS.html#cb180-5"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="kw">log10</span>(AdultBodyMass_g), GestationLen_d)) <span class="op">+</span></span>
+<span id="cb180-6"><a href="w2PGLS.html#cb180-6"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="kw">log10</span>(AdultBodyMass_g), my_model), </span>
+<span id="cb180-7"><a href="w2PGLS.html#cb180-7"></a>            <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">lwd =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb180-8"><a href="w2PGLS.html#cb180-8"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="kw">log10</span>(AdultBodyMass_g), GestationLen_d), </span>
+<span id="cb180-9"><a href="w2PGLS.html#cb180-9"></a>              <span class="dt">method =</span> <span class="st">&#39;lm&#39;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb180-10"><a href="w2PGLS.html#cb180-10"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Log Body Mass&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Gestation Length&quot;</span>) <span class="op">+</span></span>
+<span id="cb180-11"><a href="w2PGLS.html#cb180-11"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">x =</span> <span class="dv">2</span>, <span class="dt">y =</span> <span class="dv">230</span>, <span class="dt">label =</span> <span class="st">&quot;PGLS&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span></span>
+<span id="cb180-12"><a href="w2PGLS.html#cb180-12"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">x =</span> <span class="dv">2</span>, <span class="dt">y =</span> <span class="dv">218</span>, <span class="dt">label =</span> <span class="st">&quot;OLS&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">4</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-150-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="model-checking" class="section level3" number="9.4.1">
 <h3><span class="header-section-number">9.4.1</span> Model Checking</h3>
 <p>That’s the basic model run nicely. Now, we need to run some diagnostic checks. We should start with the likelihood surface of <span class="math inline">\(\lambda\)</span> since we estimated it by maximum likelihood.</p>
 <p>We begin by using the <strong>pgls.profile</strong> function to extract the likelihoods and then simply plot them. What we are looking for is a single peak around our estimated value. If we get a flat surface or multiple peaks, there might be an issue somewhere.</p>
-<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="w2PGLS.html#cb183-1"></a>lambda.profile &lt;-<span class="st"> </span><span class="kw">pgls.profile</span>(m2, <span class="dt">which =</span> <span class="st">&quot;lambda&quot;</span>)</span>
-<span id="cb183-2"><a href="w2PGLS.html#cb183-2"></a><span class="kw">plot</span>(lambda.profile)</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="w2PGLS.html#cb181-1"></a>lambda.profile &lt;-<span class="st"> </span><span class="kw">pgls.profile</span>(m2, <span class="dt">which =</span> <span class="st">&quot;lambda&quot;</span>)</span>
+<span id="cb181-2"><a href="w2PGLS.html#cb181-2"></a><span class="kw">plot</span>(lambda.profile)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-151-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This plot describes the log likelihood of <span class="math inline">\(\lambda\)</span> across its possible range of values (0 - 1). We can clearly see that the likelihood is highest around a single point around 0.8. Check back against the model output earlier to see if this is what we would expect.</p>
 <p>Next we need to identify any outliers in the model residuals. The first step here is to extract the residuals from the model, making sure to tell R that we want the phylogenetic residuals. The model output of pgls actually stores both phylogenetic and non-phylogenetic residuals. We can then standardise the residuals by dividing through by the square root of the variance.</p>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="w2PGLS.html#cb184-1"></a>res &lt;-<span class="st"> </span><span class="kw">residuals</span>(m2, <span class="dt">phylo =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb184-2"><a href="w2PGLS.html#cb184-2"></a>res &lt;-<span class="st"> </span>res<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">var</span>(res))[<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="w2PGLS.html#cb182-1"></a>res &lt;-<span class="st"> </span><span class="kw">residuals</span>(m2, <span class="dt">phylo =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb182-2"><a href="w2PGLS.html#cb182-2"></a>res &lt;-<span class="st"> </span>res<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">var</span>(res))[<span class="dv">1</span>]</span></code></pre></div>
 <p>The general rule of thumb is that any standardised residual with an absolute value greater than 3 is an outlier and needs to be removed from the analysis. Here, I’m just assigning the species names to the <strong>res</strong> object so we can tell which species are the outliers (if any).</p>
-<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="w2PGLS.html#cb185-1"></a><span class="kw">rownames</span>(res) &lt;-<span class="st"> </span><span class="kw">rownames</span>(m2<span class="op">$</span>residuals)</span>
-<span id="cb185-2"><a href="w2PGLS.html#cb185-2"></a><span class="kw">rownames</span>(res)[<span class="kw">abs</span>(res)<span class="op">&gt;</span><span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="w2PGLS.html#cb183-1"></a><span class="kw">rownames</span>(res) &lt;-<span class="st"> </span><span class="kw">rownames</span>(m2<span class="op">$</span>residuals)</span>
+<span id="cb183-2"><a href="w2PGLS.html#cb183-2"></a><span class="kw">rownames</span>(res)[<span class="kw">abs</span>(res)<span class="op">&gt;</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>[1] &quot;Microcebus_murinus&quot; &quot;Prolemur_simus&quot;    </code></pre>
 <p>Outliers! Maybe they’re causing problems and maybe they aren’t. We need to check that by re-running our analysis without them. A simple line of code will take our existing comparative data object and drop out the named outliers.</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="w2PGLS.html#cb187-1"></a>primates.nooutliers &lt;-<span class="st"> </span>primates[<span class="op">-</span><span class="kw">which</span>(<span class="kw">abs</span>(res)<span class="op">&gt;</span><span class="dv">3</span>),]</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="w2PGLS.html#cb185-1"></a>primates.nooutliers &lt;-<span class="st"> </span>primates[<span class="op">-</span><span class="kw">which</span>(<span class="kw">abs</span>(res)<span class="op">&gt;</span><span class="dv">3</span>),]</span></code></pre></div>
 <p>Now simply re-run the model, remembering to direct R to the new data object.</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="w2PGLS.html#cb188-1"></a>m3 &lt;-<span class="st"> </span><span class="kw">pgls</span>(GestationLen_d <span class="op">~</span><span class="st"> </span><span class="kw">log10</span>(AdultBodyMass_g),</span>
-<span id="cb188-2"><a href="w2PGLS.html#cb188-2"></a>           <span class="dt">data =</span> primates.nooutliers, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span>
-<span id="cb188-3"><a href="w2PGLS.html#cb188-3"></a><span class="kw">summary</span>(m3)</span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="w2PGLS.html#cb186-1"></a>m3 &lt;-<span class="st"> </span><span class="kw">pgls</span>(GestationLen_d <span class="op">~</span><span class="st"> </span><span class="kw">log10</span>(AdultBodyMass_g),</span>
+<span id="cb186-2"><a href="w2PGLS.html#cb186-2"></a>           <span class="dt">data =</span> primates.nooutliers, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span>
+<span id="cb186-3"><a href="w2PGLS.html#cb186-3"></a><span class="kw">summary</span>(m3)</span></code></pre></div>
 <pre><code>
 Call:
 pgls(formula = GestationLen_d ~ log10(AdultBodyMass_g), data = primates.nooutliers, 
@@ -516,18 +529,18 @@ Residual standard error: 3.53 on 79 degrees of freedom
 Multiple R-squared: 0.2853, Adjusted R-squared: 0.2762 
 F-statistic: 31.54 on 1 and 79 DF,  p-value: 2.815e-07 </code></pre>
 <p>The results have barely changed. So it seems that although those two lemurs were outliers, they weren’t effecting the analysis too much. Let’s check for outliers in this new model.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="w2PGLS.html#cb190-1"></a>res &lt;-<span class="st"> </span><span class="kw">residuals</span>(m3, <span class="dt">phylo =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb190-2"><a href="w2PGLS.html#cb190-2"></a>res &lt;-<span class="st"> </span>res<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">var</span>(res))[<span class="dv">1</span>]</span>
-<span id="cb190-3"><a href="w2PGLS.html#cb190-3"></a><span class="kw">rownames</span>(res) &lt;-<span class="st"> </span><span class="kw">rownames</span>(m3<span class="op">$</span>residuals)</span>
-<span id="cb190-4"><a href="w2PGLS.html#cb190-4"></a><span class="kw">rownames</span>(res)[<span class="kw">abs</span>(res)<span class="op">&gt;</span><span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="w2PGLS.html#cb188-1"></a>res &lt;-<span class="st"> </span><span class="kw">residuals</span>(m3, <span class="dt">phylo =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb188-2"><a href="w2PGLS.html#cb188-2"></a>res &lt;-<span class="st"> </span>res<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">var</span>(res))[<span class="dv">1</span>]</span>
+<span id="cb188-3"><a href="w2PGLS.html#cb188-3"></a><span class="kw">rownames</span>(res) &lt;-<span class="st"> </span><span class="kw">rownames</span>(m3<span class="op">$</span>residuals)</span>
+<span id="cb188-4"><a href="w2PGLS.html#cb188-4"></a><span class="kw">rownames</span>(res)[<span class="kw">abs</span>(res)<span class="op">&gt;</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>[1] &quot;Microcebus_rufus&quot;</code></pre>
 <p>Another one! Don’t worry. This can happen. We need to drop the new outlier again to run the same checks.</p>
 <p>Finally, we can check the diagnostic plots of the model. I’ve included some lines to help arrange the plots. To view the plots for model diagnostics, we can simply plot the model object!</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="w2PGLS.html#cb192-1"></a>par.default &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">no.readonly =</span> T) <span class="co">#Save default plotting parameters</span></span>
-<span id="cb192-2"><a href="w2PGLS.html#cb192-2"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co">#Set the plot window to show 4 different plots</span></span>
-<span id="cb192-3"><a href="w2PGLS.html#cb192-3"></a><span class="kw">plot</span>(m3)</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="w2PGLS.html#cb190-1"></a>par.default &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">no.readonly =</span> T) <span class="co">#Save default plotting parameters</span></span>
+<span id="cb190-2"><a href="w2PGLS.html#cb190-2"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co">#Set the plot window to show 4 different plots</span></span>
+<span id="cb190-3"><a href="w2PGLS.html#cb190-3"></a><span class="kw">plot</span>(m3)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-157-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="w2PGLS.html#cb193-1"></a><span class="kw">par</span>(par.default) <span class="co">#Reset plot window to default</span></span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="w2PGLS.html#cb191-1"></a><span class="kw">par</span>(par.default) <span class="co">#Reset plot window to default</span></span></code></pre></div>
 <p>The top left panel shows the distribution of our residuals. We can see a bump near +3. That will be our outlier that needs to be dropped before we proceed any further. The top right plot closely approximates a straight line so that’s good. The bottom left shows no real pattern which is also good. The bottom right graph should show a correlation (and it seems to) with the points more or less equally scattered above and below the 45<sup>o</sup> diagonal. Along that line, the observed and fitted values would be exactly equal.</p>
 </div>
 </div>

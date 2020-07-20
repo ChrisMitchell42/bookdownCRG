@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>11 Studying Convergence | Comparative Methods Workshops</title>
+  <meta name="description" content="These are the workshops for the Comparative Research Group as part of LIFE363" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="11 Studying Convergence | Comparative Methods Workshops" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are the workshops for the Comparative Research Group as part of LIFE363" />
+  <meta name="github-repo" content="ChrisMitchell42/bookdownCRG" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="11 Studying Convergence | Comparative Methods Workshops" />
+  
+  <meta name="twitter:description" content="These are the workshops for the Comparative Research Group as part of LIFE363" />
+  
+
+<meta name="author" content="Chris Mitchell" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="pathanalysis.html"/>
+<link rel="next" href="bibliography.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.16/iframeResizer.min.js" type="text/javascript"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Comparative Research Group</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#for-students"><i class="fa fa-check"></i><b>1.1</b> For students</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-the-comparative-method"><i class="fa fa-check"></i><b>2.1</b> What is the comparative method?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#tree-thinking"><i class="fa fa-check"></i><b>2.2</b> Tree thinking</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="recap.html"><a href="recap.html"><i class="fa fa-check"></i><b>3</b> R recap</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="recap.html"><a href="recap.html#basics"><i class="fa fa-check"></i><b>3.1</b> Basics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="recap.html"><a href="recap.html#plotting"><i class="fa fa-check"></i><b>3.1.1</b> Plotting</a></li>
+<li class="chapter" data-level="3.1.2" data-path="recap.html"><a href="recap.html#the-working-directory"><i class="fa fa-check"></i><b>3.1.2</b> The working directory</a></li>
+<li class="chapter" data-level="3.1.3" data-path="recap.html"><a href="recap.html#loading-data"><i class="fa fa-check"></i><b>3.1.3</b> Loading data</a></li>
+<li class="chapter" data-level="3.1.4" data-path="recap.html"><a href="recap.html#subsetting"><i class="fa fa-check"></i><b>3.1.4</b> Subsetting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="recap.html"><a href="recap.html#errors"><i class="fa fa-check"></i><b>3.2</b> Errors</a></li>
+<li class="chapter" data-level="3.3" data-path="recap.html"><a href="recap.html#google"><i class="fa fa-check"></i><b>3.3</b> Google</a></li>
+<li class="chapter" data-level="3.4" data-path="recap.html"><a href="recap.html#stealing"><i class="fa fa-check"></i><b>3.4</b> Stealing</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="phylogenetics.html"><a href="phylogenetics.html"><i class="fa fa-check"></i><b>4</b> Phylogenetic trees and where to find them</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="phylogenetics.html"><a href="phylogenetics.html#phylogeny"><i class="fa fa-check"></i><b>4.1</b> Phylogeny</a></li>
+<li class="chapter" data-level="4.2" data-path="phylogenetics.html"><a href="phylogenetics.html#building-trees"><i class="fa fa-check"></i><b>4.2</b> Building trees</a></li>
+<li class="chapter" data-level="4.3" data-path="phylogenetics.html"><a href="phylogenetics.html#locating-trees"><i class="fa fa-check"></i><b>4.3</b> Locating trees</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="phylogenetics.html"><a href="phylogenetics.html#file-format"><i class="fa fa-check"></i><b>4.3.1</b> File format</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="w1plotting.html"><a href="w1plotting.html"><i class="fa fa-check"></i><b>5</b> Plotting trees in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="w1plotting.html"><a href="w1plotting.html#phylogenies-in-r"><i class="fa fa-check"></i><b>5.1</b> Phylogenies in R</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="w1plotting.html"><a href="w1plotting.html#packages-used"><i class="fa fa-check"></i><b>5.1.1</b> Packages used</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="w1plotting.html"><a href="w1plotting.html#importing-your-tree"><i class="fa fa-check"></i><b>5.2</b> Importing your tree</a></li>
+<li class="chapter" data-level="5.3" data-path="w1plotting.html"><a href="w1plotting.html#ggtree"><i class="fa fa-check"></i><b>5.3</b> ggtree</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="w1plotting.html"><a href="w1plotting.html#geoms"><i class="fa fa-check"></i><b>5.3.1</b> Geoms</a></li>
+<li class="chapter" data-level="5.3.2" data-path="w1plotting.html"><a href="w1plotting.html#labelling-clades"><i class="fa fa-check"></i><b>5.3.2</b> Labelling clades</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="w1plotting.html"><a href="w1plotting.html#adding-images-to-trees"><i class="fa fa-check"></i><b>5.4</b> Adding images to trees</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="w1plotting.html"><a href="w1plotting.html#phylopic"><i class="fa fa-check"></i><b>5.4.1</b> Phylopic</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="w1plotting.html"><a href="w1plotting.html#further-info"><i class="fa fa-check"></i><b>5.5</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>6</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="anova.html"><a href="anova.html#analysis-of-variance"><i class="fa fa-check"></i><b>6.1</b> Analysis of variance</a></li>
+<li class="chapter" data-level="6.2" data-path="anova.html"><a href="anova.html#phylogenetic-correction"><i class="fa fa-check"></i><b>6.2</b> Phylogenetic correction</a></li>
+<li class="chapter" data-level="6.3" data-path="anova.html"><a href="anova.html#example-data-analysis"><i class="fa fa-check"></i><b>6.3</b> Example data &amp; analysis</a></li>
+<li class="chapter" data-level="6.4" data-path="anova.html"><a href="anova.html#further-info-1"><i class="fa fa-check"></i><b>6.4</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="asr1.html"><a href="asr1.html"><i class="fa fa-check"></i><b>7</b> Ancestral State Reconstruction I</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="asr1.html"><a href="asr1.html#data"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
+<li class="chapter" data-level="7.2" data-path="asr1.html"><a href="asr1.html#trees"><i class="fa fa-check"></i><b>7.2</b> Trees</a></li>
+<li class="chapter" data-level="7.3" data-path="asr1.html"><a href="asr1.html#parsimony"><i class="fa fa-check"></i><b>7.3</b> Parsimony</a></li>
+<li class="chapter" data-level="7.4" data-path="asr1.html"><a href="asr1.html#maximum-likelihood"><i class="fa fa-check"></i><b>7.4</b> Maximum Likelihood</a></li>
+<li class="chapter" data-level="7.5" data-path="asr1.html"><a href="asr1.html#stochastic-character-mapping"><i class="fa fa-check"></i><b>7.5</b> Stochastic Character Mapping</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="asr1.html"><a href="asr1.html#an-analogy"><i class="fa fa-check"></i><b>7.5.1</b> An Analogy</a></li>
+<li class="chapter" data-level="7.5.2" data-path="asr1.html"><a href="asr1.html#state-characters"><i class="fa fa-check"></i><b>7.5.2</b> 2-State Characters</a></li>
+<li class="chapter" data-level="7.5.3" data-path="asr1.html"><a href="asr1.html#state-characters-1"><i class="fa fa-check"></i><b>7.5.3</b> 3-State Characters</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="asr1.html"><a href="asr1.html#further-info-2"><i class="fa fa-check"></i><b>7.6</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="asr2.html"><a href="asr2.html"><i class="fa fa-check"></i><b>8</b> Ancestral State Reconstruction II</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="asr2.html"><a href="asr2.html#data-2"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
+<li class="chapter" data-level="8.2" data-path="asr2.html"><a href="asr2.html#tree"><i class="fa fa-check"></i><b>8.2</b> Tree</a></li>
+<li class="chapter" data-level="8.3" data-path="asr2.html"><a href="asr2.html#ancestral-state-reconstructions"><i class="fa fa-check"></i><b>8.3</b> Ancestral State Reconstructions</a></li>
+<li class="chapter" data-level="8.4" data-path="asr2.html"><a href="asr2.html#bayestraits"><i class="fa fa-check"></i><b>8.4</b> BayesTraits</a></li>
+<li class="chapter" data-level="8.5" data-path="asr2.html"><a href="asr2.html#modelling-evolution"><i class="fa fa-check"></i><b>8.5</b> Modelling Evolution</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="asr2.html"><a href="asr2.html#brownian-motion"><i class="fa fa-check"></i><b>8.5.1</b> Brownian Motion</a></li>
+<li class="chapter" data-level="8.5.2" data-path="asr2.html"><a href="asr2.html#directional-evolution"><i class="fa fa-check"></i><b>8.5.2</b> Directional Evolution</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="asr2.html"><a href="asr2.html#changes-in-the-rate-of-evolution-of-a-trait"><i class="fa fa-check"></i><b>8.6</b> Changes in the rate of evolution of a trait</a></li>
+<li class="chapter" data-level="8.7" data-path="asr2.html"><a href="asr2.html#uncertainty"><i class="fa fa-check"></i><b>8.7</b> Uncertainty</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="asr2.html"><a href="asr2.html#fossils"><i class="fa fa-check"></i><b>8.7.1</b> Fossils</a></li>
+<li class="chapter" data-level="8.7.2" data-path="asr2.html"><a href="asr2.html#revisiting-mysticete-body-mass"><i class="fa fa-check"></i><b>8.7.2</b> Revisiting Mysticete Body Mass</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="asr2.html"><a href="asr2.html#further-info-3"><i class="fa fa-check"></i><b>8.8</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="w2PGLS.html"><a href="w2PGLS.html"><i class="fa fa-check"></i><b>9</b> Phylogenetic Regression</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="w2PGLS.html"><a href="w2PGLS.html#data-3"><i class="fa fa-check"></i><b>9.1</b> Data</a></li>
+<li class="chapter" data-level="9.2" data-path="w2PGLS.html"><a href="w2PGLS.html#linear-regression"><i class="fa fa-check"></i><b>9.2</b> Linear Regression</a></li>
+<li class="chapter" data-level="9.3" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-signal"><i class="fa fa-check"></i><b>9.3</b> Phylogenetic Signal</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-signal-1"><i class="fa fa-check"></i><b>9.3.1</b> Phylogenetic signal</a></li>
+<li class="chapter" data-level="9.3.2" data-path="w2PGLS.html"><a href="w2PGLS.html#caper"><i class="fa fa-check"></i><b>9.3.2</b> caper</a></li>
+<li class="chapter" data-level="9.3.3" data-path="w2PGLS.html"><a href="w2PGLS.html#estimating-phylogenetic-signal"><i class="fa fa-check"></i><b>9.3.3</b> Estimating Phylogenetic Signal</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-regression"><i class="fa fa-check"></i><b>9.4</b> Phylogenetic Regression</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="w2PGLS.html"><a href="w2PGLS.html#model-checking"><i class="fa fa-check"></i><b>9.4.1</b> Model Checking</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="w2PGLS.html"><a href="w2PGLS.html#conclusion"><i class="fa fa-check"></i><b>9.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="pathanalysis.html"><a href="pathanalysis.html"><i class="fa fa-check"></i><b>10</b> Path Analysis</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="pathanalysis.html"><a href="pathanalysis.html#pgls-regression"><i class="fa fa-check"></i><b>10.1</b> PGLS regression</a></li>
+<li class="chapter" data-level="10.2" data-path="pathanalysis.html"><a href="pathanalysis.html#variance-inflation"><i class="fa fa-check"></i><b>10.2</b> Variance Inflation</a></li>
+<li class="chapter" data-level="10.3" data-path="pathanalysis.html"><a href="pathanalysis.html#path-analysis"><i class="fa fa-check"></i><b>10.3</b> Path Analysis</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="pathanalysis.html"><a href="pathanalysis.html#example"><i class="fa fa-check"></i><b>10.3.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="pathanalysis.html"><a href="pathanalysis.html#conclusion-1"><i class="fa fa-check"></i><b>10.4</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="convergence.html"><a href="convergence.html"><i class="fa fa-check"></i><b>11</b> Studying Convergence</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="convergence.html"><a href="convergence.html#indentifying-convergent-evolution"><i class="fa fa-check"></i><b>11.1</b> Indentifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="convergence.html"><a href="convergence.html#surface"><i class="fa fa-check"></i><b>11.1.1</b> SURFACE</a></li>
+<li class="chapter" data-level="11.1.2" data-path="convergence.html"><a href="convergence.html#a-super-example"><i class="fa fa-check"></i><b>11.1.2</b> A Super Example</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="convergence.html"><a href="convergence.html#quantifying-convergent-evolution"><i class="fa fa-check"></i><b>11.2</b> Quantifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="convergence.html"><a href="convergence.html#the-wheatsheaf-index"><i class="fa fa-check"></i><b>11.2.1</b> The Wheatsheaf Index</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="convergence.html"><a href="convergence.html#further-info-4"><i class="fa fa-check"></i><b>11.3</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>12</b> Bibliography</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Comparative Methods Workshops</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="convergence" class="section level1" number="11">
+<h1><span class="header-section-number">11</span> Studying Convergence</h1>
+<div id="indentifying-convergent-evolution" class="section level2" number="11.1">
+<h2><span class="header-section-number">11.1</span> Indentifying convergent evolution</h2>
+<p>The first challenge in the study of convergent evolution is finding a way to systematically identify when it has occurred. For some traits this is easy. For example we can say with some confidence that three groups of mammals (cetaceans, pinnipeds and sirenians) have convergently evolved an aquatic lifestyle.</p>
+<p>If we want some support for an assertion of convergent evolution, we can look to ancestral state reconstruction. As shown in chapters 8 and 10, ancestral state reconstruction allows us to look into the evolutionary history trait and potentially make a determination about if a trait arose independently or not.</p>
+As we saw in chapter 8, there has been and independent loss of conspicuous sexual swelling in macaques. Namely, <em>Macaca arctoides</em> has evolved this trait independently of the other 4 species (<em>M. sinica, M. radiata, M. thibetana</em> and <em>M. assamensis</em>) that exhibit it.
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-189"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-189-1.png" alt="Maximum likelihood reconstruction of the evolution of conspicuous sexual swellings in macaques using an equal rates model of evolution." width="672" />
+<p class="caption">
+Figure 11.1: Maximum likelihood reconstruction of the evolution of conspicuous sexual swellings in macaques using an equal rates model of evolution.
+</p>
+</div>
+<p>As you can probably tell, it can be easy to assign convergent evolution to categorical traits and less so to continuous traits. To identify convergence in continuous characters, we need to identify selective regimes.</p>
+<div id="surface" class="section level3" number="11.1.1">
+<h3><span class="header-section-number">11.1.1</span> SURFACE</h3>
+<p>We can identify selective regimes by reconstructing the trait on the tree and fitting models to the reconstruction. One method to do exactly this is called SURFACE <span class="citation">(Ingram and Mahler <a href="#ref-surface" role="doc-biblioref">2013</a>)</span>.</p>
+<p>SURFACE stands for <em>SURFACE Uses Regime Fitting with Aikaike information Criterion to model Convergent Evolution</em>. The method has two phases, known as <strong>forward</strong> and <strong>backward</strong>.</p>
+<p>The <strong>forward</strong> phase begins at the root of the tree and fits models to the ancestral state reconstruction of the trait or traits in question. At the root, the trait is only experiencing one selective regime (because the root represents one lineage and therefore one trait value). As we proceed forward in time we reach branching points (nodes). At each node we add a new regime, giving us two models. The first model has no change and the new model as a regime shift at the node. This new model is then tested against the no-change model and if the new regime improves the fit of the model to the data, then we accept the addition of the regime.</p>
+<p>To summarise, the <strong>forward</strong> phase begins at the root and identifies rgeime shifts in the evolution of the trait going forward through the tree.</p>
+<p>The <strong>backward</strong> phase is very similar but starts at the tips of the tree. In this phase we go backwards in time and each time we reach a regime shift, we collapse the regime and combine it with others across the tree. Each time regimes are combined, this produces a new model to be compared against the older model. If the combination of two regimes improves the fit of the model, the regimes are combined and we move on. This means that this phase of the analysis will collapse similar regimes together across the tree.</p>
+<p>The end product of SURFACE is a list of parameters describing the number of distinct regimes <em>k’</em>, the number of shifts towards convergent regimes <em>c</em> and other useful parameters like the number of convergent regimes reached by multiple shifts and the proportion of shifts towards convergent regimes (see <span class="citation">(Ingram and Mahler <a href="#ref-surface" role="doc-biblioref">2013</a>)</span> for details).</p>
+</div>
+<div id="a-super-example" class="section level3" number="11.1.2">
+<h3><span class="header-section-number">11.1.2</span> A Super Example</h3>
+<p>Let’s see how SURFACE works. First we need to install the <strong>surface</strong> package <span class="citation">(Ingram and Mahler <a href="#ref-surface" role="doc-biblioref">2013</a>)</span>. Unfortunately this is no longer on the CRAN archive so we need to look elsewhere. Fortunately, <a href="https://mran.microsoft.com/" title="MRAN">MRAN</a> (Microsoft R Application Network) have a handy tool that takes snapshots of the CRAN R packages. This means we can go to MRAN and get a version of <strong>surface</strong> from before it was scrubbed from CRAN. What heroes!</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="convergence.html#cb220-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;surface&quot;</span>, <span class="dt">repos=</span><span class="st">&quot;https://mran.microsoft.com/snapshot/2015-06-30&quot;</span>)</span>
+<span id="cb220-2"><a href="convergence.html#cb220-2"></a><span class="kw">library</span>(surface)</span></code></pre></div>
+<p>Next we can load some example data.</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="convergence.html#cb221-1"></a>tree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;Superheroes.nex&quot;</span>)</span>
+<span id="cb221-2"><a href="convergence.html#cb221-2"></a>data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Superhero data.csv&quot;</span>)</span>
+<span id="cb221-3"><a href="convergence.html#cb221-3"></a><span class="kw">rownames</span>(data) &lt;-<span class="st"> </span>data<span class="op">$</span>X</span>
+<span id="cb221-4"><a href="convergence.html#cb221-4"></a>geiger<span class="op">::</span><span class="kw">name.check</span>(tree, data)</span></code></pre></div>
+<pre><code>[1] &quot;OK&quot;</code></pre>
+<p>The data we have here describe three personality traits of 25 characters from the Marvel and DC cinematic universes. There is also a phylogeny describing the pattern of relatedness between characters. For this analysis, we are going to use all 3 personality traits to try and identify any convergence across universes.
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-194-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="forward-phase" class="section level4" number="11.1.2.1">
+<h4><span class="header-section-number">11.1.2.1</span> Forward Phase</h4>
+<p>Before we run the analysis, we need to do a little preparation. These functions convert the tree and data into formats that can be analysed by functions called by the <strong>surface</strong> analysis. <strong>nameNodes</strong> adds unique node labels to the tree to aid the conversion.</p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="convergence.html#cb223-1"></a>tree&lt;-<span class="kw">nameNodes</span>(tree)</span>
+<span id="cb223-2"><a href="convergence.html#cb223-2"></a>olist&lt;-<span class="kw">convertTreeData</span>(tree,data[,<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)])</span>
+<span id="cb223-3"><a href="convergence.html#cb223-3"></a>otree&lt;-olist[[<span class="dv">1</span>]]</span>
+<span id="cb223-4"><a href="convergence.html#cb223-4"></a>odata&lt;-olist[[<span class="dv">2</span>]]</span></code></pre></div>
+<p>The function <strong>surfaceForward</strong> runs the forward phase of the analysis as described above. The more complex your tree and data, the longer this will take.</p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="convergence.html#cb224-1"></a>fwd&lt;-<span class="kw">surfaceForward</span>(otree, odata, <span class="dt">aic_threshold =</span> <span class="dv">0</span>, <span class="dt">exclude =</span> <span class="dv">0</span>, </span>
+<span id="cb224-2"><a href="convergence.html#cb224-2"></a>                    <span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">plotaic =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<p>From this analysis, we can extract the value of <em>k</em> (the number of distinct regimes).</p>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="convergence.html#cb225-1"></a>k&lt;-<span class="kw">length</span>(fwd)</span>
+<span id="cb225-2"><a href="convergence.html#cb225-2"></a>k</span></code></pre></div>
+<pre><code>[1] 6</code></pre>
+<p>For some more details, we can look into the summary of the analysis using <strong>surfaceSummary</strong>. There are a number of useful components we could investigate further.</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="convergence.html#cb227-1"></a>fsum&lt;-<span class="kw">surfaceSummary</span>(fwd)</span>
+<span id="cb227-2"><a href="convergence.html#cb227-2"></a><span class="kw">names</span>(fsum)</span></code></pre></div>
+<pre><code> [1] &quot;n_steps&quot;       &quot;lnls&quot;          &quot;n_regimes_seq&quot; &quot;aics&quot;         
+ [5] &quot;shifts&quot;        &quot;n_regimes&quot;     &quot;alpha&quot;         &quot;phylhalflife&quot; 
+ [9] &quot;sigma_squared&quot; &quot;theta&quot;        </code></pre>
+</div>
+<div id="backward-phase" class="section level4" number="11.1.2.2">
+<h4><span class="header-section-number">11.1.2.2</span> Backward Phase</h4>
+<p>Next we can collapse the regimes by running the backwards analysis with <strong>surfaceBackward</strong>.</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="convergence.html#cb229-1"></a>bwd&lt;-<span class="kw">surfaceBackward</span>(otree, odata, <span class="dt">starting_model =</span> fwd[[k]], </span>
+<span id="cb229-2"><a href="convergence.html#cb229-2"></a>                     <span class="dt">aic_threshold =</span> <span class="dv">0</span>, <span class="dt">only_best =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb229-3"><a href="convergence.html#cb229-3"></a>                     <span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">plotaic =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<p>We can use <strong>surfaceSummary</strong> again to extract the key parameters.</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="convergence.html#cb230-1"></a>bsum&lt;-<span class="kw">surfaceSummary</span>(bwd)</span>
+<span id="cb230-2"><a href="convergence.html#cb230-2"></a>kk&lt;-<span class="kw">length</span>(bwd)</span>
+<span id="cb230-3"><a href="convergence.html#cb230-3"></a>kk</span></code></pre></div>
+<pre><code>[1] 4</code></pre>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="convergence.html#cb232-1"></a>bsum<span class="op">$</span>n_regimes</span></code></pre></div>
+<pre><code>             k         kprime         deltak              c    kprime_conv 
+             6              3              3              5              2 
+kprime_nonconv 
+             1 </code></pre>
+<p>So we have 6 regime shifts from <strong>surfaceForward</strong> (<em>k</em>). There are 3 distinct regimes (<em>kprime</em>), 2 of which are convergent (<em>kprime_conv</em>) and 1 is non-convergent (<em>kprime_nonconv</em>).</p>
+</div>
+<div id="visualisation" class="section level4" number="11.1.2.3">
+<h4><span class="header-section-number">11.1.2.3</span> Visualisation</h4>
+<p>The best thing to do with an analysis like this is visualise the results. We can paint the regimes onto the tree using <strong>surfaceTreePlot</strong>.</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="convergence.html#cb234-1"></a><span class="kw">surfaceTreePlot</span>(tree, bwd[[kk]], <span class="dt">labelshifts =</span> T, <span class="dt">label.offset =</span> <span class="fl">.5</span>, </span>
+<span id="cb234-2"><a href="convergence.html#cb234-2"></a>                <span class="dt">no.margin =</span> T, <span class="dt">edge.width =</span> <span class="dv">5</span>, <span class="dt">cex =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-201-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Using the tree like this allows us to spot some patterns. The blue regime appears to be mostly heroes such as Wonder Woman, Captain Marvel and Black Panther. The selective regime that produces heroes occurs 3 times here. Once leading to Wonder Woman and Superman in the DC universe, once leading to a cluster of Avengers plus Professor X in the Marvel universe and a third time leading to Deadpool.</p>
+<p>The red regime appears to produce villains such as The Joker and Harley Quinn in DC and Thanos and Magneto in Marvel. Finally the black regime is mostly made up of human beings whose moral leanings may go one way or the other (eg. Lois lane or Colonel Stryker) but are nevertheless grouped separately from heroes and villains.</p>
+<p>There are some surprising placements. Batman and Iron Man are both in the same regime (black) which is unsurprising given that they are similar but they are oddly not grouped alongside heroes. This is most likely because of the traits we have used. Let’s plot them out as scatterplots using <strong>surfaceTraitPlot</strong>.</p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="convergence.html#cb235-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mai=</span><span class="kw">c</span>(<span class="fl">0.9</span>,<span class="fl">0.9</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</span>
+<span id="cb235-2"><a href="convergence.html#cb235-2"></a><span class="kw">surfaceTraitPlot</span>(data[,<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)], bwd[[kk]], <span class="dt">whattraits =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb235-3"><a href="convergence.html#cb235-3"></a>                 <span class="dt">cex.opt =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="dv">1</span>, <span class="dt">cex.lab =</span> <span class="dv">2</span>)</span>
+<span id="cb235-4"><a href="convergence.html#cb235-4"></a><span class="kw">surfaceTraitPlot</span>(data[,<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)], bwd[[kk]], <span class="dt">whattraits =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>),  </span>
+<span id="cb235-5"><a href="convergence.html#cb235-5"></a>                 <span class="dt">cex.opt =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="dv">1</span>,<span class="dt">cex.lab =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-202-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>These plots show how the traits cluster along with the average value for each regime (larger point).</p>
+</div>
+</div>
+</div>
+<div id="quantifying-convergent-evolution" class="section level2" number="11.2">
+<h2><span class="header-section-number">11.2</span> Quantifying convergent evolution</h2>
+<p>SURFACE and other methods identify convergent evolution but sometimes we might be more interested in finding out how strong the convergence is. Taking our superhero example a little further, we might expect that there would be particularly strong convergence between similar characters. We could lump together characters like Iron Man and Batman who are essentially humans with access to lots of technology. Alternatively, we could look at superpowered aliens such as Thanos, Superman and Thor or perhaps characters with military backgrounds such as Deadpool, Colonel Stryker, Captain Marvel and Captain America.</p>
+<p>Groupings such as these with a convergent characteristic are called <strong>focal groupings</strong>. We can quantify the strength of convergence by measuring how similar the focal group members are to each other relative to the group as a whole. The way to do this is to calculate the <strong>Wheatsheaf Index</strong> <span class="citation">(Arbuckle et al. <a href="#ref-Arbuckle14" role="doc-biblioref">2014</a>)</span>.</p>
+<div id="the-wheatsheaf-index" class="section level3" number="11.2.1">
+<h3><span class="header-section-number">11.2.1</span> The Wheatsheaf Index</h3>
+<p>The Wheatsheaf Index (<em>W</em>) requires us to calculate the Euclidean distance between species in phenotypic space. First we calculate the mean distance between all the species in the sample and then the mean distance between the focal group species. Finally, we calculate <em>W</em> by dividing the total distance by the focal group distance. If we get a value greater than 1, then we can say that the focal group are more similar to each other than to the group as a whole and thus, quantify the strength of convergence.</p>
+<p>The package to perform a Wheatsheaf analysis is called <strong>windex</strong> <span class="citation">(Arbuckle and Minter <a href="#ref-windex" role="doc-biblioref">2014</a>)</span>. The package contains some example data for us to use.</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="convergence.html#cb236-1"></a><span class="kw">library</span>(windex)</span>
+<span id="cb236-2"><a href="convergence.html#cb236-2"></a><span class="kw">data</span>(<span class="st">&quot;sample.data&quot;</span>)</span>
+<span id="cb236-3"><a href="convergence.html#cb236-3"></a><span class="kw">data</span>(<span class="st">&quot;sample.tree&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-204-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This scatterplot represents the <strong>phenotypic space</strong> described by the two traits. We can see there is a clear clustering of species but the question we have to ask is, does this pattern mean convergence and if yes, how strong is that convergence?
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-205-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>To make things clearer, let’s highlight our focal group species in phenotypic space by plotting them in red.
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-206-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>It’s clear that the focal group species cluster very closely. The tree shows us the taxonomic distribution of the focal group. so it seems that this clustering cannot be explained by phylogeny.
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-207-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>To calculate <em>W</em>, we can use the <strong>windex</strong> function. Remember that a value of W greater than 1 indicates the focal group is more similar to each other than to the group as a whole.</p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="convergence.html#cb237-1"></a><span class="kw">windex</span>(sample.data, sample.tree,</span>
+<span id="cb237-2"><a href="convergence.html#cb237-2"></a>       <span class="dt">traits =</span> <span class="kw">c</span>(<span class="st">&quot;ou1&quot;</span>, <span class="st">&quot;ou2&quot;</span>),</span>
+<span id="cb237-3"><a href="convergence.html#cb237-3"></a>       <span class="dt">focal =</span> sample.data[,<span class="dv">2</span>],</span>
+<span id="cb237-4"><a href="convergence.html#cb237-4"></a>       <span class="dt">SE =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>$`Wheatsheaf Index`
+[1] 5.289446
+
+$`Lower 95% CI`
+[1] 5.121161
+
+$`Upper 95% CI`
+[1] 5.413457</code></pre>
+<p>Here the value of <em>W</em> of 5.29 indicates very strong convergence as we would have predicted by using the traitspace.</p>
+<p>The question we have to answer now is whether the value of <em>W</em> is higher than expected given the shape of the tree. This can be done using the function <strong>test.windex</strong> which performs a number of bootstrap replicates of the analysis, resampling the tree and data as many times as we ask (1000 is standard but it takes a while!).</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="convergence.html#cb239-1"></a>t &lt;-<span class="st"> </span><span class="kw">test.windex</span>(sample.data, sample.tree,</span>
+<span id="cb239-2"><a href="convergence.html#cb239-2"></a>       <span class="dt">traits =</span> <span class="kw">c</span>(<span class="st">&quot;ou1&quot;</span>, <span class="st">&quot;ou2&quot;</span>),</span>
+<span id="cb239-3"><a href="convergence.html#cb239-3"></a>       <span class="dt">focal =</span> sample.data[,<span class="dv">2</span>], <span class="dt">reps =</span> <span class="dv">100</span>,</span>
+<span id="cb239-4"><a href="convergence.html#cb239-4"></a>       <span class="dt">SE =</span> <span class="ot">FALSE</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-209-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The plot here shows the distribution of the bootstrap replicates. We can see from the plotted line that the calculated value and the accompanying confidence intervals are far separate from the distribution of the replicates. This indicates a hih degree of confidence in some unusually storng convergence here. As we can see, the p-value backs this up.</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="convergence.html#cb240-1"></a>t</span></code></pre></div>
+<pre><code>$`P-value=`
+[1] 0</code></pre>
+</div>
+</div>
+<div id="further-info-4" class="section level2" number="11.3">
+<h2><span class="header-section-number">11.3</span> Further info</h2>
+
+</div>
+</div>
+<h3> Bibliography</h3>
+<div id="refs" class="references">
+<div id="ref-Arbuckle14">
+<p>Arbuckle, K., Bennett, C.M., and Speed, M.P. (2014) ‘A Simple Measure of the Strength of Convergent Evolution’. <em>Methods in Ecology and Evolution</em> 5 (7), 685–693</p>
+</div>
+<div id="ref-windex">
+<p>Arbuckle, K. and Minter, A. (2014) <em>Windex: Windex: Analysing Convergent Evolution Using the Wheatsheaf Index</em> [online] available from &lt;<a href="https://CRAN.R-project.org/package=windex">https://CRAN.R-project.org/package=windex</a>&gt;</p>
+</div>
+<div id="ref-surface">
+<p>Ingram, T. and Mahler, D.L. (2013) ‘SURFACE: Detecting Convergent Evolution from Comparative Data by Fitting Ornstein-Uhlenbeck Models with Stepwise Akaike Information Criterion’. <em>Methods in Ecology and Evolution</em> [online] 4 (5), 416–425. available from &lt;<a href="https://doi.org/10.1111/2041-210X.12034">https://doi.org/10.1111/2041-210X.12034</a>&gt;</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="pathanalysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bibliography.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

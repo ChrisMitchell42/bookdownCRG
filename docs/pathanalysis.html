@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="w2PGLS.html"/>
-<link rel="next" href="bibliography.html"/>
+<link rel="next" href="convergence.html"/>
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -249,7 +249,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="pathanalysis.html"><a href="pathanalysis.html#conclusion-1"><i class="fa fa-check"></i><b>10.4</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>11</b> Bibliography</a></li>
+<li class="chapter" data-level="11" data-path="convergence.html"><a href="convergence.html"><i class="fa fa-check"></i><b>11</b> Studying Convergence</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="convergence.html"><a href="convergence.html#indentifying-convergent-evolution"><i class="fa fa-check"></i><b>11.1</b> Indentifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="convergence.html"><a href="convergence.html#surface"><i class="fa fa-check"></i><b>11.1.1</b> SURFACE</a></li>
+<li class="chapter" data-level="11.1.2" data-path="convergence.html"><a href="convergence.html#a-super-example"><i class="fa fa-check"></i><b>11.1.2</b> A Super Example</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="convergence.html"><a href="convergence.html#quantifying-convergent-evolution"><i class="fa fa-check"></i><b>11.2</b> Quantifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="convergence.html"><a href="convergence.html#the-wheatsheaf-index"><i class="fa fa-check"></i><b>11.2.1</b> The Wheatsheaf Index</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="convergence.html"><a href="convergence.html#further-info-4"><i class="fa fa-check"></i><b>11.3</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>12</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -276,26 +289,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">10.1</span> PGLS regression</h2>
 <p>Let’s have a closer look at using PGLS regression in statistical analyses. We’ll be using the same data and tree from the previous chapter.</p>
 <p>If we have a look into the data file provided, we notice a number of continuous variables describing primates. Let’s say we’re interested in what makes some primates live such long lives. The natural thing to do, is run a PGLS regression with longevity as the outcome.</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="pathanalysis.html#cb194-1"></a><span class="kw">names</span>(primate.data)</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="pathanalysis.html#cb192-1"></a><span class="kw">names</span>(primate.data)</span></code></pre></div>
 <pre><code>[1] &quot;Order&quot;           &quot;Family&quot;          &quot;Binomial&quot;        &quot;AdultBodyMass_g&quot;
 [5] &quot;GestationLen_d&quot;  &quot;HomeRange_km2&quot;   &quot;MaxLongevity_m&quot;  &quot;SocialGroupSize&quot;</code></pre>
 <p>First, we need a comparative data object combining our data and tree.</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="pathanalysis.html#cb196-1"></a><span class="kw">library</span>(caper)</span>
-<span id="cb196-2"><a href="pathanalysis.html#cb196-2"></a>primates&lt;-<span class="kw">comparative.data</span>(<span class="dt">phy =</span> primate.tree, <span class="dt">data =</span> primate.data, </span>
-<span id="cb196-3"><a href="pathanalysis.html#cb196-3"></a>                           <span class="dt">names.col =</span> Binomial, <span class="dt">vcv =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb196-4"><a href="pathanalysis.html#cb196-4"></a>                           <span class="dt">na.omit =</span> <span class="ot">FALSE</span>, <span class="dt">warn.dropped =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="pathanalysis.html#cb194-1"></a><span class="kw">library</span>(caper)</span>
+<span id="cb194-2"><a href="pathanalysis.html#cb194-2"></a>primates&lt;-<span class="kw">comparative.data</span>(<span class="dt">phy =</span> primate.tree, <span class="dt">data =</span> primate.data, </span>
+<span id="cb194-3"><a href="pathanalysis.html#cb194-3"></a>                           <span class="dt">names.col =</span> Binomial, <span class="dt">vcv =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb194-4"><a href="pathanalysis.html#cb194-4"></a>                           <span class="dt">na.omit =</span> <span class="ot">FALSE</span>, <span class="dt">warn.dropped =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p>Now we can assemble and run our model. We want to predict longevity. Many things might influence longevity so how about something like this.</p>
 <p><span class="math display">\[ Longevity = Body Mass + Gestation + Home Range + Group Size\]</span></p>
 <p>Pretty much all of those will need to be log transformed in our model. We can do this ahead of time to make the code easier.</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="pathanalysis.html#cb197-1"></a>primates<span class="op">$</span>data<span class="op">$</span>log.mass &lt;-<span class="st"> </span><span class="kw">log10</span>(primates<span class="op">$</span>data<span class="op">$</span>AdultBodyMass_g)</span>
-<span id="cb197-2"><a href="pathanalysis.html#cb197-2"></a>primates<span class="op">$</span>data<span class="op">$</span>log.gestation &lt;-<span class="st"> </span><span class="kw">log10</span>(primates<span class="op">$</span>data<span class="op">$</span>GestationLen_d)</span>
-<span id="cb197-3"><a href="pathanalysis.html#cb197-3"></a>primates<span class="op">$</span>data<span class="op">$</span>log.range &lt;-<span class="st"> </span><span class="kw">log10</span>(primates<span class="op">$</span>data<span class="op">$</span>HomeRange_km2)</span>
-<span id="cb197-4"><a href="pathanalysis.html#cb197-4"></a>primates<span class="op">$</span>data<span class="op">$</span>log.group &lt;-<span class="st"> </span><span class="kw">log10</span>(primates<span class="op">$</span>data<span class="op">$</span>SocialGroupSize)</span>
-<span id="cb197-5"><a href="pathanalysis.html#cb197-5"></a>primates<span class="op">$</span>data<span class="op">$</span>log.lifespan &lt;-<span class="st"> </span><span class="kw">log10</span>(primates<span class="op">$</span>data<span class="op">$</span>MaxLongevity_m)</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="pathanalysis.html#cb195-1"></a>primates<span class="op">$</span>data<span class="op">$</span>log.mass &lt;-<span class="st"> </span><span class="kw">log10</span>(primates<span class="op">$</span>data<span class="op">$</span>AdultBodyMass_g)</span>
+<span id="cb195-2"><a href="pathanalysis.html#cb195-2"></a>primates<span class="op">$</span>data<span class="op">$</span>log.gestation &lt;-<span class="st"> </span><span class="kw">log10</span>(primates<span class="op">$</span>data<span class="op">$</span>GestationLen_d)</span>
+<span id="cb195-3"><a href="pathanalysis.html#cb195-3"></a>primates<span class="op">$</span>data<span class="op">$</span>log.range &lt;-<span class="st"> </span><span class="kw">log10</span>(primates<span class="op">$</span>data<span class="op">$</span>HomeRange_km2)</span>
+<span id="cb195-4"><a href="pathanalysis.html#cb195-4"></a>primates<span class="op">$</span>data<span class="op">$</span>log.group &lt;-<span class="st"> </span><span class="kw">log10</span>(primates<span class="op">$</span>data<span class="op">$</span>SocialGroupSize)</span>
+<span id="cb195-5"><a href="pathanalysis.html#cb195-5"></a>primates<span class="op">$</span>data<span class="op">$</span>log.lifespan &lt;-<span class="st"> </span><span class="kw">log10</span>(primates<span class="op">$</span>data<span class="op">$</span>MaxLongevity_m)</span></code></pre></div>
 <p>Now we can run the model just as we did in the previous chapter.</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="pathanalysis.html#cb198-1"></a>m1 &lt;-<span class="st"> </span><span class="kw">pgls</span>(log.lifespan <span class="op">~</span><span class="st"> </span>log.mass <span class="op">+</span><span class="st"> </span>log.gestation <span class="op">+</span><span class="st"> </span>log.range <span class="op">+</span><span class="st"> </span>log.group,</span>
-<span id="cb198-2"><a href="pathanalysis.html#cb198-2"></a>           <span class="dt">data =</span> primates, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span>
-<span id="cb198-3"><a href="pathanalysis.html#cb198-3"></a><span class="kw">summary</span>(m1)</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="pathanalysis.html#cb196-1"></a>m1 &lt;-<span class="st"> </span><span class="kw">pgls</span>(log.lifespan <span class="op">~</span><span class="st"> </span>log.mass <span class="op">+</span><span class="st"> </span>log.gestation <span class="op">+</span><span class="st"> </span>log.range <span class="op">+</span><span class="st"> </span>log.group,</span>
+<span id="cb196-2"><a href="pathanalysis.html#cb196-2"></a>           <span class="dt">data =</span> primates, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span>
+<span id="cb196-3"><a href="pathanalysis.html#cb196-3"></a><span class="kw">summary</span>(m1)</span></code></pre></div>
 <pre><code>
 Call:
 pgls(formula = log.lifespan ~ log.mass + log.gestation + log.range + 
@@ -328,14 +341,14 @@ Residual standard error: 0.01793 on 78 degrees of freedom
 Multiple R-squared: 0.2713, Adjusted R-squared: 0.234 
 F-statistic: 7.262 on 4 and 78 DF,  p-value: 5.036e-05 </code></pre>
 <p>We have a <span class="math inline">\(\lambda\)</span> of 0.683. This is <strong>not</strong> the phylogenetic signal of lifespan or any other variable in the model. Rather, it is the phylogenetic signal of the residuals of the model. As you can see, there clearly is a signal here and it’s different from 0 (p = 0.03) and 1 (p &lt; 0.001). However, as you can see from the lambda profile below, the CIs are very wide.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="pathanalysis.html#cb200-1"></a><span class="kw">plot</span>(<span class="kw">pgls.profile</span>(m1, <span class="dt">which =</span> <span class="st">&quot;lambda&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="pathanalysis.html#cb198-1"></a><span class="kw">plot</span>(<span class="kw">pgls.profile</span>(m1, <span class="dt">which =</span> <span class="st">&quot;lambda&quot;</span>))</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-165-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Not to worry! On we go. The coefficients table in the results output is what we really want to look at here. We can see that the overall fit of the model is significant (R<sup>2</sup> = 0.23, p &lt; 0.001) but a little underwhelming. The only significant predictor of longevity in our model is body mass (<span class="math inline">\(\beta\)</span> = 0.13, se = 0.05, p = 0.006). Our other variables do not significantly predict lifespan.</p>
 <p>However, we’re not done yet! This is where we can employ deletion testing. It is pretty clear that gestation is the most useless component of our model (<span class="math inline">\(\beta\)</span> = -0.04, se = 0.21, p = 0.86). An effect size around 0 with a large standard error and p-value is something we don’t need in our lives. So we can re-run the model dropping this variable.</p>
 <p>IMPORTANT: ONLY DROP ONE VARIABLE AT A TIME!</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="pathanalysis.html#cb201-1"></a>m2 &lt;-<span class="st"> </span><span class="kw">pgls</span>(log.lifespan <span class="op">~</span><span class="st"> </span>log.mass <span class="op">+</span><span class="st"> </span>log.range <span class="op">+</span><span class="st"> </span>log.group,</span>
-<span id="cb201-2"><a href="pathanalysis.html#cb201-2"></a>           <span class="dt">data =</span> primates, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span>
-<span id="cb201-3"><a href="pathanalysis.html#cb201-3"></a><span class="kw">summary</span>(m2)</span></code></pre></div>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="pathanalysis.html#cb199-1"></a>m2 &lt;-<span class="st"> </span><span class="kw">pgls</span>(log.lifespan <span class="op">~</span><span class="st"> </span>log.mass <span class="op">+</span><span class="st"> </span>log.range <span class="op">+</span><span class="st"> </span>log.group,</span>
+<span id="cb199-2"><a href="pathanalysis.html#cb199-2"></a>           <span class="dt">data =</span> primates, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span>
+<span id="cb199-3"><a href="pathanalysis.html#cb199-3"></a><span class="kw">summary</span>(m2)</span></code></pre></div>
 <pre><code>
 Call:
 pgls(formula = log.lifespan ~ log.mass + log.range + log.group, 
@@ -367,9 +380,9 @@ Residual standard error: 0.0178 on 79 degrees of freedom
 Multiple R-squared: 0.2716, Adjusted R-squared: 0.2439 
 F-statistic: 9.817 on 3 and 79 DF,  p-value: 1.412e-05 </code></pre>
 <p>Our new output presents a similar picture. Body mass is significantly predicting longevity. This time we might want to look at dropping group size (<span class="math inline">\(\beta\)</span> = 0.03, se = 0.04, p = 0.46).</p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="pathanalysis.html#cb203-1"></a>m3 &lt;-<span class="st"> </span><span class="kw">pgls</span>(log.lifespan <span class="op">~</span><span class="st"> </span>log.mass <span class="op">+</span><span class="st"> </span>log.range,</span>
-<span id="cb203-2"><a href="pathanalysis.html#cb203-2"></a>           <span class="dt">data =</span> primates, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span>
-<span id="cb203-3"><a href="pathanalysis.html#cb203-3"></a><span class="kw">summary</span>(m3)</span></code></pre></div>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="pathanalysis.html#cb201-1"></a>m3 &lt;-<span class="st"> </span><span class="kw">pgls</span>(log.lifespan <span class="op">~</span><span class="st"> </span>log.mass <span class="op">+</span><span class="st"> </span>log.range,</span>
+<span id="cb201-2"><a href="pathanalysis.html#cb201-2"></a>           <span class="dt">data =</span> primates, <span class="dt">lambda =</span> <span class="st">&quot;ML&quot;</span>)</span>
+<span id="cb201-3"><a href="pathanalysis.html#cb201-3"></a><span class="kw">summary</span>(m3)</span></code></pre></div>
 <pre><code>
 Call:
 pgls(formula = log.lifespan ~ log.mass + log.range, data = primates, 
@@ -409,11 +422,11 @@ F-statistic: 14.87 on 2 and 80 DF,  p-value: 3.224e-06 </code></pre>
 <p>As we can see here, this is clearly not the case. Exactly how much of a problem this can be is uncertain. Strong correlations are hugely problematic but weak ones are probably not that big a deal.</p>
 <p>Imagine if we had two strongly correlated predictor variables in a model. How would we determine which one was causing the variation in our outcome? The more strongly correlated these predictors are, the more difficult it becomes to use them both to predict an outcome. This is called <strong>variance inflation</strong> (or multicollinearity).</p>
 <p>The function <strong>vif</strong> in the package <strong>car</strong> <span class="citation">(Fox and Weisberg <a href="#ref-car" role="doc-biblioref">2019</a>)</span> calculates the variance inflation factor of a model. Here we can see that every variable in our model has a VIF greater than 1, indicating we do have some multicollinearity. However, there is no critical value beyond which variance inflation becomes a problem. As a general rule of thumb, a value that exceeds 5 is considered enough of a problem that you shouldn’t trust your results.</p>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="pathanalysis.html#cb205-1"></a>m1<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(primates<span class="op">$</span>data<span class="op">$</span>log.lifespan <span class="op">~</span><span class="st"> </span>primates<span class="op">$</span>data<span class="op">$</span>log.mass <span class="op">+</span><span class="st"> </span></span>
-<span id="cb205-2"><a href="pathanalysis.html#cb205-2"></a><span class="st">             </span>primates<span class="op">$</span>data<span class="op">$</span>log.gestation <span class="op">+</span><span class="st"> </span>primates<span class="op">$</span>data<span class="op">$</span>log.range <span class="op">+</span><span class="st"> </span></span>
-<span id="cb205-3"><a href="pathanalysis.html#cb205-3"></a><span class="st">             </span>primates<span class="op">$</span>data<span class="op">$</span>log.group)</span>
-<span id="cb205-4"><a href="pathanalysis.html#cb205-4"></a><span class="kw">library</span>(car)</span>
-<span id="cb205-5"><a href="pathanalysis.html#cb205-5"></a><span class="kw">vif</span>(m1<span class="fl">.1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="pathanalysis.html#cb203-1"></a>m1<span class="fl">.1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(primates<span class="op">$</span>data<span class="op">$</span>log.lifespan <span class="op">~</span><span class="st"> </span>primates<span class="op">$</span>data<span class="op">$</span>log.mass <span class="op">+</span><span class="st"> </span></span>
+<span id="cb203-2"><a href="pathanalysis.html#cb203-2"></a><span class="st">             </span>primates<span class="op">$</span>data<span class="op">$</span>log.gestation <span class="op">+</span><span class="st"> </span>primates<span class="op">$</span>data<span class="op">$</span>log.range <span class="op">+</span><span class="st"> </span></span>
+<span id="cb203-3"><a href="pathanalysis.html#cb203-3"></a><span class="st">             </span>primates<span class="op">$</span>data<span class="op">$</span>log.group)</span>
+<span id="cb203-4"><a href="pathanalysis.html#cb203-4"></a><span class="kw">library</span>(car)</span>
+<span id="cb203-5"><a href="pathanalysis.html#cb203-5"></a><span class="kw">vif</span>(m1<span class="fl">.1</span>)</span></code></pre></div>
 <pre><code>     primates$data$log.mass primates$data$log.gestation 
                    3.724550                    2.109221 
     primates$data$log.range     primates$data$log.group 
@@ -453,51 +466,51 @@ Figure 10.2: Example of a simple directed acyclic graph from Gonzalez-Voyer and 
 <div id="example" class="section level3" number="10.3.1">
 <h3><span class="header-section-number">10.3.1</span> Example</h3>
 <p>For this demonstration I’m loading in some new data <span class="citation">(von Hardenberg and Gonzalez-Voyer <a href="#ref-Hardenberg13" role="doc-biblioref">2013</a>, Gonzalez-Voyer and Von Hardenberg <a href="#ref-Gonzalez14" role="doc-biblioref">2014</a>)</span>. The data contains information on five continuous variables for 100 species from a group of mammals called the <em>Rhinogradentia</em> <span class="citation">(Stumpke <a href="#ref-snouters" role="doc-biblioref">1957</a>)</span>.</p>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="pathanalysis.html#cb207-1"></a>rhino.dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;rhino.csv&quot;</span>)</span>
-<span id="cb207-2"><a href="pathanalysis.html#cb207-2"></a><span class="kw">rownames</span>(rhino.dat) &lt;-<span class="st"> </span>rhino.dat<span class="op">$</span>SP</span>
-<span id="cb207-3"><a href="pathanalysis.html#cb207-3"></a>rhino.tree &lt;-<span class="st"> </span><span class="kw">read.tree</span>(<span class="st">&quot;rhino.tree&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="pathanalysis.html#cb205-1"></a>rhino.dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;rhino.csv&quot;</span>)</span>
+<span id="cb205-2"><a href="pathanalysis.html#cb205-2"></a><span class="kw">rownames</span>(rhino.dat) &lt;-<span class="st"> </span>rhino.dat<span class="op">$</span>SP</span>
+<span id="cb205-3"><a href="pathanalysis.html#cb205-3"></a>rhino.tree &lt;-<span class="st"> </span><span class="kw">read.tree</span>(<span class="st">&quot;rhino.tree&quot;</span>)</span></code></pre></div>
 <p>Path analysis is something I used to do manually, model by model. However, as is usual in comparative studies, someone has written a package called <strong>phylopath</strong> that does it all quite simply <span class="citation">(van der Bijl <a href="#ref-phylopath" role="doc-biblioref">2018</a>)</span>. We’ll also need <strong>ggforce</strong> to help with plotting later on <span class="citation">(Pedersen <a href="#ref-ggforce" role="doc-biblioref">2019</a>)</span>.</p>
-<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="pathanalysis.html#cb208-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;phylopath&quot;</span>)</span>
-<span id="cb208-2"><a href="pathanalysis.html#cb208-2"></a><span class="kw">install.packages</span>(<span class="st">&quot;ggforce&quot;</span>)</span>
-<span id="cb208-3"><a href="pathanalysis.html#cb208-3"></a><span class="kw">require</span>(phylopath)</span>
-<span id="cb208-4"><a href="pathanalysis.html#cb208-4"></a><span class="kw">require</span>(ggforce)</span></code></pre></div>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="pathanalysis.html#cb206-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;phylopath&quot;</span>)</span>
+<span id="cb206-2"><a href="pathanalysis.html#cb206-2"></a><span class="kw">install.packages</span>(<span class="st">&quot;ggforce&quot;</span>)</span>
+<span id="cb206-3"><a href="pathanalysis.html#cb206-3"></a><span class="kw">require</span>(phylopath)</span>
+<span id="cb206-4"><a href="pathanalysis.html#cb206-4"></a><span class="kw">require</span>(ggforce)</span></code></pre></div>
 <p>The first step is to define the models using the function <strong>define_model_set</strong>. Take your time over this! Typos will be very important. In this instance, let’s reproduce the example DAG from above. The formulae are passed in the same style as any formula in R.</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="pathanalysis.html#cb209-1"></a>m &lt;-<span class="st"> </span><span class="kw">define_model_set</span>(</span>
-<span id="cb209-2"><a href="pathanalysis.html#cb209-2"></a>  <span class="dt">Example =</span> <span class="kw">c</span>(RS <span class="op">~</span><span class="st"> </span>DD, LS <span class="op">~</span><span class="st"> </span>BM, NL <span class="op">~</span><span class="st"> </span>BM, DD <span class="op">~</span><span class="st"> </span>NL)</span>
-<span id="cb209-3"><a href="pathanalysis.html#cb209-3"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="pathanalysis.html#cb207-1"></a>m &lt;-<span class="st"> </span><span class="kw">define_model_set</span>(</span>
+<span id="cb207-2"><a href="pathanalysis.html#cb207-2"></a>  <span class="dt">Example =</span> <span class="kw">c</span>(RS <span class="op">~</span><span class="st"> </span>DD, LS <span class="op">~</span><span class="st"> </span>BM, NL <span class="op">~</span><span class="st"> </span>BM, DD <span class="op">~</span><span class="st"> </span>NL)</span>
+<span id="cb207-3"><a href="pathanalysis.html#cb207-3"></a>)</span></code></pre></div>
 <p>We can plot the model using the function <strong>plot_model_set</strong>. The extra arguments here clean up the plot a little. <strong>box_x</strong> and <strong>box_y</strong> create a box around the vertices to force the arrows not to overlap with the text. <strong>text_size</strong> and <strong>edge_width</strong> set the font size and arrow size respectively.</p>
-<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="pathanalysis.html#cb210-1"></a><span class="kw">plot_model_set</span>(m, <span class="dt">text_size =</span> <span class="dv">10</span>,</span>
-<span id="cb210-2"><a href="pathanalysis.html#cb210-2"></a>               <span class="dt">box_x =</span> <span class="dv">18</span>, <span class="dt">box_y =</span> <span class="dv">16</span>,</span>
-<span id="cb210-3"><a href="pathanalysis.html#cb210-3"></a>               <span class="dt">edge_width =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="pathanalysis.html#cb208-1"></a><span class="kw">plot_model_set</span>(m, <span class="dt">text_size =</span> <span class="dv">10</span>,</span>
+<span id="cb208-2"><a href="pathanalysis.html#cb208-2"></a>               <span class="dt">box_x =</span> <span class="dv">18</span>, <span class="dt">box_y =</span> <span class="dv">16</span>,</span>
+<span id="cb208-3"><a href="pathanalysis.html#cb208-3"></a>               <span class="dt">edge_width =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-177-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The layout isn’t exactly the same as the previous diagram but we can manipulate that with the argument <strong>manual_layout</strong> if we wish. We need to create a dataframe with x and y coordinates for the final plots. We can also set the arrows to be straight by setting <strong>curvature</strong> to be 0.</p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="pathanalysis.html#cb211-1"></a>pos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">names =</span> <span class="kw">c</span>(<span class="st">&quot;RS&quot;</span>, <span class="st">&quot;DD&quot;</span>, <span class="st">&quot;NL&quot;</span>, <span class="st">&quot;BM&quot;</span>, <span class="st">&quot;LS&quot;</span>),</span>
-<span id="cb211-2"><a href="pathanalysis.html#cb211-2"></a>                  <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="fl">1.5</span>,<span class="fl">1.5</span>,.<span class="dv">5</span>,.<span class="dv">5</span>),</span>
-<span id="cb211-3"><a href="pathanalysis.html#cb211-3"></a>                  <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">5</span>))</span>
-<span id="cb211-4"><a href="pathanalysis.html#cb211-4"></a><span class="kw">plot_model_set</span>(m, <span class="dt">text_size =</span> <span class="dv">10</span>, <span class="dt">box_x =</span> <span class="dv">18</span>, <span class="dt">box_y =</span> <span class="dv">16</span>,</span>
-<span id="cb211-5"><a href="pathanalysis.html#cb211-5"></a>               <span class="dt">edge_width =</span> <span class="dv">2</span>, <span class="dt">manual_layout =</span> pos, <span class="dt">curvature =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="pathanalysis.html#cb209-1"></a>pos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">names =</span> <span class="kw">c</span>(<span class="st">&quot;RS&quot;</span>, <span class="st">&quot;DD&quot;</span>, <span class="st">&quot;NL&quot;</span>, <span class="st">&quot;BM&quot;</span>, <span class="st">&quot;LS&quot;</span>),</span>
+<span id="cb209-2"><a href="pathanalysis.html#cb209-2"></a>                  <span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="fl">1.5</span>,<span class="fl">1.5</span>,.<span class="dv">5</span>,.<span class="dv">5</span>),</span>
+<span id="cb209-3"><a href="pathanalysis.html#cb209-3"></a>                  <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">5</span>,<span class="dv">1</span>,<span class="dv">1</span>,.<span class="dv">5</span>))</span>
+<span id="cb209-4"><a href="pathanalysis.html#cb209-4"></a><span class="kw">plot_model_set</span>(m, <span class="dt">text_size =</span> <span class="dv">10</span>, <span class="dt">box_x =</span> <span class="dv">18</span>, <span class="dt">box_y =</span> <span class="dv">16</span>,</span>
+<span id="cb209-5"><a href="pathanalysis.html#cb209-5"></a>               <span class="dt">edge_width =</span> <span class="dv">2</span>, <span class="dt">manual_layout =</span> pos, <span class="dt">curvature =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-178-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>For the full analysis, let’s define a number of possible models and try and see which best describes the data. We start with <strong>define_model_set</strong> and pass lists of formulae to each model which here I have named numerically 1 to 9. We’ve also passed some formulae to the <strong>.common</strong> option as these formulae are present in every model. This saves a fair bit of repetition.</p>
-<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="pathanalysis.html#cb212-1"></a>m &lt;-<span class="st"> </span><span class="kw">define_model_set</span>(</span>
-<span id="cb212-2"><a href="pathanalysis.html#cb212-2"></a>  <span class="dt">one   =</span> <span class="kw">c</span>(RS <span class="op">~</span><span class="st"> </span>DD),</span>
-<span id="cb212-3"><a href="pathanalysis.html#cb212-3"></a>  <span class="dt">two   =</span> <span class="kw">c</span>(DD <span class="op">~</span><span class="st"> </span>NL, RS <span class="op">~</span><span class="st"> </span>LS <span class="op">+</span><span class="st"> </span>DD),</span>
-<span id="cb212-4"><a href="pathanalysis.html#cb212-4"></a>  <span class="dt">three =</span> <span class="kw">c</span>(RS <span class="op">~</span><span class="st"> </span>NL),</span>
-<span id="cb212-5"><a href="pathanalysis.html#cb212-5"></a>  <span class="dt">four  =</span> <span class="kw">c</span>(RS <span class="op">~</span><span class="st"> </span>BM <span class="op">+</span><span class="st"> </span>NL),</span>
-<span id="cb212-6"><a href="pathanalysis.html#cb212-6"></a>  <span class="dt">five  =</span> <span class="kw">c</span>(RS <span class="op">~</span><span class="st"> </span>BM <span class="op">+</span><span class="st"> </span>NL <span class="op">+</span><span class="st"> </span>DD),</span>
-<span id="cb212-7"><a href="pathanalysis.html#cb212-7"></a>  <span class="dt">six   =</span> <span class="kw">c</span>(NL <span class="op">~</span><span class="st"> </span>RS, RS <span class="op">~</span><span class="st"> </span>BM),</span>
-<span id="cb212-8"><a href="pathanalysis.html#cb212-8"></a>  <span class="dt">seven =</span> <span class="kw">c</span>(NL <span class="op">~</span><span class="st"> </span>RS, RS <span class="op">~</span><span class="st"> </span>LS <span class="op">+</span><span class="st"> </span>BM),</span>
-<span id="cb212-9"><a href="pathanalysis.html#cb212-9"></a>  <span class="dt">eight =</span> <span class="kw">c</span>(NL <span class="op">~</span><span class="st"> </span>RS),</span>
-<span id="cb212-10"><a href="pathanalysis.html#cb212-10"></a>  <span class="dt">nine  =</span> <span class="kw">c</span>(NL <span class="op">~</span><span class="st"> </span>RS, RS <span class="op">~</span><span class="st"> </span>LS),</span>
-<span id="cb212-11"><a href="pathanalysis.html#cb212-11"></a>  <span class="dt">.common =</span> <span class="kw">c</span>(LS <span class="op">~</span><span class="st"> </span>BM, NL <span class="op">~</span><span class="st"> </span>BM, DD <span class="op">~</span><span class="st"> </span>NL)</span>
-<span id="cb212-12"><a href="pathanalysis.html#cb212-12"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="pathanalysis.html#cb210-1"></a>m &lt;-<span class="st"> </span><span class="kw">define_model_set</span>(</span>
+<span id="cb210-2"><a href="pathanalysis.html#cb210-2"></a>  <span class="dt">one   =</span> <span class="kw">c</span>(RS <span class="op">~</span><span class="st"> </span>DD),</span>
+<span id="cb210-3"><a href="pathanalysis.html#cb210-3"></a>  <span class="dt">two   =</span> <span class="kw">c</span>(DD <span class="op">~</span><span class="st"> </span>NL, RS <span class="op">~</span><span class="st"> </span>LS <span class="op">+</span><span class="st"> </span>DD),</span>
+<span id="cb210-4"><a href="pathanalysis.html#cb210-4"></a>  <span class="dt">three =</span> <span class="kw">c</span>(RS <span class="op">~</span><span class="st"> </span>NL),</span>
+<span id="cb210-5"><a href="pathanalysis.html#cb210-5"></a>  <span class="dt">four  =</span> <span class="kw">c</span>(RS <span class="op">~</span><span class="st"> </span>BM <span class="op">+</span><span class="st"> </span>NL),</span>
+<span id="cb210-6"><a href="pathanalysis.html#cb210-6"></a>  <span class="dt">five  =</span> <span class="kw">c</span>(RS <span class="op">~</span><span class="st"> </span>BM <span class="op">+</span><span class="st"> </span>NL <span class="op">+</span><span class="st"> </span>DD),</span>
+<span id="cb210-7"><a href="pathanalysis.html#cb210-7"></a>  <span class="dt">six   =</span> <span class="kw">c</span>(NL <span class="op">~</span><span class="st"> </span>RS, RS <span class="op">~</span><span class="st"> </span>BM),</span>
+<span id="cb210-8"><a href="pathanalysis.html#cb210-8"></a>  <span class="dt">seven =</span> <span class="kw">c</span>(NL <span class="op">~</span><span class="st"> </span>RS, RS <span class="op">~</span><span class="st"> </span>LS <span class="op">+</span><span class="st"> </span>BM),</span>
+<span id="cb210-9"><a href="pathanalysis.html#cb210-9"></a>  <span class="dt">eight =</span> <span class="kw">c</span>(NL <span class="op">~</span><span class="st"> </span>RS),</span>
+<span id="cb210-10"><a href="pathanalysis.html#cb210-10"></a>  <span class="dt">nine  =</span> <span class="kw">c</span>(NL <span class="op">~</span><span class="st"> </span>RS, RS <span class="op">~</span><span class="st"> </span>LS),</span>
+<span id="cb210-11"><a href="pathanalysis.html#cb210-11"></a>  <span class="dt">.common =</span> <span class="kw">c</span>(LS <span class="op">~</span><span class="st"> </span>BM, NL <span class="op">~</span><span class="st"> </span>BM, DD <span class="op">~</span><span class="st"> </span>NL)</span>
+<span id="cb210-12"><a href="pathanalysis.html#cb210-12"></a>)</span></code></pre></div>
 <p>Because this is a complex step, ALWAYS check your <strong>Directed Acyclic Graphs</strong> (DAGs) describing your models look as you expect them to.</p>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="pathanalysis.html#cb213-1"></a><span class="kw">plot_model_set</span>(m, <span class="dt">text_size =</span> <span class="dv">6</span>, <span class="dt">box_x =</span> <span class="dv">12</span>, <span class="dt">box_y =</span> <span class="dv">10</span>,</span>
-<span id="cb213-2"><a href="pathanalysis.html#cb213-2"></a>               <span class="dt">edge_width =</span> <span class="fl">1.25</span>, <span class="dt">manual_layout =</span> pos, <span class="dt">curvature =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="pathanalysis.html#cb211-1"></a><span class="kw">plot_model_set</span>(m, <span class="dt">text_size =</span> <span class="dv">6</span>, <span class="dt">box_x =</span> <span class="dv">12</span>, <span class="dt">box_y =</span> <span class="dv">10</span>,</span>
+<span id="cb211-2"><a href="pathanalysis.html#cb211-2"></a>               <span class="dt">edge_width =</span> <span class="fl">1.25</span>, <span class="dt">manual_layout =</span> pos, <span class="dt">curvature =</span> <span class="dv">0</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-180-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>If we are doing this by hand, now we need to identify d-separation statements and test conditional independencies. <strong>Phylopath</strong> does it all for us. To interpret the final results, you really need to understand what happens in this step so take it slow and revisit the explanations above. You can also refer to the methods papers which explain things very well <span class="citation">(von Hardenberg and Gonzalez-Voyer <a href="#ref-Hardenberg13" role="doc-biblioref">2013</a>, Gonzalez-Voyer and Von Hardenberg <a href="#ref-Gonzalez14" role="doc-biblioref">2014</a>)</span>.</p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="pathanalysis.html#cb214-1"></a>results &lt;-<span class="st"> </span><span class="kw">phylo_path</span>(m, <span class="dt">data =</span> rhino.dat, <span class="dt">tree =</span> rhino.tree, <span class="dt">model =</span> <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="pathanalysis.html#cb212-1"></a>results &lt;-<span class="st"> </span><span class="kw">phylo_path</span>(m, <span class="dt">data =</span> rhino.dat, <span class="dt">tree =</span> rhino.tree, <span class="dt">model =</span> <span class="st">&quot;lambda&quot;</span>)</span></code></pre></div>
 <p>If we call up the results, we get some basic information. Here our results contain the models and the PGLS analyses used to evaluate each model.</p>
-<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="pathanalysis.html#cb215-1"></a>results</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="pathanalysis.html#cb213-1"></a>results</span></code></pre></div>
 <pre><code>A phylogenetic path analysis, on the variables:
     Continuous:  BM NL DD RS LS 
     Binary:       
@@ -506,7 +519,7 @@ Figure 10.2: Example of a simple directed acyclic graph from Gonzalez-Voyer and 
 
  Containing 46 phylogenetic regressions, of which 22 unique</code></pre>
 <p>The summary of the results object gives us the table for model comparisons. For each model we have all the key stats. We can see that the top six models are not rejected based on d-separation (p &gt; 0.05). Pay particular attention to the CICc (C-statistic Information Criterion) and <span class="math inline">\(\Delta\)</span>CICc. You’ll notice that the table is helpfully sorted for us by <span class="math inline">\(\Delta\)</span>CICc.</p>
-<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="pathanalysis.html#cb217-1"></a><span class="kw">summary</span>(results)</span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="pathanalysis.html#cb215-1"></a><span class="kw">summary</span>(results)</span></code></pre></div>
 <pre><code>      model k  q     C        p CICc delta_CICc        l        w
 eight eight 6  9  6.11 9.10e-01 26.1       0.00 1.00e+00 3.44e-01
 four   four 5 10  4.78 9.05e-01 27.3       1.14 5.66e-01 1.95e-01
@@ -518,15 +531,15 @@ three three 6  9 27.17 7.30e-03 47.2      21.06 2.68e-05 9.20e-06
 one     one 6  9 62.01 9.70e-09 82.0      55.89 7.29e-13 2.51e-13
 two     two 5 10 60.97 2.38e-09 83.4      57.33 3.56e-13 1.23e-13</code></pre>
 <p>We can plot the summary of results and we are presented with a very useful plot, showing us the degree of support for each model. In this case, the top 3 (models eight, six and four) are within 2 CICc of each other and therefore have roughly equal statistical support.</p>
-<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="pathanalysis.html#cb219-1"></a><span class="kw">plot</span>(<span class="kw">summary</span>(results))</span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="pathanalysis.html#cb217-1"></a><span class="kw">plot</span>(<span class="kw">summary</span>(results))</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-184-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>For now, let’s just plot the best model.</p>
-<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="pathanalysis.html#cb220-1"></a>best_model &lt;-<span class="st"> </span><span class="kw">best</span>(results)</span>
-<span id="cb220-2"><a href="pathanalysis.html#cb220-2"></a><span class="kw">plot</span>(best_model, <span class="dt">manual_layout =</span> pos)</span></code></pre></div>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="pathanalysis.html#cb218-1"></a>best_model &lt;-<span class="st"> </span><span class="kw">best</span>(results)</span>
+<span id="cb218-2"><a href="pathanalysis.html#cb218-2"></a><span class="kw">plot</span>(best_model, <span class="dt">manual_layout =</span> pos)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-185-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The numbers and width of each arrow represent the path coefficents (effect sizes). The blue colour represents a positive relationship. A negative relationship would be red. Remember here that we have a few models with roughly equivalent support. We can average these models if this happens. The <strong>cut_off</strong> argument tells us where to place the limit of support. By default this is 2 CICc and so the function <strong>average</strong> will only average the models that fall within 2 CICc of the best supported model.</p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="pathanalysis.html#cb221-1"></a>av.model &lt;-<span class="st"> </span><span class="kw">average</span>(results, <span class="dt">cut_off =</span> <span class="dv">2</span>)</span>
-<span id="cb221-2"><a href="pathanalysis.html#cb221-2"></a><span class="kw">plot</span>(av.model, <span class="dt">algorithm =</span> <span class="st">&quot;mds&quot;</span>, <span class="dt">curvature =</span> <span class="fl">0.1</span>, <span class="dt">manual_layout =</span> pos)</span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="pathanalysis.html#cb219-1"></a>av.model &lt;-<span class="st"> </span><span class="kw">average</span>(results, <span class="dt">cut_off =</span> <span class="dv">2</span>)</span>
+<span id="cb219-2"><a href="pathanalysis.html#cb219-2"></a><span class="kw">plot</span>(av.model, <span class="dt">algorithm =</span> <span class="st">&quot;mds&quot;</span>, <span class="dt">curvature =</span> <span class="fl">0.1</span>, <span class="dt">manual_layout =</span> pos)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-186-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -571,7 +584,7 @@ two     two 5 10 60.97 2.38e-09 83.4      57.33 3.56e-13 1.23e-13</code></pre>
         </div>
       </div>
 <a href="w2PGLS.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="bibliography.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="convergence.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

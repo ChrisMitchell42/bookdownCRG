@@ -253,7 +253,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 42.0434
+[1] 41.9086
 \end{verbatim}
 
 \begin{Shaded}
@@ -263,7 +263,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 4.207124
+[1] 4.157035
 \end{verbatim}
 
 \hypertarget{plotting}{%
@@ -943,7 +943,7 @@ Analysis of Variance Table
 
 Response: dat
           Df   Sum-Sq  Mean-Sq F-value  Pr(>F) Pr(>F) given phy
-group      2 0.063237 0.031619  3.0067 0.09497           0.1798
+group      2 0.063237 0.031619  3.0067 0.09497           0.1568
 Residuals 10 0.105161 0.010516                                 
 \end{verbatim}
 
@@ -3178,6 +3178,291 @@ So that's a path analysis. I've skirted over some details here because this part
 For getting to the end, here's a slightly confused looking monkey.
 
 \begin{center}\includegraphics[width=10.1in]{Images/monkey} \end{center}
+
+\hypertarget{convergence}{%
+\chapter{Studying Convergence}\label{convergence}}
+
+\hypertarget{indentifying-convergent-evolution}{%
+\section{Indentifying convergent evolution}\label{indentifying-convergent-evolution}}
+
+The first challenge in the study of convergent evolution is finding a way to systematically identify when it has occurred. For some traits this is easy. For example we can say with some confidence that three groups of mammals (cetaceans, pinnipeds and sirenians) have convergently evolved an aquatic lifestyle.
+
+If we want some support for an assertion of convergent evolution, we can look to ancestral state reconstruction. As shown in chapters 8 and 10, ancestral state reconstruction allows us to look into the evolutionary history trait and potentially make a determination about if a trait arose independently or not.
+
+As we saw in chapter 8, there has been and independent loss of conspicuous sexual swelling in macaques. Namely, \emph{Macaca arctoides} has evolved this trait independently of the other 4 species (\emph{M. sinica, M. radiata, M. thibetana} and \emph{M. assamensis}) that exhibit it.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-189-1} 
+
+}
+
+\caption{Maximum likelihood reconstruction of the evolution of conspicuous sexual swellings in macaques using an equal rates model of evolution.}\label{fig:unnamed-chunk-189}
+\end{figure}
+
+As you can probably tell, it can be easy to assign convergent evolution to categorical traits and less so to continuous traits. To identify convergence in continuous characters, we need to identify selective regimes.
+
+\hypertarget{surface}{%
+\subsection{SURFACE}\label{surface}}
+
+We can identify selective regimes by reconstructing the trait on the tree and fitting models to the reconstruction. One method to do exactly this is called SURFACE \citep{surface}.
+
+SURFACE stands for \emph{SURFACE Uses Regime Fitting with Aikaike information Criterion to model Convergent Evolution}. The method has two phases, known as \textbf{forward} and \textbf{backward}.
+
+The \textbf{forward} phase begins at the root of the tree and fits models to the ancestral state reconstruction of the trait or traits in question. At the root, the trait is only experiencing one selective regime (because the root represents one lineage and therefore one trait value). As we proceed forward in time we reach branching points (nodes). At each node we add a new regime, giving us two models. The first model has no change and the new model as a regime shift at the node. This new model is then tested against the no-change model and if the new regime improves the fit of the model to the data, then we accept the addition of the regime.
+
+To summarise, the \textbf{forward} phase begins at the root and identifies rgeime shifts in the evolution of the trait going forward through the tree.
+
+The \textbf{backward} phase is very similar but starts at the tips of the tree. In this phase we go backwards in time and each time we reach a regime shift, we collapse the regime and combine it with others across the tree. Each time regimes are combined, this produces a new model to be compared against the older model. If the combination of two regimes improves the fit of the model, the regimes are combined and we move on. This means that this phase of the analysis will collapse similar regimes together across the tree.
+
+The end product of SURFACE is a list of parameters describing the number of distinct regimes \emph{k'}, the number of shifts towards convergent regimes \emph{c} and other useful parameters like the number of convergent regimes reached by multiple shifts and the proportion of shifts towards convergent regimes (see \citep{surface} for details).
+
+\hypertarget{a-super-example}{%
+\subsection{A Super Example}\label{a-super-example}}
+
+Let's see how SURFACE works. First we need to install the \textbf{surface} package \citep{surface}. Unfortunately this is no longer on the CRAN archive so we need to look elsewhere. Fortunately, \href{https://mran.microsoft.com/}{MRAN} (Microsoft R Application Network) have a handy tool that takes snapshots of the CRAN R packages. This means we can go to MRAN and get a version of \textbf{surface} from before it was scrubbed from CRAN. What heroes!
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"surface"}\NormalTok{, }\DataTypeTok{repos=}\StringTok{"https://mran.microsoft.com/snapshot/2015{-}06{-}30"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(surface)}
+\end{Highlighting}
+\end{Shaded}
+
+Next we can load some example data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tree \textless{}{-}}\StringTok{ }\KeywordTok{read.nexus}\NormalTok{(}\StringTok{"Superheroes.nex"}\NormalTok{)}
+\NormalTok{data \textless{}{-}}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"Superhero data.csv"}\NormalTok{)}
+\KeywordTok{rownames}\NormalTok{(data) \textless{}{-}}\StringTok{ }\NormalTok{data}\OperatorTok{$}\NormalTok{X}
+\NormalTok{geiger}\OperatorTok{::}\KeywordTok{name.check}\NormalTok{(tree, data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "OK"
+\end{verbatim}
+
+The data we have here describe three personality traits of 25 characters from the Marvel and DC cinematic universes. There is also a phylogeny describing the pattern of relatedness between characters. For this analysis, we are going to use all 3 personality traits to try and identify any convergence across universes.
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-194-1} \end{center}
+
+\hypertarget{forward-phase}{%
+\subsubsection{Forward Phase}\label{forward-phase}}
+
+Before we run the analysis, we need to do a little preparation. These functions convert the tree and data into formats that can be analysed by functions called by the \textbf{surface} analysis. \textbf{nameNodes} adds unique node labels to the tree to aid the conversion.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tree\textless{}{-}}\KeywordTok{nameNodes}\NormalTok{(tree)}
+\NormalTok{olist\textless{}{-}}\KeywordTok{convertTreeData}\NormalTok{(tree,data[,}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{)])}
+\NormalTok{otree\textless{}{-}olist[[}\DecValTok{1}\NormalTok{]]}
+\NormalTok{odata\textless{}{-}olist[[}\DecValTok{2}\NormalTok{]]}
+\end{Highlighting}
+\end{Shaded}
+
+The function \textbf{surfaceForward} runs the forward phase of the analysis as described above. The more complex your tree and data, the longer this will take.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fwd\textless{}{-}}\KeywordTok{surfaceForward}\NormalTok{(otree, odata, }\DataTypeTok{aic\_threshold =} \DecValTok{0}\NormalTok{, }\DataTypeTok{exclude =} \DecValTok{0}\NormalTok{, }
+                    \DataTypeTok{verbose =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{plotaic =} \OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+From this analysis, we can extract the value of \emph{k} (the number of distinct regimes).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{k\textless{}{-}}\KeywordTok{length}\NormalTok{(fwd)}
+\NormalTok{k}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 6
+\end{verbatim}
+
+For some more details, we can look into the summary of the analysis using \textbf{surfaceSummary}. There are a number of useful components we could investigate further.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fsum\textless{}{-}}\KeywordTok{surfaceSummary}\NormalTok{(fwd)}
+\KeywordTok{names}\NormalTok{(fsum)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ [1] "n_steps"       "lnls"          "n_regimes_seq" "aics"         
+ [5] "shifts"        "n_regimes"     "alpha"         "phylhalflife" 
+ [9] "sigma_squared" "theta"        
+\end{verbatim}
+
+\hypertarget{backward-phase}{%
+\subsubsection{Backward Phase}\label{backward-phase}}
+
+Next we can collapse the regimes by running the backwards analysis with \textbf{surfaceBackward}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bwd\textless{}{-}}\KeywordTok{surfaceBackward}\NormalTok{(otree, odata, }\DataTypeTok{starting\_model =}\NormalTok{ fwd[[k]], }
+                     \DataTypeTok{aic\_threshold =} \DecValTok{0}\NormalTok{, }\DataTypeTok{only\_best =} \OtherTok{TRUE}\NormalTok{, }
+                     \DataTypeTok{verbose =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{plotaic =} \OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We can use \textbf{surfaceSummary} again to extract the key parameters.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bsum\textless{}{-}}\KeywordTok{surfaceSummary}\NormalTok{(bwd)}
+\NormalTok{kk\textless{}{-}}\KeywordTok{length}\NormalTok{(bwd)}
+\NormalTok{kk}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bsum}\OperatorTok{$}\NormalTok{n\_regimes}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+             k         kprime         deltak              c    kprime_conv 
+             6              3              3              5              2 
+kprime_nonconv 
+             1 
+\end{verbatim}
+
+So we have 6 regime shifts from \textbf{surfaceForward} (\emph{k}). There are 3 distinct regimes (\emph{kprime}), 2 of which are convergent (\emph{kprime\_conv}) and 1 is non-convergent (\emph{kprime\_nonconv}).
+
+\hypertarget{visualisation}{%
+\subsubsection{Visualisation}\label{visualisation}}
+
+The best thing to do with an analysis like this is visualise the results. We can paint the regimes onto the tree using \textbf{surfaceTreePlot}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{surfaceTreePlot}\NormalTok{(tree, bwd[[kk]], }\DataTypeTok{labelshifts =}\NormalTok{ T, }\DataTypeTok{label.offset =} \FloatTok{.5}\NormalTok{, }
+                \DataTypeTok{no.margin =}\NormalTok{ T, }\DataTypeTok{edge.width =} \DecValTok{5}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-201-1} \end{center}
+
+Using the tree like this allows us to spot some patterns. The blue regime appears to be mostly heroes such as Wonder Woman, Captain Marvel and Black Panther. The selective regime that produces heroes occurs 3 times here. Once leading to Wonder Woman and Superman in the DC universe, once leading to a cluster of Avengers plus Professor X in the Marvel universe and a third time leading to Deadpool.
+
+The red regime appears to produce villains such as The Joker and Harley Quinn in DC and Thanos and Magneto in Marvel. Finally the black regime is mostly made up of human beings whose moral leanings may go one way or the other (eg. Lois lane or Colonel Stryker) but are nevertheless grouped separately from heroes and villains.
+
+There are some surprising placements. Batman and Iron Man are both in the same regime (black) which is unsurprising given that they are similar but they are oddly not grouped alongside heroes. This is most likely because of the traits we have used. Let's plot them out as scatterplots using \textbf{surfaceTraitPlot}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow=}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{), }\DataTypeTok{mai=}\KeywordTok{c}\NormalTok{(}\FloatTok{0.9}\NormalTok{,}\FloatTok{0.9}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\FloatTok{0.2}\NormalTok{))}
+\KeywordTok{surfaceTraitPlot}\NormalTok{(data[,}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{)], bwd[[kk]], }\DataTypeTok{whattraits =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}
+                 \DataTypeTok{cex.opt =} \DecValTok{3}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{1}\NormalTok{, }\DataTypeTok{cex.lab =} \DecValTok{2}\NormalTok{)}
+\KeywordTok{surfaceTraitPlot}\NormalTok{(data[,}\KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{)], bwd[[kk]], }\DataTypeTok{whattraits =} \KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{2}\NormalTok{),  }
+                 \DataTypeTok{cex.opt =} \DecValTok{3}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{1}\NormalTok{,}\DataTypeTok{cex.lab =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-202-1} \end{center}
+
+These plots show how the traits cluster along with the average value for each regime (larger point).
+
+\hypertarget{quantifying-convergent-evolution}{%
+\section{Quantifying convergent evolution}\label{quantifying-convergent-evolution}}
+
+SURFACE and other methods identify convergent evolution but sometimes we might be more interested in finding out how strong the convergence is. Taking our superhero example a little further, we might expect that there would be particularly strong convergence between similar characters. We could lump together characters like Iron Man and Batman who are essentially humans with access to lots of technology. Alternatively, we could look at superpowered aliens such as Thanos, Superman and Thor or perhaps characters with military backgrounds such as Deadpool, Colonel Stryker, Captain Marvel and Captain America.
+
+Groupings such as these with a convergent characteristic are called \textbf{focal groupings}. We can quantify the strength of convergence by measuring how similar the focal group members are to each other relative to the group as a whole. The way to do this is to calculate the \textbf{Wheatsheaf Index} \citep{Arbuckle14}.
+
+\hypertarget{the-wheatsheaf-index}{%
+\subsection{The Wheatsheaf Index}\label{the-wheatsheaf-index}}
+
+The Wheatsheaf Index (\emph{W}) requires us to calculate the Euclidean distance between species in phenotypic space. First we calculate the mean distance between all the species in the sample and then the mean distance between the focal group species. Finally, we calculate \emph{W} by dividing the total distance by the focal group distance. If we get a value greater than 1, then we can say that the focal group are more similar to each other than to the group as a whole and thus, quantify the strength of convergence.
+
+The package to perform a Wheatsheaf analysis is called \textbf{windex} \citep{windex}. The package contains some example data for us to use.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(windex)}
+\KeywordTok{data}\NormalTok{(}\StringTok{"sample.data"}\NormalTok{)}
+\KeywordTok{data}\NormalTok{(}\StringTok{"sample.tree"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-204-1} \end{center}
+
+This scatterplot represents the \textbf{phenotypic space} described by the two traits. We can see there is a clear clustering of species but the question we have to ask is, does this pattern mean convergence and if yes, how strong is that convergence?
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-205-1} \end{center}
+
+To make things clearer, let's highlight our focal group species in phenotypic space by plotting them in red.
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-206-1} \end{center}
+
+It's clear that the focal group species cluster very closely. The tree shows us the taxonomic distribution of the focal group. so it seems that this clustering cannot be explained by phylogeny.
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-207-1} \end{center}
+
+To calculate \emph{W}, we can use the \textbf{windex} function. Remember that a value of W greater than 1 indicates the focal group is more similar to each other than to the group as a whole.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{windex}\NormalTok{(sample.data, sample.tree,}
+       \DataTypeTok{traits =} \KeywordTok{c}\NormalTok{(}\StringTok{"ou1"}\NormalTok{, }\StringTok{"ou2"}\NormalTok{),}
+       \DataTypeTok{focal =}\NormalTok{ sample.data[,}\DecValTok{2}\NormalTok{],}
+       \DataTypeTok{SE =} \OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$`Wheatsheaf Index`
+[1] 5.289446
+
+$`Lower 95% CI`
+[1] 5.121161
+
+$`Upper 95% CI`
+[1] 5.413457
+\end{verbatim}
+
+Here the value of \emph{W} of 5.29 indicates very strong convergence as we would have predicted by using the traitspace.
+
+The question we have to answer now is whether the value of \emph{W} is higher than expected given the shape of the tree. This can be done using the function \textbf{test.windex} which performs a number of bootstrap replicates of the analysis, resampling the tree and data as many times as we ask (1000 is standard but it takes a while!).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t \textless{}{-}}\StringTok{ }\KeywordTok{test.windex}\NormalTok{(sample.data, sample.tree,}
+       \DataTypeTok{traits =} \KeywordTok{c}\NormalTok{(}\StringTok{"ou1"}\NormalTok{, }\StringTok{"ou2"}\NormalTok{),}
+       \DataTypeTok{focal =}\NormalTok{ sample.data[,}\DecValTok{2}\NormalTok{], }\DataTypeTok{reps =} \DecValTok{100}\NormalTok{,}
+       \DataTypeTok{SE =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{plot =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-209-1} \end{center}
+
+The plot here shows the distribution of the bootstrap replicates. We can see from the plotted line that the calculated value and the accompanying confidence intervals are far separate from the distribution of the replicates. This indicates a hih degree of confidence in some unusually storng convergence here. As we can see, the p-value backs this up.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$`P-value=`
+[1] 0
+\end{verbatim}
+
+\hypertarget{further-info-4}{%
+\section{Further info}\label{further-info-4}}
 
 \hypertarget{bibliography}{%
 \chapter{Bibliography}\label{bibliography}}

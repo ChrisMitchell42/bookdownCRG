@@ -249,7 +249,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="pathanalysis.html"><a href="pathanalysis.html#conclusion-1"><i class="fa fa-check"></i><b>10.4</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>11</b> Bibliography</a></li>
+<li class="chapter" data-level="11" data-path="convergence.html"><a href="convergence.html"><i class="fa fa-check"></i><b>11</b> Studying Convergence</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="convergence.html"><a href="convergence.html#indentifying-convergent-evolution"><i class="fa fa-check"></i><b>11.1</b> Indentifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="convergence.html"><a href="convergence.html#surface"><i class="fa fa-check"></i><b>11.1.1</b> SURFACE</a></li>
+<li class="chapter" data-level="11.1.2" data-path="convergence.html"><a href="convergence.html#a-super-example"><i class="fa fa-check"></i><b>11.1.2</b> A Super Example</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="convergence.html"><a href="convergence.html#quantifying-convergent-evolution"><i class="fa fa-check"></i><b>11.2</b> Quantifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="convergence.html"><a href="convergence.html#the-wheatsheaf-index"><i class="fa fa-check"></i><b>11.2.1</b> The Wheatsheaf Index</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="convergence.html"><a href="convergence.html#further-info-4"><i class="fa fa-check"></i><b>11.3</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>12</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -285,8 +298,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Figure 6.1: Plot of weight gain in corncrake hatchlings reared on four different nutritional supplements and a control group. The mean and standard deviation of each group is plotted in blue. the mean weight gain across the entire sample is plotted in red.
 </p>
 </div>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="anova.html#cb48-1"></a>corncrake.model &lt;-<span class="st"> </span><span class="kw">lm</span>(WeightGain <span class="op">~</span><span class="st"> </span>Supplement, <span class="dt">data =</span> corncrake)</span>
-<span id="cb48-2"><a href="anova.html#cb48-2"></a><span class="kw">anova</span>(corncrake.model)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="anova.html#cb46-1"></a>corncrake.model &lt;-<span class="st"> </span><span class="kw">lm</span>(WeightGain <span class="op">~</span><span class="st"> </span>Supplement, <span class="dt">data =</span> corncrake)</span>
+<span id="cb46-2"><a href="anova.html#cb46-2"></a><span class="kw">anova</span>(corncrake.model)</span></code></pre></div>
 <pre><code>Analysis of Variance Table
 
 Response: WeightGain
@@ -296,8 +309,8 @@ Residuals  35 610.25  17.436
 ---
 Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>The one-way ANOVA shows that there was a significant effect of supplement on the weight gain of the corncrake hatchlings (F = 5.1, df = 4, 35, p &lt; 0.01). The final step is to perform our multiple comparisons test.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="anova.html#cb50-1"></a>corncrake.aov &lt;-<span class="st"> </span><span class="kw">aov</span>(corncrake.model)</span>
-<span id="cb50-2"><a href="anova.html#cb50-2"></a><span class="kw">TukeyHSD</span>(corncrake.aov, <span class="dt">ordered =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="anova.html#cb48-1"></a>corncrake.aov &lt;-<span class="st"> </span><span class="kw">aov</span>(corncrake.model)</span>
+<span id="cb48-2"><a href="anova.html#cb48-2"></a><span class="kw">TukeyHSD</span>(corncrake.aov, <span class="dt">ordered =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <pre><code>  Tukey multiple comparisons of means
     95% family-wise confidence level
     factor levels have been ordered
@@ -325,13 +338,13 @@ Earlybird-Sizefast 3.875 -2.127565  9.877565 0.3592201</code></pre>
 <div id="example-data-analysis" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> Example data &amp; analysis</h2>
 <p>The data we’re using is taken from the package geiger <span class="citation">(Harmon et al. <a href="#ref-geiger" role="doc-biblioref">2008</a>)</span> so make sure the package is installed and loaded.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="anova.html#cb52-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;geiger&quot;</span>)</span>
-<span id="cb52-2"><a href="anova.html#cb52-2"></a><span class="kw">library</span>(geiger)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="anova.html#cb50-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;geiger&quot;</span>)</span>
+<span id="cb50-2"><a href="anova.html#cb50-2"></a><span class="kw">library</span>(geiger)</span></code></pre></div>
 <p>Load the data as follows. The tree and data are stored together so we’ll need to save the to separate objects called <strong>dat</strong> and <strong>phy</strong>. You probably don’t <em>need</em> to do this but this is more similar to what you’re likely to see when using your own data.</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="anova.html#cb53-1"></a><span class="kw">data</span>(<span class="st">&quot;geospiza&quot;</span>)</span>
-<span id="cb53-2"><a href="anova.html#cb53-2"></a>dat &lt;-<span class="st"> </span>geospiza<span class="op">$</span>dat</span>
-<span id="cb53-3"><a href="anova.html#cb53-3"></a>tree &lt;-<span class="st"> </span>geospiza<span class="op">$</span>phy</span>
-<span id="cb53-4"><a href="anova.html#cb53-4"></a><span class="kw">head</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="anova.html#cb51-1"></a><span class="kw">data</span>(<span class="st">&quot;geospiza&quot;</span>)</span>
+<span id="cb51-2"><a href="anova.html#cb51-2"></a>dat &lt;-<span class="st"> </span>geospiza<span class="op">$</span>dat</span>
+<span id="cb51-3"><a href="anova.html#cb51-3"></a>tree &lt;-<span class="st"> </span>geospiza<span class="op">$</span>phy</span>
+<span id="cb51-4"><a href="anova.html#cb51-4"></a><span class="kw">head</span>(dat)</span></code></pre></div>
 <pre><code>                wingL  tarsusL  culmenL    beakD   gonysW
 magnirostris 4.404200 3.038950 2.724667 2.823767 2.675983
 conirostris  4.349867 2.984200 2.654400 2.513800 2.360167
@@ -346,31 +359,31 @@ Figure 6.2: Phylogeny of the species contained within the ‘geospiza’ dataset
 </p>
 </div>
 <p>We need to start by defining the categories for the data. It is likely that you will have already done this in your data frame. If so, just make sure the groups are stored as a factor. In this case, we’ll just create some random categories to work with for the example.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="anova.html#cb55-1"></a>groups &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;A&quot;</span>, <span class="dv">4</span>), <span class="kw">rep</span>(<span class="st">&quot;B&quot;</span>, <span class="dv">5</span>), <span class="kw">rep</span>(<span class="st">&quot;C&quot;</span>, <span class="dv">4</span>)))</span>
-<span id="cb55-2"><a href="anova.html#cb55-2"></a><span class="kw">names</span>(groups) &lt;-<span class="st"> </span><span class="kw">rownames</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="anova.html#cb53-1"></a>groups &lt;-<span class="st"> </span><span class="kw">as.factor</span>(<span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;A&quot;</span>, <span class="dv">4</span>), <span class="kw">rep</span>(<span class="st">&quot;B&quot;</span>, <span class="dv">5</span>), <span class="kw">rep</span>(<span class="st">&quot;C&quot;</span>, <span class="dv">4</span>)))</span>
+<span id="cb53-2"><a href="anova.html#cb53-2"></a><span class="kw">names</span>(groups) &lt;-<span class="st"> </span><span class="kw">rownames</span>(dat)</span></code></pre></div>
 <p>An important step here (and for every phylogenetic analysis) is making sure the tree and data can be compared. To do this, we should make sure that the rownames of the data are species names and not just numbers. In this case they already are but if they aren’t for you data, you can use the following code.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="anova.html#cb56-1"></a><span class="kw">rownames</span>(data) &lt;-<span class="st"> </span>data<span class="op">$</span>SPECIES <span class="co">#the column with species names in the data</span></span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="anova.html#cb54-1"></a><span class="kw">rownames</span>(data) &lt;-<span class="st"> </span>data<span class="op">$</span>SPECIES <span class="co">#the column with species names in the data</span></span></code></pre></div>
 <p>The geiger package has a very useful function called <strong>name.check</strong> to allow us to check that the rownames of our data match the tip labels of our tree.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="anova.html#cb57-1"></a><span class="kw">name.check</span>(tree, dat)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="anova.html#cb55-1"></a><span class="kw">name.check</span>(tree, dat)</span></code></pre></div>
 <pre><code>$tree_not_data
 [1] &quot;olivacea&quot;
 
 $data_not_tree
 character(0)</code></pre>
 <p>We can see that <em>olivacea</em> is not in our data. For some analyses, mismatches like this are a problem and you will need to drop the tip from the tree. It actually doesn’t matter here because the function we will be using can drop it automatically for us. However, let’s see how it’s done. Note the use of the function <strong>drop.tip</strong> from the package <strong>ape</strong> <span class="citation">(Paradis and Schliep <a href="#ref-ape" role="doc-biblioref">2018</a>)</span> which is an essential package to have for this kind of work!</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="anova.html#cb59-1"></a>tree &lt;-<span class="st"> </span>ape<span class="op">::</span><span class="kw">drop.tip</span>(tree, <span class="dt">tip =</span> <span class="st">&quot;olivacea&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="anova.html#cb57-1"></a>tree &lt;-<span class="st"> </span>ape<span class="op">::</span><span class="kw">drop.tip</span>(tree, <span class="dt">tip =</span> <span class="st">&quot;olivacea&quot;</span>)</span></code></pre></div>
 <p>Now we have overwritten the old tree with our pruned tree. Let’s check the new one matches the data.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="anova.html#cb60-1"></a><span class="kw">name.check</span>(tree, dat)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="anova.html#cb58-1"></a><span class="kw">name.check</span>(tree, dat)</span></code></pre></div>
 <pre><code>[1] &quot;OK&quot;</code></pre>
 <p>All that’s left now is to run the analysis. First we extract the column of interest from our data and then simply use the function <strong>aov.phylo</strong>.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="anova.html#cb62-1"></a>d1 &lt;-<span class="st"> </span>dat[,<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="anova.html#cb60-1"></a>d1 &lt;-<span class="st"> </span>dat[,<span class="dv">1</span>]</span></code></pre></div>
 <p>You should notice some similarities and differences from the way you have run ANOVA before. We are still using a formula (the part with <span class="math inline">\(\sim\)</span>) but not in a separate <strong>lm</strong> function. We need to specify the tree we want to use (<strong>tree</strong>) and also how many simulations we want to run. There isn’t a firm rule about this but general convention is around 1000 when sampling/bootstrapping/simulations are involved.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="anova.html#cb63-1"></a>x &lt;-<span class="st"> </span><span class="kw">aov.phylo</span>(d1 <span class="op">~</span><span class="st"> </span>groups, <span class="dt">phy =</span> tree, <span class="dt">nsim =</span> <span class="dv">1000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="anova.html#cb61-1"></a>x &lt;-<span class="st"> </span><span class="kw">aov.phylo</span>(d1 <span class="op">~</span><span class="st"> </span>groups, <span class="dt">phy =</span> tree, <span class="dt">nsim =</span> <span class="dv">1000</span>)</span></code></pre></div>
 <pre><code>Analysis of Variance Table
 
 Response: dat
           Df   Sum-Sq  Mean-Sq F-value  Pr(&gt;F) Pr(&gt;F) given phy
-group      2 0.063237 0.031619  3.0067 0.09497           0.1848
+group      2 0.063237 0.031619  3.0067 0.09497           0.1858
 Residuals 10 0.105161 0.010516                                 </code></pre>
 <p>The results table should be very familiar! The only real difference here is that you have been provided with two p-values. The first (<em>Pr(&gt;F)</em>) is the p-value without accounting for phylogeny and the second (<em>Pr(&gt;F) given phy</em>) is the value when we account for phylogeny. In both cases, there is no significant difference between groups.</p>
 <p>As you can see, accounting for phylogeny <em>usually</em> raises the p-value (makes it less significant). This shows us that not accounting for phylogeny increases the risk of type I errors (false positives).</p>

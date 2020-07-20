@@ -249,7 +249,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10.4" data-path="pathanalysis.html"><a href="pathanalysis.html#conclusion-1"><i class="fa fa-check"></i><b>10.4</b> Conclusion</a></li>
 </ul></li>
-<li class="chapter" data-level="11" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>11</b> Bibliography</a></li>
+<li class="chapter" data-level="11" data-path="convergence.html"><a href="convergence.html"><i class="fa fa-check"></i><b>11</b> Studying Convergence</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="convergence.html"><a href="convergence.html#indentifying-convergent-evolution"><i class="fa fa-check"></i><b>11.1</b> Indentifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="11.1.1" data-path="convergence.html"><a href="convergence.html#surface"><i class="fa fa-check"></i><b>11.1.1</b> SURFACE</a></li>
+<li class="chapter" data-level="11.1.2" data-path="convergence.html"><a href="convergence.html#a-super-example"><i class="fa fa-check"></i><b>11.1.2</b> A Super Example</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="convergence.html"><a href="convergence.html#quantifying-convergent-evolution"><i class="fa fa-check"></i><b>11.2</b> Quantifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="convergence.html"><a href="convergence.html#the-wheatsheaf-index"><i class="fa fa-check"></i><b>11.2.1</b> The Wheatsheaf Index</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="convergence.html"><a href="convergence.html#further-info-4"><i class="fa fa-check"></i><b>11.3</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>12</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -276,9 +289,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="data" class="section level2" number="7.1">
 <h2><span class="header-section-number">7.1</span> Data</h2>
 <p>The first thing we need to do is load some data. When you’re doing this, you need to keep in mind that you should keep your workspace as well organised as possible. In practice, this means giving things good names. “RicksDataV1.1” is not a great name depending on how many datasets you want in there. Neither is “data1” if you plan on having multiple datasets (which we do). So give your data object, and all other objects, simple, useful names. My personal preference is to use the name of the group but whatever works is fine. You need to be able to keep track of everything.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="asr1.html#cb65-1"></a>macaques &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;macaque_data.txt&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="asr1.html#cb63-1"></a>macaques &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;macaque_data.txt&quot;</span>, <span class="dt">header =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p>In your environment panel there should be a data frame with 16 observations of 2 variables. This command will show us the top 6 rows of data. It’s helpful to have a quick look and see R has loaded what we expected. In this case our data contains 15 species of macaque and one species of baboon alongside data regarding whether they exhibit sexual swellings or not (1/0).</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="asr1.html#cb66-1"></a><span class="kw">head</span>(macaques)</span></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="asr1.html#cb64-1"></a><span class="kw">head</span>(macaques)</span></code></pre></div>
 <pre><code>              species swelling
 1    Macaca_arctoides        0
 2   Macaca_assamensis        0
@@ -290,23 +303,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="trees" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> Trees</h2>
 <p>Now we need to load the tree using the <strong>read.nexus</strong> function in the package <strong>ape</strong> <span class="citation">(Paradis and Schliep <a href="#ref-ape" role="doc-biblioref">2018</a>)</span>.</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="asr1.html#cb68-1"></a>macaque.tree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;macaque_tree.nex&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="asr1.html#cb66-1"></a>macaque.tree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;macaque_tree.nex&quot;</span>)</span></code></pre></div>
 <p>Let’s plot the tree to make sure it loaded correctly. I’ve used base graphics here rather than ggtree (annotated to let you know what it does). Feel free to have a mess around with these options so you get a feel for what they do. The second function “tiplabels” adds some extra tip labels containing the data from the second column of our macaque data.</p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="asr1.html#cb69-1"></a><span class="kw">plot</span>(macaque.tree,        <span class="co">#Tree object</span></span>
-<span id="cb69-2"><a href="asr1.html#cb69-2"></a>     <span class="dt">cex =</span> <span class="fl">0.7</span>,           <span class="co">#Font size for tip labels</span></span>
-<span id="cb69-3"><a href="asr1.html#cb69-3"></a>     <span class="dt">label.offset =</span> <span class="fl">0.3</span>,  <span class="co">#Create a space between tip and label</span></span>
-<span id="cb69-4"><a href="asr1.html#cb69-4"></a>     <span class="dt">edge.color =</span> <span class="st">&quot;blue&quot;</span>, <span class="co">#Paint the branches blue</span></span>
-<span id="cb69-5"><a href="asr1.html#cb69-5"></a>     <span class="dt">edge.width =</span> <span class="dv">2</span>)      <span class="co">#Make the branches thicker</span></span>
-<span id="cb69-6"><a href="asr1.html#cb69-6"></a><span class="kw">tiplabels</span>(macaques[,<span class="dv">2</span>], <span class="dt">bg =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="asr1.html#cb67-1"></a><span class="kw">plot</span>(macaque.tree,        <span class="co">#Tree object</span></span>
+<span id="cb67-2"><a href="asr1.html#cb67-2"></a>     <span class="dt">cex =</span> <span class="fl">0.7</span>,           <span class="co">#Font size for tip labels</span></span>
+<span id="cb67-3"><a href="asr1.html#cb67-3"></a>     <span class="dt">label.offset =</span> <span class="fl">0.3</span>,  <span class="co">#Create a space between tip and label</span></span>
+<span id="cb67-4"><a href="asr1.html#cb67-4"></a>     <span class="dt">edge.color =</span> <span class="st">&quot;blue&quot;</span>, <span class="co">#Paint the branches blue</span></span>
+<span id="cb67-5"><a href="asr1.html#cb67-5"></a>     <span class="dt">edge.width =</span> <span class="dv">2</span>)      <span class="co">#Make the branches thicker</span></span>
+<span id="cb67-6"><a href="asr1.html#cb67-6"></a><span class="kw">tiplabels</span>(macaques[,<span class="dv">2</span>], <span class="dt">bg =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.7</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-68-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="parsimony" class="section level2" number="7.3">
 <h2><span class="header-section-number">7.3</span> Parsimony</h2>
 <p>Let’s first generate the most parsimonious reconstruction of the history of this trait. Remember that the most parsimonious history is the one that has the fewest evolutionary transitions. Parsimony is conceptually based upon Occam’s razor which states that all else being equal, the simplest explanantion is always the correct one.</p>
 <p>The function for this is <strong>MPR</strong>. It takes an unrooted tree and asks you to specify the root. In our case, we’ll have to unroot our tree and then re-root it by specifying that <em>Papio anubis</em> is our outgroup.</p>
-<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="asr1.html#cb70-1"></a>mp1 &lt;-<span class="st"> </span><span class="kw">MPR</span>(macaques[,<span class="dv">2</span>], <span class="kw">unroot</span>(macaque.tree), <span class="st">&quot;Papio_anubis&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="asr1.html#cb68-1"></a>mp1 &lt;-<span class="st"> </span><span class="kw">MPR</span>(macaques[,<span class="dv">2</span>], <span class="kw">unroot</span>(macaque.tree), <span class="st">&quot;Papio_anubis&quot;</span>)</span></code></pre></div>
 <p>When we investigate mp1, we can see a list of results matched up to numbered nodes on the tree. Some nodes are clearly in state 1 and others in state 0. Interestingly some are indeterminate and could be either 0 or 1 such as nodes 19 and 20.</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="asr1.html#cb71-1"></a>mp1</span></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="asr1.html#cb69-1"></a>mp1</span></code></pre></div>
 <pre><code>   lower upper
 17     1     1
 18     1     1
@@ -323,15 +336,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 29     1     1
 30     1     1</code></pre>
 <p>To get an idea of what this means, we should plot it on the tree. This loop cycles through our results list and combines the lower and upper estimates for each node into a text string that we can then overlay onto that node.</p>
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="asr1.html#cb73-1"></a>mp.nodes &lt;-<span class="st"> </span><span class="kw">numeric</span>(<span class="dv">0</span>)</span>
-<span id="cb73-2"><a href="asr1.html#cb73-2"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(mp1[,<span class="dv">1</span>])){</span>
-<span id="cb73-3"><a href="asr1.html#cb73-3"></a>  mp.nodes &lt;-<span class="st"> </span><span class="kw">append</span>(mp.nodes, <span class="kw">paste</span>(mp1[i,<span class="dv">1</span>], <span class="st">&quot;,&quot;</span>, mp1[i,<span class="dv">2</span>]))</span>
-<span id="cb73-4"><a href="asr1.html#cb73-4"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="asr1.html#cb71-1"></a>mp.nodes &lt;-<span class="st"> </span><span class="kw">numeric</span>(<span class="dv">0</span>)</span>
+<span id="cb71-2"><a href="asr1.html#cb71-2"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(mp1[,<span class="dv">1</span>])){</span>
+<span id="cb71-3"><a href="asr1.html#cb71-3"></a>  mp.nodes &lt;-<span class="st"> </span><span class="kw">append</span>(mp.nodes, <span class="kw">paste</span>(mp1[i,<span class="dv">1</span>], <span class="st">&quot;,&quot;</span>, mp1[i,<span class="dv">2</span>]))</span>
+<span id="cb71-4"><a href="asr1.html#cb71-4"></a>}</span></code></pre></div>
 <p>Once we’ve done that we can plot those expressions onto the tree with the function nodelabels.</p>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="asr1.html#cb74-1"></a><span class="kw">plot</span>(macaque.tree, <span class="dt">cex =</span> <span class="fl">0.7</span>, <span class="dt">label.offset =</span> <span class="fl">0.3</span>,</span>
-<span id="cb74-2"><a href="asr1.html#cb74-2"></a>     <span class="dt">edge.color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">edge.width =</span> <span class="dv">2</span>)      </span>
-<span id="cb74-3"><a href="asr1.html#cb74-3"></a><span class="kw">tiplabels</span>(macaques[,<span class="dv">2</span>], <span class="dt">bg =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.7</span>)</span>
-<span id="cb74-4"><a href="asr1.html#cb74-4"></a><span class="kw">nodelabels</span>(mp.nodes, <span class="kw">c</span>(<span class="dv">18</span><span class="op">:</span><span class="dv">31</span>), <span class="dt">bg =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="asr1.html#cb72-1"></a><span class="kw">plot</span>(macaque.tree, <span class="dt">cex =</span> <span class="fl">0.7</span>, <span class="dt">label.offset =</span> <span class="fl">0.3</span>,</span>
+<span id="cb72-2"><a href="asr1.html#cb72-2"></a>     <span class="dt">edge.color =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">edge.width =</span> <span class="dv">2</span>)      </span>
+<span id="cb72-3"><a href="asr1.html#cb72-3"></a><span class="kw">tiplabels</span>(macaques[,<span class="dv">2</span>], <span class="dt">bg =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">cex =</span> <span class="fl">0.7</span>)</span>
+<span id="cb72-4"><a href="asr1.html#cb72-4"></a><span class="kw">nodelabels</span>(mp.nodes, <span class="kw">c</span>(<span class="dv">18</span><span class="op">:</span><span class="dv">31</span>), <span class="dt">bg =</span> <span class="st">&quot;white&quot;</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-72-1.png" width="672" style="display: block; margin: auto;" /></p>
 You should note that this isn’t a very good plot! There are better ways to represent this information with a little code manipulation. Here’s a version using <strong>ggtree</strong> that plots the character states as points on the tips and the reconstructed nodes.
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-73"></span>
@@ -346,16 +359,16 @@ Figure 7.1: Maximum parsimony reconstruction of the evolution of conspicuous sex
 <h2><span class="header-section-number">7.4</span> Maximum Likelihood</h2>
 <p>Let’s try a different approach. Maximum likelihood is different from parsimony for many reasons but most significantly, it can make use of branch length information. This is very useful in discriminating between possible histories. A longer branch means more evolutionary change (either in time or character change) and so transitions are more likely to occur on longer branches.</p>
 <p>Let’s replot the tree. Here I’ve changed the tiplabels function to plot the character states as colours rather than numbers. The <strong>bg</strong> argument is what lets me do this. In this argument I list the states (adding 1 because the first is 0) and then the function passes those states to R to assign colours based on a numbered list of standard colours.</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="asr1.html#cb75-1"></a><span class="kw">plot</span>(macaque.tree, <span class="dt">cex =</span> <span class="fl">0.7</span>, <span class="dt">label.offset =</span> <span class="fl">0.4</span>, <span class="dt">edge.width =</span> <span class="dv">2</span>)</span>
-<span id="cb75-2"><a href="asr1.html#cb75-2"></a><span class="kw">tiplabels</span>(<span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="kw">as.numeric</span>(macaques<span class="op">$</span>swelling)<span class="op">+</span><span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">1.7</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="asr1.html#cb73-1"></a><span class="kw">plot</span>(macaque.tree, <span class="dt">cex =</span> <span class="fl">0.7</span>, <span class="dt">label.offset =</span> <span class="fl">0.4</span>, <span class="dt">edge.width =</span> <span class="dv">2</span>)</span>
+<span id="cb73-2"><a href="asr1.html#cb73-2"></a><span class="kw">tiplabels</span>(<span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="kw">as.numeric</span>(macaques<span class="op">$</span>swelling)<span class="op">+</span><span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">1.7</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-74-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>To run an ancestral state reconstruction using maximum likelihood we can use the function <strong>ace</strong> (ancestral character estimation) in the ape package <span class="citation">(Paradis and Schliep <a href="#ref-ape" role="doc-biblioref">2018</a>)</span>. In our first reconstruction, we will make the assumption that the rate of evolution of the trait is equal across the tree by setting the model to <em>ER</em> (equal rates).</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="asr1.html#cb76-1"></a>m1 &lt;-<span class="st"> </span><span class="kw">ace</span>(<span class="dt">x =</span> macaques<span class="op">$</span>swelling,  <span class="co">#trait data</span></span>
-<span id="cb76-2"><a href="asr1.html#cb76-2"></a>          <span class="dt">phy =</span> macaque.tree,     <span class="co">#phylogeny</span></span>
-<span id="cb76-3"><a href="asr1.html#cb76-3"></a>          <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>,          <span class="co">#method (Maximum likelihood)</span></span>
-<span id="cb76-4"><a href="asr1.html#cb76-4"></a>          <span class="dt">type =</span> <span class="st">&quot;discrete&quot;</span>,      <span class="co">#type of data (continuous or discrete)</span></span>
-<span id="cb76-5"><a href="asr1.html#cb76-5"></a>          <span class="dt">model =</span> <span class="st">&quot;ER&quot;</span>)           <span class="co">#Model of evolution</span></span>
-<span id="cb76-6"><a href="asr1.html#cb76-6"></a>m1</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="asr1.html#cb74-1"></a>m1 &lt;-<span class="st"> </span><span class="kw">ace</span>(<span class="dt">x =</span> macaques<span class="op">$</span>swelling,  <span class="co">#trait data</span></span>
+<span id="cb74-2"><a href="asr1.html#cb74-2"></a>          <span class="dt">phy =</span> macaque.tree,     <span class="co">#phylogeny</span></span>
+<span id="cb74-3"><a href="asr1.html#cb74-3"></a>          <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>,          <span class="co">#method (Maximum likelihood)</span></span>
+<span id="cb74-4"><a href="asr1.html#cb74-4"></a>          <span class="dt">type =</span> <span class="st">&quot;discrete&quot;</span>,      <span class="co">#type of data (continuous or discrete)</span></span>
+<span id="cb74-5"><a href="asr1.html#cb74-5"></a>          <span class="dt">model =</span> <span class="st">&quot;ER&quot;</span>)           <span class="co">#Model of evolution</span></span>
+<span id="cb74-6"><a href="asr1.html#cb74-6"></a>m1</span></code></pre></div>
 <pre><code>
     Ancestral Character Estimation
 
@@ -377,16 +390,16 @@ Scaled likelihoods at the root (type &#39;...$lik.anc&#39; to get them for all n
          0          1 
 0.08625654 0.91374346 </code></pre>
 <p>Looking at the results shows us the likelihood at the root (91% in favour of state 1 here). However, it’s always best to plot the results. We can represent the likelihoods at each node with a piechart. Generally speaking, piecharts are awful but when used in this way, they can actually add useful information to a plot and that’s the most important point about plotting any data. In this plot, the piecharts represent the probability that each node exhibited sexual swelling (red) or concealed estrus (black). We can see that the two uncertain nodes from our parsimony analysis are now more certain. Visual inspection shows that these nodes have a greater tha 75% probability of having exhibited sexual swellings.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="asr1.html#cb78-1"></a><span class="kw">plot</span>(macaque.tree, <span class="dt">cex =</span> <span class="fl">0.7</span>, <span class="dt">label.offset =</span> <span class="fl">0.4</span>, <span class="dt">edge.width =</span> <span class="dv">2</span>)</span>
-<span id="cb78-2"><a href="asr1.html#cb78-2"></a><span class="kw">tiplabels</span>(<span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="kw">as.numeric</span>(macaques<span class="op">$</span>swelling)<span class="op">+</span><span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">1.7</span>)</span>
-<span id="cb78-3"><a href="asr1.html#cb78-3"></a><span class="kw">nodelabels</span>(<span class="dt">pie =</span> m1<span class="op">$</span>lik.anc, <span class="dt">piecol =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="dt">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="asr1.html#cb76-1"></a><span class="kw">plot</span>(macaque.tree, <span class="dt">cex =</span> <span class="fl">0.7</span>, <span class="dt">label.offset =</span> <span class="fl">0.4</span>, <span class="dt">edge.width =</span> <span class="dv">2</span>)</span>
+<span id="cb76-2"><a href="asr1.html#cb76-2"></a><span class="kw">tiplabels</span>(<span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="kw">as.numeric</span>(macaques<span class="op">$</span>swelling)<span class="op">+</span><span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">1.7</span>)</span>
+<span id="cb76-3"><a href="asr1.html#cb76-3"></a><span class="kw">nodelabels</span>(<span class="dt">pie =</span> m1<span class="op">$</span>lik.anc, <span class="dt">piecol =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="dt">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
 <p>Now we can run a similar analysis but let’s assume that rates of evolution can vary by setting model to <strong>ARD</strong> (All Rates Different).</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="asr1.html#cb79-1"></a>m2 &lt;-<span class="st"> </span><span class="kw">ace</span>(<span class="dt">x =</span> macaques<span class="op">$</span>swelling, <span class="dt">phy =</span> macaque.tree,</span>
-<span id="cb79-2"><a href="asr1.html#cb79-2"></a>          <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;discrete&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;ARD&quot;</span>)</span>
-<span id="cb79-3"><a href="asr1.html#cb79-3"></a></span>
-<span id="cb79-4"><a href="asr1.html#cb79-4"></a><span class="kw">plot</span>(macaque.tree, <span class="dt">cex =</span> <span class="fl">0.7</span>, <span class="dt">label.offset =</span> <span class="fl">0.4</span>, <span class="dt">edge.width =</span> <span class="dv">2</span>)</span>
-<span id="cb79-5"><a href="asr1.html#cb79-5"></a><span class="kw">tiplabels</span>(<span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="kw">as.numeric</span>(macaques<span class="op">$</span>swelling)<span class="op">+</span><span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">1.7</span>)</span>
-<span id="cb79-6"><a href="asr1.html#cb79-6"></a><span class="kw">nodelabels</span>(<span class="dt">pie =</span> m2<span class="op">$</span>lik.anc, <span class="dt">piecol =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="dt">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="asr1.html#cb77-1"></a>m2 &lt;-<span class="st"> </span><span class="kw">ace</span>(<span class="dt">x =</span> macaques<span class="op">$</span>swelling, <span class="dt">phy =</span> macaque.tree,</span>
+<span id="cb77-2"><a href="asr1.html#cb77-2"></a>          <span class="dt">method =</span> <span class="st">&quot;ML&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;discrete&quot;</span>, <span class="dt">model =</span> <span class="st">&quot;ARD&quot;</span>)</span>
+<span id="cb77-3"><a href="asr1.html#cb77-3"></a></span>
+<span id="cb77-4"><a href="asr1.html#cb77-4"></a><span class="kw">plot</span>(macaque.tree, <span class="dt">cex =</span> <span class="fl">0.7</span>, <span class="dt">label.offset =</span> <span class="fl">0.4</span>, <span class="dt">edge.width =</span> <span class="dv">2</span>)</span>
+<span id="cb77-5"><a href="asr1.html#cb77-5"></a><span class="kw">tiplabels</span>(<span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="kw">as.numeric</span>(macaques<span class="op">$</span>swelling)<span class="op">+</span><span class="dv">1</span>, <span class="dt">cex =</span> <span class="fl">1.7</span>)</span>
+<span id="cb77-6"><a href="asr1.html#cb77-6"></a><span class="kw">nodelabels</span>(<span class="dt">pie =</span> m2<span class="op">$</span>lik.anc, <span class="dt">piecol =</span> <span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="dt">cex =</span> <span class="fl">0.8</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-77-1.png" width="672" style="display: block; margin: auto;" />
 As you can see, the different model of evolution makes a big difference to the results. Which model you choose to use depends on which assumptions you think are justified. Is it fair to assume that the rate of evolution of conspicuous sexual swelling would be constant across the tree as in the equal rates model?</p>
 </div>
@@ -404,11 +417,11 @@ As you can see, the different model of evolution makes a big difference to the r
 <div id="state-characters" class="section level3" number="7.5.2">
 <h3><span class="header-section-number">7.5.2</span> 2-State Characters</h3>
 <p>Let’s see it in action. We’ll need the <strong>phytools</strong> package <span class="citation">(Revell <a href="#ref-phytools" role="doc-biblioref">2012</a>)</span> to create our stochastic character map.</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="asr1.html#cb80-1"></a><span class="kw">library</span>(phytools)</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="asr1.html#cb78-1"></a><span class="kw">library</span>(phytools)</span></code></pre></div>
 <p>For this analysis (like other phytools functions) we’ll need our data in a named vector rather than a data table. Let’s call it swelling. The <strong>names</strong> function attaches the species name to each value in our new vector.</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="asr1.html#cb81-1"></a>swelling &lt;-<span class="st"> </span>macaques<span class="op">$</span>swelling</span>
-<span id="cb81-2"><a href="asr1.html#cb81-2"></a><span class="kw">names</span>(swelling) &lt;-<span class="st"> </span>macaques<span class="op">$</span>species</span>
-<span id="cb81-3"><a href="asr1.html#cb81-3"></a>swelling</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="asr1.html#cb79-1"></a>swelling &lt;-<span class="st"> </span>macaques<span class="op">$</span>swelling</span>
+<span id="cb79-2"><a href="asr1.html#cb79-2"></a><span class="kw">names</span>(swelling) &lt;-<span class="st"> </span>macaques<span class="op">$</span>species</span>
+<span id="cb79-3"><a href="asr1.html#cb79-3"></a>swelling</span></code></pre></div>
 <pre><code>   Macaca_arctoides   Macaca_assamensis     Macaca_cyclopis Macaca_fascicularis 
                   0                   0                   1                   1 
      Macaca_fuscata        Macaca_maura      Macaca_mulatta   Macaca_nemestrina 
@@ -418,7 +431,7 @@ As you can see, the different model of evolution makes a big difference to the r
     Macaca_sylvanus    Macaca_thibetana     Macaca_tonkeana        Papio_anubis 
                   1                   0                   1                   1 </code></pre>
 <p>Now we can sample character histories assuming an <em>equal rates</em> model of evolution using the <strong>make.simmap</strong> function.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="asr1.html#cb83-1"></a>scm1 &lt;-<span class="st"> </span><span class="kw">make.simmap</span>(macaque.tree, <span class="dt">x =</span> swelling, <span class="dt">model =</span> <span class="st">&quot;ER&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="asr1.html#cb81-1"></a>scm1 &lt;-<span class="st"> </span><span class="kw">make.simmap</span>(macaque.tree, <span class="dt">x =</span> swelling, <span class="dt">model =</span> <span class="st">&quot;ER&quot;</span>)</span></code></pre></div>
 <pre><code>make.simmap is sampling character histories conditioned on the transition matrix
 
 Q =
@@ -432,9 +445,9 @@ pi =
 0.5 0.5 </code></pre>
 <pre><code>Done.</code></pre>
 <p>Q here is the matrix of transition rates which we have constrained to be equal (model = “ER”) which explains why the numbers match. As usual with reconstructions, the best thing is to plot them. Here we can use the phytools function <strong>plotSimmap</strong> to plot the special object we’ve created. It even has a companion function to add a legend. The first line here assigns colours to the traits.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="asr1.html#cb86-1"></a>cols &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="kw">sort</span>(<span class="kw">unique</span>(swelling)))</span>
-<span id="cb86-2"><a href="asr1.html#cb86-2"></a><span class="kw">plotSimmap</span>(scm1, cols, <span class="dt">pts =</span> F, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">fsize =</span> <span class="fl">.8</span>)</span>
-<span id="cb86-3"><a href="asr1.html#cb86-3"></a><span class="kw">add.simmap.legend</span>(<span class="dt">colors =</span> cols, <span class="dt">vertical =</span> F, <span class="dt">prompt =</span> F, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">10</span>, <span class="dt">fsize =</span> <span class="fl">.8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="asr1.html#cb84-1"></a>cols &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="kw">sort</span>(<span class="kw">unique</span>(swelling)))</span>
+<span id="cb84-2"><a href="asr1.html#cb84-2"></a><span class="kw">plotSimmap</span>(scm1, cols, <span class="dt">pts =</span> F, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">fsize =</span> <span class="fl">.8</span>)</span>
+<span id="cb84-3"><a href="asr1.html#cb84-3"></a><span class="kw">add.simmap.legend</span>(<span class="dt">colors =</span> cols, <span class="dt">vertical =</span> F, <span class="dt">prompt =</span> F, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">10</span>, <span class="dt">fsize =</span> <span class="fl">.8</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-83"></span>
 <img src="bookdown-demo_files/figure-html/unnamed-chunk-83-1.png" alt="Simmap showing a single possible evolutionary history of sexual swelling in macaques." width="672" />
 <p class="caption">
@@ -444,7 +457,7 @@ Figure 7.2: Simmap showing a single possible evolutionary history of sexual swel
 <p>Here you can see the single history we have sampled (yours will likely differ). The history contains branches painted according to the trait colour we specified and the position of the transitions on the branch mark the exact position the changes are theorised to have taken place. This is an awful lot of certainty for an ancestral state reconstruction! You should note that the one plotted here is very odd. It says that the ancestor of the group had concealed estrus and then this trait was lost 3 times independently, leaving no trace in the extant species. Given the data and tree we provided, it is hard to see how we can have any confidence in this reconstruction. What evidence have we collected that actually supports this?</p>
 <p>However, we need to remember that this only one of the many possible histories! Our next step should be to extract a reasonable sample of these histories!</p>
 <p>Let’s sample 500 and when R has done that, we can use <strong>describe.simmap</strong> to summarize the sample.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="asr1.html#cb87-1"></a>scm2 &lt;-<span class="st"> </span><span class="kw">make.simmap</span>(macaque.tree, swelling, <span class="dt">model =</span> <span class="st">&quot;ER&quot;</span>, <span class="dt">nsim =</span> <span class="dv">500</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="asr1.html#cb85-1"></a>scm2 &lt;-<span class="st"> </span><span class="kw">make.simmap</span>(macaque.tree, swelling, <span class="dt">model =</span> <span class="st">&quot;ER&quot;</span>, <span class="dt">nsim =</span> <span class="dv">500</span>)</span></code></pre></div>
 <pre><code>make.simmap is sampling character histories conditioned on the transition matrix
 
 Q =
@@ -457,9 +470,9 @@ pi =
   0   1 
 0.5 0.5 </code></pre>
 <pre><code>Done.</code></pre>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="asr1.html#cb90-1"></a>scm2.sum &lt;-<span class="st"> </span><span class="kw">describe.simmap</span>(scm2, <span class="dt">plot =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="asr1.html#cb88-1"></a>scm2.sum &lt;-<span class="st"> </span><span class="kw">describe.simmap</span>(scm2, <span class="dt">plot =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p>When we call up the summary, we can see some interesting details about our sample. It seems to be saying that transitions from 1 to 0 (a loss of sexual swelling) happen more frequently than gains of sexual swelling.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="asr1.html#cb91-1"></a>scm2.sum</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="asr1.html#cb89-1"></a>scm2.sum</span></code></pre></div>
 <pre><code>500 trees with a mapped discrete character with states:
  0, 1 
 
@@ -474,11 +487,11 @@ mean total time spent in each state is:
 raw  17.6835904 71.4988096 89.1824
 prop  0.1982857  0.8017143  1.0000</code></pre>
 <p>As usual, we’re going to want a summary plot. The backbone of this plot won’t look quite the same as the previous one. You don’t want confusing information on your plot so here it would be better to plot a blank backbone (ie a tree with just one colour of branch that doesn’t match the colour of the traits) and represent the trait transitions as we did previously with pie charts. In this case the pies represent the proportion of histories in each state (1 or 0) at each node.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="asr1.html#cb93-1"></a>cols.null &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">c</span>(<span class="st">&quot;darkgrey&quot;</span>, <span class="st">&quot;darkgrey&quot;</span>), <span class="kw">sort</span>(<span class="kw">unique</span>(swelling)))</span>
-<span id="cb93-2"><a href="asr1.html#cb93-2"></a><span class="kw">plotSimmap</span>(scm2[[<span class="dv">1</span>]], <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">pts =</span> F, <span class="dt">setEnv =</span> T, <span class="dt">colors =</span> cols.null, <span class="dt">offset =</span> <span class="fl">.6</span>)</span>
-<span id="cb93-3"><a href="asr1.html#cb93-3"></a><span class="kw">nodelabels</span>(<span class="dt">pie =</span> scm2.sum<span class="op">$</span>ace, <span class="dt">piecol =</span> cols, <span class="dt">cex =</span> <span class="fl">0.6</span>)</span>
-<span id="cb93-4"><a href="asr1.html#cb93-4"></a><span class="kw">add.simmap.legend</span>(<span class="dt">colors =</span> cols, <span class="dt">vertical =</span> F, <span class="dt">prompt =</span> F, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">10</span>, <span class="dt">fsize =</span> <span class="fl">.8</span>)</span>
-<span id="cb93-5"><a href="asr1.html#cb93-5"></a><span class="kw">tiplabels</span>(<span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="kw">as.numeric</span>(macaques<span class="op">$</span>swelling)<span class="op">+</span><span class="dv">1</span>, <span class="dt">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="asr1.html#cb91-1"></a>cols.null &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">c</span>(<span class="st">&quot;darkgrey&quot;</span>, <span class="st">&quot;darkgrey&quot;</span>), <span class="kw">sort</span>(<span class="kw">unique</span>(swelling)))</span>
+<span id="cb91-2"><a href="asr1.html#cb91-2"></a><span class="kw">plotSimmap</span>(scm2[[<span class="dv">1</span>]], <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">pts =</span> F, <span class="dt">setEnv =</span> T, <span class="dt">colors =</span> cols.null, <span class="dt">offset =</span> <span class="fl">.6</span>)</span>
+<span id="cb91-3"><a href="asr1.html#cb91-3"></a><span class="kw">nodelabels</span>(<span class="dt">pie =</span> scm2.sum<span class="op">$</span>ace, <span class="dt">piecol =</span> cols, <span class="dt">cex =</span> <span class="fl">0.6</span>)</span>
+<span id="cb91-4"><a href="asr1.html#cb91-4"></a><span class="kw">add.simmap.legend</span>(<span class="dt">colors =</span> cols, <span class="dt">vertical =</span> F, <span class="dt">prompt =</span> F, <span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">10</span>, <span class="dt">fsize =</span> <span class="fl">.8</span>)</span>
+<span id="cb91-5"><a href="asr1.html#cb91-5"></a><span class="kw">tiplabels</span>(<span class="dt">pch =</span> <span class="dv">21</span>, <span class="dt">bg =</span> <span class="kw">as.numeric</span>(macaques<span class="op">$</span>swelling)<span class="op">+</span><span class="dv">1</span>, <span class="dt">cex =</span> <span class="dv">2</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-86"></span>
 <img src="bookdown-demo_files/figure-html/unnamed-chunk-86-1.png" alt="Summary of 500 sampled discrete character histories showing the evolution of sexual swellings in macaques." width="672" />
 <p class="caption">
@@ -493,16 +506,16 @@ Figure 7.3: Summary of 500 sampled discrete character histories showing the evol
 <div id="data-1" class="section level4" number="7.5.3.1">
 <h4><span class="header-section-number">7.5.3.1</span> Data</h4>
 <p>Let’s load some data from a paper which investigated aposematism in terrestrial carnivores <span class="citation">(Stankowich et al. <a href="#ref-Stankowich11" role="doc-biblioref">2011</a>)</span>. Don’t forget to assign the species names to rownames to keep everything tidy while we manipulate the data. We also have a tree covering all carnivores <span class="citation">(Nyakatura and Bininda-Emonds <a href="#ref-Nyakatura12" role="doc-biblioref">2012</a>)</span>.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="asr1.html#cb94-1"></a>carn.tree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;carnivores_tree.nex&quot;</span>)</span>
-<span id="cb94-2"><a href="asr1.html#cb94-2"></a>carn.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;carnivores_data.txt&quot;</span>, <span class="dt">header =</span> T)</span>
-<span id="cb94-3"><a href="asr1.html#cb94-3"></a><span class="kw">rownames</span>(carn.data) &lt;-<span class="st"> </span>carn.data<span class="op">$</span>Species</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="asr1.html#cb92-1"></a>carn.tree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;carnivores_tree.nex&quot;</span>)</span>
+<span id="cb92-2"><a href="asr1.html#cb92-2"></a>carn.data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;carnivores_data.txt&quot;</span>, <span class="dt">header =</span> T)</span>
+<span id="cb92-3"><a href="asr1.html#cb92-3"></a><span class="kw">rownames</span>(carn.data) &lt;-<span class="st"> </span>carn.data<span class="op">$</span>Species</span></code></pre></div>
 <p>If you look at the new object <strong>carn.tree</strong> you’ll notice it is a multiPhylo object. This means it actually contains a number of trees rather than just one. For more details about this class of object, see chapter 3.</p>
 <p>For now, we just want the first one in the list (based on the best estimates used to date the tree). I’ll also prune it a bit to get rid of some of the species I’m not interested in for now.</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="asr1.html#cb95-1"></a>carn.tree &lt;-<span class="st"> </span>carn.tree[[<span class="dv">1</span>]]</span>
-<span id="cb95-2"><a href="asr1.html#cb95-2"></a>carn.tree &lt;-<span class="st"> </span><span class="kw">extract.clade</span>(carn.tree, <span class="dt">node =</span> <span class="st">&quot;&#39;123&#39;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="asr1.html#cb93-1"></a>carn.tree &lt;-<span class="st"> </span>carn.tree[[<span class="dv">1</span>]]</span>
+<span id="cb93-2"><a href="asr1.html#cb93-2"></a>carn.tree &lt;-<span class="st"> </span><span class="kw">extract.clade</span>(carn.tree, <span class="dt">node =</span> <span class="st">&quot;&#39;123&#39;&quot;</span>)</span></code></pre></div>
 <p>Unlike the macaque data from earlier, the carnivore data needs a little more tidying. Now that you’re more comfortable using R, you should make this standard practice whenever you load data and a tree for an analysis!</p>
 <p>We can use the function <strong>name.check</strong> in the package <strong>geiger</strong> to help us out here <span class="citation">(Harmon et al. <a href="#ref-geiger" role="doc-biblioref">2008</a>)</span>. This function returns two lists. The first contains all the species that appear in the phylogeny but not in the dataset. The second has the species that occur in the data but not in the tree.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="asr1.html#cb96-1"></a>geiger<span class="op">::</span><span class="kw">name.check</span>(<span class="dt">phy =</span> carn.tree, <span class="dt">data =</span> carn.data)</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="asr1.html#cb94-1"></a>geiger<span class="op">::</span><span class="kw">name.check</span>(<span class="dt">phy =</span> carn.tree, <span class="dt">data =</span> carn.data)</span></code></pre></div>
 <pre><code>$tree_not_data
  [1] &quot;Arctocephalus_australis&quot;     &quot;Arctocephalus_forsteri&quot;     
  [3] &quot;Arctocephalus_galapagoensis&quot; &quot;Arctocephalus_gazella&quot;      
@@ -582,8 +595,8 @@ $data_not_tree
 [75] &quot;Viverra_megaspila&quot;            &quot;Viverra_tangalunga&quot;          
 [77] &quot;Viverra_zibetha&quot;              &quot;Viverricula_indica&quot;          </code></pre>
 <p>The easiest thing to do first is drop the tips from the tree that we’re not interested in. We can pass the whole list to the <strong>drop.tip</strong> function in <strong>ape</strong> for this <span class="citation">(Paradis and Schliep <a href="#ref-ape" role="doc-biblioref">2018</a>)</span>.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="asr1.html#cb98-1"></a>carn.tree &lt;-<span class="st"> </span><span class="kw">drop.tip</span>(carn.tree, geiger<span class="op">::</span><span class="kw">name.check</span>(carn.tree, carn.data)<span class="op">$</span>tree_not_data)</span>
-<span id="cb98-2"><a href="asr1.html#cb98-2"></a>geiger<span class="op">::</span><span class="kw">name.check</span>(carn.tree, carn.data)</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="asr1.html#cb96-1"></a>carn.tree &lt;-<span class="st"> </span><span class="kw">drop.tip</span>(carn.tree, geiger<span class="op">::</span><span class="kw">name.check</span>(carn.tree, carn.data)<span class="op">$</span>tree_not_data)</span>
+<span id="cb96-2"><a href="asr1.html#cb96-2"></a>geiger<span class="op">::</span><span class="kw">name.check</span>(carn.tree, carn.data)</span></code></pre></div>
 <pre><code>$tree_not_data
 character(0)
 
@@ -628,21 +641,21 @@ $data_not_tree
 [75] &quot;Viverra_megaspila&quot;            &quot;Viverra_tangalunga&quot;          
 [77] &quot;Viverra_zibetha&quot;              &quot;Viverricula_indica&quot;          </code></pre>
 <p>Dropping species from your dataframe is a little more complex (and in truth not always necessary). One way of doing this is to create a <strong>for loop</strong> that will cycle through the list above and take a subset of the dataframe each time, removing the species in the list as it goes. There are better ways to do this but it might be helpful to become familiar with for loops which are a useful programming tool!</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="asr1.html#cb100-1"></a>pruned.data &lt;-<span class="st"> </span>carn.data</span>
-<span id="cb100-2"><a href="asr1.html#cb100-2"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(geiger<span class="op">::</span><span class="kw">name.check</span>(carn.tree, carn.data)<span class="op">$</span>data_not_tree)){</span>
-<span id="cb100-3"><a href="asr1.html#cb100-3"></a>  pruned.data &lt;-<span class="st"> </span><span class="kw">subset</span>(pruned.data, Species<span class="op">!=</span>geiger<span class="op">::</span><span class="kw">name.check</span>(carn.tree, carn.data)<span class="op">$</span>data_not_tree[i])</span>
-<span id="cb100-4"><a href="asr1.html#cb100-4"></a>}</span>
-<span id="cb100-5"><a href="asr1.html#cb100-5"></a>geiger<span class="op">::</span><span class="kw">name.check</span>(carn.tree, pruned.data)</span></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="asr1.html#cb98-1"></a>pruned.data &lt;-<span class="st"> </span>carn.data</span>
+<span id="cb98-2"><a href="asr1.html#cb98-2"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(geiger<span class="op">::</span><span class="kw">name.check</span>(carn.tree, carn.data)<span class="op">$</span>data_not_tree)){</span>
+<span id="cb98-3"><a href="asr1.html#cb98-3"></a>  pruned.data &lt;-<span class="st"> </span><span class="kw">subset</span>(pruned.data, Species<span class="op">!=</span>geiger<span class="op">::</span><span class="kw">name.check</span>(carn.tree, carn.data)<span class="op">$</span>data_not_tree[i])</span>
+<span id="cb98-4"><a href="asr1.html#cb98-4"></a>}</span>
+<span id="cb98-5"><a href="asr1.html#cb98-5"></a>geiger<span class="op">::</span><span class="kw">name.check</span>(carn.tree, pruned.data)</span></code></pre></div>
 <pre><code>[1] &quot;OK&quot;</code></pre>
 <p>Once your tree and data are cleaned up we’re ready to go!</p>
 </div>
 <div id="analysis" class="section level4" number="7.5.3.2">
 <h4><span class="header-section-number">7.5.3.2</span> Analysis</h4>
 <p>As before we need to create a named vector for analysis.</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="asr1.html#cb102-1"></a>burrow&lt;-pruned.data<span class="op">$</span>Burrowing</span>
-<span id="cb102-2"><a href="asr1.html#cb102-2"></a><span class="kw">names</span>(burrow)&lt;-pruned.data<span class="op">$</span>Species</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="asr1.html#cb100-1"></a>burrow&lt;-pruned.data<span class="op">$</span>Burrowing</span>
+<span id="cb100-2"><a href="asr1.html#cb100-2"></a><span class="kw">names</span>(burrow)&lt;-pruned.data<span class="op">$</span>Species</span></code></pre></div>
 <p>Now we can sample a single history and plot it, this time with three colours!</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="asr1.html#cb103-1"></a>scm3&lt;-<span class="kw">make.simmap</span>(carn.tree, burrow, <span class="dt">model=</span><span class="st">&quot;ER&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="asr1.html#cb101-1"></a>scm3&lt;-<span class="kw">make.simmap</span>(carn.tree, burrow, <span class="dt">model=</span><span class="st">&quot;ER&quot;</span>)</span></code></pre></div>
 <pre><code>make.simmap is sampling character histories conditioned on the transition matrix
 
 Q =
@@ -656,12 +669,12 @@ pi =
         Dig a Burrow         No Burrowing Use existing Burrows 
            0.3333333            0.3333333            0.3333333 </code></pre>
 <pre><code>Done.</code></pre>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="asr1.html#cb106-1"></a>cols &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>), <span class="kw">sort</span>(<span class="kw">unique</span>(burrow)))</span>
-<span id="cb106-2"><a href="asr1.html#cb106-2"></a><span class="kw">plotSimmap</span>(scm3, cols, <span class="dt">pts =</span> <span class="ot">FALSE</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">fsize =</span> <span class="fl">0.5</span>)</span>
-<span id="cb106-3"><a href="asr1.html#cb106-3"></a><span class="kw">add.simmap.legend</span>(<span class="dt">colors =</span> cols, <span class="dt">vertical =</span> <span class="ot">TRUE</span>, <span class="dt">prompt =</span> <span class="ot">FALSE</span>, <span class="dt">x =</span> <span class="dv">2</span>, <span class="dt">y =</span> <span class="dv">80</span>, <span class="dt">fsize =</span> <span class="fl">1.4</span>, <span class="dt">shape =</span> <span class="st">&quot;circle&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="asr1.html#cb104-1"></a>cols &lt;-<span class="st"> </span><span class="kw">setNames</span>(<span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>), <span class="kw">sort</span>(<span class="kw">unique</span>(burrow)))</span>
+<span id="cb104-2"><a href="asr1.html#cb104-2"></a><span class="kw">plotSimmap</span>(scm3, cols, <span class="dt">pts =</span> <span class="ot">FALSE</span>, <span class="dt">lwd =</span> <span class="dv">2</span>, <span class="dt">fsize =</span> <span class="fl">0.5</span>)</span>
+<span id="cb104-3"><a href="asr1.html#cb104-3"></a><span class="kw">add.simmap.legend</span>(<span class="dt">colors =</span> cols, <span class="dt">vertical =</span> <span class="ot">TRUE</span>, <span class="dt">prompt =</span> <span class="ot">FALSE</span>, <span class="dt">x =</span> <span class="dv">2</span>, <span class="dt">y =</span> <span class="dv">80</span>, <span class="dt">fsize =</span> <span class="fl">1.4</span>, <span class="dt">shape =</span> <span class="st">&quot;circle&quot;</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-95-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Let’s sample 200 possible histories. This may take a few moments. For reports and publications, you should sample more than this. There’s no hard rule but 1000 seems to be a good minimum for a proper analysis.</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="asr1.html#cb107-1"></a>scm4 &lt;-<span class="st"> </span><span class="kw">make.simmap</span>(carn.tree, burrow, <span class="dt">model =</span> <span class="st">&quot;ER&quot;</span>, <span class="dt">nsim =</span> <span class="dv">200</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="asr1.html#cb105-1"></a>scm4 &lt;-<span class="st"> </span><span class="kw">make.simmap</span>(carn.tree, burrow, <span class="dt">model =</span> <span class="st">&quot;ER&quot;</span>, <span class="dt">nsim =</span> <span class="dv">200</span>)</span></code></pre></div>
 <pre><code>make.simmap is sampling character histories conditioned on the transition matrix
 
 Q =
@@ -675,8 +688,8 @@ pi =
         Dig a Burrow         No Burrowing Use existing Burrows 
            0.3333333            0.3333333            0.3333333 </code></pre>
 <pre><code>Done.</code></pre>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="asr1.html#cb110-1"></a>scm4.sum&lt;-<span class="kw">describe.simmap</span>(scm4, <span class="dt">plot =</span> <span class="ot">FALSE</span>)</span>
-<span id="cb110-2"><a href="asr1.html#cb110-2"></a>scm4.sum</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="asr1.html#cb108-1"></a>scm4.sum&lt;-<span class="kw">describe.simmap</span>(scm4, <span class="dt">plot =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb108-2"><a href="asr1.html#cb108-2"></a>scm4.sum</span></code></pre></div>
 <pre><code>200 trees with a mapped discrete character with states:
  Dig a Burrow, No Burrowing, Use existing Burrows 
 
