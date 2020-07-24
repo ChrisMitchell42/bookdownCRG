@@ -1,12 +1,176 @@
 %% This BibTeX bibliography file was created using BibDesk.
 %% http://bibdesk.sourceforge.net/
 
-%% Created for Chris Mitchell at 2020-07-15 17:38:56 +0100 
+%% Created for Chris Mitchell at 2020-07-24 18:08:28 +0100 
 
 
 %% Saved with string encoding Unicode (UTF-8) 
 
 
+
+@article{Louca20,
+	Abstract = {Time-calibrated phylogenies of extant species (referred to here as `extant timetrees') are widely used for estimating diversification dynamics1. However, there has been considerable debate surrounding the reliability of these inferences2--5 and, to date, this critical question remains unresolved. Here we clarify the precise information that can be extracted from extant timetrees under the generalized birth--death model, which underlies most existing methods of estimation. We prove that, for any diversification scenario, there exists an infinite number of alternative diversification scenarios that are equally likely to have generated any given extant timetree. These `congruent'scenarios cannot possibly be distinguished using extant timetrees alone, even in the presence of infinite data. Importantly, congruent diversification scenarios can exhibit markedly different and yet similarly plausible dynamics, which suggests that many previous studies may have over-interpreted phylogenetic evidence. We introduce identifiable and easily interpretable variables that contain all available information about past diversification dynamics, and demonstrate that these can be estimated from extant timetrees. We suggest that measuring and modelling these identifiable variables offers a more robust way to study historical diversification dynamics. Our findings also make it clear that palaeontological data will continue to be crucial for answering some macroevolutionary questions.},
+	Author = {Louca, Stilianos and Pennell, Matthew W.},
+	Da = {2020/04/01},
+	Date-Added = {2020-07-24 18:08:15 +0100},
+	Date-Modified = {2020-07-24 18:08:27 +0100},
+	Doi = {10.1038/s41586-020-2176-1},
+	Id = {Louca2020},
+	Isbn = {1476-4687},
+	Journal = {Nature},
+	Number = {7804},
+	Pages = {502--505},
+	Title = {Extant timetrees are consistent with a myriad of diversification histories},
+	Ty = {JOUR},
+	Url = {https://doi.org/10.1038/s41586-020-2176-1},
+	Volume = {580},
+	Year = {2020},
+	Bdsk-Url-1 = {https://doi.org/10.1038/s41586-020-2176-1}}
+
+@article{Rabosky14,
+	Abstract = {A number of methods have been developed to infer differential rates of species diversification through time and among clades using time-calibrated phylogenetic trees. However, we lack a general framework that can delineate and quantify heterogeneous mixtures of dynamic processes within single phylogenies. I developed a method that can identify arbitrary numbers of time-varying diversification processes on phylogenies without specifying their locations in advance. The method uses reversible-jump Markov Chain Monte Carlo to move between model subspaces that vary in the number of distinct diversification regimes. The model assumes that changes in evolutionary regimes occur across the branches of phylogenetic trees under a compound Poisson process and explicitly accounts for rate variation through time and among lineages. Using simulated datasets, I demonstrate that the method can be used to quantify complex mixtures of time-dependent, diversity-dependent, and constant-rate diversification processes. I compared the performance of the method to the MEDUSA model of rate variation among lineages. As an empirical example, I analyzed the history of speciation and extinction during the radiation of modern whales. The method described here will greatly facilitate the exploration of macroevolutionary dynamics across large phylogenetic trees, which may have been shaped by heterogeneous mixtures of distinct evolutionary processes.},
+	Author = {Rabosky, Daniel L.},
+	Date-Added = {2020-07-24 16:06:45 +0100},
+	Date-Modified = {2020-07-24 16:07:05 +0100},
+	Doi = {10.1371/journal.pone.0089543},
+	Journal = {PLOS ONE},
+	Number = {2},
+	Pages = {1-15},
+	Publisher = {Public Library of Science},
+	Title = {Automatic Detection of Key Innovations, Rate Shifts, and Diversity-Dependence on Phylogenetic Trees},
+	Url = {https://doi.org/10.1371/journal.pone.0089543},
+	Volume = {9},
+	Year = {2014},
+	Bdsk-Url-1 = {https://doi.org/10.1371/journal.pone.0089543}}
+
+@article{bammtools,
+	Author = {DL Rabosky and MC Grundler and CJ Anderson and PO Title and JJ Shi and JW Brown and H Huang and JG Larson},
+	Date-Added = {2020-07-24 16:02:27 +0100},
+	Date-Modified = {2020-07-24 16:02:34 +0100},
+	Journal = {Methods in Ecology and Evolution},
+	Pages = {701-707},
+	Title = {BAMMtools: an R package for the analysis of evolutionary dynamics on phylogenetic trees},
+	Volume = {5},
+	Year = {2014}}
+
+@article{rpanda,
+	Author = {H Morlon and E Lewitus and FL Condamine and M Manceau and J Clavel and J Drury},
+	Date-Added = {2020-07-22 17:31:10 +0100},
+	Date-Modified = {2020-07-22 17:31:22 +0100},
+	Journal = {Methods in Ecology and Evolution},
+	Note = {R package version 1.4},
+	Pages = {589-597},
+	Title = {RPANDA: an R package for macroevolutionary analyses on phylogenetic trees},
+	Url = {https://CRAN.R-project.org/package=RPANDA},
+	Volume = {7},
+	Year = {2016},
+	Bdsk-Url-1 = {https://CRAN.R-project.org/package=RPANDA}}
+
+@article{Upham19,
+	Abstract = {Big, time-scaled phylogenies are fundamental to connecting evolutionary processes to modern biodiversity patterns. Yet inferring reliable phylogenetic trees for thousands of species involves numerous trade-offs that have limited their utility to comparative biologists. To establish a robust evolutionary timescale for all approximately 6,000 living species of mammals, we developed credible sets of trees that capture root-to-tip uncertainty in topology and divergence times. Our "backbone-and-patch" approach to tree building applies a newly assembled 31-gene supermatrix to two levels of Bayesian inference: (1) backbone relationships and ages among major lineages, using fossil node or tip dating, and (2) species-level "patch" phylogenies with nonoverlapping in-groups that each correspond to one representative lineage in the backbone. Species unsampled for DNA are either excluded ("DNA-only" trees) or imputed within taxonomic constraints using branch lengths drawn from local birth-death models ("completed" trees). Joining time-scaled patches to backbones results in species-level trees of extant Mammalia with all branches estimated under the same modeling framework, thereby facilitating rate comparisons among lineages as disparate as marsupials and placentals. We compare our phylogenetic trees to previous estimates of mammal-wide phylogeny and divergence times, finding that (1) node ages are broadly concordant among studies, and (2) recent (tip-level) rates of speciation are estimated more accurately in our study than in previous "supertree" approaches, in which unresolved nodes led to branch-length artifacts. Credible sets of mammalian phylogenetic history are now available for download at http://vertlife.org/phylosubsets, enabling investigations of long-standing questions in comparative biology.},
+	Address = {Department of Ecology \& Evolutionary Biology, Yale University, New Haven, Connecticut, United States of America.; Center for Biodiversity \& Global Change, Yale University, New Haven, Connecticut, United States of America.; Department of Biological Sciences and Museum of Natural Science, Louisiana State University, Baton Rouge, Louisiana, United States of America.; Department of Ecology \& Evolutionary Biology, Yale University, New Haven, Connecticut, United States of America.; Center for Biodiversity \& Global Change, Yale University, New Haven, Connecticut, United States of America.},
+	Auid = {ORCID: 0000-0001-5412-9342},
+	Author = {Upham, Nathan S and Esselstyn, Jacob A and Jetz, Walter},
+	Cois = {The authors have declared that no competing interests exist.},
+	Crdt = {2019/12/05 06:00},
+	Date-Added = {2020-07-22 12:16:21 +0100},
+	Date-Modified = {2020-07-22 12:17:21 +0100},
+	Doi = {10.1371/journal.pbio.3000494},
+	Issn = {1545-7885 (Electronic); 1544-9173 (Print); 1544-9173 (Linking)},
+	Jid = {101183755},
+	Journal = {PLoS Biol},
+	Jt = {PLoS biology},
+	Language = {eng},
+	Lid = {10.1371/journal.pbio.3000494 {$[$}doi{$]$}; e3000494},
+	Lr = {20200320},
+	Mh = {Animals; Bayes Theorem; Biodiversity; Biological Evolution; Computer Simulation; Evolution, Molecular; Fossils; Mammals/*classification; Phylogeny; Software; Species Specificity},
+	Number = {12},
+	Own = {NLM},
+	Pages = {e3000494},
+	Pii = {PBIOLOGY-D-19-02130},
+	Pmc = {PMC6892540},
+	Pmid = {31800571},
+	Pst = {epublish},
+	Pt = {Journal Article; Research Support, U.S. Gov't, Non-P.H.S.},
+	Sb = {IM},
+	Si = {Dryad/10.5061/dryad.tb03d03},
+	Status = {MEDLINE},
+	Title = {Inferring the mammal tree: Species-level sets of phylogenies for questions in ecology, evolution, and conservation.},
+	Volume = {17},
+	Year = {2019},
+	Bdsk-Url-1 = {https://doi.org/10.1371/journal.pbio.3000494}}
+
+@article{Stein18,
+	Abstract = {In an era of accelerated biodiversity loss and limited conservation resources, systematic prioritization of species and places is essential. In terrestrial vertebrates, evolutionary distinctness has been used to identify species and locations that embody the greatest share of evolutionary history. We estimate evolutionary distinctness for a large marine vertebrate radiation on a dated taxon-complete tree for all 1,192 chondrichthyan fishes (sharks, rays and chimaeras) by augmenting a new 610-species molecular phylogeny using taxonomic constraints. Chondrichthyans are by far the most evolutionarily distinct of all major radiations of jawed vertebrates---the average species embodies 26 million years of unique evolutionary history. With this metric, we identify 21 countries with the highest richness, endemism and evolutionary distinctness of threatened species as targets for conservation prioritization. On average, threatened chondrichthyans are more evolutionarily distinct---further motivating improved conservation, fisheries management and trade regulation to avoid significant pruning of the chondrichthyan tree of life.},
+	Author = {Stein, R. William and Mull, Christopher G. and Kuhn, Tyler S. and Aschliman, Neil C. and Davidson, Lindsay N. K. and Joy, Jeffrey B. and Smith, Gordon J. and Dulvy, Nicholas K. and Mooers, Arne O.},
+	Da = {2018/02/01},
+	Date-Added = {2020-07-22 11:27:02 +0100},
+	Date-Modified = {2020-07-22 11:27:14 +0100},
+	Doi = {10.1038/s41559-017-0448-4},
+	Id = {Stein2018},
+	Isbn = {2397-334X},
+	Journal = {Nature Ecology \& Evolution},
+	Number = {2},
+	Pages = {288--298},
+	Title = {Global priorities for conserving the evolutionary history of sharks, rays and chimaeras},
+	Ty = {JOUR},
+	Url = {https://doi.org/10.1038/s41559-017-0448-4},
+	Volume = {2},
+	Year = {2018},
+	Bdsk-Url-1 = {https://doi.org/10.1038/s41559-017-0448-4}}
+
+@article{Alfaro09,
+	Abstract = {The uneven distribution of species richness is a fundamental and unexplained pattern of vertebrate biodiversity. Although species richness in groups like mammals, birds, or teleost fishes is often attributed to accelerated cladogenesis, we lack a quantitative conceptual framework for identifying and comparing the exceptional changes of tempo in vertebrate evolutionary history. We develop MEDUSA, a stepwise approach based upon the Akaike information criterion for detecting multiple shifts in birth and death rates on an incompletely resolved phylogeny. We apply MEDUSA incompletely to a diversity tree summarizing both evolutionary relationships and species richness of 44 major clades of jawed vertebrates. We identify 9 major changes in the tempo of gnathostome diversification; the most significant of these lies at the base of a clade that includes most of the coral-reef associated fishes as well as cichlids and perches. Rate increases also underlie several well recognized tetrapod radiations, including most modern birds, lizards and snakes, ostariophysan fishes, and most eutherian mammals. In addition, we find that large sections of the vertebrate tree exhibit nearly equal rates of origination and extinction, providing some of the first evidence from molecular data for the importance of faunal turnover in shaping biodiversity. Together, these results reveal living vertebrate biodiversity to be the product of volatile turnover punctuated by 6 accelerations responsible for \&gt;85\% of all species as well as 3 slowdowns that have produced {\textquotedblleft}living fossils.{\textquotedblright} In addition, by revealing the timing of the exceptional pulses of vertebrate diversification as well as the clades that experience them, our diversity tree provides a framework for evaluating particular causal hypotheses of vertebrate radiations.},
+	Author = {Alfaro, Michael E. and Santini, Francesco and Brock, Chad and Alamillo, Hugo and Dornburg, Alex and Rabosky, Daniel L. and Carnevale, Giorgio and Harmon, Luke J.},
+	Date-Added = {2020-07-22 10:00:52 +0100},
+	Date-Modified = {2020-07-22 10:01:10 +0100},
+	Doi = {10.1073/pnas.0811087106},
+	Eprint = {https://www.pnas.org/content/106/32/13410.full.pdf},
+	Issn = {0027-8424},
+	Journal = {Proceedings of the National Academy of Sciences},
+	Number = {32},
+	Pages = {13410-13414},
+	Publisher = {National Academy of Sciences},
+	Title = {Nine exceptional radiations plus high turnover explain species diversity in jawed vertebrates},
+	Url = {https://www.pnas.org/content/106/32/13410},
+	Volume = {106},
+	Year = {2009},
+	Bdsk-Url-1 = {https://www.pnas.org/content/106/32/13410},
+	Bdsk-Url-2 = {https://doi.org/10.1073/pnas.0811087106}}
+
+@manual{treesim,
+	Author = {Tanja Stadler},
+	Date-Added = {2020-07-21 15:17:57 +0100},
+	Date-Modified = {2020-07-21 15:18:09 +0100},
+	Note = {R package version 2.4},
+	Title = {TreeSim: Simulating Phylogenetic Trees},
+	Url = {https://CRAN.R-project.org/package=TreeSim},
+	Year = {2019},
+	Bdsk-Url-1 = {https://CRAN.R-project.org/package=TreeSim}}
+
+@article{laser,
+	Abstract = {Rates of species origination and extinction can vary over time during evolutionary radiations, and it is possible to reconstruct the history of diversification using molecular phylogenies of extant taxa only. Maximum likelihood methods provide a useful framework for inferring temporal variation in diversification rates. LASER is a package for the R programming environment that implements maximum likelihood methods based on the birth-death process to test whether diversification rates have changed over time. LASER contrasts the likelihood of phylogenetic data under models where diversification rates have changed over time to alternative models where rates have remained constant over time. Major strengths of the package include the ability to detect temporal increases in diversification rates and the inference of diversification parameters under multiple rate-variable models of diversification. The program and associated documentation are freely available from the R package archive at http://cran.r-project.org.},
+	An = {19455217},
+	Author = {Rabosky, Daniel L},
+	Date-Added = {2020-07-21 09:10:04 +0100},
+	Date-Modified = {2020-07-24 16:10:34 +0100},
+	Db = {PubMed},
+	Isbn = {1176-9343},
+	J2 = {Evol Bioinform Online},
+	Journal = {Evolutionary bioinformatics online},
+	Keywords = {Maximum likelihood; birth-death process; diversification; phylogeny},
+	L2 = {https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2674670/},
+	La = {eng},
+	Pages = {273--276},
+	Publisher = {Libertas Academica},
+	Title = {LASER: a maximum likelihood toolkit for detecting temporal shifts in diversification rates from molecular phylogenies},
+	Ty = {JOUR},
+	U1 = {19455217{$[$}pmid{$]$}},
+	U2 = {PMC2674670{$[$}pmcid{$]$}},
+	Url = {https://pubmed.ncbi.nlm.nih.gov/19455217},
+	Volume = {2},
+	Year = {2007},
+	Bdsk-Url-1 = {https://pubmed.ncbi.nlm.nih.gov/19455217}}
 
 @article{Arbuckle14,
 	Author = {Arbuckle, Kevin and Bennett, Cheryl M and Speed, Michael P},
@@ -110,9 +274,9 @@
 	Url = {https://pubmed.ncbi.nlm.nih.gov/17301028},
 	Volume = {362},
 	Year = {2007},
+	Bdsk-File-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxAsLi4vLi4vLi4vLi4vRG93bmxvYWRzL3BlcmljbGVzXzIwNDEyMTB4NC5yaXNPEQF2AAAAAAF2AAIAAAxNYWNpbnRvc2ggSEQAAAAAAAAAAAAAAAAAAAAAAAAAQkQAAf////8WcGVyaWNsZXNfMjA0MTIxMHg0LnJpcwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/////wAAAAAAAAAAAAAAAAAEAAIAAAogY3UAAAAAAAAAAAAAAAAACURvd25sb2FkcwAAAgA2LzpVc2VyczpjaHJpc21pdGNoZWxsOkRvd25sb2FkczpwZXJpY2xlc18yMDQxMjEweDQucmlzAA4ALgAWAHAAZQByAGkAYwBsAGUAcwBfADIAMAA0ADEAMgAxADAAeAA0AC4AcgBpAHMADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgA0VXNlcnMvY2hyaXNtaXRjaGVsbC9Eb3dubG9hZHMvcGVyaWNsZXNfMjA0MTIxMHg0LnJpcwATAAEvAAAVAAIAFP//AAAACAANABoAJABTAAAAAAAAAgEAAAAAAAAABQAAAAAAAAAAAAAAAAAAAc0=},
 	Bdsk-Url-1 = {https://pubmed.ncbi.nlm.nih.gov/17301028},
-	Bdsk-Url-2 = {https://doi.org/10.1098/rstb.2006.2001},
-	Bdsk-File-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxAsLi4vLi4vLi4vLi4vRG93bmxvYWRzL3BlcmljbGVzXzIwNDEyMTB4NC5yaXNPEQF2AAAAAAF2AAIAAAxNYWNpbnRvc2ggSEQAAAAAAAAAAAAAAAAAAAAAAAAAQkQAAf////8WcGVyaWNsZXNfMjA0MTIxMHg0LnJpcwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/////wAAAAAAAAAAAAAAAAAEAAIAAAogY3UAAAAAAAAAAAAAAAAACURvd25sb2FkcwAAAgA2LzpVc2VyczpjaHJpc21pdGNoZWxsOkRvd25sb2FkczpwZXJpY2xlc18yMDQxMjEweDQucmlzAA4ALgAWAHAAZQByAGkAYwBsAGUAcwBfADIAMAA0ADEAMgAxADAAeAA0AC4AcgBpAHMADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgA0VXNlcnMvY2hyaXNtaXRjaGVsbC9Eb3dubG9hZHMvcGVyaWNsZXNfMjA0MTIxMHg0LnJpcwATAAEvAAAVAAIAFP//AAAACAANABoAJABTAAAAAAAAAgEAAAAAAAAABQAAAAAAAAAAAAAAAAAAAc0=}}
+	Bdsk-Url-2 = {https://doi.org/10.1098/rstb.2006.2001}}
 
 @article{phylopath,
 	Author = {Wouter {van der Bijl}},
@@ -340,8 +504,8 @@
 	Volume = {58},
 	Year = {2004},
 	Year1 = {2004///},
-	Bdsk-Url-1 = {https://liverpool.idm.oclc.org/login?url=https://search.ebscohost.com/login.aspx?direct=true&db=edsjsr&AN=edsjsr.3449385&site=eds-live&scope=site},
-	Bdsk-File-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxA0Li4vLi4vLi4vLi4vRG93bmxvYWRzLzEwLjEwMDdfczExNjkyLTAyMC0wOTUwNS14LnJpc08RAZYAAAAAAZYAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAAAAAABCRAAB/////x4xMC4xMDA3X3MxMTY5Mi0wMjAtMDk1MDUteC5yaXMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////AAAAAAAAAAAAAAAAAAQAAgAACiBjdQAAAAAAAAAAAAAAAAAJRG93bmxvYWRzAAACAD4vOlVzZXJzOmNocmlzbWl0Y2hlbGw6RG93bmxvYWRzOjEwLjEwMDdfczExNjkyLTAyMC0wOTUwNS14LnJpcwAOAD4AHgAxADAALgAxADAAMAA3AF8AcwAxADEANgA5ADIALQAwADIAMAAtADAAOQA1ADAANQAtAHgALgByAGkAcwAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASADxVc2Vycy9jaHJpc21pdGNoZWxsL0Rvd25sb2Fkcy8xMC4xMDA3X3MxMTY5Mi0wMjAtMDk1MDUteC5yaXMAEwABLwAAFQACABT//wAAAAgADQAaACQAWwAAAAAAAAIBAAAAAAAAAAUAAAAAAAAAAAAAAAAAAAH1}}
+	Bdsk-File-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxA0Li4vLi4vLi4vLi4vRG93bmxvYWRzLzEwLjEwMDdfczExNjkyLTAyMC0wOTUwNS14LnJpc08RAZYAAAAAAZYAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAAAAAAABCRAAB/////x4xMC4xMDA3X3MxMTY5Mi0wMjAtMDk1MDUteC5yaXMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////AAAAAAAAAAAAAAAAAAQAAgAACiBjdQAAAAAAAAAAAAAAAAAJRG93bmxvYWRzAAACAD4vOlVzZXJzOmNocmlzbWl0Y2hlbGw6RG93bmxvYWRzOjEwLjEwMDdfczExNjkyLTAyMC0wOTUwNS14LnJpcwAOAD4AHgAxADAALgAxADAAMAA3AF8AcwAxADEANgA5ADIALQAwADIAMAAtADAAOQA1ADAANQAtAHgALgByAGkAcwAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASADxVc2Vycy9jaHJpc21pdGNoZWxsL0Rvd25sb2Fkcy8xMC4xMDA3X3MxMTY5Mi0wMjAtMDk1MDUteC5yaXMAEwABLwAAFQACABT//wAAAAgADQAaACQAWwAAAAAAAAIBAAAAAAAAAAUAAAAAAAAAAAAAAAAAAAH1},
+	Bdsk-Url-1 = {https://liverpool.idm.oclc.org/login?url=https://search.ebscohost.com/login.aspx?direct=true&db=edsjsr&AN=edsjsr.3449385&site=eds-live&scope=site}}
 
 @article{Hone05,
 	Abstract = {Cope's Rule is the tendency for organisms in evolving lineages to increase in size over time. The concept is detailed in many textbooks, but has rarely been demonstrated. Many suggestions of the benefits of large body size exist, but none has yet been confirmed empirically. Using a large-scale analysis of recent studies, Kingsolver and Pfennig have now shown how size benefits survival, mating success and fecundity, and they provide convincing arguments for a mechanism that is capable of driving Cope's Rule.},
@@ -426,8 +590,8 @@
 	Url = {www.jstor.org/stable/24032748},
 	Volume = {67},
 	Year = {2013},
-	Bdsk-Url-1 = {www.jstor.org/stable/24032748},
-	Bdsk-File-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxAtLi4vLi4vLi4vLi4vRG93bmxvYWRzL3BlcmljbGVzXzE1MjA2NTA1MTkucmlzTxEBfAAAAAABfAACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAAAAAAAEJEAAH/////F3BlcmljbGVzXzE1MjA2NTA1MTkucmlzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAAAAAAAAAAAAAABAACAAAKIGN1AAAAAAAAAAAAAAAAAAlEb3dubG9hZHMAAAIANy86VXNlcnM6Y2hyaXNtaXRjaGVsbDpEb3dubG9hZHM6cGVyaWNsZXNfMTUyMDY1MDUxOS5yaXMAAA4AMAAXAHAAZQByAGkAYwBsAGUAcwBfADEANQAyADAANgA1ADAANQAxADkALgByAGkAcwAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASADVVc2Vycy9jaHJpc21pdGNoZWxsL0Rvd25sb2Fkcy9wZXJpY2xlc18xNTIwNjUwNTE5LnJpcwAAEwABLwAAFQACABT//wAAAAgADQAaACQAVAAAAAAAAAIBAAAAAAAAAAUAAAAAAAAAAAAAAAAAAAHU}}
+	Bdsk-File-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxAtLi4vLi4vLi4vLi4vRG93bmxvYWRzL3BlcmljbGVzXzE1MjA2NTA1MTkucmlzTxEBfAAAAAABfAACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAAAAAAAEJEAAH/////F3BlcmljbGVzXzE1MjA2NTA1MTkucmlzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAAAAAAAAAAAAAABAACAAAKIGN1AAAAAAAAAAAAAAAAAAlEb3dubG9hZHMAAAIANy86VXNlcnM6Y2hyaXNtaXRjaGVsbDpEb3dubG9hZHM6cGVyaWNsZXNfMTUyMDY1MDUxOS5yaXMAAA4AMAAXAHAAZQByAGkAYwBsAGUAcwBfADEANQAyADAANgA1ADAANQAxADkALgByAGkAcwAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASADVVc2Vycy9jaHJpc21pdGNoZWxsL0Rvd25sb2Fkcy9wZXJpY2xlc18xNTIwNjUwNTE5LnJpcwAAEwABLwAAFQACABT//wAAAAgADQAaACQAVAAAAAAAAAIBAAAAAAAAAAUAAAAAAAAAAAAAAAAAAAHU},
+	Bdsk-Url-1 = {www.jstor.org/stable/24032748}}
 
 @article{Joy16,
 	Author = {Joy, Jeffrey B. and Liang, Richard H. and McCloskey, Rosemary M. and Nguyen, T. and Poon, Art F. Y.},
@@ -554,8 +718,8 @@
 	Title = {ggimage: Use Image in 'ggplot2'},
 	Url = {https://CRAN.R-project.org/package=ggimage},
 	Year = {2019},
-	Bdsk-Url-1 = {https://CRAN.R-project.org/package=ggimage},
-	Bdsk-File-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxAqLi4vLi4vLi4vLi4vRG93bmxvYWRzLzEwLjIzMDdfMjQwMzI3NDgucmlzTxEBbgAAAAABbgACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAAAAAAAEJEAAH/////FDEwLjIzMDdfMjQwMzI3NDgucmlzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAAAAAAAAAAAAAABAACAAAKIGN1AAAAAAAAAAAAAAAAAAlEb3dubG9hZHMAAAIANC86VXNlcnM6Y2hyaXNtaXRjaGVsbDpEb3dubG9hZHM6MTAuMjMwN18yNDAzMjc0OC5yaXMADgAqABQAMQAwAC4AMgAzADAANwBfADIANAAwADMAMgA3ADQAOAAuAHIAaQBzAA8AGgAMAE0AYQBjAGkAbgB0AG8AcwBoACAASABEABIAMlVzZXJzL2NocmlzbWl0Y2hlbGwvRG93bmxvYWRzLzEwLjIzMDdfMjQwMzI3NDgucmlzABMAAS8AABUAAgAU//8AAAAIAA0AGgAkAFEAAAAAAAACAQAAAAAAAAAFAAAAAAAAAAAAAAAAAAABww==}}
+	Bdsk-File-1 = {YnBsaXN0MDDSAQIDBFxyZWxhdGl2ZVBhdGhZYWxpYXNEYXRhXxAqLi4vLi4vLi4vLi4vRG93bmxvYWRzLzEwLjIzMDdfMjQwMzI3NDgucmlzTxEBbgAAAAABbgACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAAAAAAAEJEAAH/////FDEwLjIzMDdfMjQwMzI3NDgucmlzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP////8AAAAAAAAAAAAAAAAABAACAAAKIGN1AAAAAAAAAAAAAAAAAAlEb3dubG9hZHMAAAIANC86VXNlcnM6Y2hyaXNtaXRjaGVsbDpEb3dubG9hZHM6MTAuMjMwN18yNDAzMjc0OC5yaXMADgAqABQAMQAwAC4AMgAzADAANwBfADIANAAwADMAMgA3ADQAOAAuAHIAaQBzAA8AGgAMAE0AYQBjAGkAbgB0AG8AcwBoACAASABEABIAMlVzZXJzL2NocmlzbWl0Y2hlbGwvRG93bmxvYWRzLzEwLjIzMDdfMjQwMzI3NDgucmlzABMAAS8AABUAAgAU//8AAAAIAA0AGgAkAFEAAAAAAAACAQAAAAAAAAAFAAAAAAAAAAAAAAAAAAABww==},
+	Bdsk-Url-1 = {https://CRAN.R-project.org/package=ggimage}}
 
 @manual{Morgan19,
 	Author = {Martin Morgan},

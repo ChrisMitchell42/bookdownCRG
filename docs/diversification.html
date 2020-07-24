@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>9 Diversification | Comparative Methods Workshops</title>
+  <meta name="description" content="These are the workshops for the Comparative Research Group as part of LIFE363" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="9 Diversification | Comparative Methods Workshops" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are the workshops for the Comparative Research Group as part of LIFE363" />
+  <meta name="github-repo" content="ChrisMitchell42/bookdownCRG" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="9 Diversification | Comparative Methods Workshops" />
+  
+  <meta name="twitter:description" content="These are the workshops for the Comparative Research Group as part of LIFE363" />
+  
+
+<meta name="author" content="Chris Mitchell" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="asr2.html"/>
+<link rel="next" href="w2PGLS.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.16/iframeResizer.min.js" type="text/javascript"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Comparative Research Group</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#for-students"><i class="fa fa-check"></i><b>1.1</b> For students</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-the-comparative-method"><i class="fa fa-check"></i><b>2.1</b> What is the comparative method?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#tree-thinking"><i class="fa fa-check"></i><b>2.2</b> Tree thinking</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="recap.html"><a href="recap.html"><i class="fa fa-check"></i><b>3</b> R recap</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="recap.html"><a href="recap.html#basics"><i class="fa fa-check"></i><b>3.1</b> Basics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="recap.html"><a href="recap.html#plotting"><i class="fa fa-check"></i><b>3.1.1</b> Plotting</a></li>
+<li class="chapter" data-level="3.1.2" data-path="recap.html"><a href="recap.html#the-working-directory"><i class="fa fa-check"></i><b>3.1.2</b> The working directory</a></li>
+<li class="chapter" data-level="3.1.3" data-path="recap.html"><a href="recap.html#loading-data"><i class="fa fa-check"></i><b>3.1.3</b> Loading data</a></li>
+<li class="chapter" data-level="3.1.4" data-path="recap.html"><a href="recap.html#subsetting"><i class="fa fa-check"></i><b>3.1.4</b> Subsetting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="recap.html"><a href="recap.html#errors"><i class="fa fa-check"></i><b>3.2</b> Errors</a></li>
+<li class="chapter" data-level="3.3" data-path="recap.html"><a href="recap.html#google"><i class="fa fa-check"></i><b>3.3</b> Google</a></li>
+<li class="chapter" data-level="3.4" data-path="recap.html"><a href="recap.html#stealing"><i class="fa fa-check"></i><b>3.4</b> Stealing</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="phylogenetics.html"><a href="phylogenetics.html"><i class="fa fa-check"></i><b>4</b> Phylogenetic trees and where to find them</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="phylogenetics.html"><a href="phylogenetics.html#phylogeny"><i class="fa fa-check"></i><b>4.1</b> Phylogeny</a></li>
+<li class="chapter" data-level="4.2" data-path="phylogenetics.html"><a href="phylogenetics.html#building-trees"><i class="fa fa-check"></i><b>4.2</b> Building trees</a></li>
+<li class="chapter" data-level="4.3" data-path="phylogenetics.html"><a href="phylogenetics.html#locating-trees"><i class="fa fa-check"></i><b>4.3</b> Locating trees</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="phylogenetics.html"><a href="phylogenetics.html#file-format"><i class="fa fa-check"></i><b>4.3.1</b> File format</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="w1plotting.html"><a href="w1plotting.html"><i class="fa fa-check"></i><b>5</b> Plotting trees in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="w1plotting.html"><a href="w1plotting.html#phylogenies-in-r"><i class="fa fa-check"></i><b>5.1</b> Phylogenies in R</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="w1plotting.html"><a href="w1plotting.html#packages-used"><i class="fa fa-check"></i><b>5.1.1</b> Packages used</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="w1plotting.html"><a href="w1plotting.html#importing-your-tree"><i class="fa fa-check"></i><b>5.2</b> Importing your tree</a></li>
+<li class="chapter" data-level="5.3" data-path="w1plotting.html"><a href="w1plotting.html#ggtree"><i class="fa fa-check"></i><b>5.3</b> ggtree</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="w1plotting.html"><a href="w1plotting.html#geoms"><i class="fa fa-check"></i><b>5.3.1</b> Geoms</a></li>
+<li class="chapter" data-level="5.3.2" data-path="w1plotting.html"><a href="w1plotting.html#labelling-clades"><i class="fa fa-check"></i><b>5.3.2</b> Labelling clades</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="w1plotting.html"><a href="w1plotting.html#adding-images-to-trees"><i class="fa fa-check"></i><b>5.4</b> Adding images to trees</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="w1plotting.html"><a href="w1plotting.html#phylopic"><i class="fa fa-check"></i><b>5.4.1</b> Phylopic</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="w1plotting.html"><a href="w1plotting.html#further-info"><i class="fa fa-check"></i><b>5.5</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>6</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="anova.html"><a href="anova.html#analysis-of-variance"><i class="fa fa-check"></i><b>6.1</b> Analysis of variance</a></li>
+<li class="chapter" data-level="6.2" data-path="anova.html"><a href="anova.html#phylogenetic-correction"><i class="fa fa-check"></i><b>6.2</b> Phylogenetic correction</a></li>
+<li class="chapter" data-level="6.3" data-path="anova.html"><a href="anova.html#example-data-analysis"><i class="fa fa-check"></i><b>6.3</b> Example data &amp; analysis</a></li>
+<li class="chapter" data-level="6.4" data-path="anova.html"><a href="anova.html#further-info-1"><i class="fa fa-check"></i><b>6.4</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="asr1.html"><a href="asr1.html"><i class="fa fa-check"></i><b>7</b> Ancestral State Reconstruction I</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="asr1.html"><a href="asr1.html#data"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
+<li class="chapter" data-level="7.2" data-path="asr1.html"><a href="asr1.html#trees"><i class="fa fa-check"></i><b>7.2</b> Trees</a></li>
+<li class="chapter" data-level="7.3" data-path="asr1.html"><a href="asr1.html#parsimony"><i class="fa fa-check"></i><b>7.3</b> Parsimony</a></li>
+<li class="chapter" data-level="7.4" data-path="asr1.html"><a href="asr1.html#maximum-likelihood"><i class="fa fa-check"></i><b>7.4</b> Maximum Likelihood</a></li>
+<li class="chapter" data-level="7.5" data-path="asr1.html"><a href="asr1.html#stochastic-character-mapping"><i class="fa fa-check"></i><b>7.5</b> Stochastic Character Mapping</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="asr1.html"><a href="asr1.html#an-analogy"><i class="fa fa-check"></i><b>7.5.1</b> An Analogy</a></li>
+<li class="chapter" data-level="7.5.2" data-path="asr1.html"><a href="asr1.html#state-characters"><i class="fa fa-check"></i><b>7.5.2</b> 2-State Characters</a></li>
+<li class="chapter" data-level="7.5.3" data-path="asr1.html"><a href="asr1.html#state-characters-1"><i class="fa fa-check"></i><b>7.5.3</b> 3-State Characters</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="asr1.html"><a href="asr1.html#further-info-2"><i class="fa fa-check"></i><b>7.6</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="asr2.html"><a href="asr2.html"><i class="fa fa-check"></i><b>8</b> Ancestral State Reconstruction II</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="asr2.html"><a href="asr2.html#data-2"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
+<li class="chapter" data-level="8.2" data-path="asr2.html"><a href="asr2.html#tree"><i class="fa fa-check"></i><b>8.2</b> Tree</a></li>
+<li class="chapter" data-level="8.3" data-path="asr2.html"><a href="asr2.html#ancestral-state-reconstructions"><i class="fa fa-check"></i><b>8.3</b> Ancestral State Reconstructions</a></li>
+<li class="chapter" data-level="8.4" data-path="asr2.html"><a href="asr2.html#bayestraits"><i class="fa fa-check"></i><b>8.4</b> BayesTraits</a></li>
+<li class="chapter" data-level="8.5" data-path="asr2.html"><a href="asr2.html#modelling-evolution"><i class="fa fa-check"></i><b>8.5</b> Modelling Evolution</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="asr2.html"><a href="asr2.html#brownian-motion"><i class="fa fa-check"></i><b>8.5.1</b> Brownian Motion</a></li>
+<li class="chapter" data-level="8.5.2" data-path="asr2.html"><a href="asr2.html#directional-evolution"><i class="fa fa-check"></i><b>8.5.2</b> Directional Evolution</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="asr2.html"><a href="asr2.html#changes-in-the-rate-of-evolution-of-a-trait"><i class="fa fa-check"></i><b>8.6</b> Changes in the rate of evolution of a trait</a></li>
+<li class="chapter" data-level="8.7" data-path="asr2.html"><a href="asr2.html#uncertainty"><i class="fa fa-check"></i><b>8.7</b> Uncertainty</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="asr2.html"><a href="asr2.html#fossils"><i class="fa fa-check"></i><b>8.7.1</b> Fossils</a></li>
+<li class="chapter" data-level="8.7.2" data-path="asr2.html"><a href="asr2.html#revisiting-mysticete-body-mass"><i class="fa fa-check"></i><b>8.7.2</b> Revisiting Mysticete Body Mass</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="asr2.html"><a href="asr2.html#further-info-3"><i class="fa fa-check"></i><b>8.8</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="diversification.html"><a href="diversification.html"><i class="fa fa-check"></i><b>9</b> Diversification</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="diversification.html"><a href="diversification.html#introduction"><i class="fa fa-check"></i><b>9.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="diversification.html"><a href="diversification.html#pure-birth-model"><i class="fa fa-check"></i><b>9.1.1</b> Pure Birth Model</a></li>
+<li class="chapter" data-level="9.1.2" data-path="diversification.html"><a href="diversification.html#the-birth-death-model"><i class="fa fa-check"></i><b>9.1.2</b> The Birth-Death Model</a></li>
+<li class="chapter" data-level="9.1.3" data-path="diversification.html"><a href="diversification.html#the-signature-of-extinction"><i class="fa fa-check"></i><b>9.1.3</b> The signature of extinction</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="diversification.html"><a href="diversification.html#medusa"><i class="fa fa-check"></i><b>9.2</b> MEDUSA</a></li>
+<li class="chapter" data-level="9.3" data-path="diversification.html"><a href="diversification.html#rpanda"><i class="fa fa-check"></i><b>9.3</b> RPANDA</a></li>
+<li class="chapter" data-level="9.4" data-path="diversification.html"><a href="diversification.html#bamm-bammtools"><i class="fa fa-check"></i><b>9.4</b> BAMM &amp; BAMMtools</a></li>
+<li class="chapter" data-level="9.5" data-path="diversification.html"><a href="diversification.html#further-info-4"><i class="fa fa-check"></i><b>9.5</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="w2PGLS.html"><a href="w2PGLS.html"><i class="fa fa-check"></i><b>10</b> Phylogenetic Regression</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="w2PGLS.html"><a href="w2PGLS.html#data-3"><i class="fa fa-check"></i><b>10.1</b> Data</a></li>
+<li class="chapter" data-level="10.2" data-path="w2PGLS.html"><a href="w2PGLS.html#linear-regression"><i class="fa fa-check"></i><b>10.2</b> Linear Regression</a></li>
+<li class="chapter" data-level="10.3" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-signal"><i class="fa fa-check"></i><b>10.3</b> Phylogenetic Signal</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-signal-1"><i class="fa fa-check"></i><b>10.3.1</b> Phylogenetic signal</a></li>
+<li class="chapter" data-level="10.3.2" data-path="w2PGLS.html"><a href="w2PGLS.html#caper"><i class="fa fa-check"></i><b>10.3.2</b> caper</a></li>
+<li class="chapter" data-level="10.3.3" data-path="w2PGLS.html"><a href="w2PGLS.html#estimating-phylogenetic-signal"><i class="fa fa-check"></i><b>10.3.3</b> Estimating Phylogenetic Signal</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-regression"><i class="fa fa-check"></i><b>10.4</b> Phylogenetic Regression</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="w2PGLS.html"><a href="w2PGLS.html#model-checking"><i class="fa fa-check"></i><b>10.4.1</b> Model Checking</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="w2PGLS.html"><a href="w2PGLS.html#conclusion"><i class="fa fa-check"></i><b>10.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="pathanalysis.html"><a href="pathanalysis.html"><i class="fa fa-check"></i><b>11</b> Path Analysis</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="pathanalysis.html"><a href="pathanalysis.html#pgls-regression"><i class="fa fa-check"></i><b>11.1</b> PGLS regression</a></li>
+<li class="chapter" data-level="11.2" data-path="pathanalysis.html"><a href="pathanalysis.html#variance-inflation"><i class="fa fa-check"></i><b>11.2</b> Variance Inflation</a></li>
+<li class="chapter" data-level="11.3" data-path="pathanalysis.html"><a href="pathanalysis.html#path-analysis"><i class="fa fa-check"></i><b>11.3</b> Path Analysis</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="pathanalysis.html"><a href="pathanalysis.html#example"><i class="fa fa-check"></i><b>11.3.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="pathanalysis.html"><a href="pathanalysis.html#conclusion-1"><i class="fa fa-check"></i><b>11.4</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="convergence.html"><a href="convergence.html"><i class="fa fa-check"></i><b>12</b> Studying Convergence</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="convergence.html"><a href="convergence.html#indentifying-convergent-evolution"><i class="fa fa-check"></i><b>12.1</b> Indentifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="convergence.html"><a href="convergence.html#surface"><i class="fa fa-check"></i><b>12.1.1</b> SURFACE</a></li>
+<li class="chapter" data-level="12.1.2" data-path="convergence.html"><a href="convergence.html#a-super-example"><i class="fa fa-check"></i><b>12.1.2</b> A Super Example</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="convergence.html"><a href="convergence.html#quantifying-convergent-evolution"><i class="fa fa-check"></i><b>12.2</b> Quantifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="convergence.html"><a href="convergence.html#the-wheatsheaf-index"><i class="fa fa-check"></i><b>12.2.1</b> The Wheatsheaf Index</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="convergence.html"><a href="convergence.html#further-info-5"><i class="fa fa-check"></i><b>12.3</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>13</b> Bibliography</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Comparative Methods Workshops</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="diversification" class="section level1" number="9">
+<h1><span class="header-section-number">9</span> Diversification</h1>
+<div id="introduction" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Introduction</h2>
+<p>Phylogenetic comparative methods can be used to study the diversification of lineages over time. This can be particularly useful when studying adaptive radiations which are thought to change the rate of speciation. This chapter will begin by studying some diversification models.</p>
+<div id="pure-birth-model" class="section level3" number="9.1.1">
+<h3><span class="header-section-number">9.1.1</span> Pure Birth Model</h3>
+<p>The simplest form of diversification model is a <strong>pure birth</strong> model. Under this model, each lineage has a constant probability of speciating. This probability gives us the <strong>birth rate</strong> (<em>b</em>). Over time (<em>t</em>), lineages will speciate and thus the number of lineages (<em>N</em>) will increase exponentially.</p>
+<p><span class="math display">\[ N_{(t)} = N_{(0)}e^{bt} \]</span>
+This plot shows how the number of species would grow over time. Note that in this model, there is no extinction and so the exponential increase is because each speciation event produces two daughter lineages which each can then speciate with probabilty <em>b</em>, creating two more daughter lineages each and so on.
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-135-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>As you can probably tell, the pure birth model is not a very good representation of biological reality. For example, today there are around 90 species of cetacean. A pure birth model in which we have conservatively <em>b</em> set at 0.5 (meaning we have 0.5 new species born every million years) would give us 4.67 x 10<sup>23</sup> species of cetacean in 100 million years.</p>
+<p>In fact, those 90 species have arsien in around 50 million years so ignoring fossils the rate would be something more like 1.8. That would give us 5.9 x 10<sup>9</sup> in just 10 million years and 1.34 x 10<sup>80</sup> species in 100 million years!</p>
+</div>
+<div id="the-birth-death-model" class="section level3" number="9.1.2">
+<h3><span class="header-section-number">9.1.2</span> The Birth-Death Model</h3>
+<p>The <strong>birth-death</strong> model incorporates extinction as well as speciation. Under the simplest form of this model, speciation and extinction occur randomly. Each lineage is assumed to have a constant rate of speciation (<em>b</em>) and extinction (<em>d</em>). Under this model, the number of lineages will increase exponentially with the difference between birth and death rate (<em>b - d</em>).</p>
+<p><span class="math display">\[ N_{(t)} = N_{(0)}e^{(b-d)t} \]</span>
+This graph shows the change in number of taxa over time when the birth rate slightly exceeds death rate.
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-136-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="the-signature-of-extinction" class="section level3" number="9.1.3">
+<h3><span class="header-section-number">9.1.3</span> The signature of extinction</h3>
+<p>Let’s investigate the differences between pure birth and birth-death models by simulating some trees.</p>
+<p>The function <strong>sim.bd.age</strong> in the package <strong>TreeSim</strong> <span class="citation">(Stadler <a href="#ref-treesim" role="doc-biblioref">2019</a>)</span> allows us to simulate birth-death trees with a fixed age. First we will set the birth rate <span class="math inline">\(\lambda\)</span> to 0.4 and the death rate <span class="math inline">\(\mu\)</span> to 0 as this is a pure-birth tree. Note that these were <em>b</em> and <em>d</em> in the previous sections but <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\mu\)</span> are widely used.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="diversification.html#cb164-1"></a><span class="kw">library</span>(ape)</span>
+<span id="cb164-2"><a href="diversification.html#cb164-2"></a><span class="kw">library</span>(TreeSim)</span>
+<span id="cb164-3"><a href="diversification.html#cb164-3"></a>tree1 &lt;-<span class="st"> </span><span class="kw">sim.bd.age</span>(<span class="dt">age =</span> <span class="dv">10</span>, <span class="dt">numbsim =</span> <span class="dv">1</span>, <span class="dt">lambda =</span> <span class="fl">0.4</span>, <span class="dt">mu =</span> <span class="dv">0</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb164-4"><a href="diversification.html#cb164-4"></a>ggtree<span class="op">::</span><span class="kw">ggtree</span>(tree1)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-138-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>If you run this command yourself, your tree will look different simply because the simulations will differ each time.</p>
+<p>We can plot the pattern of lineage accumulation through time with a lineage-through-time plot. This can be plotted using the function <strong>ltt.plot</strong> in ape <span class="citation">(Paradis and Schliep <a href="#ref-ape" role="doc-biblioref">2018</a>)</span>. Note that because of the expectation of exponential growth, we should log scale the y-axis</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="diversification.html#cb165-1"></a><span class="kw">ltt.plot</span>(tree1, <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-139-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>As can be seen from this plot, the increase in lineages over time will be log-linear, just as predicted in previous sections.</p>
+<p>What about when we add extinction? We can see here that pure-birth and birth-death trees look quite different.</p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-140-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="medusa" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> MEDUSA</h2>
+<p>The general birth-death models you have seen so far produce a fairly uniform tree of life. In reality, this isn’t actually what we observe. Some clades are highly diverse (such as arthropods) and some are not. Understanding the patterns of diversification is what we will attempt to do with the methods available here.</p>
+<p><strong>MEDUSA</strong> stands for Modelling Evolutionary Diversification Using Stepwise AIC <span class="citation">(Alfaro et al. <a href="#ref-Alfaro09" role="doc-biblioref">2009</a>)</span>. It fits piecewise models of birth and death to our tree and allows to ask where rates of birth and death may have changed and why clades might differ in size.</p>
+<p>MEDUSA fits models to the tree, splitting the tree and allowing the rate to change at each split. The method proceeds by comparing the old model to the new model using AICc to either accept of reject the shift in rate.</p>
+<p>Let’s see how it works using a phylogeny of cetaceans.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="diversification.html#cb166-1"></a>whales &lt;-<span class="st"> </span>ape<span class="op">::</span><span class="kw">read.tree</span>(<span class="st">&quot;whaletree.tre&quot;</span>)</span></code></pre></div>
+<p>We can run the analysis using the <strong>medusa</strong> function in geiger <span class="citation">(Harmon et al. <a href="#ref-geiger" role="doc-biblioref">2008</a>)</span>. All we have to specify here is the tree <em>phy = whales</em> and that we want to fit birth-death models <em>model = “bd”</em>.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="diversification.html#cb167-1"></a><span class="kw">library</span>(geiger)</span>
+<span id="cb167-2"><a href="diversification.html#cb167-2"></a>m1 &lt;-<span class="st"> </span><span class="kw">medusa</span>(<span class="dt">phy =</span> whales, <span class="dt">model =</span> <span class="st">&quot;bd&quot;</span>)</span></code></pre></div>
+<pre><code>Appropriate  aicc-threshold for a tree of 87 tips is: 4.397737.
+
+Step 1: lnLik=-277.6943; aicc=559.4591; model=bd
+Step 2: lnLik=-266.7389; aicc=543.8371; shift at node 141; model=bd; cut=stem; # shifts=1
+
+No significant increase in aicc score. Disregarding subsequent piecewise models.
+
+Calculating profile likelihoods on parameter values.
+
+  Model.ID Shift.Node Cut.At Model Ln.Lik.part        r     epsilon     r.low
+1        1         88   node    bd   -185.5379 0.076678 1.50783e-08 0.0576867
+2        2        141   stem    bd   -81.20097 0.232141 4.73531e-06 0.1616522
+     r.high eps.low  eps.high
+1 0.0994803       0 0.2537393
+2 0.3204785       0 0.2713275</code></pre>
+<p>There’s a lot of information in this output so let’s go through it. Firstly, we are told that the appropriate AICc threshold for a tree of this size is 4.4. You may be used to using a change of 2 in AIC as signifiying a significant difference between models. The appropriate threshold for distinguishing between models using MEDUSA varies depending on the size of the tree. Fortunately, the function simply calculates it and reports it to us.</p>
+<p>Next we have the stepwise output. In this case we only have 2 steps. Each step is reported to us and in this case, we can see that step 2 involves cutting the tree at node 141. This means that <em>medusa</em> has identfied a change in model at node 141 and continued with the new model from that node.</p>
+<p>Finally, the table gives us parameter values for each step. This is very important in interpreting the output. Note that <em>epsilon</em> is the extinction rate, previously known as either <em>d</em> or <span class="math inline">\(\mu\)</span> and <em>r</em> is the net diversification rate (<span class="math inline">\(\lambda - \mu\)</span>).</p>
+<p>The best way to visualise this analysis is by plotting the models on the tree. When we do so we can see that <em>medusa</em> has placed the shift near the root of the Delphinidae (excluding interestingly the orca). We can see that the rate of speciation is much greater in the oceanic dolphins.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="diversification.html#cb169-1"></a><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="fl">3.1</span>, <span class="dv">0</span>, <span class="fl">0.1</span>, <span class="dv">0</span>))</span>
+<span id="cb169-2"><a href="diversification.html#cb169-2"></a><span class="kw">plot</span>(m1, <span class="dt">label.offset =</span> <span class="fl">0.1</span>)</span>
+<span id="cb169-3"><a href="diversification.html#cb169-3"></a><span class="kw">legend</span>(<span class="dt">x =</span> <span class="fl">-0.5</span>, <span class="dt">y =</span> <span class="dv">60</span>, <span class="dt">legend=</span><span class="st">&quot;r = 0.08&quot;</span>,</span>
+<span id="cb169-4"><a href="diversification.html#cb169-4"></a>       <span class="dt">text.col=</span><span class="st">&quot;Black&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Step 1&quot;</span>)</span>
+<span id="cb169-5"><a href="diversification.html#cb169-5"></a><span class="kw">legend</span>(<span class="dt">x =</span> <span class="dv">15</span>, <span class="dt">y =</span> <span class="dv">75</span>, <span class="dt">legend=</span><span class="st">&quot;r = 0.23&quot;</span>,</span>
+<span id="cb169-6"><a href="diversification.html#cb169-6"></a>       <span class="dt">text.col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Step 2&quot;</span>, <span class="dt">box.col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-145-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="rpanda" class="section level2" number="9.3">
+<h2><span class="header-section-number">9.3</span> RPANDA</h2>
+<p>The package <strong>RPANDA</strong> <span class="citation">(Morlon et al. <a href="#ref-rpanda" role="doc-biblioref">2016</a>)</span> allows us to fit different models of variation in the rate of birth and death through time. We can then select the best model by maximum likelihood.</p>
+<p>The first step is to define a few functions that describe our hypotheses. First we need to define speciation rate (<span class="math inline">\(\lambda\)</span>) as either constant (<strong>lambda.cst</strong>) or varying exponentially (<strong>lambda.var</strong>). We can do the same for extinction rate (<span class="math inline">\(\mu\)</span>).</p>
+<p><span class="math display">\[ \lambda_{(t)} = \lambda_{(0)}e^{\alpha t} \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;  \mu_{(t)} = \mu_{(0)}e^{\beta t} \]</span></p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="diversification.html#cb170-1"></a>lambda.cst &lt;-<span class="st"> </span><span class="cf">function</span>(x,y){y}</span>
+<span id="cb170-2"><a href="diversification.html#cb170-2"></a>lambda.var &lt;-<span class="st"> </span><span class="cf">function</span>(x,y){y[<span class="dv">1</span>]<span class="op">*</span><span class="kw">exp</span>(y[<span class="dv">2</span>]<span class="op">*</span>x)}</span>
+<span id="cb170-3"><a href="diversification.html#cb170-3"></a>mu.cst &lt;-<span class="st"> </span><span class="cf">function</span>(x,y){y}</span>
+<span id="cb170-4"><a href="diversification.html#cb170-4"></a>mu.var &lt;-<span class="st"> </span><span class="cf">function</span>(x,y){y[<span class="dv">1</span>]<span class="op">*</span><span class="kw">exp</span>(y[<span class="dv">2</span>]<span class="op">*</span>x)}</span></code></pre></div>
+<p>We will test 4 different combinations of these scenarios. I find it easier to visualise models like this graphically so these plots describe the various models.</p>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-148-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>In RPANDA, we need to know ahead of time which clades are most likely to have similar diversification regimes. For this example, we will look at cetaceans. There are 4 major radiations of cetaceans to look at. These are; <em>Balaenopteridae, Ziphidae, Phocoenidae</em> and <em>Delphinidae</em>.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="diversification.html#cb171-1"></a>whales &lt;-<span class="st"> </span>ape<span class="op">::</span><span class="kw">read.tree</span>(<span class="st">&quot;whaletree.tre&quot;</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-150-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We can extract the relevant sub-trees using <strong>extract.clade</strong> in <strong>ape</strong> <span class="citation">(Paradis and Schliep <a href="#ref-ape" role="doc-biblioref">2018</a>)</span> in combination with <strong>MRCA</strong> in <strong>phylobase</strong> <span class="citation">(R Hackathon et al. <a href="#ref-phylobase" role="doc-biblioref">2019</a>)</span>. Don’t forget to also make another subtree of all the species not in those groups.</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="diversification.html#cb172-1"></a>delphinidae.tree &lt;-<span class="st"> </span><span class="kw">extract.clade</span>(whales, <span class="dt">node =</span> phylobase<span class="op">::</span><span class="kw">MRCA</span>(whales, <span class="dt">tip =</span> <span class="kw">c</span>(<span class="st">&quot;Orcinus_orca&quot;</span>, <span class="st">&quot;Delphinus_delphis&quot;</span>)))</span>
+<span id="cb172-2"><a href="diversification.html#cb172-2"></a>phocoenidae.tree &lt;-<span class="st"> </span><span class="kw">extract.clade</span>(whales, <span class="dt">node =</span> phylobase<span class="op">::</span><span class="kw">MRCA</span>(whales, <span class="dt">tip =</span> <span class="kw">c</span>(<span class="st">&quot;Phocoena_dioptrica&quot;</span>, <span class="st">&quot;Phocoena_phocoena&quot;</span>)))</span>
+<span id="cb172-3"><a href="diversification.html#cb172-3"></a>ziphidae.tree &lt;-<span class="st"> </span><span class="kw">extract.clade</span>(whales, <span class="dt">node =</span> phylobase<span class="op">::</span><span class="kw">MRCA</span>(whales, <span class="dt">tip =</span> <span class="kw">c</span>(<span class="st">&quot;Mesoplodon_grayi&quot;</span>, <span class="st">&quot;Tasmacetus_shepherdi&quot;</span>)))</span>
+<span id="cb172-4"><a href="diversification.html#cb172-4"></a>balaenopteridae.tree &lt;-<span class="st"> </span><span class="kw">extract.clade</span>(whales, <span class="dt">node =</span> phylobase<span class="op">::</span><span class="kw">MRCA</span>(whales, <span class="dt">tip =</span> <span class="kw">c</span>(<span class="st">&quot;Balaenoptera_physalus&quot;</span>, <span class="st">&quot;Balaenoptera_edeni&quot;</span>)))</span>
+<span id="cb172-5"><a href="diversification.html#cb172-5"></a></span>
+<span id="cb172-6"><a href="diversification.html#cb172-6"></a>othercetaceans.tree &lt;-<span class="st"> </span><span class="kw">drop.tip</span>(whales,<span class="kw">c</span>(balaenopteridae.tree<span class="op">$</span>tip.label,</span>
+<span id="cb172-7"><a href="diversification.html#cb172-7"></a>                                         delphinidae.tree<span class="op">$</span>tip.label, </span>
+<span id="cb172-8"><a href="diversification.html#cb172-8"></a>                                         phocoenidae.tree<span class="op">$</span>tip.label, </span>
+<span id="cb172-9"><a href="diversification.html#cb172-9"></a>                                         ziphidae.tree<span class="op">$</span>tip.label))</span></code></pre></div>
+<p>Now we can fit some birth-death models! Let’s start with both parameters constant (<strong>bcstdcst</strong>). The function we need is <strong>fit_bd</strong>. This function requires a lot of information so let’s take it slowly.</p>
+<p>The first argument is just our tree (<em>phylo</em>). Then we need to include the total length of the tree (<em>tot_time</em>). We don’t know this offhand but we can calculate it using <strong>max(branching.times(TREE))</strong>. The arguments <em>f.lamb</em> and <em>f.mu</em> take our previously defined functions for <span class="math inline">\(\lambda\)</span> (birth rate) and <span class="math inline">\(\mu\)</span> (death rate). <em>lamb_par</em> and <em>mu_par</em> similarly take our initial values for <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\mu\)</span> which here, will be 0.4 and 0 respectively. <strong>cst.lamb</strong> and <strong>cst.mu</strong> are both logical (they can be true or false) and ask if <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\mu\)</span> are constant (they are). The argument <em>f</em> is the fraction of extant species included in the whole phylogeny. Here we have 87 out of the 89 cetacean species. Finally, <strong>dt</strong> is set to the recommended value in the vignette for the function. In short, <strong>dt</strong> is the length of the time interval on which functions are assumed to be constant. Smaller values mean a finer-grain analysis and longer computing times. Larger values mean the analysis will be quicker but lower resolution.</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="diversification.html#cb173-1"></a><span class="kw">library</span>(RPANDA)</span>
+<span id="cb173-2"><a href="diversification.html#cb173-2"></a>bcstdcst &lt;-<span class="st"> </span><span class="kw">fit_bd</span>(<span class="dt">phylo =</span> delphinidae.tree, </span>
+<span id="cb173-3"><a href="diversification.html#cb173-3"></a>                   <span class="dt">tot_time =</span> <span class="kw">max</span>(<span class="kw">branching.times</span>(delphinidae.tree)),</span>
+<span id="cb173-4"><a href="diversification.html#cb173-4"></a>                   <span class="dt">f.lamb =</span> lambda.cst,</span>
+<span id="cb173-5"><a href="diversification.html#cb173-5"></a>                   <span class="dt">f.mu =</span> mu.cst,</span>
+<span id="cb173-6"><a href="diversification.html#cb173-6"></a>                   <span class="dt">lamb_par =</span> <span class="fl">0.4</span>,</span>
+<span id="cb173-7"><a href="diversification.html#cb173-7"></a>                   <span class="dt">mu_par =</span> <span class="dv">0</span>,</span>
+<span id="cb173-8"><a href="diversification.html#cb173-8"></a>                   <span class="dt">cst.lamb =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb173-9"><a href="diversification.html#cb173-9"></a>                   <span class="dt">cst.mu =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb173-10"><a href="diversification.html#cb173-10"></a>                   <span class="dt">f =</span> <span class="dv">87</span><span class="op">/</span><span class="dv">89</span>,</span>
+<span id="cb173-11"><a href="diversification.html#cb173-11"></a>                   <span class="dt">dt =</span> <span class="fl">1e-3</span>)</span></code></pre></div>
+<p>The analysis has returned a number of details. Most importantly for us, the likelihood and AICc will allow for model comparison.</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="diversification.html#cb174-1"></a>bcstdcst</span></code></pre></div>
+<pre><code>model :
+[1] &quot;birth death&quot;
+
+LH :
+[1] -83.51998
+
+aicc :
+[1] 171.415
+
+lamb_par :
+[1] 0.2189443
+
+mu_par :
+[1] 2.413309e-09</code></pre>
+<p>Let’s now evaluate the other 3 models.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="diversification.html#cb176-1"></a>bvardcst &lt;-<span class="st"> </span><span class="kw">fit_bd</span>(<span class="dt">phylo =</span> delphinidae.tree, </span>
+<span id="cb176-2"><a href="diversification.html#cb176-2"></a>                   <span class="dt">tot_time =</span> <span class="kw">max</span>(<span class="kw">branching.times</span>(delphinidae.tree)),</span>
+<span id="cb176-3"><a href="diversification.html#cb176-3"></a>                   <span class="dt">f.lamb =</span> lambda.var, <span class="dt">f.mu =</span> mu.cst,</span>
+<span id="cb176-4"><a href="diversification.html#cb176-4"></a>                   <span class="dt">lamb_par =</span> <span class="kw">c</span>(<span class="fl">0.4</span>,<span class="op">-</span><span class="fl">0.05</span>), <span class="dt">mu_par =</span> <span class="dv">0</span>,</span>
+<span id="cb176-5"><a href="diversification.html#cb176-5"></a>                   <span class="dt">expo.lamb =</span> <span class="ot">TRUE</span>, <span class="dt">cst.mu =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb176-6"><a href="diversification.html#cb176-6"></a>                   <span class="dt">f =</span> <span class="dv">87</span><span class="op">/</span><span class="dv">89</span>, <span class="dt">dt =</span> <span class="fl">1e-3</span>)</span>
+<span id="cb176-7"><a href="diversification.html#cb176-7"></a>bcstdvar &lt;-<span class="st"> </span><span class="kw">fit_bd</span>(<span class="dt">phylo =</span> delphinidae.tree, </span>
+<span id="cb176-8"><a href="diversification.html#cb176-8"></a>                   <span class="dt">tot_time =</span> <span class="kw">max</span>(<span class="kw">branching.times</span>(delphinidae.tree)),</span>
+<span id="cb176-9"><a href="diversification.html#cb176-9"></a>                   <span class="dt">f.lamb =</span> lambda.cst, <span class="dt">f.mu =</span> mu.var,</span>
+<span id="cb176-10"><a href="diversification.html#cb176-10"></a>                   <span class="dt">lamb_par =</span> <span class="fl">0.4</span>, <span class="dt">mu_par =</span> <span class="kw">c</span>(<span class="fl">0.1</span>,<span class="fl">0.05</span>),</span>
+<span id="cb176-11"><a href="diversification.html#cb176-11"></a>                   <span class="dt">cst.lamb =</span> <span class="ot">TRUE</span>, <span class="dt">expo.mu =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb176-12"><a href="diversification.html#cb176-12"></a>                   <span class="dt">f =</span> <span class="dv">87</span><span class="op">/</span><span class="dv">89</span>, <span class="dt">dt =</span> <span class="fl">1e-3</span>)</span>
+<span id="cb176-13"><a href="diversification.html#cb176-13"></a>bvardvar &lt;-<span class="st"> </span><span class="kw">fit_bd</span>(<span class="dt">phylo =</span> delphinidae.tree, </span>
+<span id="cb176-14"><a href="diversification.html#cb176-14"></a>                   <span class="dt">tot_time =</span> <span class="kw">max</span>(<span class="kw">branching.times</span>(delphinidae.tree)),</span>
+<span id="cb176-15"><a href="diversification.html#cb176-15"></a>                   <span class="dt">f.lamb =</span> lambda.var, <span class="dt">f.mu =</span> mu.var,</span>
+<span id="cb176-16"><a href="diversification.html#cb176-16"></a>                   <span class="dt">lamb_par =</span> <span class="kw">c</span>(<span class="fl">0.4</span>, <span class="fl">-0.05</span>), <span class="dt">mu_par =</span> <span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.05</span>),</span>
+<span id="cb176-17"><a href="diversification.html#cb176-17"></a>                   <span class="dt">expo.lamb =</span> <span class="ot">TRUE</span>, <span class="dt">expo.mu =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb176-18"><a href="diversification.html#cb176-18"></a>                   <span class="dt">f =</span> <span class="dv">87</span><span class="op">/</span><span class="dv">89</span>, <span class="dt">dt =</span> <span class="fl">1e-3</span>)</span></code></pre></div>
+<p>We can put together a nice table to present the results. But in truth, all we really need is the AICc so pay close attention to that.</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="diversification.html#cb177-1"></a>results &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;bcstdcst&quot;</span> =<span class="st"> </span><span class="kw">c</span>(bcstdcst<span class="op">$</span>LH[<span class="dv">1</span>], bcstdcst<span class="op">$</span>aicc[<span class="dv">1</span>]),</span>
+<span id="cb177-2"><a href="diversification.html#cb177-2"></a>                      <span class="st">&quot;bvardcst&quot;</span> =<span class="st"> </span><span class="kw">c</span>(bvardcst<span class="op">$</span>LH[<span class="dv">1</span>], bvardcst<span class="op">$</span>aicc[<span class="dv">1</span>]),</span>
+<span id="cb177-3"><a href="diversification.html#cb177-3"></a>                      <span class="st">&quot;bcstdvar&quot;</span> =<span class="st"> </span><span class="kw">c</span>(bcstdvar<span class="op">$</span>LH[<span class="dv">1</span>], bcstdvar<span class="op">$</span>aicc[<span class="dv">1</span>]),</span>
+<span id="cb177-4"><a href="diversification.html#cb177-4"></a>                      <span class="st">&quot;bvardvar&quot;</span> =<span class="st"> </span><span class="kw">c</span>(bvardvar<span class="op">$</span>LH[<span class="dv">1</span>], bvardvar<span class="op">$</span>aicc[<span class="dv">1</span>]))</span>
+<span id="cb177-5"><a href="diversification.html#cb177-5"></a><span class="kw">rownames</span>(results) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;LH&quot;</span>, <span class="st">&quot;AICc&quot;</span>)</span>
+<span id="cb177-6"><a href="diversification.html#cb177-6"></a>knitr<span class="op">::</span><span class="kw">kable</span>(results)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">bcstdcst</th>
+<th align="right">bvardcst</th>
+<th align="right">bcstdvar</th>
+<th align="right">bvardvar</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">LH</td>
+<td align="right">-83.51998</td>
+<td align="right">-81.62979</td>
+<td align="right">-81.93556</td>
+<td align="right">-80.99625</td>
+</tr>
+<tr class="even">
+<td align="left">AICc</td>
+<td align="right">171.41497</td>
+<td align="right">170.03377</td>
+<td align="right">170.64532</td>
+<td align="right">171.32584</td>
+</tr>
+</tbody>
+</table>
+<p>The table shows us that the best AICc for Delphinidae is the <em>bvardcst</em> model, although there’s barely anything in it. You may note that by a mathematical quirk (see the help for this function for details) the <span class="math inline">\(\mu\)</span> for this model is negative. Clearly this can’t be the case! This can happen sometimes with this calaculation but all rates should be interpreted as <em>absolute</em> values. In other words, ignore the sign.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="diversification.html#cb178-1"></a>bvardcst<span class="op">$</span>mu_par</span></code></pre></div>
+<pre><code>[1] -1.521115e-07</code></pre>
+<p>Next up, we need to evaluate the other sub-trees. To do this the way I’ve done above would take a lot of time and code. So I’m going to use a shortcut and write a function to run it all for me. The full code to do this is taken from <a href="http://lukejharmon.github.io/ilhabela/instruction/2015/07/02/diversification-analysis-bamm-rpanda/#rpanda" title="harmon">this</a> online exercise. The code to extract the results is also available there. It’s not shown here to keep things clear.</p>
+<p>As before, the first thing to look at is the AICc scores for each model and each tree. We need to select the best model for each sub-tree by choosing the AICc closest to 0.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-159">Table 9.1: </span>AICc scores for 4 different birth-death models fitted to five cetacean sub-trees.</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Balaenopteridae</th>
+<th align="right">Delphinidae</th>
+<th align="right">Phocoenidae</th>
+<th align="right">Ziphidae</th>
+<th align="right">Other Cetaceans</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">bcstdcst</td>
+<td align="right">56.73336</td>
+<td align="right">171.4150</td>
+<td align="right">31.79207</td>
+<td align="right">132.6440</td>
+<td align="right">119.4690</td>
+</tr>
+<tr class="even">
+<td align="left">bvardcst</td>
+<td align="right">58.44456</td>
+<td align="right">170.0338</td>
+<td align="right">34.13348</td>
+<td align="right">130.1843</td>
+<td align="right">117.5562</td>
+</tr>
+<tr class="odd">
+<td align="left">bcstdvar</td>
+<td align="right">58.32515</td>
+<td align="right">170.6453</td>
+<td align="right">41.79207</td>
+<td align="right">127.6094</td>
+<td align="right">115.3723</td>
+</tr>
+<tr class="even">
+<td align="left">bvardvar</td>
+<td align="right">65.67244</td>
+<td align="right">171.3258</td>
+<td align="right">64.13348</td>
+<td align="right">133.2251</td>
+<td align="right">118.9789</td>
+</tr>
+</tbody>
+</table>
+<p>The final step is to look at the extracted parameters from the favoured models. The top two rows show birth rates and the bottom two show death rates. Where two values are given for a parameter, remember this is because the rate was variable in the model. The first value is the maximum parameter estimate at time <span class="math inline">\(t = 0\)</span> (the present). The second value is the rate of change of the parameter running from the present into the past.</p>
+<table>
+<caption><span id="tab:unnamed-chunk-160">Table 9.2: </span>Estimates of speciation and extinction rates from birth-death modelling of cetacean evolution</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Balaenopteridae</th>
+<th align="right">Delphinidae</th>
+<th align="right">Phocoenidae</th>
+<th align="right">Ziphidae</th>
+<th align="right">Other.Cetaceans</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">lambda</td>
+<td align="right">0.0734308</td>
+<td align="right">0.1405102</td>
+<td align="right">0.1410234</td>
+<td align="right">0.0948515</td>
+<td align="right">0.1857764</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">0.1257642</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">mu</td>
+<td align="right">0.0000000</td>
+<td align="right">-0.0000002</td>
+<td align="right">-0.0000001</td>
+<td align="right">0.0000001</td>
+<td align="right">0.8313274</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">-0.1742352</td>
+</tr>
+</tbody>
+</table>
+<p>Focusing in on the Delphinidae tree again, we can begin to plot some interesting features. The function <strong>plot_fit_bd</strong> will produce three plots describing the speciation, extinction and diversification rates through time.</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="diversification.html#cb180-1"></a><span class="kw">plot_fit_bd</span>(results<span class="op">$</span>delphinidae.res<span class="op">$</span>bvardcst, <span class="kw">max</span>(<span class="kw">branching.times</span>(delphinidae.tree)))</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-163-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>The function <strong>plot_dtt</strong> will produce a plot of diversity through time. Here we can see how Delphinidae diversity has increased over the tree.</p>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="diversification.html#cb181-1"></a><span class="kw">plot_dtt</span>(results<span class="op">$</span>delphinidae.res<span class="op">$</span>bvardcst, </span>
+<span id="cb181-2"><a href="diversification.html#cb181-2"></a>         <span class="kw">max</span>(<span class="kw">branching.times</span>(delphinidae.tree)), </span>
+<span id="cb181-3"><a href="diversification.html#cb181-3"></a>         <span class="dt">N0 =</span> <span class="kw">Ntip</span>(delphinidae.tree))</span></code></pre></div>
+<p>Let’s compare the diversification in all the lineages we’ve analysed. To do so, we would need to edit the <strong>plot_dtt</strong> function. Like so much else, this has already been done for us and the code can be found <a href="http://lukejharmon.github.io/ilhabela/instruction/2015/07/02/diversification-analysis-bamm-rpanda/#rpanda" title="harmon">here</a>.</p>
+<p><img src="Images/Diversityplot.png" width="2738" style="display: block; margin: auto;" /></p>
+<p>We can see the rise of each lineage with the start of each line. We can begin to pick out patterns of interest. For example, the diversity of “other cetaceans” increases markedly but begins to decline just as Delphinidae begin to diversify. We can also see that the rate of diversification of Delphinidae is greater than other lineages, perhaps suggesting we might like to look at why the oceanic dolphins diversified so quickly!</p>
+</div>
+<div id="bamm-bammtools" class="section level2" number="9.4">
+<h2><span class="header-section-number">9.4</span> BAMM &amp; BAMMtools</h2>
+<p><strong>BAMM</strong> stands for Bayesian Analysis of Macroevolutionary Mixtures and is an open source piece of software. BAMM uses a process called reversible-jump Markov Chain Monte-Carlo (rjMCMC) simulation to estimate diversification <span class="citation">(Rabosky <a href="#ref-Rabosky14" role="doc-biblioref">2014</a>)</span>. The software and accompanying documentation can be found <a href="http://bamm-project.org/" title="bamm">here</a>.</p>
+<p>To use BAMM, you must first download the program following <a href="http://bamm-project.org/download.html" title="bamm2">these instructions</a>. For this demonstration, we will use the same cetacean tree we have been using in this chapter as well as some pre-prepared instructions for BAMM to run. Both are available <a href="http://lukejharmon.github.io/ilhabela/instruction/2015/07/02/diversification-analysis-bamm-rpanda/#rpanda" title="harmon">here</a>.</p>
+<p>Run the analysis by storing your tree and the <em>divcontrol.txt</em> file in the same directory as BAMM and then run this command for your terminal.</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="diversification.html#cb182-1"></a>.<span class="op">/</span>bamm <span class="op">-</span>c divcontrol.txt</span></code></pre></div>
+<p>Once run, you should see a number of files appear in the same directory. This is your output and this is where <strong>BAMMtools</strong> comes in <span class="citation">(Rabosky et al. <a href="#ref-bammtools" role="doc-biblioref">2014</a>)</span>. BAMMtools is a package designed to interpret the outputs of BAMM analyses. Let’s see how it works.</p>
+<p>The file to import into R is the <em>event_data.txt</em> file stored in the BAMM directory.</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="diversification.html#cb183-1"></a><span class="kw">library</span>(BAMMtools)</span>
+<span id="cb183-2"><a href="diversification.html#cb183-2"></a>events &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;event_data.txt&quot;</span>)</span></code></pre></div>
+<p>For this demonstration, I will load the example data from the package. It ran on the same tree but is from a longer MCMC chain and so likely to be more informative as well as being a closer representation of what you are likely to want to run.</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="diversification.html#cb184-1"></a><span class="kw">data</span>(whales, events.whales)</span></code></pre></div>
+<p>We use the function <strong>getEventData</strong> to extract the relevant data from the report. This creates an object of class <strong>bammdata</strong> which is essential for most functions in BAMMtools.</p>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="diversification.html#cb185-1"></a>ed &lt;-<span class="st"> </span><span class="kw">getEventData</span>(whales, events.whales, <span class="dt">burnin =</span> <span class="fl">0.25</span>)</span></code></pre></div>
+<pre><code>Processing event data from data.frame
+
+Discarded as burnin: GENERATIONS &lt;  2495000
+Analyzing  1501  samples from posterior
+
+Setting recursive sequence on tree...
+
+Done with recursive sequence</code></pre>
+<p>You are certainly going to want to plot your analysis. We can do so by using the function <strong>plot.bammdata</strong>.</p>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="diversification.html#cb187-1"></a><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb187-2"><a href="diversification.html#cb187-2"></a>bamm.whales &lt;-<span class="st"> </span><span class="kw">plot.bammdata</span>(ed, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">labels =</span> T, <span class="dt">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb187-3"><a href="diversification.html#cb187-3"></a><span class="kw">addBAMMshifts</span>(ed, <span class="dt">cex=</span><span class="dv">2</span>)</span>
+<span id="cb187-4"><a href="diversification.html#cb187-4"></a><span class="kw">addBAMMlegend</span>(bamm.whales, <span class="dt">nTicks =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-172-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>BAMM has clearly identified a shift early in the history of Delphinidae, matching some other methods we’ve used. Also in this plot, we can see a potentially spurious shift on the branch leading to <em>Lipotes vexillifer</em>. Remember that this is just one sample from the posterior distribution and another one would be different. The colour of the branches tells us the story of the whole sample.</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="diversification.html#cb188-1"></a><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb188-2"><a href="diversification.html#cb188-2"></a>bamm.whales &lt;-<span class="st"> </span><span class="kw">plot.bammdata</span>(ed, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">labels =</span> T, <span class="dt">cex =</span> <span class="fl">0.5</span>)</span>
+<span id="cb188-3"><a href="diversification.html#cb188-3"></a><span class="kw">addBAMMshifts</span>(ed, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">index =</span> <span class="dv">42</span>)</span>
+<span id="cb188-4"><a href="diversification.html#cb188-4"></a><span class="kw">addBAMMlegend</span>(bamm.whales, <span class="dt">nTicks =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-173-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Let’s plot the speciation rate through time for some lineages of interest. We can use the function <strong>plotRateThroughTime</strong> for this.</p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="diversification.html#cb189-1"></a><span class="kw">plotRateThroughTime</span>(ed, <span class="dt">intervalCol=</span><span class="st">&quot;red&quot;</span>, <span class="dt">avgCol=</span><span class="st">&quot;red&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">5</span>))</span>
+<span id="cb189-2"><a href="diversification.html#cb189-2"></a><span class="kw">text</span>(<span class="dt">x=</span><span class="dv">30</span>, <span class="dt">y=</span> <span class="fl">0.4</span>, <span class="dt">label=</span><span class="st">&quot;All whales&quot;</span>, <span class="dt">font=</span><span class="dv">4</span>, <span class="dt">cex=</span><span class="fl">1.5</span>, <span class="dt">pos=</span><span class="dv">4</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-175-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>We can also compare lineages. Here we are plotting the speciation rate in dolphins against the rest of cetaceans.</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="diversification.html#cb190-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">1</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb190-2"><a href="diversification.html#cb190-2"></a><span class="kw">plotRateThroughTime</span>(ed, <span class="dt">intervalCol=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="dt">avgCol=</span><span class="st">&quot;darkgreen&quot;</span>, <span class="dt">node=</span><span class="dv">141</span>, <span class="dt">nodetype =</span> <span class="st">&quot;exclude&quot;</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">5</span>), <span class="dt">cex.lab =</span> <span class="fl">.8</span>, <span class="dt">cex.axis =</span> <span class="fl">.8</span>)</span>
+<span id="cb190-3"><a href="diversification.html#cb190-3"></a><span class="kw">text</span>(<span class="dt">x=</span><span class="dv">30</span>, <span class="dt">y=</span> <span class="fl">0.4</span>, <span class="dt">label=</span><span class="st">&quot;Non-dolphins&quot;</span>, <span class="dt">font=</span><span class="dv">4</span>, <span class="dt">cex=</span><span class="fl">1.5</span>, <span class="dt">pos=</span><span class="dv">4</span>)</span>
+<span id="cb190-4"><a href="diversification.html#cb190-4"></a><span class="kw">plotRateThroughTime</span>(ed, <span class="dt">intervalCol=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">avgCol=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">node=</span><span class="dv">141</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,.<span class="dv">5</span>), <span class="dt">cex.lab =</span> <span class="fl">0.8</span>, <span class="dt">cex.axis =</span> <span class="fl">.8</span>)</span>
+<span id="cb190-5"><a href="diversification.html#cb190-5"></a><span class="kw">text</span>(<span class="dt">x=</span><span class="dv">30</span>, <span class="dt">y=</span> <span class="fl">0.4</span>, <span class="dt">label=</span><span class="st">&quot;Delphinidae&quot;</span>, <span class="dt">font=</span><span class="dv">4</span>, <span class="dt">cex=</span><span class="fl">1.5</span>, <span class="dt">pos=</span><span class="dv">4</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-176-1.png" width="528" style="display: block; margin: auto;" /></p>
+<p>If we desire, we can extract the rates at the tips and analyse them using <strong>getTipRates</strong>.</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="diversification.html#cb191-1"></a>tip.rates &lt;-<span class="st"> </span><span class="kw">getTipRates</span>(ed)</span></code></pre></div>
+<p>A simple histogram of the speciation rates and extinction rates show strongly bimodal distributions in both cases.</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="diversification.html#cb192-1"></a><span class="kw">require</span>(ggplot2)</span>
+<span id="cb192-2"><a href="diversification.html#cb192-2"></a>d &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;lambda&quot;</span> =<span class="st"> </span>tip.rates<span class="op">$</span>lambda.avg)</span>
+<span id="cb192-3"><a href="diversification.html#cb192-3"></a><span class="kw">ggplot</span>(d, <span class="kw">aes</span>(<span class="dt">x =</span> lambda)) <span class="op">+</span></span>
+<span id="cb192-4"><a href="diversification.html#cb192-4"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">fill =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb192-5"><a href="diversification.html#cb192-5"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-178-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="diversification.html#cb193-1"></a><span class="kw">require</span>(ggplot2)</span>
+<span id="cb193-2"><a href="diversification.html#cb193-2"></a>d &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;mu&quot;</span> =<span class="st"> </span>tip.rates<span class="op">$</span>mu.avg)</span>
+<span id="cb193-3"><a href="diversification.html#cb193-3"></a><span class="kw">ggplot</span>(d, <span class="kw">aes</span>(<span class="dt">x =</span> mu)) <span class="op">+</span></span>
+<span id="cb193-4"><a href="diversification.html#cb193-4"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">fill =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span></span>
+<span id="cb193-5"><a href="diversification.html#cb193-5"></a><span class="st">  </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-179-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>It appears on closer inspection that the differences are down to the rate shift in Delphinidae.</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="diversification.html#cb194-1"></a>d &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="st">&quot;lambda&quot;</span> =<span class="st"> </span>tip.rates<span class="op">$</span>lambda.avg, </span>
+<span id="cb194-2"><a href="diversification.html#cb194-2"></a>                <span class="st">&quot;group&quot;</span> =<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;non-dolphins&quot;</span>, <span class="dv">52</span>), <span class="kw">rep</span>(<span class="st">&quot;dolphins&quot;</span>, <span class="dv">35</span>)))</span>
+<span id="cb194-3"><a href="diversification.html#cb194-3"></a><span class="kw">ggplot</span>(d, <span class="kw">aes</span>(<span class="dt">y =</span> lambda, <span class="dt">x =</span> group, <span class="dt">colour =</span> group)) <span class="op">+</span></span>
+<span id="cb194-4"><a href="diversification.html#cb194-4"></a><span class="st">  </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
+<span id="cb194-5"><a href="diversification.html#cb194-5"></a><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>))</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-180-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="further-info-4" class="section level2" number="9.5">
+<h2><span class="header-section-number">9.5</span> Further info</h2>
+<p>There’s an interesting post-script here. A recent study claimed to show that making inferences about diversification patterns using extant time-trees is a deeply flawed approach <span class="citation">(Louca and Pennell <a href="#ref-Louca20" role="doc-biblioref">2020</a>)</span>. This article claims that there are actually an infinite number of diversification scenarios that are equally likely to be the product of these type of analysis.</p>
+<p>If correct, this is a <em>huge</em> problem for the study of diversification. The authors do suggest a way through however. In particular, they emphasise that the inclusion of paleontological data is crucially important to improve these methods. The methods covered in this chapter explicitly deal exclusively with ultrametric trees (no fossil data) and so we are a little stuck with this new criticism.</p>
+<p>However, developers of these methods have been aware for some time that including fossil taxa in these analyses is important. For example, look back to the chapters on ancestral state reconstruction for a demonstration of how fossil data improves an analysis. Versions of these analyses that can deal with non-ultrametric trees are bound to help address the concerns of Louca and Pennell <span class="citation">(<a href="#ref-Louca20" role="doc-biblioref">2020</a>)</span>.</p>
+
+</div>
+</div>
+<h3> Bibliography</h3>
+<div id="refs" class="references">
+<div id="ref-Alfaro09">
+<p>Alfaro, M.E., Santini, F., Brock, C., Alamillo, H., Dornburg, A., Rabosky, D.L., Carnevale, G., and Harmon, L.J. (2009) ‘Nine Exceptional Radiations Plus High Turnover Explain Species Diversity in Jawed Vertebrates’. <em>Proceedings of the National Academy of Sciences</em> [online] 106 (32), 13410–13414. available from &lt;<a href="https://www.pnas.org/content/106/32/13410">https://www.pnas.org/content/106/32/13410</a>&gt;</p>
+</div>
+<div id="ref-geiger">
+<p>Harmon, L., Weir, J., Brock, C., Glor, R., and Challenger, W. (2008) ‘GEIGER: Investigating Evolutionary Radiations’. <em>Bioinformatics</em> 24, 129–131</p>
+</div>
+<div id="ref-Louca20">
+<p>Louca, S. and Pennell, M.W. (2020) ‘Extant Timetrees Are Consistent with a Myriad of Diversification Histories’. <em>Nature</em> [online] 580 (7804), 502–505. available from &lt;<a href="https://doi.org/10.1038/s41586-020-2176-1">https://doi.org/10.1038/s41586-020-2176-1</a>&gt;</p>
+</div>
+<div id="ref-rpanda">
+<p>Morlon, H., Lewitus, E., Condamine, F., Manceau, M., Clavel, J., and Drury, J. (2016) ‘RPANDA: An R Package for Macroevolutionary Analyses on Phylogenetic Trees’. <em>Methods in Ecology and Evolution</em> [online] 7, 589–597. available from &lt;<a href="https://CRAN.R-project.org/package=RPANDA">https://CRAN.R-project.org/package=RPANDA</a>&gt;</p>
+</div>
+<div id="ref-ape">
+<p>Paradis, E. and Schliep, K. (2018) ‘Ape 5.0: An Environment for Modern Phylogenetics and Evolutionary Analyses in R’. <em>Bioinformatics</em> 35, 526–528</p>
+</div>
+<div id="ref-bammtools">
+<p>Rabosky, D., Grundler, M., Anderson, C., Title, P., Shi, J., Brown, J., Huang, H., and Larson, J. (2014) ‘BAMMtools: An R Package for the Analysis of Evolutionary Dynamics on Phylogenetic Trees’. <em>Methods in Ecology and Evolution</em> 5, 701–707</p>
+</div>
+<div id="ref-Rabosky14">
+<p>Rabosky, D.L. (2014) ‘Automatic Detection of Key Innovations, Rate Shifts, and Diversity-Dependence on Phylogenetic Trees’. <em>PLOS ONE</em> [online] 9 (2), 1–15. available from &lt;<a href="https://doi.org/10.1371/journal.pone.0089543">https://doi.org/10.1371/journal.pone.0089543</a>&gt;</p>
+</div>
+<div id="ref-phylobase">
+<p>R Hackathon et al. (2019) <em>Phylobase: Base Package for Phylogenetic Structures and Comparative Data</em> [online] available from &lt;<a href="https://CRAN.R-project.org/package=phylobase">https://CRAN.R-project.org/package=phylobase</a>&gt;</p>
+</div>
+<div id="ref-treesim">
+<p>Stadler, T. (2019) <em>TreeSim: Simulating Phylogenetic Trees</em> [online] available from &lt;<a href="https://CRAN.R-project.org/package=TreeSim">https://CRAN.R-project.org/package=TreeSim</a>&gt;</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="asr2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="w2PGLS.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

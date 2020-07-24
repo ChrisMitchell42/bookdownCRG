@@ -253,7 +253,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 41.9086
+[1] 42.06478
 \end{verbatim}
 
 \begin{Shaded}
@@ -263,7 +263,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 4.157035
+[1] 4.218764
 \end{verbatim}
 
 \hypertarget{plotting}{%
@@ -943,7 +943,7 @@ Analysis of Variance Table
 
 Response: dat
           Df   Sum-Sq  Mean-Sq F-value  Pr(>F) Pr(>F) given phy
-group      2 0.063237 0.031619  3.0067 0.09497           0.1568
+group      2 0.063237 0.031619  3.0067 0.09497           0.1479
 Residuals 10 0.105161 0.010516                                 
 \end{verbatim}
 
@@ -2288,6 +2288,523 @@ There you have it! We can now say that we have evidence in favour of a regime sh
 
 We've only just scratched the surface of what is possible with ancestral state reconstruction. For some background reading, have a look at chapter 4 of \emph{The comparative approach in evolutionary anthropology and biology} \citep{Nunn11}.
 
+\hypertarget{diversification}{%
+\chapter{Diversification}\label{diversification}}
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Phylogenetic comparative methods can be used to study the diversification of lineages over time. This can be particularly useful when studying adaptive radiations which are thought to change the rate of speciation. This chapter will begin by studying some diversification models.
+
+\hypertarget{pure-birth-model}{%
+\subsection{Pure Birth Model}\label{pure-birth-model}}
+
+The simplest form of diversification model is a \textbf{pure birth} model. Under this model, each lineage has a constant probability of speciating. This probability gives us the \textbf{birth rate} (\emph{b}). Over time (\emph{t}), lineages will speciate and thus the number of lineages (\emph{N}) will increase exponentially.
+
+\[ N_{(t)} = N_{(0)}e^{bt} \]
+This plot shows how the number of species would grow over time. Note that in this model, there is no extinction and so the exponential increase is because each speciation event produces two daughter lineages which each can then speciate with probabilty \emph{b}, creating two more daughter lineages each and so on.
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-135-1} \end{center}
+
+As you can probably tell, the pure birth model is not a very good representation of biological reality. For example, today there are around 90 species of cetacean. A pure birth model in which we have conservatively \emph{b} set at 0.5 (meaning we have 0.5 new species born every million years) would give us 4.67 x 10\textsuperscript{23} species of cetacean in 100 million years.
+
+In fact, those 90 species have arsien in around 50 million years so ignoring fossils the rate would be something more like 1.8. That would give us 5.9 x 10\textsuperscript{9} in just 10 million years and 1.34 x 10\textsuperscript{80} species in 100 million years!
+
+\hypertarget{the-birth-death-model}{%
+\subsection{The Birth-Death Model}\label{the-birth-death-model}}
+
+The \textbf{birth-death} model incorporates extinction as well as speciation. Under the simplest form of this model, speciation and extinction occur randomly. Each lineage is assumed to have a constant rate of speciation (\emph{b}) and extinction (\emph{d}). Under this model, the number of lineages will increase exponentially with the difference between birth and death rate (\emph{b - d}).
+
+\[ N_{(t)} = N_{(0)}e^{(b-d)t} \]
+This graph shows the change in number of taxa over time when the birth rate slightly exceeds death rate.
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-136-1} \end{center}
+
+\hypertarget{the-signature-of-extinction}{%
+\subsection{The signature of extinction}\label{the-signature-of-extinction}}
+
+Let's investigate the differences between pure birth and birth-death models by simulating some trees.
+
+The function \textbf{sim.bd.age} in the package \textbf{TreeSim} \citep{treesim} allows us to simulate birth-death trees with a fixed age. First we will set the birth rate \(\lambda\) to 0.4 and the death rate \(\mu\) to 0 as this is a pure-birth tree. Note that these were \emph{b} and \emph{d} in the previous sections but \(\lambda\) and \(\mu\) are widely used.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ape)}
+\KeywordTok{library}\NormalTok{(TreeSim)}
+\NormalTok{tree1 \textless{}{-}}\StringTok{ }\KeywordTok{sim.bd.age}\NormalTok{(}\DataTypeTok{age =} \DecValTok{10}\NormalTok{, }\DataTypeTok{numbsim =} \DecValTok{1}\NormalTok{, }\DataTypeTok{lambda =} \FloatTok{0.4}\NormalTok{, }\DataTypeTok{mu =} \DecValTok{0}\NormalTok{)[[}\DecValTok{1}\NormalTok{]]}
+\NormalTok{ggtree}\OperatorTok{::}\KeywordTok{ggtree}\NormalTok{(tree1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-138-1} \end{center}
+
+If you run this command yourself, your tree will look different simply because the simulations will differ each time.
+
+We can plot the pattern of lineage accumulation through time with a lineage-through-time plot. This can be plotted using the function \textbf{ltt.plot} in ape \citep{ape}. Note that because of the expectation of exponential growth, we should log scale the y-axis
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ltt.plot}\NormalTok{(tree1, }\DataTypeTok{log =} \StringTok{"y"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-139-1} \end{center}
+
+As can be seen from this plot, the increase in lineages over time will be log-linear, just as predicted in previous sections.
+
+What about when we add extinction? We can see here that pure-birth and birth-death trees look quite different.
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-140-1} \end{center}
+
+\hypertarget{medusa}{%
+\section{MEDUSA}\label{medusa}}
+
+The general birth-death models you have seen so far produce a fairly uniform tree of life. In reality, this isn't actually what we observe. Some clades are highly diverse (such as arthropods) and some are not. Understanding the patterns of diversification is what we will attempt to do with the methods available here.
+
+\textbf{MEDUSA} stands for Modelling Evolutionary Diversification Using Stepwise AIC \citep{Alfaro09}. It fits piecewise models of birth and death to our tree and allows to ask where rates of birth and death may have changed and why clades might differ in size.
+
+MEDUSA fits models to the tree, splitting the tree and allowing the rate to change at each split. The method proceeds by comparing the old model to the new model using AICc to either accept of reject the shift in rate.
+
+Let's see how it works using a phylogeny of cetaceans.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{whales \textless{}{-}}\StringTok{ }\NormalTok{ape}\OperatorTok{::}\KeywordTok{read.tree}\NormalTok{(}\StringTok{"whaletree.tre"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We can run the analysis using the \textbf{medusa} function in geiger \citep{geiger}. All we have to specify here is the tree \emph{phy = whales} and that we want to fit birth-death models \emph{model = ``bd''}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(geiger)}
+\NormalTok{m1 \textless{}{-}}\StringTok{ }\KeywordTok{medusa}\NormalTok{(}\DataTypeTok{phy =}\NormalTok{ whales, }\DataTypeTok{model =} \StringTok{"bd"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Appropriate  aicc-threshold for a tree of 87 tips is: 4.397737.
+
+Step 1: lnLik=-277.6943; aicc=559.4591; model=bd
+Step 2: lnLik=-266.7389; aicc=543.8371; shift at node 141; model=bd; cut=stem; # shifts=1
+
+No significant increase in aicc score. Disregarding subsequent piecewise models.
+
+Calculating profile likelihoods on parameter values.
+
+  Model.ID Shift.Node Cut.At Model Ln.Lik.part        r     epsilon     r.low
+1        1         88   node    bd   -185.5379 0.076678 1.50783e-08 0.0576867
+2        2        141   stem    bd   -81.20097 0.232141 4.73531e-06 0.1616522
+     r.high eps.low  eps.high
+1 0.0994803       0 0.2537393
+2 0.3204785       0 0.2713275
+\end{verbatim}
+
+There's a lot of information in this output so let's go through it. Firstly, we are told that the appropriate AICc threshold for a tree of this size is 4.4. You may be used to using a change of 2 in AIC as signifiying a significant difference between models. The appropriate threshold for distinguishing between models using MEDUSA varies depending on the size of the tree. Fortunately, the function simply calculates it and reports it to us.
+
+Next we have the stepwise output. In this case we only have 2 steps. Each step is reported to us and in this case, we can see that step 2 involves cutting the tree at node 141. This means that \emph{medusa} has identfied a change in model at node 141 and continued with the new model from that node.
+
+Finally, the table gives us parameter values for each step. This is very important in interpreting the output. Note that \emph{epsilon} is the extinction rate, previously known as either \emph{d} or \(\mu\) and \emph{r} is the net diversification rate (\(\lambda - \mu\)).
+
+The best way to visualise this analysis is by plotting the models on the tree. When we do so we can see that \emph{medusa} has placed the shift near the root of the Delphinidae (excluding interestingly the orca). We can see that the rate of speciation is much greater in the oceanic dolphins.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\FloatTok{3.1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\FloatTok{0.1}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(m1, }\DataTypeTok{label.offset =} \FloatTok{0.1}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\DataTypeTok{x =} \FloatTok{{-}0.5}\NormalTok{, }\DataTypeTok{y =} \DecValTok{60}\NormalTok{, }\DataTypeTok{legend=}\StringTok{"r = 0.08"}\NormalTok{,}
+       \DataTypeTok{text.col=}\StringTok{"Black"}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Step 1"}\NormalTok{)}
+\KeywordTok{legend}\NormalTok{(}\DataTypeTok{x =} \DecValTok{15}\NormalTok{, }\DataTypeTok{y =} \DecValTok{75}\NormalTok{, }\DataTypeTok{legend=}\StringTok{"r = 0.23"}\NormalTok{,}
+       \DataTypeTok{text.col=}\StringTok{"red"}\NormalTok{, }\DataTypeTok{title =} \StringTok{"Step 2"}\NormalTok{, }\DataTypeTok{box.col =} \StringTok{"red"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-145-1} \end{center}
+
+\hypertarget{rpanda}{%
+\section{RPANDA}\label{rpanda}}
+
+The package \textbf{RPANDA} \citep{rpanda} allows us to fit different models of variation in the rate of birth and death through time. We can then select the best model by maximum likelihood.
+
+The first step is to define a few functions that describe our hypotheses. First we need to define speciation rate (\(\lambda\)) as either constant (\textbf{lambda.cst}) or varying exponentially (\textbf{lambda.var}). We can do the same for extinction rate (\(\mu\)).
+
+\[ \lambda_{(t)} = \lambda_{(0)}e^{\alpha t} \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;  \mu_{(t)} = \mu_{(0)}e^{\beta t} \]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lambda.cst \textless{}{-}}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x,y)\{y\}}
+\NormalTok{lambda.var \textless{}{-}}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x,y)\{y[}\DecValTok{1}\NormalTok{]}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(y[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\NormalTok{x)\}}
+\NormalTok{mu.cst \textless{}{-}}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x,y)\{y\}}
+\NormalTok{mu.var \textless{}{-}}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x,y)\{y[}\DecValTok{1}\NormalTok{]}\OperatorTok{*}\KeywordTok{exp}\NormalTok{(y[}\DecValTok{2}\NormalTok{]}\OperatorTok{*}\NormalTok{x)\}}
+\end{Highlighting}
+\end{Shaded}
+
+We will test 4 different combinations of these scenarios. I find it easier to visualise models like this graphically so these plots describe the various models.
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-148-1} \end{center}
+
+In RPANDA, we need to know ahead of time which clades are most likely to have similar diversification regimes. For this example, we will look at cetaceans. There are 4 major radiations of cetaceans to look at. These are; \emph{Balaenopteridae, Ziphidae, Phocoenidae} and \emph{Delphinidae}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{whales \textless{}{-}}\StringTok{ }\NormalTok{ape}\OperatorTok{::}\KeywordTok{read.tree}\NormalTok{(}\StringTok{"whaletree.tre"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-150-1} \end{center}
+
+We can extract the relevant sub-trees using \textbf{extract.clade} in \textbf{ape} \citep{ape} in combination with \textbf{MRCA} in \textbf{phylobase} \citep{phylobase}. Don't forget to also make another subtree of all the species not in those groups.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{delphinidae.tree \textless{}{-}}\StringTok{ }\KeywordTok{extract.clade}\NormalTok{(whales, }\DataTypeTok{node =}\NormalTok{ phylobase}\OperatorTok{::}\KeywordTok{MRCA}\NormalTok{(whales, }\DataTypeTok{tip =} \KeywordTok{c}\NormalTok{(}\StringTok{"Orcinus\_orca"}\NormalTok{, }\StringTok{"Delphinus\_delphis"}\NormalTok{)))}
+\NormalTok{phocoenidae.tree \textless{}{-}}\StringTok{ }\KeywordTok{extract.clade}\NormalTok{(whales, }\DataTypeTok{node =}\NormalTok{ phylobase}\OperatorTok{::}\KeywordTok{MRCA}\NormalTok{(whales, }\DataTypeTok{tip =} \KeywordTok{c}\NormalTok{(}\StringTok{"Phocoena\_dioptrica"}\NormalTok{, }\StringTok{"Phocoena\_phocoena"}\NormalTok{)))}
+\NormalTok{ziphidae.tree \textless{}{-}}\StringTok{ }\KeywordTok{extract.clade}\NormalTok{(whales, }\DataTypeTok{node =}\NormalTok{ phylobase}\OperatorTok{::}\KeywordTok{MRCA}\NormalTok{(whales, }\DataTypeTok{tip =} \KeywordTok{c}\NormalTok{(}\StringTok{"Mesoplodon\_grayi"}\NormalTok{, }\StringTok{"Tasmacetus\_shepherdi"}\NormalTok{)))}
+\NormalTok{balaenopteridae.tree \textless{}{-}}\StringTok{ }\KeywordTok{extract.clade}\NormalTok{(whales, }\DataTypeTok{node =}\NormalTok{ phylobase}\OperatorTok{::}\KeywordTok{MRCA}\NormalTok{(whales, }\DataTypeTok{tip =} \KeywordTok{c}\NormalTok{(}\StringTok{"Balaenoptera\_physalus"}\NormalTok{, }\StringTok{"Balaenoptera\_edeni"}\NormalTok{)))}
+
+\NormalTok{othercetaceans.tree \textless{}{-}}\StringTok{ }\KeywordTok{drop.tip}\NormalTok{(whales,}\KeywordTok{c}\NormalTok{(balaenopteridae.tree}\OperatorTok{$}\NormalTok{tip.label,}
+\NormalTok{                                         delphinidae.tree}\OperatorTok{$}\NormalTok{tip.label, }
+\NormalTok{                                         phocoenidae.tree}\OperatorTok{$}\NormalTok{tip.label, }
+\NormalTok{                                         ziphidae.tree}\OperatorTok{$}\NormalTok{tip.label))}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can fit some birth-death models! Let's start with both parameters constant (\textbf{bcstdcst}). The function we need is \textbf{fit\_bd}. This function requires a lot of information so let's take it slowly.
+
+The first argument is just our tree (\emph{phylo}). Then we need to include the total length of the tree (\emph{tot\_time}). We don't know this offhand but we can calculate it using \textbf{max(branching.times(TREE))}. The arguments \emph{f.lamb} and \emph{f.mu} take our previously defined functions for \(\lambda\) (birth rate) and \(\mu\) (death rate). \emph{lamb\_par} and \emph{mu\_par} similarly take our initial values for \(\lambda\) and \(\mu\) which here, will be 0.4 and 0 respectively. \textbf{cst.lamb} and \textbf{cst.mu} are both logical (they can be true or false) and ask if \(\lambda\) and \(\mu\) are constant (they are). The argument \emph{f} is the fraction of extant species included in the whole phylogeny. Here we have 87 out of the 89 cetacean species. Finally, \textbf{dt} is set to the recommended value in the vignette for the function. In short, \textbf{dt} is the length of the time interval on which functions are assumed to be constant. Smaller values mean a finer-grain analysis and longer computing times. Larger values mean the analysis will be quicker but lower resolution.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(RPANDA)}
+\NormalTok{bcstdcst \textless{}{-}}\StringTok{ }\KeywordTok{fit\_bd}\NormalTok{(}\DataTypeTok{phylo =}\NormalTok{ delphinidae.tree, }
+                   \DataTypeTok{tot\_time =} \KeywordTok{max}\NormalTok{(}\KeywordTok{branching.times}\NormalTok{(delphinidae.tree)),}
+                   \DataTypeTok{f.lamb =}\NormalTok{ lambda.cst,}
+                   \DataTypeTok{f.mu =}\NormalTok{ mu.cst,}
+                   \DataTypeTok{lamb\_par =} \FloatTok{0.4}\NormalTok{,}
+                   \DataTypeTok{mu\_par =} \DecValTok{0}\NormalTok{,}
+                   \DataTypeTok{cst.lamb =} \OtherTok{TRUE}\NormalTok{,}
+                   \DataTypeTok{cst.mu =} \OtherTok{TRUE}\NormalTok{,}
+                   \DataTypeTok{f =} \DecValTok{87}\OperatorTok{/}\DecValTok{89}\NormalTok{,}
+                   \DataTypeTok{dt =} \FloatTok{1e{-}3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The analysis has returned a number of details. Most importantly for us, the likelihood and AICc will allow for model comparison.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bcstdcst}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+model :
+[1] "birth death"
+
+LH :
+[1] -83.51998
+
+aicc :
+[1] 171.415
+
+lamb_par :
+[1] 0.2189443
+
+mu_par :
+[1] 2.413309e-09
+\end{verbatim}
+
+Let's now evaluate the other 3 models.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bvardcst \textless{}{-}}\StringTok{ }\KeywordTok{fit\_bd}\NormalTok{(}\DataTypeTok{phylo =}\NormalTok{ delphinidae.tree, }
+                   \DataTypeTok{tot\_time =} \KeywordTok{max}\NormalTok{(}\KeywordTok{branching.times}\NormalTok{(delphinidae.tree)),}
+                   \DataTypeTok{f.lamb =}\NormalTok{ lambda.var, }\DataTypeTok{f.mu =}\NormalTok{ mu.cst,}
+                   \DataTypeTok{lamb\_par =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.4}\NormalTok{,}\OperatorTok{{-}}\FloatTok{0.05}\NormalTok{), }\DataTypeTok{mu\_par =} \DecValTok{0}\NormalTok{,}
+                   \DataTypeTok{expo.lamb =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{cst.mu =} \OtherTok{TRUE}\NormalTok{,}
+                   \DataTypeTok{f =} \DecValTok{87}\OperatorTok{/}\DecValTok{89}\NormalTok{, }\DataTypeTok{dt =} \FloatTok{1e{-}3}\NormalTok{)}
+\NormalTok{bcstdvar \textless{}{-}}\StringTok{ }\KeywordTok{fit\_bd}\NormalTok{(}\DataTypeTok{phylo =}\NormalTok{ delphinidae.tree, }
+                   \DataTypeTok{tot\_time =} \KeywordTok{max}\NormalTok{(}\KeywordTok{branching.times}\NormalTok{(delphinidae.tree)),}
+                   \DataTypeTok{f.lamb =}\NormalTok{ lambda.cst, }\DataTypeTok{f.mu =}\NormalTok{ mu.var,}
+                   \DataTypeTok{lamb\_par =} \FloatTok{0.4}\NormalTok{, }\DataTypeTok{mu\_par =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}\FloatTok{0.05}\NormalTok{),}
+                   \DataTypeTok{cst.lamb =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{expo.mu =} \OtherTok{TRUE}\NormalTok{,}
+                   \DataTypeTok{f =} \DecValTok{87}\OperatorTok{/}\DecValTok{89}\NormalTok{, }\DataTypeTok{dt =} \FloatTok{1e{-}3}\NormalTok{)}
+\NormalTok{bvardvar \textless{}{-}}\StringTok{ }\KeywordTok{fit\_bd}\NormalTok{(}\DataTypeTok{phylo =}\NormalTok{ delphinidae.tree, }
+                   \DataTypeTok{tot\_time =} \KeywordTok{max}\NormalTok{(}\KeywordTok{branching.times}\NormalTok{(delphinidae.tree)),}
+                   \DataTypeTok{f.lamb =}\NormalTok{ lambda.var, }\DataTypeTok{f.mu =}\NormalTok{ mu.var,}
+                   \DataTypeTok{lamb\_par =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.4}\NormalTok{, }\FloatTok{{-}0.05}\NormalTok{), }\DataTypeTok{mu\_par =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{, }\FloatTok{0.05}\NormalTok{),}
+                   \DataTypeTok{expo.lamb =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{expo.mu =} \OtherTok{TRUE}\NormalTok{, }
+                   \DataTypeTok{f =} \DecValTok{87}\OperatorTok{/}\DecValTok{89}\NormalTok{, }\DataTypeTok{dt =} \FloatTok{1e{-}3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We can put together a nice table to present the results. But in truth, all we really need is the AICc so pay close attention to that.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{results \textless{}{-}}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\StringTok{"bcstdcst"}\NormalTok{ =}\StringTok{ }\KeywordTok{c}\NormalTok{(bcstdcst}\OperatorTok{$}\NormalTok{LH[}\DecValTok{1}\NormalTok{], bcstdcst}\OperatorTok{$}\NormalTok{aicc[}\DecValTok{1}\NormalTok{]),}
+                      \StringTok{"bvardcst"}\NormalTok{ =}\StringTok{ }\KeywordTok{c}\NormalTok{(bvardcst}\OperatorTok{$}\NormalTok{LH[}\DecValTok{1}\NormalTok{], bvardcst}\OperatorTok{$}\NormalTok{aicc[}\DecValTok{1}\NormalTok{]),}
+                      \StringTok{"bcstdvar"}\NormalTok{ =}\StringTok{ }\KeywordTok{c}\NormalTok{(bcstdvar}\OperatorTok{$}\NormalTok{LH[}\DecValTok{1}\NormalTok{], bcstdvar}\OperatorTok{$}\NormalTok{aicc[}\DecValTok{1}\NormalTok{]),}
+                      \StringTok{"bvardvar"}\NormalTok{ =}\StringTok{ }\KeywordTok{c}\NormalTok{(bvardvar}\OperatorTok{$}\NormalTok{LH[}\DecValTok{1}\NormalTok{], bvardvar}\OperatorTok{$}\NormalTok{aicc[}\DecValTok{1}\NormalTok{]))}
+\KeywordTok{rownames}\NormalTok{(results) \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"LH"}\NormalTok{, }\StringTok{"AICc"}\NormalTok{)}
+\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(results)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r}
+\hline
+  & bcstdcst & bvardcst & bcstdvar & bvardvar\\
+\hline
+LH & -83.51998 & -81.62979 & -81.93556 & -80.99625\\
+\hline
+AICc & 171.41497 & 170.03377 & 170.64532 & 171.32584\\
+\hline
+\end{tabular}
+
+The table shows us that the best AICc for Delphinidae is the \emph{bvardcst} model, although there's barely anything in it. You may note that by a mathematical quirk (see the help for this function for details) the \(\mu\) for this model is negative. Clearly this can't be the case! This can happen sometimes with this calaculation but all rates should be interpreted as \emph{absolute} values. In other words, ignore the sign.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bvardcst}\OperatorTok{$}\NormalTok{mu\_par}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] -1.521115e-07
+\end{verbatim}
+
+Next up, we need to evaluate the other sub-trees. To do this the way I've done above would take a lot of time and code. So I'm going to use a shortcut and write a function to run it all for me. The full code to do this is taken from \href{http://lukejharmon.github.io/ilhabela/instruction/2015/07/02/diversification-analysis-bamm-rpanda/\#rpanda}{this} online exercise. The code to extract the results is also available there. It's not shown here to keep things clear.
+
+As before, the first thing to look at is the AICc scores for each model and each tree. We need to select the best model for each sub-tree by choosing the AICc closest to 0.
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-159}AICc scores for 4 different birth-death models fitted to five cetacean sub-trees.}
+\centering
+\begin{tabular}[t]{l|r|r|r|r|r}
+\hline
+  & Balaenopteridae & Delphinidae & Phocoenidae & Ziphidae & Other Cetaceans\\
+\hline
+bcstdcst & 56.73336 & 171.4150 & 31.79207 & 132.6440 & 119.4690\\
+\hline
+bvardcst & 58.44456 & 170.0338 & 34.13348 & 130.1843 & 117.5562\\
+\hline
+bcstdvar & 58.32515 & 170.6453 & 41.79207 & 127.6094 & 115.3723\\
+\hline
+bvardvar & 65.67244 & 171.3258 & 64.13348 & 133.2251 & 118.9789\\
+\hline
+\end{tabular}
+\end{table}
+
+The final step is to look at the extracted parameters from the favoured models. The top two rows show birth rates and the bottom two show death rates. Where two values are given for a parameter, remember this is because the rate was variable in the model. The first value is the maximum parameter estimate at time \(t = 0\) (the present). The second value is the rate of change of the parameter running from the present into the past.
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-160}Estimates of speciation and extinction rates from birth-death modelling of cetacean evolution}
+\centering
+\begin{tabular}[t]{l|r|r|r|r|r}
+\hline
+  & Balaenopteridae & Delphinidae & Phocoenidae & Ziphidae & Other.Cetaceans\\
+\hline
+lambda & 0.0734308 & 0.1405102 & 0.1410234 & 0.0948515 & 0.1857764\\
+\hline
+ & NA & 0.1257642 & NA & NA & NA\\
+\hline
+mu & 0.0000000 & -0.0000002 & -0.0000001 & 0.0000001 & 0.8313274\\
+\hline
+ & NA & NA & NA & NA & -0.1742352\\
+\hline
+\end{tabular}
+\end{table}
+
+Focusing in on the Delphinidae tree again, we can begin to plot some interesting features. The function \textbf{plot\_fit\_bd} will produce three plots describing the speciation, extinction and diversification rates through time.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot\_fit\_bd}\NormalTok{(results}\OperatorTok{$}\NormalTok{delphinidae.res}\OperatorTok{$}\NormalTok{bvardcst, }\KeywordTok{max}\NormalTok{(}\KeywordTok{branching.times}\NormalTok{(delphinidae.tree)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-163-1} \end{center}
+
+The function \textbf{plot\_dtt} will produce a plot of diversity through time. Here we can see how Delphinidae diversity has increased over the tree.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot\_dtt}\NormalTok{(results}\OperatorTok{$}\NormalTok{delphinidae.res}\OperatorTok{$}\NormalTok{bvardcst, }
+         \KeywordTok{max}\NormalTok{(}\KeywordTok{branching.times}\NormalTok{(delphinidae.tree)), }
+         \DataTypeTok{N0 =} \KeywordTok{Ntip}\NormalTok{(delphinidae.tree))}
+\end{Highlighting}
+\end{Shaded}
+
+Let's compare the diversification in all the lineages we've analysed. To do so, we would need to edit the \textbf{plot\_dtt} function. Like so much else, this has already been done for us and the code can be found \href{http://lukejharmon.github.io/ilhabela/instruction/2015/07/02/diversification-analysis-bamm-rpanda/\#rpanda}{here}.
+
+\begin{center}\includegraphics[width=76.04in]{Images/Diversityplot} \end{center}
+
+We can see the rise of each lineage with the start of each line. We can begin to pick out patterns of interest. For example, the diversity of ``other cetaceans'' increases markedly but begins to decline just as Delphinidae begin to diversify. We can also see that the rate of diversification of Delphinidae is greater than other lineages, perhaps suggesting we might like to look at why the oceanic dolphins diversified so quickly!
+
+\hypertarget{bamm-bammtools}{%
+\section{BAMM \& BAMMtools}\label{bamm-bammtools}}
+
+\textbf{BAMM} stands for Bayesian Analysis of Macroevolutionary Mixtures and is an open source piece of software. BAMM uses a process called reversible-jump Markov Chain Monte-Carlo (rjMCMC) simulation to estimate diversification \citep{Rabosky14}. The software and accompanying documentation can be found \href{http://bamm-project.org/}{here}.
+
+To use BAMM, you must first download the program following \href{http://bamm-project.org/download.html}{these instructions}. For this demonstration, we will use the same cetacean tree we have been using in this chapter as well as some pre-prepared instructions for BAMM to run. Both are available \href{http://lukejharmon.github.io/ilhabela/instruction/2015/07/02/diversification-analysis-bamm-rpanda/\#rpanda}{here}.
+
+Run the analysis by storing your tree and the \emph{divcontrol.txt} file in the same directory as BAMM and then run this command for your terminal.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{.}\OperatorTok{/}\NormalTok{bamm }\OperatorTok{{-}}\NormalTok{c divcontrol.txt}
+\end{Highlighting}
+\end{Shaded}
+
+Once run, you should see a number of files appear in the same directory. This is your output and this is where \textbf{BAMMtools} comes in \citep{bammtools}. BAMMtools is a package designed to interpret the outputs of BAMM analyses. Let's see how it works.
+
+The file to import into R is the \emph{event\_data.txt} file stored in the BAMM directory.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(BAMMtools)}
+\NormalTok{events \textless{}{-}}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"event\_data.txt"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+For this demonstration, I will load the example data from the package. It ran on the same tree but is from a longer MCMC chain and so likely to be more informative as well as being a closer representation of what you are likely to want to run.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(whales, events.whales)}
+\end{Highlighting}
+\end{Shaded}
+
+We use the function \textbf{getEventData} to extract the relevant data from the report. This creates an object of class \textbf{bammdata} which is essential for most functions in BAMMtools.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ed \textless{}{-}}\StringTok{ }\KeywordTok{getEventData}\NormalTok{(whales, events.whales, }\DataTypeTok{burnin =} \FloatTok{0.25}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Processing event data from data.frame
+
+Discarded as burnin: GENERATIONS <  2495000
+Analyzing  1501  samples from posterior
+
+Setting recursive sequence on tree...
+
+Done with recursive sequence
+\end{verbatim}
+
+You are certainly going to want to plot your analysis. We can do so by using the function \textbf{plot.bammdata}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{))}
+\NormalTok{bamm.whales \textless{}{-}}\StringTok{ }\KeywordTok{plot.bammdata}\NormalTok{(ed, }\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{, }\DataTypeTok{labels =}\NormalTok{ T, }\DataTypeTok{cex =} \FloatTok{0.5}\NormalTok{)}
+\KeywordTok{addBAMMshifts}\NormalTok{(ed, }\DataTypeTok{cex=}\DecValTok{2}\NormalTok{)}
+\KeywordTok{addBAMMlegend}\NormalTok{(bamm.whales, }\DataTypeTok{nTicks =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-172-1} \end{center}
+
+BAMM has clearly identified a shift early in the history of Delphinidae, matching some other methods we've used. Also in this plot, we can see a potentially spurious shift on the branch leading to \emph{Lipotes vexillifer}. Remember that this is just one sample from the posterior distribution and another one would be different. The colour of the branches tells us the story of the whole sample.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{))}
+\NormalTok{bamm.whales \textless{}{-}}\StringTok{ }\KeywordTok{plot.bammdata}\NormalTok{(ed, }\DataTypeTok{lwd=}\DecValTok{2}\NormalTok{, }\DataTypeTok{labels =}\NormalTok{ T, }\DataTypeTok{cex =} \FloatTok{0.5}\NormalTok{)}
+\KeywordTok{addBAMMshifts}\NormalTok{(ed, }\DataTypeTok{cex=}\DecValTok{2}\NormalTok{, }\DataTypeTok{index =} \DecValTok{42}\NormalTok{)}
+\KeywordTok{addBAMMlegend}\NormalTok{(bamm.whales, }\DataTypeTok{nTicks =} \DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-173-1} \end{center}
+
+Let's plot the speciation rate through time for some lineages of interest. We can use the function \textbf{plotRateThroughTime} for this.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plotRateThroughTime}\NormalTok{(ed, }\DataTypeTok{intervalCol=}\StringTok{"red"}\NormalTok{, }\DataTypeTok{avgCol=}\StringTok{"red"}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,.}\DecValTok{5}\NormalTok{))}
+\KeywordTok{text}\NormalTok{(}\DataTypeTok{x=}\DecValTok{30}\NormalTok{, }\DataTypeTok{y=} \FloatTok{0.4}\NormalTok{, }\DataTypeTok{label=}\StringTok{"All whales"}\NormalTok{, }\DataTypeTok{font=}\DecValTok{4}\NormalTok{, }\DataTypeTok{cex=}\FloatTok{1.5}\NormalTok{, }\DataTypeTok{pos=}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-175-1} \end{center}
+
+We can also compare lineages. Here we are plotting the speciation rate in dolphins against the rest of cetaceans.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{), }\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{))}
+\KeywordTok{plotRateThroughTime}\NormalTok{(ed, }\DataTypeTok{intervalCol=}\StringTok{"darkgreen"}\NormalTok{, }\DataTypeTok{avgCol=}\StringTok{"darkgreen"}\NormalTok{, }\DataTypeTok{node=}\DecValTok{141}\NormalTok{, }\DataTypeTok{nodetype =} \StringTok{"exclude"}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,.}\DecValTok{5}\NormalTok{), }\DataTypeTok{cex.lab =} \FloatTok{.8}\NormalTok{, }\DataTypeTok{cex.axis =} \FloatTok{.8}\NormalTok{)}
+\KeywordTok{text}\NormalTok{(}\DataTypeTok{x=}\DecValTok{30}\NormalTok{, }\DataTypeTok{y=} \FloatTok{0.4}\NormalTok{, }\DataTypeTok{label=}\StringTok{"Non{-}dolphins"}\NormalTok{, }\DataTypeTok{font=}\DecValTok{4}\NormalTok{, }\DataTypeTok{cex=}\FloatTok{1.5}\NormalTok{, }\DataTypeTok{pos=}\DecValTok{4}\NormalTok{)}
+\KeywordTok{plotRateThroughTime}\NormalTok{(ed, }\DataTypeTok{intervalCol=}\StringTok{"blue"}\NormalTok{, }\DataTypeTok{avgCol=}\StringTok{"blue"}\NormalTok{, }\DataTypeTok{node=}\DecValTok{141}\NormalTok{, }\DataTypeTok{ylim=}\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,.}\DecValTok{5}\NormalTok{), }\DataTypeTok{cex.lab =} \FloatTok{0.8}\NormalTok{, }\DataTypeTok{cex.axis =} \FloatTok{.8}\NormalTok{)}
+\KeywordTok{text}\NormalTok{(}\DataTypeTok{x=}\DecValTok{30}\NormalTok{, }\DataTypeTok{y=} \FloatTok{0.4}\NormalTok{, }\DataTypeTok{label=}\StringTok{"Delphinidae"}\NormalTok{, }\DataTypeTok{font=}\DecValTok{4}\NormalTok{, }\DataTypeTok{cex=}\FloatTok{1.5}\NormalTok{, }\DataTypeTok{pos=}\DecValTok{4}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-176-1} \end{center}
+
+If we desire, we can extract the rates at the tips and analyse them using \textbf{getTipRates}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tip.rates \textless{}{-}}\StringTok{ }\KeywordTok{getTipRates}\NormalTok{(ed)}
+\end{Highlighting}
+\end{Shaded}
+
+A simple histogram of the speciation rates and extinction rates show strongly bimodal distributions in both cases.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(ggplot2)}
+\NormalTok{d \textless{}{-}}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\StringTok{"lambda"}\NormalTok{ =}\StringTok{ }\NormalTok{tip.rates}\OperatorTok{$}\NormalTok{lambda.avg)}
+\KeywordTok{ggplot}\NormalTok{(d, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ lambda)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom\_histogram}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-178-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{require}\NormalTok{(ggplot2)}
+\NormalTok{d \textless{}{-}}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\StringTok{"mu"}\NormalTok{ =}\StringTok{ }\NormalTok{tip.rates}\OperatorTok{$}\NormalTok{mu.avg)}
+\KeywordTok{ggplot}\NormalTok{(d, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ mu)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom\_histogram}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"grey"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-179-1} \end{center}
+
+It appears on closer inspection that the differences are down to the rate shift in Delphinidae.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d \textless{}{-}}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\StringTok{"lambda"}\NormalTok{ =}\StringTok{ }\NormalTok{tip.rates}\OperatorTok{$}\NormalTok{lambda.avg, }
+                \StringTok{"group"}\NormalTok{ =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"non{-}dolphins"}\NormalTok{, }\DecValTok{52}\NormalTok{), }\KeywordTok{rep}\NormalTok{(}\StringTok{"dolphins"}\NormalTok{, }\DecValTok{35}\NormalTok{)))}
+\KeywordTok{ggplot}\NormalTok{(d, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ lambda, }\DataTypeTok{x =}\NormalTok{ group, }\DataTypeTok{colour =}\NormalTok{ group)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom\_boxplot}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale\_color\_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"blue"}\NormalTok{, }\StringTok{"red"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-180-1} \end{center}
+
+\hypertarget{further-info-4}{%
+\section{Further info}\label{further-info-4}}
+
+There's an interesting post-script here. A recent study claimed to show that making inferences about diversification patterns using extant time-trees is a deeply flawed approach \citep{Louca20}. This article claims that there are actually an infinite number of diversification scenarios that are equally likely to be the product of these type of analysis.
+
+If correct, this is a \emph{huge} problem for the study of diversification. The authors do suggest a way through however. In particular, they emphasise that the inclusion of paleontological data is crucially important to improve these methods. The methods covered in this chapter explicitly deal exclusively with ultrametric trees (no fossil data) and so we are a little stuck with this new criticism.
+
+However, developers of these methods have been aware for some time that including fossil taxa in these analyses is important. For example, look back to the chapters on ancestral state reconstruction for a demonstration of how fossil data improves an analysis. Versions of these analyses that can deal with non-ultrametric trees are bound to help address the concerns of Louca and Pennell \citeyearpar{Louca20}.
+
 \hypertarget{w2PGLS}{%
 \chapter{Phylogenetic Regression}\label{w2PGLS}}
 
@@ -2364,7 +2881,7 @@ We can also plot this line with \textbf{ggplot} with the following code. To plot
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-139-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-186-1} \end{center}
 
 \hypertarget{phylogenetic-signal}{%
 \section{Phylogenetic Signal}\label{phylogenetic-signal}}
@@ -2384,7 +2901,7 @@ The degree of phylogenetic signal in a trait is often described using the scalin
 
 For example, take the case on the left, where \(\lambda\) = 1. In this case the tree is untransformed because the variation in the trait follows the structure of the tree. On the right, where \(\lambda\) = 0, all the internal branch lengths have been multiplied by 0 and therefore collapsed. This ``star phylogeny'' describes a pattern of variation in which the trait varies at random with respect to the phylogeny. The trait is not equal across the tree but rather the variation in the trait does not correlate to the pattern of relatedness.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-140-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-187-1} \end{center}
 
 \hypertarget{caper}{%
 \subsection{caper}\label{caper}}
@@ -2522,7 +3039,7 @@ Now let's have a go at performing a PGLS regression!
 
 Let's say we have an idea that larger species of primate have longer gestations. Our plot seems to back this up but how strong is this relationship?
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-147-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-194-1} \end{center}
 
 We found earlier that there does seem to be a relationship but ordinary least squares linear regression can't be relied upon in this situation. This is because of the statistical non-independence of data points due to shared evolutionary history!
 
@@ -2588,7 +3105,7 @@ A brief note here. The syntax to get \textbf{ggplot} to do this is a little more
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-150-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-197-1} \end{center}
 
 \hypertarget{model-checking}{%
 \subsection{Model Checking}\label{model-checking}}
@@ -2604,7 +3121,7 @@ We begin by using the \textbf{pgls.profile} function to extract the likelihoods 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-151-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-198-1} \end{center}
 
 This plot describes the log likelihood of \(\lambda\) across its possible range of values (0 - 1). We can clearly see that the likelihood is highest around a single point around 0.8. Check back against the model output earlier to see if this is what we would expect.
 
@@ -2705,7 +3222,7 @@ Finally, we can check the diagnostic plots of the model. I've included some line
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-157-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-204-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2823,7 +3340,7 @@ We have a \(\lambda\) of 0.683. This is \textbf{not} the phylogenetic signal of 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-165-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-212-1} \end{center}
 
 Not to worry! On we go. The coefficients table in the results output is what we really want to look at here. We can see that the overall fit of the model is significant (R\textsuperscript{2} = 0.23, p \textless{} 0.001) but a little underwhelming. The only significant predictor of longevity in our model is body mass (\(\beta\) = 0.13, se = 0.05, p = 0.006). Our other variables do not significantly predict lifespan.
 
@@ -2921,7 +3438,7 @@ Also keep in mind that the model we've built here doesn't use any interaction te
 
 In analyses like the one above, it is not uncommon to run into problems. When constructing a regression model, it is important to make sure your predictor variables don't correlate.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-168-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-215-1} \end{center}
 
 As we can see here, this is clearly not the case. Exactly how much of a problem this can be is uncertain. Strong correlations are hugely problematic but weak ones are probably not that big a deal.
 
@@ -2961,7 +3478,7 @@ In path analysis, we take a number of variables and define a \textbf{causal mode
 
 }
 
-\caption{Predicted pathway model of primate brain evolution taken from Dunbar and Shultz (2007).}\label{fig:unnamed-chunk-170}
+\caption{Predicted pathway model of primate brain evolution taken from Dunbar and Shultz (2007).}\label{fig:unnamed-chunk-217}
 \end{figure}
 
 Models like this one can be complex with many arrows showing a complex network of relationships. This is fairly typical of biological systems! If you study it closely, you'll be able to see that it describes the interactions between variables. For example, \emph{body size} directly influences \emph{lifespan}, \emph{home range}, \emph{activity}, \emph{BMR} and \emph{diet}. The relationships described by these arrows represent a causal hypothesis.
@@ -2976,7 +3493,7 @@ D-sep tests \textbf{conditional independencies} in your DAG. If two vertices are
 
 }
 
-\caption{Example of a simple directed acyclic graph from Gonzalez-Voyer and Von Hardenberg 2014.}\label{fig:unnamed-chunk-171}
+\caption{Example of a simple directed acyclic graph from Gonzalez-Voyer and Von Hardenberg 2014.}\label{fig:unnamed-chunk-218}
 \end{figure}
 
 This example DAG contains a number of independencies. \textbf{BM} and \textbf{DD} are unconnected and therefore should be independent if this model is reasonable. We can actually build a model to test that indepedency as follows:
@@ -3045,7 +3562,7 @@ We can plot the model using the function \textbf{plot\_model\_set}. The extra ar
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-177-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-224-1} \end{center}
 
 The layout isn't exactly the same as the previous diagram but we can manipulate that with the argument \textbf{manual\_layout} if we wish. We need to create a dataframe with x and y coordinates for the final plots. We can also set the arrows to be straight by setting \textbf{curvature} to be 0.
 
@@ -3059,7 +3576,7 @@ The layout isn't exactly the same as the previous diagram but we can manipulate 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-178-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-225-1} \end{center}
 
 For the full analysis, let's define a number of possible models and try and see which best describes the data. We start with \textbf{define\_model\_set} and pass lists of formulae to each model which here I have named numerically 1 to 9. We've also passed some formulae to the \textbf{.common} option as these formulae are present in every model. This saves a fair bit of repetition.
 
@@ -3089,7 +3606,7 @@ Because this is a complex step, ALWAYS check your \textbf{Directed Acyclic Graph
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-180-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-227-1} \end{center}
 
 If we are doing this by hand, now we need to identify d-separation statements and test conditional independencies. \textbf{Phylopath} does it all for us. To interpret the final results, you really need to understand what happens in this step so take it slow and revisit the explanations above. You can also refer to the methods papers which explain things very well \citep{Hardenberg13, Gonzalez14}.
 
@@ -3146,7 +3663,7 @@ We can plot the summary of results and we are presented with a very useful plot,
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-184-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-231-1} \end{center}
 
 For now, let's just plot the best model.
 
@@ -3157,7 +3674,7 @@ For now, let's just plot the best model.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-185-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-232-1} \end{center}
 
 The numbers and width of each arrow represent the path coefficents (effect sizes). The blue colour represents a positive relationship. A negative relationship would be red. Remember here that we have a few models with roughly equivalent support. We can average these models if this happens. The \textbf{cut\_off} argument tells us where to place the limit of support. By default this is 2 CICc and so the function \textbf{average} will only average the models that fall within 2 CICc of the best supported model.
 
@@ -3168,7 +3685,7 @@ The numbers and width of each arrow represent the path coefficents (effect sizes
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-186-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-233-1} \end{center}
 
 \hypertarget{conclusion-1}{%
 \section{Conclusion}\label{conclusion-1}}
@@ -3193,11 +3710,11 @@ As we saw in chapter 8, there has been and independent loss of conspicuous sexua
 
 \begin{figure}[H]
 
-{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-189-1} 
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-236-1} 
 
 }
 
-\caption{Maximum likelihood reconstruction of the evolution of conspicuous sexual swellings in macaques using an equal rates model of evolution.}\label{fig:unnamed-chunk-189}
+\caption{Maximum likelihood reconstruction of the evolution of conspicuous sexual swellings in macaques using an equal rates model of evolution.}\label{fig:unnamed-chunk-236}
 \end{figure}
 
 As you can probably tell, it can be easy to assign convergent evolution to categorical traits and less so to continuous traits. To identify convergence in continuous characters, we need to identify selective regimes.
@@ -3246,7 +3763,7 @@ Next we can load some example data.
 
 The data we have here describe three personality traits of 25 characters from the Marvel and DC cinematic universes. There is also a phylogeny describing the pattern of relatedness between characters. For this analysis, we are going to use all 3 personality traits to try and identify any convergence across universes.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-194-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-241-1} \end{center}
 
 \hypertarget{forward-phase}{%
 \subsubsection{Forward Phase}\label{forward-phase}}
@@ -3353,7 +3870,7 @@ The best thing to do with an analysis like this is visualise the results. We can
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-201-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-248-1} \end{center}
 
 Using the tree like this allows us to spot some patterns. The blue regime appears to be mostly heroes such as Wonder Woman, Captain Marvel and Black Panther. The selective regime that produces heroes occurs 3 times here. Once leading to Wonder Woman and Superman in the DC universe, once leading to a cluster of Avengers plus Professor X in the Marvel universe and a third time leading to Deadpool.
 
@@ -3371,7 +3888,7 @@ There are some surprising placements. Batman and Iron Man are both in the same r
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-202-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-249-1} \end{center}
 
 These plots show how the traits cluster along with the average value for each regime (larger point).
 
@@ -3397,19 +3914,19 @@ The package to perform a Wheatsheaf analysis is called \textbf{windex} \citep{wi
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-204-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-251-1} \end{center}
 
 This scatterplot represents the \textbf{phenotypic space} described by the two traits. We can see there is a clear clustering of species but the question we have to ask is, does this pattern mean convergence and if yes, how strong is that convergence?
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-205-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-252-1} \end{center}
 
 To make things clearer, let's highlight our focal group species in phenotypic space by plotting them in red.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-206-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-253-1} \end{center}
 
 It's clear that the focal group species cluster very closely. The tree shows us the taxonomic distribution of the focal group. so it seems that this clustering cannot be explained by phylogeny.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-207-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-254-1} \end{center}
 
 To calculate \emph{W}, we can use the \textbf{windex} function. Remember that a value of W greater than 1 indicates the focal group is more similar to each other than to the group as a whole.
 
@@ -3446,7 +3963,7 @@ The question we have to answer now is whether the value of \emph{W} is higher th
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-209-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-256-1} \end{center}
 
 The plot here shows the distribution of the bootstrap replicates. We can see from the plotted line that the calculated value and the accompanying confidence intervals are far separate from the distribution of the replicates. This indicates a hih degree of confidence in some unusually storng convergence here. As we can see, the p-value backs this up.
 
@@ -3461,8 +3978,8 @@ $`P-value=`
 [1] 0
 \end{verbatim}
 
-\hypertarget{further-info-4}{%
-\section{Further info}\label{further-info-4}}
+\hypertarget{further-info-5}{%
+\section{Further info}\label{further-info-5}}
 
 \hypertarget{bibliography}{%
 \chapter{Bibliography}\label{bibliography}}

@@ -1,0 +1,17 @@
+generation,leftchild,rightchild,abstime,lambdainit,lambdashift,muinit,mushift
+0,Balaena_mysticetus,Physeter_catodon,0,0.032,0,0.005,0
+1000,Balaena_mysticetus,Physeter_catodon,0,0.156723,-0.00867698,0.051938,0
+2000,Balaena_mysticetus,Physeter_catodon,0,0.267591,-0.0211645,0.0767247,0
+3000,Balaena_mysticetus,Physeter_catodon,0,0.263177,-0.026387,0.0487564,0
+4000,Balaena_mysticetus,Physeter_catodon,0,0.199022,-0.0144537,0.0297153,0
+5000,Balaena_mysticetus,Physeter_catodon,0,0.089127,0.0180229,0.0224613,0
+6000,Balaena_mysticetus,Physeter_catodon,0,0.247152,-0.00764321,0.139886,0
+7000,Balaena_mysticetus,Physeter_catodon,0,0.143015,-0.0206772,0.0178523,0
+7000,Eschrichtius_robustus,NA,31.1846,0.105896,0.0148749,0.0921652,0
+7000,Lagenorhynchus_acutus,Steno_bredanensis,27.4227,0.288798,-3.40589e-05,0.0121006,0
+8000,Balaena_mysticetus,Physeter_catodon,0,0.103849,-0.0188147,0.0417108,0
+8000,Platanista_gangetica,Platanista_minor,28.7477,0.530067,0.0627192,0.332555,0
+8000,Lagenorhynchus_albirostris,NA,31.4917,0.0427887,0.0154849,0.310938,0
+8000,Orcaella_brevirostris,Lagenorhynchus_albirostris,25.9467,0.476311,-0.0764002,0.0336347,0
+9000,Balaena_mysticetus,Physeter_catodon,0,0.104585,-0.021765,0.000833315,0
+9000,Orcinus_orca,Orcaella_brevirostris,23.1676,0.492671,-0.0694149,0.0738546,0
