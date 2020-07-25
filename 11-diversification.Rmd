@@ -31,9 +31,7 @@ ggplot(x, aes(x = t, y = N)) +
 rm(t,b,N,i,x)
 ```
 
-As you can probably tell, the pure birth model is not a very good representation of biological reality. For example, today there are around 90 species of cetacean. A pure birth model in which we have conservatively *b* set at 0.5 (meaning we have 0.5 new species born every million years) would give us 4.67 x 10^23^ species of cetacean in 100 million years.
-
-In fact, those 90 species have arsien in around 50 million years so ignoring fossils the rate would be something more like 1.8. That would give us 5.9 x 10^9^ in just 10 million years and 1.34 x 10^80^ species in 100 million years!
+As you can probably tell, the pure birth model is not a very good representation of biological reality. For example, today there are around 90 species of cetacean. A pure birth model in which we have *b* set at 0.1 (meaning we have 0.1 new species born every million years) would give us over 1 million species of cetacean in 100 million years.
 
 ### The Birth-Death Model
 
@@ -89,7 +87,7 @@ ltt.plot(tree1, log = "y")
 
 As can be seen from this plot, the increase in lineages over time will be log-linear, just as predicted in previous sections.
 
-What about when we add extinction? We can see here that pure-birth and birth-death trees look quite different.
+What about when we add extinction? We can see here that pure-birth and birth-death trees look quite different. this is because older lineages are more likely to go extinct. This *pull of the present* means that extinction rates appear lower in the present even though there's no reason to assume that they would be any different. We just have a greater proportion of total lineages the closer we are to the present!
 
 ```{r, echo=FALSE, eval=TRUE}
 simTree1 <- sim.bd.taxa.age(n = 109, age = 10, numbsim = 1, lambda = 0.4, mu = 0)[[1]]
@@ -99,41 +97,65 @@ plot(simTree1, main = "Pure Birth", cex = 0.01)
 plot(simTree2, main = "Birth-death", cex = 0.01)
 ```
 
+## Estimating speciation and extinction rate
+
+Given a phylogeny, we can estimate speciation and extinction rate using the function **birthdeath** in **ape** [@ape].
+
+```{r, echo=TRUE, eval=FALSE}
+library(ape)
+whales <- read.tree("whaletree.tre")
+bd.mod <- birthdeath(whales)
+bd.mod
+```
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+library(ape)
+library(phytools)
+whales <- read.tree("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/diversification/whaletree.tre")
+bd.mod <- birthdeath(whales)
+bd.mod
+```
+
+The output here gives us some derived values such as $b - d$ (net diversification). If you want to cut straight to the speciation and extinction rates, you can use a **phytools** function called **bd** [@phytools].
+
+```{r, echo=TRUE, eval=TRUE}
+phytools::bd(bd.mod)
+```
+
+This is a nice start but it assumes constant rates across the tree and that doesn't seem like a reasonable assumption to me. We also may have good reason to doubt that the extinction rate is truly 0!
+
 ## MEDUSA
 
-The general birth-death models you have seen so far produce a fairly uniform tree of life. In reality, this isn't actually what we observe. Some clades are highly diverse (such as arthropods) and some are not. Understanding the patterns of diversification is what we will attempt to do with the methods available here.
+The general birth-death models you have seen so far produce a fairly uniform tree of life. In reality, this isn't actually what we observe. Some clades are highly diverse (such as arthropods) and some are not. This implies that the rates of diversification can vary between lineages.
 
-**MEDUSA** stands for Modelling Evolutionary Diversification Using Stepwise AIC [@Alfaro09]. It fits piecewise models of birth and death to our tree and allows to ask where rates of birth and death may have changed and why clades might differ in size.
+In fact, based on our understanding of evolution, we would expect rates to change all the time! We know that extinction rates fluctuate around a background rate. For example, extinction rates increase dramatically during mass extinctions. Speciation rates increase during adaptive radiations. The next methods to look at are capable of detecting these changes in rate using phylogenies.
+
+**MEDUSA** stands for Modelling Evolutionary Diversification Using Stepwise AIC [@Alfaro09]. It fits piecewise models of birth and death to our tree and allows us to ask where rates of birth and death may have changed and why clades might differ in size.
 
 MEDUSA fits models to the tree, splitting the tree and allowing the rate to change at each split. The method proceeds by comparing the old model to the new model using AICc to either accept of reject the shift in rate.
 
-Let's see how it works using a phylogeny of cetaceans.
-```{r, echo=TRUE, eval=FALSE}
-whales <- ape::read.tree("whaletree.tre")
-```
-
+Let's see how it works using the phylogeny of cetaceans.
 ```{r, echo=FALSE, eval=TRUE, warning=FALSE, message=FALSE}
-whales <- ape::read.tree("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/diversification/whaletree.tre")
 require(geiger)
 ```
 
 We can run the analysis using the **medusa** function in geiger [@geiger]. All we have to specify here is the tree *phy = whales* and that we want to fit birth-death models *model = "bd"*.
+
 ```{r, echo=TRUE, eval=FALSE}
 library(geiger)
 m1 <- medusa(phy = whales, model = "bd")
 ```
-
 ```{r, echo=FALSE, eval=TRUE}
 m1 <- medusa(phy = whales, model = "bd", ncores = 2)
 ```
 
 There's a lot of information in this output so let's go through it. Firstly, we are told that the appropriate AICc threshold for a tree of this size is 4.4. You may be used to using a change of 2 in AIC as signifiying a significant difference between models. The appropriate threshold for distinguishing between models using MEDUSA varies depending on the size of the tree. Fortunately, the function simply calculates it and reports it to us.
 
-Next we have the stepwise output. In this case we only have 2 steps. Each step is reported to us and in this case, we can see that step 2 involves cutting the tree at node 141. This means that *medusa* has identfied a change in model at node 141 and continued with the new model from that node.
+Next we have the stepwise output. In this case we only have 2 steps. Each step is reported to us and in this case, we can see that step 2 involves cutting the tree at node 141. This means that *medusa* has identfied a change in rate at node 141 and continued with the new model from that node.
 
 Finally, the table gives us parameter values for each step. This is very important in interpreting the output. Note that *epsilon* is the extinction rate, previously known as either *d* or $\mu$ and *r* is the net diversification rate ($\lambda - \mu$).
 
-The best way to visualise this analysis is by plotting the models on the tree. When we do so we can see that *medusa* has placed the shift near the root of the Delphinidae (excluding interestingly the orca). We can see that the rate of speciation is much greater in the oceanic dolphins.
+The best way to visualise this analysis is by plotting the models on the tree. When we do so we can see that *medusa* has placed the shift near the root of the Delphinidae (excluding interestingly the orca). We can see that the rate of diversification is much greater in the oceanic dolphins.
 
 ```{r, echo=TRUE, eval=TRUE, fig.height = 9, out.width="100%"}
 par(mar = c(3.1, 0, 0.1, 0))
@@ -149,7 +171,7 @@ par(mar = c(5.1,4.1,4.1,2.1))
 
 ## RPANDA
 
-The package **RPANDA** [@rpanda] allows us to fit different models of variation in the rate of birth and death through time. We can then select the best model by maximum likelihood.
+The package **RPANDA** [@rpanda] allows us to fit different defined models of variation in the rate of birth and death through time. We can then select the best model by maximum likelihood. This is a good way of testing an *a priori* hypothesis we may have about diversification in a lineage.
 
 The first step is to define a few functions that describe our hypotheses. First we need to define speciation rate ($\lambda$) as either constant (**lambda.cst**) or varying exponentially (**lambda.var**). We can do the same for extinction rate ($\mu$).
 
@@ -195,10 +217,10 @@ g4 <- ggplot(data.frame(x=1:25, y = 1:25), aes(x,y)) +
 ggpubr::ggarrange(g1, g2, g3, g4, ncol = 2, nrow = 2, labels = c("A", "B", "C", "D"))
 ```
 
-In RPANDA, we need to know ahead of time which clades are most likely to have similar diversification regimes. For this example, we will look at cetaceans. There are 4 major radiations of cetaceans to look at. These are; *Balaenopteridae, Ziphidae, Phocoenidae* and *Delphinidae*.
+In RPANDA, we need to specify which clades are most likely to have diversification shifts to test our hypotheses. For this example, we will look at 4 major radiations of cetaceans. These are; *Balaenopteridae, Ziphidae, Phocoenidae* and *Delphinidae*.
 
 ```{r, echo=TRUE, eval = FALSE}
-whales <- ape::read.tree("whaletree.tre")
+library(RPANDA)
 ```
 
 ```{r, echo=FALSE, eval = TRUE, warning=FALSE, message=FALSE, fig.height=8}
@@ -237,21 +259,7 @@ Now we can fit some birth-death models! Let's start with both parameters constan
 
 The first argument is just our tree (*phylo*). Then we need to include the total length of the tree (*tot_time*). We don't know this offhand but we can calculate it using **max(branching.times(TREE))**. The arguments *f.lamb* and *f.mu* take our previously defined functions for $\lambda$ (birth rate) and $\mu$ (death rate). *lamb_par* and *mu_par* similarly take our initial values for $\lambda$ and $\mu$ which here, will be 0.4 and 0 respectively. **cst.lamb** and **cst.mu** are both logical (they can be true or false) and ask if $\lambda$ and $\mu$ are constant (they are). The argument *f* is the fraction of extant species included in the whole phylogeny. Here we have 87 out of the 89 cetacean species. Finally, **dt** is set to the recommended value in the vignette for the function. In short, **dt** is the length of the time interval on which functions are assumed to be constant. Smaller values mean a finer-grain analysis and longer computing times. Larger values mean the analysis will be quicker but lower resolution.
 
-```{r, echo=TRUE, eval=FALSE}
-library(RPANDA)
-bcstdcst <- fit_bd(phylo = delphinidae.tree, 
-                   tot_time = max(branching.times(delphinidae.tree)),
-                   f.lamb = lambda.cst,
-                   f.mu = mu.cst,
-                   lamb_par = 0.4,
-                   mu_par = 0,
-                   cst.lamb = TRUE,
-                   cst.mu = TRUE,
-                   f = 87/89,
-                   dt = 1e-3)
-```
-
-```{r, echo=FALSE, eval=TRUE}
+```{r, echo=TRUE, eval=TRUE}
 bcstdcst <- fit_bd(phylo = delphinidae.tree, 
                    tot_time = max(branching.times(delphinidae.tree)),
                    f.lamb = lambda.cst, f.mu = mu.cst,
@@ -266,7 +274,7 @@ The analysis has returned a number of details. Most importantly for us, the like
 bcstdcst
 ```
 
-Let's now evaluate the other 3 models.
+Let's now evaluate the other 3 models using the same function. Be mindful of the changes in argument for each model. Especially the **expo.** and **cst.** arguments which differ depending on the model.
 
 ```{r, echo=TRUE, eval=TRUE}
 bvardcst <- fit_bd(phylo = delphinidae.tree, 
@@ -301,6 +309,7 @@ knitr::kable(results)
 ```
 
 The table shows us that the best AICc for Delphinidae is the *bvardcst* model, although there's barely anything in it. You may note that by a mathematical quirk (see the help for this function for details) the $\mu$ for this model is negative. Clearly this can't be the case! This can happen sometimes with this calaculation but all rates should be interpreted as *absolute* values. In other words, ignore the sign.
+
 ```{r, echo=TRUE, eval = TRUE}
 bvardcst$mu_par
 ```
@@ -363,7 +372,6 @@ p3 <- ggdraw() + draw_image("Images/div1.png", width = 1)
 plot_grid(p1,p2,p3, align = "h", ncol = 3)
 ```
 
-
 The function **plot_dtt** will produce a plot of diversity through time. Here we can see how Delphinidae diversity has increased over the tree.
 
 ```{r, echo=TRUE, eval=TRUE}
@@ -372,7 +380,7 @@ plot_dtt(results$delphinidae.res$bvardcst,
          N0 = Ntip(delphinidae.tree))
 ```
 
-Let's compare the diversification in all the lineages we've analysed. To do so, we would need to edit the **plot_dtt** function. Like so much else, this has already been done for us and the code can be found [here][harmon].
+Let's compare the diversification in all the lineages we've analysed. To do so easily, we would need to edit the **plot_dtt** function. Like so much else, this has already been done for us and the code can be found [here][harmon].
 
 ```{r, echo=FALSE, eval=FALSE}
 # Function to calculate species richness in a given point in time
@@ -441,11 +449,11 @@ We can see the rise of each lineage with the start of each line. We can begin to
 
 ## BAMM & BAMMtools
 
-**BAMM** stands for Bayesian Analysis of Macroevolutionary Mixtures and is an open source piece of software. BAMM uses a process called reversible-jump Markov Chain Monte-Carlo (rjMCMC) simulation to estimate diversification [@Rabosky14]. The software and accompanying documentation can be found [here][bamm].
+**BAMM** stands for Bayesian Analysis of Macroevolutionary Mixtures and is an open source piece of software. BAMM uses a process called reversible-jump Markov Chain Monte-Carlo (rjMCMC) simulation to estimate diversification rates [@Rabosky14]. The software and accompanying documentation can be found [here][bamm].
 
 To use BAMM, you must first download the program following [these instructions][bamm2]. For this demonstration, we will use the same cetacean tree we have been using in this chapter as well as some pre-prepared instructions for BAMM to run. Both are available [here][harmon].
 
-Run the analysis by storing your tree and the *divcontrol.txt* file in the same directory as BAMM and then run this command for your terminal.
+Run the analysis by storing your tree and the *divcontrol.txt* file in the same directory as BAMM and then run this command from your terminal.
 
 ```{r, echo=TRUE, eval=FALSE}
 ./bamm -c divcontrol.txt
@@ -460,7 +468,7 @@ library(BAMMtools)
 events <- read.csv("event_data.txt")
 ```
 
-For this demonstration, I will load the example data from the package. It ran on the same tree but is from a longer MCMC chain and so likely to be more informative as well as being a closer representation of what you are likely to want to run.
+For this demonstration, I will load the example data from the package. It ran on the same tree but is from a longer MCMC chain and so is likely to be more informative as well as being a closer representation of what you are likely to want to run in a proper analysis.
 
 ```{r, echo=FALSE, eval=TRUE}
 library(BAMMtools)
@@ -539,7 +547,7 @@ ggplot(d, aes(x = mu)) +
   theme_minimal()
 ```
 
-It appears on closer inspection that the differences are down to the rate shift in Delphinidae.
+It appears on closer inspection that the differences are down to the rate shift in Delphinidae we have identified multiple times throughout this chapter.
 
 ```{r, echo=TRUE, eval=TRUE}
 d <- data.frame("lambda" = tip.rates$lambda.avg, 

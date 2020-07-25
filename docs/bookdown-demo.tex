@@ -253,7 +253,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 42.06478
+[1] 42.00867
 \end{verbatim}
 
 \begin{Shaded}
@@ -263,7 +263,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 4.218764
+[1] 4.243771
 \end{verbatim}
 
 \hypertarget{plotting}{%
@@ -943,7 +943,7 @@ Analysis of Variance Table
 
 Response: dat
           Df   Sum-Sq  Mean-Sq F-value  Pr(>F) Pr(>F) given phy
-group      2 0.063237 0.031619  3.0067 0.09497           0.1479
+group      2 0.063237 0.031619  3.0067 0.09497           0.1868
 Residuals 10 0.105161 0.010516                                 
 \end{verbatim}
 
@@ -2306,9 +2306,7 @@ This plot shows how the number of species would grow over time. Note that in thi
 
 \begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-135-1} \end{center}
 
-As you can probably tell, the pure birth model is not a very good representation of biological reality. For example, today there are around 90 species of cetacean. A pure birth model in which we have conservatively \emph{b} set at 0.5 (meaning we have 0.5 new species born every million years) would give us 4.67 x 10\textsuperscript{23} species of cetacean in 100 million years.
-
-In fact, those 90 species have arsien in around 50 million years so ignoring fossils the rate would be something more like 1.8. That would give us 5.9 x 10\textsuperscript{9} in just 10 million years and 1.34 x 10\textsuperscript{80} species in 100 million years!
+As you can probably tell, the pure birth model is not a very good representation of biological reality. For example, today there are around 90 species of cetacean. A pure birth model in which we have \emph{b} set at 0.1 (meaning we have 0.1 new species born every million years) would give us over 1 million species of cetacean in 100 million years.
 
 \hypertarget{the-birth-death-model}{%
 \subsection{The Birth-Death Model}\label{the-birth-death-model}}
@@ -2352,26 +2350,68 @@ We can plot the pattern of lineage accumulation through time with a lineage-thro
 
 As can be seen from this plot, the increase in lineages over time will be log-linear, just as predicted in previous sections.
 
-What about when we add extinction? We can see here that pure-birth and birth-death trees look quite different.
+What about when we add extinction? We can see here that pure-birth and birth-death trees look quite different. this is because older lineages are more likely to go extinct. This \emph{pull of the present} means that extinction rates appear lower in the present even though there's no reason to assume that they would be any different. We just have a greater proportion of total lineages the closer we are to the present!
 
 \begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-140-1} \end{center}
+
+\hypertarget{estimating-speciation-and-extinction-rate}{%
+\section{Estimating speciation and extinction rate}\label{estimating-speciation-and-extinction-rate}}
+
+Given a phylogeny, we can estimate speciation and extinction rate using the function \textbf{birthdeath} in \textbf{ape} \citep{ape}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(ape)}
+\NormalTok{whales \textless{}{-}}\StringTok{ }\KeywordTok{read.tree}\NormalTok{(}\StringTok{"whaletree.tre"}\NormalTok{)}
+\NormalTok{bd.mod \textless{}{-}}\StringTok{ }\KeywordTok{birthdeath}\NormalTok{(whales)}
+\NormalTok{bd.mod}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Estimation of Speciation and Extinction Rates
+            with Birth-Death Models
+
+     Phylogenetic tree: whales 
+        Number of tips: 87 
+              Deviance: -45.0534 
+        Log-likelihood: 22.5267 
+   Parameter estimates:
+      d / b = 0   StdErr = 0 
+      b - d = 0.103623   StdErr = 0.007955189 
+   (b: speciation rate, d: extinction rate)
+   Profile likelihood 95% confidence intervals:
+      d / b: [-0.4859418, 0.2661802]
+      b - d: [0.08313059, 0.1272357]
+\end{verbatim}
+
+The output here gives us some derived values such as \(b - d\) (net diversification). If you want to cut straight to the speciation and extinction rates, you can use a \textbf{phytools} function called \textbf{bd} \citep{phytools}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{phytools}\OperatorTok{::}\KeywordTok{bd}\NormalTok{(bd.mod)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       b        d 
+0.103623 0.000000 
+\end{verbatim}
+
+This is a nice start but it assumes constant rates across the tree and that doesn't seem like a reasonable assumption to me. We also may have good reason to doubt that the extinction rate is truly 0!
 
 \hypertarget{medusa}{%
 \section{MEDUSA}\label{medusa}}
 
-The general birth-death models you have seen so far produce a fairly uniform tree of life. In reality, this isn't actually what we observe. Some clades are highly diverse (such as arthropods) and some are not. Understanding the patterns of diversification is what we will attempt to do with the methods available here.
+The general birth-death models you have seen so far produce a fairly uniform tree of life. In reality, this isn't actually what we observe. Some clades are highly diverse (such as arthropods) and some are not. This implies that the rates of diversification can vary between lineages.
 
-\textbf{MEDUSA} stands for Modelling Evolutionary Diversification Using Stepwise AIC \citep{Alfaro09}. It fits piecewise models of birth and death to our tree and allows to ask where rates of birth and death may have changed and why clades might differ in size.
+In fact, based on our understanding of evolution, we would expect rates to change all the time! We know that extinction rates fluctuate around a background rate. For example, extinction rates increase dramatically during mass extinctions. Speciation rates increase during adaptive radiations. The next methods to look at are capable of detecting these changes in rate using phylogenies.
+
+\textbf{MEDUSA} stands for Modelling Evolutionary Diversification Using Stepwise AIC \citep{Alfaro09}. It fits piecewise models of birth and death to our tree and allows us to ask where rates of birth and death may have changed and why clades might differ in size.
 
 MEDUSA fits models to the tree, splitting the tree and allowing the rate to change at each split. The method proceeds by comparing the old model to the new model using AICc to either accept of reject the shift in rate.
 
-Let's see how it works using a phylogeny of cetaceans.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{whales \textless{}{-}}\StringTok{ }\NormalTok{ape}\OperatorTok{::}\KeywordTok{read.tree}\NormalTok{(}\StringTok{"whaletree.tre"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+Let's see how it works using the phylogeny of cetaceans.
 
 We can run the analysis using the \textbf{medusa} function in geiger \citep{geiger}. All we have to specify here is the tree \emph{phy = whales} and that we want to fit birth-death models \emph{model = ``bd''}.
 
@@ -2402,11 +2442,11 @@ Calculating profile likelihoods on parameter values.
 
 There's a lot of information in this output so let's go through it. Firstly, we are told that the appropriate AICc threshold for a tree of this size is 4.4. You may be used to using a change of 2 in AIC as signifiying a significant difference between models. The appropriate threshold for distinguishing between models using MEDUSA varies depending on the size of the tree. Fortunately, the function simply calculates it and reports it to us.
 
-Next we have the stepwise output. In this case we only have 2 steps. Each step is reported to us and in this case, we can see that step 2 involves cutting the tree at node 141. This means that \emph{medusa} has identfied a change in model at node 141 and continued with the new model from that node.
+Next we have the stepwise output. In this case we only have 2 steps. Each step is reported to us and in this case, we can see that step 2 involves cutting the tree at node 141. This means that \emph{medusa} has identfied a change in rate at node 141 and continued with the new model from that node.
 
 Finally, the table gives us parameter values for each step. This is very important in interpreting the output. Note that \emph{epsilon} is the extinction rate, previously known as either \emph{d} or \(\mu\) and \emph{r} is the net diversification rate (\(\lambda - \mu\)).
 
-The best way to visualise this analysis is by plotting the models on the tree. When we do so we can see that \emph{medusa} has placed the shift near the root of the Delphinidae (excluding interestingly the orca). We can see that the rate of speciation is much greater in the oceanic dolphins.
+The best way to visualise this analysis is by plotting the models on the tree. When we do so we can see that \emph{medusa} has placed the shift near the root of the Delphinidae (excluding interestingly the orca). We can see that the rate of diversification is much greater in the oceanic dolphins.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2419,12 +2459,12 @@ The best way to visualise this analysis is by plotting the models on the tree. W
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-145-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-147-1} \end{center}
 
 \hypertarget{rpanda}{%
 \section{RPANDA}\label{rpanda}}
 
-The package \textbf{RPANDA} \citep{rpanda} allows us to fit different models of variation in the rate of birth and death through time. We can then select the best model by maximum likelihood.
+The package \textbf{RPANDA} \citep{rpanda} allows us to fit different defined models of variation in the rate of birth and death through time. We can then select the best model by maximum likelihood. This is a good way of testing an \emph{a priori} hypothesis we may have about diversification in a lineage.
 
 The first step is to define a few functions that describe our hypotheses. First we need to define speciation rate (\(\lambda\)) as either constant (\textbf{lambda.cst}) or varying exponentially (\textbf{lambda.var}). We can do the same for extinction rate (\(\mu\)).
 
@@ -2441,17 +2481,17 @@ The first step is to define a few functions that describe our hypotheses. First 
 
 We will test 4 different combinations of these scenarios. I find it easier to visualise models like this graphically so these plots describe the various models.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-148-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-150-1} \end{center}
 
-In RPANDA, we need to know ahead of time which clades are most likely to have similar diversification regimes. For this example, we will look at cetaceans. There are 4 major radiations of cetaceans to look at. These are; \emph{Balaenopteridae, Ziphidae, Phocoenidae} and \emph{Delphinidae}.
+In RPANDA, we need to specify which clades are most likely to have diversification shifts to test our hypotheses. For this example, we will look at 4 major radiations of cetaceans. These are; \emph{Balaenopteridae, Ziphidae, Phocoenidae} and \emph{Delphinidae}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{whales \textless{}{-}}\StringTok{ }\NormalTok{ape}\OperatorTok{::}\KeywordTok{read.tree}\NormalTok{(}\StringTok{"whaletree.tre"}\NormalTok{)}
+\KeywordTok{library}\NormalTok{(RPANDA)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-150-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-152-1} \end{center}
 
 We can extract the relevant sub-trees using \textbf{extract.clade} in \textbf{ape} \citep{ape} in combination with \textbf{MRCA} in \textbf{phylobase} \citep{phylobase}. Don't forget to also make another subtree of all the species not in those groups.
 
@@ -2475,17 +2515,12 @@ The first argument is just our tree (\emph{phylo}). Then we need to include the 
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{library}\NormalTok{(RPANDA)}
 \NormalTok{bcstdcst \textless{}{-}}\StringTok{ }\KeywordTok{fit\_bd}\NormalTok{(}\DataTypeTok{phylo =}\NormalTok{ delphinidae.tree, }
                    \DataTypeTok{tot\_time =} \KeywordTok{max}\NormalTok{(}\KeywordTok{branching.times}\NormalTok{(delphinidae.tree)),}
-                   \DataTypeTok{f.lamb =}\NormalTok{ lambda.cst,}
-                   \DataTypeTok{f.mu =}\NormalTok{ mu.cst,}
-                   \DataTypeTok{lamb\_par =} \FloatTok{0.4}\NormalTok{,}
-                   \DataTypeTok{mu\_par =} \DecValTok{0}\NormalTok{,}
-                   \DataTypeTok{cst.lamb =} \OtherTok{TRUE}\NormalTok{,}
-                   \DataTypeTok{cst.mu =} \OtherTok{TRUE}\NormalTok{,}
-                   \DataTypeTok{f =} \DecValTok{87}\OperatorTok{/}\DecValTok{89}\NormalTok{,}
-                   \DataTypeTok{dt =} \FloatTok{1e{-}3}\NormalTok{)}
+                   \DataTypeTok{f.lamb =}\NormalTok{ lambda.cst, }\DataTypeTok{f.mu =}\NormalTok{ mu.cst,}
+                   \DataTypeTok{lamb\_par =} \FloatTok{0.4}\NormalTok{, }\DataTypeTok{mu\_par =} \DecValTok{0}\NormalTok{,}
+                   \DataTypeTok{cst.lamb =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{cst.mu =} \OtherTok{TRUE}\NormalTok{,}
+                   \DataTypeTok{f =} \DecValTok{87}\OperatorTok{/}\DecValTok{89}\NormalTok{, }\DataTypeTok{dt =} \FloatTok{1e{-}3}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2514,7 +2549,7 @@ mu_par :
 [1] 2.413309e-09
 \end{verbatim}
 
-Let's now evaluate the other 3 models.
+Let's now evaluate the other 3 models using the same function. Be mindful of the changes in argument for each model. Especially the \textbf{expo.} and \textbf{cst.} arguments which differ depending on the model.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2580,7 +2615,7 @@ As before, the first thing to look at is the AICc scores for each model and each
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-159}AICc scores for 4 different birth-death models fitted to five cetacean sub-trees.}
+\caption{\label{tab:unnamed-chunk-160}AICc scores for 4 different birth-death models fitted to five cetacean sub-trees.}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r}
 \hline
@@ -2601,7 +2636,7 @@ The final step is to look at the extracted parameters from the favoured models. 
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-160}Estimates of speciation and extinction rates from birth-death modelling of cetacean evolution}
+\caption{\label{tab:unnamed-chunk-161}Estimates of speciation and extinction rates from birth-death modelling of cetacean evolution}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r}
 \hline
@@ -2638,7 +2673,7 @@ The function \textbf{plot\_dtt} will produce a plot of diversity through time. H
 \end{Highlighting}
 \end{Shaded}
 
-Let's compare the diversification in all the lineages we've analysed. To do so, we would need to edit the \textbf{plot\_dtt} function. Like so much else, this has already been done for us and the code can be found \href{http://lukejharmon.github.io/ilhabela/instruction/2015/07/02/diversification-analysis-bamm-rpanda/\#rpanda}{here}.
+Let's compare the diversification in all the lineages we've analysed. To do so easily, we would need to edit the \textbf{plot\_dtt} function. Like so much else, this has already been done for us and the code can be found \href{http://lukejharmon.github.io/ilhabela/instruction/2015/07/02/diversification-analysis-bamm-rpanda/\#rpanda}{here}.
 
 \begin{center}\includegraphics[width=76.04in]{Images/Diversityplot} \end{center}
 
@@ -2647,11 +2682,11 @@ We can see the rise of each lineage with the start of each line. We can begin to
 \hypertarget{bamm-bammtools}{%
 \section{BAMM \& BAMMtools}\label{bamm-bammtools}}
 
-\textbf{BAMM} stands for Bayesian Analysis of Macroevolutionary Mixtures and is an open source piece of software. BAMM uses a process called reversible-jump Markov Chain Monte-Carlo (rjMCMC) simulation to estimate diversification \citep{Rabosky14}. The software and accompanying documentation can be found \href{http://bamm-project.org/}{here}.
+\textbf{BAMM} stands for Bayesian Analysis of Macroevolutionary Mixtures and is an open source piece of software. BAMM uses a process called reversible-jump Markov Chain Monte-Carlo (rjMCMC) simulation to estimate diversification rates \citep{Rabosky14}. The software and accompanying documentation can be found \href{http://bamm-project.org/}{here}.
 
 To use BAMM, you must first download the program following \href{http://bamm-project.org/download.html}{these instructions}. For this demonstration, we will use the same cetacean tree we have been using in this chapter as well as some pre-prepared instructions for BAMM to run. Both are available \href{http://lukejharmon.github.io/ilhabela/instruction/2015/07/02/diversification-analysis-bamm-rpanda/\#rpanda}{here}.
 
-Run the analysis by storing your tree and the \emph{divcontrol.txt} file in the same directory as BAMM and then run this command for your terminal.
+Run the analysis by storing your tree and the \emph{divcontrol.txt} file in the same directory as BAMM and then run this command from your terminal.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2670,7 +2705,7 @@ The file to import into R is the \emph{event\_data.txt} file stored in the BAMM 
 \end{Highlighting}
 \end{Shaded}
 
-For this demonstration, I will load the example data from the package. It ran on the same tree but is from a longer MCMC chain and so likely to be more informative as well as being a closer representation of what you are likely to want to run.
+For this demonstration, I will load the example data from the package. It ran on the same tree but is from a longer MCMC chain and so is likely to be more informative as well as being a closer representation of what you are likely to want to run in a proper analysis.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2782,7 +2817,7 @@ A simple histogram of the speciation rates and extinction rates show strongly bi
 
 \begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-179-1} \end{center}
 
-It appears on closer inspection that the differences are down to the rate shift in Delphinidae.
+It appears on closer inspection that the differences are down to the rate shift in Delphinidae we have identified multiple times throughout this chapter.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2799,11 +2834,11 @@ It appears on closer inspection that the differences are down to the rate shift 
 \hypertarget{further-info-4}{%
 \section{Further info}\label{further-info-4}}
 
-There's an interesting post-script here. A recent study claimed to show that making inferences about diversification patterns using extant time-trees is a deeply flawed approach \citep{Louca20}. This article claims that there are actually an infinite number of diversification scenarios that are equally likely to be the product of these type of analysis.
+There's an interesting post-script here. A recent study claimed to show that making inferences about diversification patterns using extant time-trees is a deeply flawed approach \citep{Louca20}. This article claims that there are actually an infinite number of diversification scenarios that are equally likely to be the product of these types of analysis.
 
 If correct, this is a \emph{huge} problem for the study of diversification. The authors do suggest a way through however. In particular, they emphasise that the inclusion of paleontological data is crucially important to improve these methods. The methods covered in this chapter explicitly deal exclusively with ultrametric trees (no fossil data) and so we are a little stuck with this new criticism.
 
-However, developers of these methods have been aware for some time that including fossil taxa in these analyses is important. For example, look back to the chapters on ancestral state reconstruction for a demonstration of how fossil data improves an analysis. Versions of these analyses that can deal with non-ultrametric trees are bound to help address the concerns of Louca and Pennell \citeyearpar{Louca20}.
+However, developers of comparative methods have been aware for some time that including fossil taxa in these analyses is important. For example, look back to the chapters on ancestral state reconstruction for a demonstration of how fossil data improves an analysis. Versions of these analyses that can deal with non-ultrametric trees are bound to help address the concerns of Louca and Pennell \citeyearpar{Louca20}.
 
 \hypertarget{w2PGLS}{%
 \chapter{Phylogenetic Regression}\label{w2PGLS}}

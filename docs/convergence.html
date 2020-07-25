@@ -231,10 +231,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1.2" data-path="diversification.html"><a href="diversification.html#the-birth-death-model"><i class="fa fa-check"></i><b>9.1.2</b> The Birth-Death Model</a></li>
 <li class="chapter" data-level="9.1.3" data-path="diversification.html"><a href="diversification.html#the-signature-of-extinction"><i class="fa fa-check"></i><b>9.1.3</b> The signature of extinction</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="diversification.html"><a href="diversification.html#medusa"><i class="fa fa-check"></i><b>9.2</b> MEDUSA</a></li>
-<li class="chapter" data-level="9.3" data-path="diversification.html"><a href="diversification.html#rpanda"><i class="fa fa-check"></i><b>9.3</b> RPANDA</a></li>
-<li class="chapter" data-level="9.4" data-path="diversification.html"><a href="diversification.html#bamm-bammtools"><i class="fa fa-check"></i><b>9.4</b> BAMM &amp; BAMMtools</a></li>
-<li class="chapter" data-level="9.5" data-path="diversification.html"><a href="diversification.html#further-info-4"><i class="fa fa-check"></i><b>9.5</b> Further info</a></li>
+<li class="chapter" data-level="9.2" data-path="diversification.html"><a href="diversification.html#estimating-speciation-and-extinction-rate"><i class="fa fa-check"></i><b>9.2</b> Estimating speciation and extinction rate</a></li>
+<li class="chapter" data-level="9.3" data-path="diversification.html"><a href="diversification.html#medusa"><i class="fa fa-check"></i><b>9.3</b> MEDUSA</a></li>
+<li class="chapter" data-level="9.4" data-path="diversification.html"><a href="diversification.html#rpanda"><i class="fa fa-check"></i><b>9.4</b> RPANDA</a></li>
+<li class="chapter" data-level="9.5" data-path="diversification.html"><a href="diversification.html#bamm-bammtools"><i class="fa fa-check"></i><b>9.5</b> BAMM &amp; BAMMtools</a></li>
+<li class="chapter" data-level="9.6" data-path="diversification.html"><a href="diversification.html#further-info-4"><i class="fa fa-check"></i><b>9.6</b> Further info</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="w2PGLS.html"><a href="w2PGLS.html"><i class="fa fa-check"></i><b>10</b> Phylogenetic Regression</a>
 <ul>
@@ -322,33 +323,33 @@ Figure 12.1: Maximum likelihood reconstruction of the evolution of conspicuous s
 <div id="a-super-example" class="section level3" number="12.1.2">
 <h3><span class="header-section-number">12.1.2</span> A Super Example</h3>
 <p>Let’s see how SURFACE works. First we need to install the <strong>surface</strong> package <span class="citation">(Ingram and Mahler <a href="#ref-surface" role="doc-biblioref">2013</a>)</span>. Unfortunately this is no longer on the CRAN archive so we need to look elsewhere. Fortunately, <a href="https://mran.microsoft.com/" title="MRAN">MRAN</a> (Microsoft R Application Network) have a handy tool that takes snapshots of the CRAN R packages. This means we can go to MRAN and get a version of <strong>surface</strong> from before it was scrubbed from CRAN. What heroes!</p>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="convergence.html#cb251-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;surface&quot;</span>, <span class="dt">repos=</span><span class="st">&quot;https://mran.microsoft.com/snapshot/2015-06-30&quot;</span>)</span>
-<span id="cb251-2"><a href="convergence.html#cb251-2"></a><span class="kw">library</span>(surface)</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="convergence.html#cb254-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;surface&quot;</span>, <span class="dt">repos=</span><span class="st">&quot;https://mran.microsoft.com/snapshot/2015-06-30&quot;</span>)</span>
+<span id="cb254-2"><a href="convergence.html#cb254-2"></a><span class="kw">library</span>(surface)</span></code></pre></div>
 <p>Next we can load some example data.</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="convergence.html#cb252-1"></a>tree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;Superheroes.nex&quot;</span>)</span>
-<span id="cb252-2"><a href="convergence.html#cb252-2"></a>data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Superhero data.csv&quot;</span>)</span>
-<span id="cb252-3"><a href="convergence.html#cb252-3"></a><span class="kw">rownames</span>(data) &lt;-<span class="st"> </span>data<span class="op">$</span>X</span>
-<span id="cb252-4"><a href="convergence.html#cb252-4"></a>geiger<span class="op">::</span><span class="kw">name.check</span>(tree, data)</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="convergence.html#cb255-1"></a>tree &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;Superheroes.nex&quot;</span>)</span>
+<span id="cb255-2"><a href="convergence.html#cb255-2"></a>data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Superhero data.csv&quot;</span>)</span>
+<span id="cb255-3"><a href="convergence.html#cb255-3"></a><span class="kw">rownames</span>(data) &lt;-<span class="st"> </span>data<span class="op">$</span>X</span>
+<span id="cb255-4"><a href="convergence.html#cb255-4"></a>geiger<span class="op">::</span><span class="kw">name.check</span>(tree, data)</span></code></pre></div>
 <pre><code>[1] &quot;OK&quot;</code></pre>
 <p>The data we have here describe three personality traits of 25 characters from the Marvel and DC cinematic universes. There is also a phylogeny describing the pattern of relatedness between characters. For this analysis, we are going to use all 3 personality traits to try and identify any convergence across universes.
 <img src="bookdown-demo_files/figure-html/unnamed-chunk-241-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="forward-phase" class="section level4" number="12.1.2.1">
 <h4><span class="header-section-number">12.1.2.1</span> Forward Phase</h4>
 <p>Before we run the analysis, we need to do a little preparation. These functions convert the tree and data into formats that can be analysed by functions called by the <strong>surface</strong> analysis. <strong>nameNodes</strong> adds unique node labels to the tree to aid the conversion.</p>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="convergence.html#cb254-1"></a>tree&lt;-<span class="kw">nameNodes</span>(tree)</span>
-<span id="cb254-2"><a href="convergence.html#cb254-2"></a>olist&lt;-<span class="kw">convertTreeData</span>(tree,data[,<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)])</span>
-<span id="cb254-3"><a href="convergence.html#cb254-3"></a>otree&lt;-olist[[<span class="dv">1</span>]]</span>
-<span id="cb254-4"><a href="convergence.html#cb254-4"></a>odata&lt;-olist[[<span class="dv">2</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="convergence.html#cb257-1"></a>tree&lt;-<span class="kw">nameNodes</span>(tree)</span>
+<span id="cb257-2"><a href="convergence.html#cb257-2"></a>olist&lt;-<span class="kw">convertTreeData</span>(tree,data[,<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)])</span>
+<span id="cb257-3"><a href="convergence.html#cb257-3"></a>otree&lt;-olist[[<span class="dv">1</span>]]</span>
+<span id="cb257-4"><a href="convergence.html#cb257-4"></a>odata&lt;-olist[[<span class="dv">2</span>]]</span></code></pre></div>
 <p>The function <strong>surfaceForward</strong> runs the forward phase of the analysis as described above. The more complex your tree and data, the longer this will take.</p>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="convergence.html#cb255-1"></a>fwd&lt;-<span class="kw">surfaceForward</span>(otree, odata, <span class="dt">aic_threshold =</span> <span class="dv">0</span>, <span class="dt">exclude =</span> <span class="dv">0</span>, </span>
-<span id="cb255-2"><a href="convergence.html#cb255-2"></a>                    <span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">plotaic =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="convergence.html#cb258-1"></a>fwd&lt;-<span class="kw">surfaceForward</span>(otree, odata, <span class="dt">aic_threshold =</span> <span class="dv">0</span>, <span class="dt">exclude =</span> <span class="dv">0</span>, </span>
+<span id="cb258-2"><a href="convergence.html#cb258-2"></a>                    <span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">plotaic =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p>From this analysis, we can extract the value of <em>k</em> (the number of distinct regimes).</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="convergence.html#cb256-1"></a>k&lt;-<span class="kw">length</span>(fwd)</span>
-<span id="cb256-2"><a href="convergence.html#cb256-2"></a>k</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="convergence.html#cb259-1"></a>k&lt;-<span class="kw">length</span>(fwd)</span>
+<span id="cb259-2"><a href="convergence.html#cb259-2"></a>k</span></code></pre></div>
 <pre><code>[1] 6</code></pre>
 <p>For some more details, we can look into the summary of the analysis using <strong>surfaceSummary</strong>. There are a number of useful components we could investigate further.</p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="convergence.html#cb258-1"></a>fsum&lt;-<span class="kw">surfaceSummary</span>(fwd)</span>
-<span id="cb258-2"><a href="convergence.html#cb258-2"></a><span class="kw">names</span>(fsum)</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="convergence.html#cb261-1"></a>fsum&lt;-<span class="kw">surfaceSummary</span>(fwd)</span>
+<span id="cb261-2"><a href="convergence.html#cb261-2"></a><span class="kw">names</span>(fsum)</span></code></pre></div>
 <pre><code> [1] &quot;n_steps&quot;       &quot;lnls&quot;          &quot;n_regimes_seq&quot; &quot;aics&quot;         
  [5] &quot;shifts&quot;        &quot;n_regimes&quot;     &quot;alpha&quot;         &quot;phylhalflife&quot; 
  [9] &quot;sigma_squared&quot; &quot;theta&quot;        </code></pre>
@@ -356,15 +357,15 @@ Figure 12.1: Maximum likelihood reconstruction of the evolution of conspicuous s
 <div id="backward-phase" class="section level4" number="12.1.2.2">
 <h4><span class="header-section-number">12.1.2.2</span> Backward Phase</h4>
 <p>Next we can collapse the regimes by running the backwards analysis with <strong>surfaceBackward</strong>.</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="convergence.html#cb260-1"></a>bwd&lt;-<span class="kw">surfaceBackward</span>(otree, odata, <span class="dt">starting_model =</span> fwd[[k]], </span>
-<span id="cb260-2"><a href="convergence.html#cb260-2"></a>                     <span class="dt">aic_threshold =</span> <span class="dv">0</span>, <span class="dt">only_best =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb260-3"><a href="convergence.html#cb260-3"></a>                     <span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">plotaic =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="convergence.html#cb263-1"></a>bwd&lt;-<span class="kw">surfaceBackward</span>(otree, odata, <span class="dt">starting_model =</span> fwd[[k]], </span>
+<span id="cb263-2"><a href="convergence.html#cb263-2"></a>                     <span class="dt">aic_threshold =</span> <span class="dv">0</span>, <span class="dt">only_best =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb263-3"><a href="convergence.html#cb263-3"></a>                     <span class="dt">verbose =</span> <span class="ot">FALSE</span>, <span class="dt">plotaic =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p>We can use <strong>surfaceSummary</strong> again to extract the key parameters.</p>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="convergence.html#cb261-1"></a>bsum&lt;-<span class="kw">surfaceSummary</span>(bwd)</span>
-<span id="cb261-2"><a href="convergence.html#cb261-2"></a>kk&lt;-<span class="kw">length</span>(bwd)</span>
-<span id="cb261-3"><a href="convergence.html#cb261-3"></a>kk</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="convergence.html#cb264-1"></a>bsum&lt;-<span class="kw">surfaceSummary</span>(bwd)</span>
+<span id="cb264-2"><a href="convergence.html#cb264-2"></a>kk&lt;-<span class="kw">length</span>(bwd)</span>
+<span id="cb264-3"><a href="convergence.html#cb264-3"></a>kk</span></code></pre></div>
 <pre><code>[1] 4</code></pre>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="convergence.html#cb263-1"></a>bsum<span class="op">$</span>n_regimes</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="convergence.html#cb266-1"></a>bsum<span class="op">$</span>n_regimes</span></code></pre></div>
 <pre><code>             k         kprime         deltak              c    kprime_conv 
              6              3              3              5              2 
 kprime_nonconv 
@@ -374,17 +375,17 @@ kprime_nonconv
 <div id="visualisation" class="section level4" number="12.1.2.3">
 <h4><span class="header-section-number">12.1.2.3</span> Visualisation</h4>
 <p>The best thing to do with an analysis like this is visualise the results. We can paint the regimes onto the tree using <strong>surfaceTreePlot</strong>.</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="convergence.html#cb265-1"></a><span class="kw">surfaceTreePlot</span>(tree, bwd[[kk]], <span class="dt">labelshifts =</span> T, <span class="dt">label.offset =</span> <span class="fl">.5</span>, </span>
-<span id="cb265-2"><a href="convergence.html#cb265-2"></a>                <span class="dt">no.margin =</span> T, <span class="dt">edge.width =</span> <span class="dv">5</span>, <span class="dt">cex =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="convergence.html#cb268-1"></a><span class="kw">surfaceTreePlot</span>(tree, bwd[[kk]], <span class="dt">labelshifts =</span> T, <span class="dt">label.offset =</span> <span class="fl">.5</span>, </span>
+<span id="cb268-2"><a href="convergence.html#cb268-2"></a>                <span class="dt">no.margin =</span> T, <span class="dt">edge.width =</span> <span class="dv">5</span>, <span class="dt">cex =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-248-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Using the tree like this allows us to spot some patterns. The blue regime appears to be mostly heroes such as Wonder Woman, Captain Marvel and Black Panther. The selective regime that produces heroes occurs 3 times here. Once leading to Wonder Woman and Superman in the DC universe, once leading to a cluster of Avengers plus Professor X in the Marvel universe and a third time leading to Deadpool.</p>
 <p>The red regime appears to produce villains such as The Joker and Harley Quinn in DC and Thanos and Magneto in Marvel. Finally the black regime is mostly made up of human beings whose moral leanings may go one way or the other (eg. Lois lane or Colonel Stryker) but are nevertheless grouped separately from heroes and villains.</p>
 <p>There are some surprising placements. Batman and Iron Man are both in the same regime (black) which is unsurprising given that they are similar but they are oddly not grouped alongside heroes. This is most likely because of the traits we have used. Let’s plot them out as scatterplots using <strong>surfaceTraitPlot</strong>.</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="convergence.html#cb266-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mai=</span><span class="kw">c</span>(<span class="fl">0.9</span>,<span class="fl">0.9</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</span>
-<span id="cb266-2"><a href="convergence.html#cb266-2"></a><span class="kw">surfaceTraitPlot</span>(data[,<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)], bwd[[kk]], <span class="dt">whattraits =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
-<span id="cb266-3"><a href="convergence.html#cb266-3"></a>                 <span class="dt">cex.opt =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="dv">1</span>, <span class="dt">cex.lab =</span> <span class="dv">2</span>)</span>
-<span id="cb266-4"><a href="convergence.html#cb266-4"></a><span class="kw">surfaceTraitPlot</span>(data[,<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)], bwd[[kk]], <span class="dt">whattraits =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>),  </span>
-<span id="cb266-5"><a href="convergence.html#cb266-5"></a>                 <span class="dt">cex.opt =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="dv">1</span>,<span class="dt">cex.lab =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="convergence.html#cb269-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="dt">mai=</span><span class="kw">c</span>(<span class="fl">0.9</span>,<span class="fl">0.9</span>,<span class="fl">0.2</span>,<span class="fl">0.2</span>))</span>
+<span id="cb269-2"><a href="convergence.html#cb269-2"></a><span class="kw">surfaceTraitPlot</span>(data[,<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)], bwd[[kk]], <span class="dt">whattraits =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),</span>
+<span id="cb269-3"><a href="convergence.html#cb269-3"></a>                 <span class="dt">cex.opt =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="dv">1</span>, <span class="dt">cex.lab =</span> <span class="dv">2</span>)</span>
+<span id="cb269-4"><a href="convergence.html#cb269-4"></a><span class="kw">surfaceTraitPlot</span>(data[,<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)], bwd[[kk]], <span class="dt">whattraits =</span> <span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">2</span>),  </span>
+<span id="cb269-5"><a href="convergence.html#cb269-5"></a>                 <span class="dt">cex.opt =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="dv">1</span>,<span class="dt">cex.lab =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-249-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>These plots show how the traits cluster along with the average value for each regime (larger point).</p>
 </div>
@@ -398,9 +399,9 @@ kprime_nonconv
 <h3><span class="header-section-number">12.2.1</span> The Wheatsheaf Index</h3>
 <p>The Wheatsheaf Index (<em>W</em>) requires us to calculate the Euclidean distance between species in phenotypic space. First we calculate the mean distance between all the species in the sample and then the mean distance between the focal group species. Finally, we calculate <em>W</em> by dividing the total distance by the focal group distance. If we get a value greater than 1, then we can say that the focal group are more similar to each other than to the group as a whole and thus, quantify the strength of convergence.</p>
 <p>The package to perform a Wheatsheaf analysis is called <strong>windex</strong> <span class="citation">(Arbuckle and Minter <a href="#ref-windex" role="doc-biblioref">2014</a>)</span>. The package contains some example data for us to use.</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="convergence.html#cb267-1"></a><span class="kw">library</span>(windex)</span>
-<span id="cb267-2"><a href="convergence.html#cb267-2"></a><span class="kw">data</span>(<span class="st">&quot;sample.data&quot;</span>)</span>
-<span id="cb267-3"><a href="convergence.html#cb267-3"></a><span class="kw">data</span>(<span class="st">&quot;sample.tree&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="convergence.html#cb270-1"></a><span class="kw">library</span>(windex)</span>
+<span id="cb270-2"><a href="convergence.html#cb270-2"></a><span class="kw">data</span>(<span class="st">&quot;sample.data&quot;</span>)</span>
+<span id="cb270-3"><a href="convergence.html#cb270-3"></a><span class="kw">data</span>(<span class="st">&quot;sample.tree&quot;</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-251-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>This scatterplot represents the <strong>phenotypic space</strong> described by the two traits. We can see there is a clear clustering of species but the question we have to ask is, does this pattern mean convergence and if yes, how strong is that convergence?
 <img src="bookdown-demo_files/figure-html/unnamed-chunk-252-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -409,10 +410,10 @@ kprime_nonconv
 <p>It’s clear that the focal group species cluster very closely. The tree shows us the taxonomic distribution of the focal group. so it seems that this clustering cannot be explained by phylogeny.
 <img src="bookdown-demo_files/figure-html/unnamed-chunk-254-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>To calculate <em>W</em>, we can use the <strong>windex</strong> function. Remember that a value of W greater than 1 indicates the focal group is more similar to each other than to the group as a whole.</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="convergence.html#cb268-1"></a><span class="kw">windex</span>(sample.data, sample.tree,</span>
-<span id="cb268-2"><a href="convergence.html#cb268-2"></a>       <span class="dt">traits =</span> <span class="kw">c</span>(<span class="st">&quot;ou1&quot;</span>, <span class="st">&quot;ou2&quot;</span>),</span>
-<span id="cb268-3"><a href="convergence.html#cb268-3"></a>       <span class="dt">focal =</span> sample.data[,<span class="dv">2</span>],</span>
-<span id="cb268-4"><a href="convergence.html#cb268-4"></a>       <span class="dt">SE =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="convergence.html#cb271-1"></a><span class="kw">windex</span>(sample.data, sample.tree,</span>
+<span id="cb271-2"><a href="convergence.html#cb271-2"></a>       <span class="dt">traits =</span> <span class="kw">c</span>(<span class="st">&quot;ou1&quot;</span>, <span class="st">&quot;ou2&quot;</span>),</span>
+<span id="cb271-3"><a href="convergence.html#cb271-3"></a>       <span class="dt">focal =</span> sample.data[,<span class="dv">2</span>],</span>
+<span id="cb271-4"><a href="convergence.html#cb271-4"></a>       <span class="dt">SE =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <pre><code>$`Wheatsheaf Index`
 [1] 5.289446
 
@@ -423,13 +424,13 @@ $`Upper 95% CI`
 [1] 5.413457</code></pre>
 <p>Here the value of <em>W</em> of 5.29 indicates very strong convergence as we would have predicted by using the traitspace.</p>
 <p>The question we have to answer now is whether the value of <em>W</em> is higher than expected given the shape of the tree. This can be done using the function <strong>test.windex</strong> which performs a number of bootstrap replicates of the analysis, resampling the tree and data as many times as we ask (1000 is standard but it takes a while!).</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="convergence.html#cb270-1"></a>t &lt;-<span class="st"> </span><span class="kw">test.windex</span>(sample.data, sample.tree,</span>
-<span id="cb270-2"><a href="convergence.html#cb270-2"></a>       <span class="dt">traits =</span> <span class="kw">c</span>(<span class="st">&quot;ou1&quot;</span>, <span class="st">&quot;ou2&quot;</span>),</span>
-<span id="cb270-3"><a href="convergence.html#cb270-3"></a>       <span class="dt">focal =</span> sample.data[,<span class="dv">2</span>], <span class="dt">reps =</span> <span class="dv">100</span>,</span>
-<span id="cb270-4"><a href="convergence.html#cb270-4"></a>       <span class="dt">SE =</span> <span class="ot">FALSE</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="convergence.html#cb273-1"></a>t &lt;-<span class="st"> </span><span class="kw">test.windex</span>(sample.data, sample.tree,</span>
+<span id="cb273-2"><a href="convergence.html#cb273-2"></a>       <span class="dt">traits =</span> <span class="kw">c</span>(<span class="st">&quot;ou1&quot;</span>, <span class="st">&quot;ou2&quot;</span>),</span>
+<span id="cb273-3"><a href="convergence.html#cb273-3"></a>       <span class="dt">focal =</span> sample.data[,<span class="dv">2</span>], <span class="dt">reps =</span> <span class="dv">100</span>,</span>
+<span id="cb273-4"><a href="convergence.html#cb273-4"></a>       <span class="dt">SE =</span> <span class="ot">FALSE</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-256-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>The plot here shows the distribution of the bootstrap replicates. We can see from the plotted line that the calculated value and the accompanying confidence intervals are far separate from the distribution of the replicates. This indicates a hih degree of confidence in some unusually storng convergence here. As we can see, the p-value backs this up.</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="convergence.html#cb271-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="convergence.html#cb274-1"></a>t</span></code></pre></div>
 <pre><code>$`P-value=`
 [1] 0</code></pre>
 </div>
