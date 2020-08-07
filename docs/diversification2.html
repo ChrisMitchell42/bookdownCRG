@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>10 Trait Dependent Diversification | Comparative Methods Workshops</title>
+  <meta name="description" content="These are the workshops for the Comparative Research Group as part of LIFE363" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="10 Trait Dependent Diversification | Comparative Methods Workshops" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="These are the workshops for the Comparative Research Group as part of LIFE363" />
+  <meta name="github-repo" content="ChrisMitchell42/bookdownCRG" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="10 Trait Dependent Diversification | Comparative Methods Workshops" />
+  
+  <meta name="twitter:description" content="These are the workshops for the Comparative Research Group as part of LIFE363" />
+  
+
+<meta name="author" content="Chris Mitchell" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="diversification.html"/>
+<link rel="next" href="w2PGLS.html"/>
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.16/iframeResizer.min.js" type="text/javascript"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Comparative Research Group</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#for-students"><i class="fa fa-check"></i><b>1.1</b> For students</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#what-is-the-comparative-method"><i class="fa fa-check"></i><b>2.1</b> What is the comparative method?</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#tree-thinking"><i class="fa fa-check"></i><b>2.2</b> Tree thinking</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="recap.html"><a href="recap.html"><i class="fa fa-check"></i><b>3</b> R recap</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="recap.html"><a href="recap.html#basics"><i class="fa fa-check"></i><b>3.1</b> Basics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="recap.html"><a href="recap.html#plotting"><i class="fa fa-check"></i><b>3.1.1</b> Plotting</a></li>
+<li class="chapter" data-level="3.1.2" data-path="recap.html"><a href="recap.html#the-working-directory"><i class="fa fa-check"></i><b>3.1.2</b> The working directory</a></li>
+<li class="chapter" data-level="3.1.3" data-path="recap.html"><a href="recap.html#loading-data"><i class="fa fa-check"></i><b>3.1.3</b> Loading data</a></li>
+<li class="chapter" data-level="3.1.4" data-path="recap.html"><a href="recap.html#subsetting"><i class="fa fa-check"></i><b>3.1.4</b> Subsetting</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="recap.html"><a href="recap.html#errors"><i class="fa fa-check"></i><b>3.2</b> Errors</a></li>
+<li class="chapter" data-level="3.3" data-path="recap.html"><a href="recap.html#google"><i class="fa fa-check"></i><b>3.3</b> Google</a></li>
+<li class="chapter" data-level="3.4" data-path="recap.html"><a href="recap.html#stealing"><i class="fa fa-check"></i><b>3.4</b> Stealing</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="phylogenetics.html"><a href="phylogenetics.html"><i class="fa fa-check"></i><b>4</b> Phylogenetic trees and where to find them</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="phylogenetics.html"><a href="phylogenetics.html#phylogeny"><i class="fa fa-check"></i><b>4.1</b> Phylogeny</a></li>
+<li class="chapter" data-level="4.2" data-path="phylogenetics.html"><a href="phylogenetics.html#building-trees"><i class="fa fa-check"></i><b>4.2</b> Building trees</a></li>
+<li class="chapter" data-level="4.3" data-path="phylogenetics.html"><a href="phylogenetics.html#locating-trees"><i class="fa fa-check"></i><b>4.3</b> Locating trees</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="phylogenetics.html"><a href="phylogenetics.html#file-format"><i class="fa fa-check"></i><b>4.3.1</b> File format</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="w1plotting.html"><a href="w1plotting.html"><i class="fa fa-check"></i><b>5</b> Plotting trees in R</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="w1plotting.html"><a href="w1plotting.html#phylogenies-in-r"><i class="fa fa-check"></i><b>5.1</b> Phylogenies in R</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="w1plotting.html"><a href="w1plotting.html#packages-used"><i class="fa fa-check"></i><b>5.1.1</b> Packages used</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="w1plotting.html"><a href="w1plotting.html#importing-your-tree"><i class="fa fa-check"></i><b>5.2</b> Importing your tree</a></li>
+<li class="chapter" data-level="5.3" data-path="w1plotting.html"><a href="w1plotting.html#ggtree"><i class="fa fa-check"></i><b>5.3</b> ggtree</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="w1plotting.html"><a href="w1plotting.html#geoms"><i class="fa fa-check"></i><b>5.3.1</b> Geoms</a></li>
+<li class="chapter" data-level="5.3.2" data-path="w1plotting.html"><a href="w1plotting.html#labelling-clades"><i class="fa fa-check"></i><b>5.3.2</b> Labelling clades</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="w1plotting.html"><a href="w1plotting.html#adding-images-to-trees"><i class="fa fa-check"></i><b>5.4</b> Adding images to trees</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="w1plotting.html"><a href="w1plotting.html#phylopic"><i class="fa fa-check"></i><b>5.4.1</b> Phylopic</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="w1plotting.html"><a href="w1plotting.html#further-info"><i class="fa fa-check"></i><b>5.5</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="anova.html"><a href="anova.html"><i class="fa fa-check"></i><b>6</b> ANOVA</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="anova.html"><a href="anova.html#analysis-of-variance"><i class="fa fa-check"></i><b>6.1</b> Analysis of variance</a></li>
+<li class="chapter" data-level="6.2" data-path="anova.html"><a href="anova.html#phylogenetic-correction"><i class="fa fa-check"></i><b>6.2</b> Phylogenetic correction</a></li>
+<li class="chapter" data-level="6.3" data-path="anova.html"><a href="anova.html#example-data-analysis"><i class="fa fa-check"></i><b>6.3</b> Example data &amp; analysis</a></li>
+<li class="chapter" data-level="6.4" data-path="anova.html"><a href="anova.html#further-info-1"><i class="fa fa-check"></i><b>6.4</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="asr1.html"><a href="asr1.html"><i class="fa fa-check"></i><b>7</b> Ancestral State Reconstruction I</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="asr1.html"><a href="asr1.html#data"><i class="fa fa-check"></i><b>7.1</b> Data</a></li>
+<li class="chapter" data-level="7.2" data-path="asr1.html"><a href="asr1.html#trees"><i class="fa fa-check"></i><b>7.2</b> Trees</a></li>
+<li class="chapter" data-level="7.3" data-path="asr1.html"><a href="asr1.html#parsimony"><i class="fa fa-check"></i><b>7.3</b> Parsimony</a></li>
+<li class="chapter" data-level="7.4" data-path="asr1.html"><a href="asr1.html#maximum-likelihood"><i class="fa fa-check"></i><b>7.4</b> Maximum Likelihood</a></li>
+<li class="chapter" data-level="7.5" data-path="asr1.html"><a href="asr1.html#stochastic-character-mapping"><i class="fa fa-check"></i><b>7.5</b> Stochastic Character Mapping</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="asr1.html"><a href="asr1.html#an-analogy"><i class="fa fa-check"></i><b>7.5.1</b> An Analogy</a></li>
+<li class="chapter" data-level="7.5.2" data-path="asr1.html"><a href="asr1.html#state-characters"><i class="fa fa-check"></i><b>7.5.2</b> 2-State Characters</a></li>
+<li class="chapter" data-level="7.5.3" data-path="asr1.html"><a href="asr1.html#state-characters-1"><i class="fa fa-check"></i><b>7.5.3</b> 3-State Characters</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="asr1.html"><a href="asr1.html#further-info-2"><i class="fa fa-check"></i><b>7.6</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="asr2.html"><a href="asr2.html"><i class="fa fa-check"></i><b>8</b> Ancestral State Reconstruction II</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="asr2.html"><a href="asr2.html#data-2"><i class="fa fa-check"></i><b>8.1</b> Data</a></li>
+<li class="chapter" data-level="8.2" data-path="asr2.html"><a href="asr2.html#tree"><i class="fa fa-check"></i><b>8.2</b> Tree</a></li>
+<li class="chapter" data-level="8.3" data-path="asr2.html"><a href="asr2.html#ancestral-state-reconstructions"><i class="fa fa-check"></i><b>8.3</b> Ancestral State Reconstructions</a></li>
+<li class="chapter" data-level="8.4" data-path="asr2.html"><a href="asr2.html#bayestraits"><i class="fa fa-check"></i><b>8.4</b> BayesTraits</a></li>
+<li class="chapter" data-level="8.5" data-path="asr2.html"><a href="asr2.html#modelling-evolution"><i class="fa fa-check"></i><b>8.5</b> Modelling Evolution</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="asr2.html"><a href="asr2.html#brownian-motion"><i class="fa fa-check"></i><b>8.5.1</b> Brownian Motion</a></li>
+<li class="chapter" data-level="8.5.2" data-path="asr2.html"><a href="asr2.html#directional-evolution"><i class="fa fa-check"></i><b>8.5.2</b> Directional Evolution</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="asr2.html"><a href="asr2.html#changes-in-the-rate-of-evolution-of-a-trait"><i class="fa fa-check"></i><b>8.6</b> Changes in the rate of evolution of a trait</a></li>
+<li class="chapter" data-level="8.7" data-path="asr2.html"><a href="asr2.html#uncertainty"><i class="fa fa-check"></i><b>8.7</b> Uncertainty</a>
+<ul>
+<li class="chapter" data-level="8.7.1" data-path="asr2.html"><a href="asr2.html#fossils"><i class="fa fa-check"></i><b>8.7.1</b> Fossils</a></li>
+<li class="chapter" data-level="8.7.2" data-path="asr2.html"><a href="asr2.html#revisiting-mysticete-body-mass"><i class="fa fa-check"></i><b>8.7.2</b> Revisiting Mysticete Body Mass</a></li>
+</ul></li>
+<li class="chapter" data-level="8.8" data-path="asr2.html"><a href="asr2.html#further-info-3"><i class="fa fa-check"></i><b>8.8</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="diversification.html"><a href="diversification.html"><i class="fa fa-check"></i><b>9</b> Diversification</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="diversification.html"><a href="diversification.html#introduction"><i class="fa fa-check"></i><b>9.1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="diversification.html"><a href="diversification.html#pure-birth-model"><i class="fa fa-check"></i><b>9.1.1</b> Pure Birth Model</a></li>
+<li class="chapter" data-level="9.1.2" data-path="diversification.html"><a href="diversification.html#the-birth-death-model"><i class="fa fa-check"></i><b>9.1.2</b> The Birth-Death Model</a></li>
+<li class="chapter" data-level="9.1.3" data-path="diversification.html"><a href="diversification.html#the-signature-of-extinction"><i class="fa fa-check"></i><b>9.1.3</b> The signature of extinction</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="diversification.html"><a href="diversification.html#estimating-speciation-and-extinction-rate"><i class="fa fa-check"></i><b>9.2</b> Estimating speciation and extinction rate</a></li>
+<li class="chapter" data-level="9.3" data-path="diversification.html"><a href="diversification.html#medusa"><i class="fa fa-check"></i><b>9.3</b> MEDUSA</a></li>
+<li class="chapter" data-level="9.4" data-path="diversification.html"><a href="diversification.html#rpanda"><i class="fa fa-check"></i><b>9.4</b> RPANDA</a></li>
+<li class="chapter" data-level="9.5" data-path="diversification.html"><a href="diversification.html#bamm-bammtools"><i class="fa fa-check"></i><b>9.5</b> BAMM &amp; BAMMtools</a></li>
+<li class="chapter" data-level="9.6" data-path="diversification.html"><a href="diversification.html#further-info-4"><i class="fa fa-check"></i><b>9.6</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="diversification2.html"><a href="diversification2.html"><i class="fa fa-check"></i><b>10</b> Trait Dependent Diversification</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="diversification2.html"><a href="diversification2.html#binary-traits-bisse"><i class="fa fa-check"></i><b>10.1</b> Binary traits: BiSSE</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="diversification2.html"><a href="diversification2.html#realdata-example.-shorebirds"><i class="fa fa-check"></i><b>10.1.1</b> REALDATA EXAMPLE. SHOREBIRDS?</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="diversification2.html"><a href="diversification2.html#multi-state-traits-musse"><i class="fa fa-check"></i><b>10.2</b> Multi-state traits: MuSSE</a></li>
+<li class="chapter" data-level="10.3" data-path="diversification2.html"><a href="diversification2.html#quantitative-traits-quasse"><i class="fa fa-check"></i><b>10.3</b> Quantitative traits: QuaSSE</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="diversification2.html"><a href="diversification2.html#quasse-primate-example"><i class="fa fa-check"></i><b>10.3.1</b> QuaSSE primate example</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="diversification2.html"><a href="diversification2.html#section"><i class="fa fa-check"></i><b>10.4</b> </a></li>
+<li class="chapter" data-level="10.5" data-path="diversification2.html"><a href="diversification2.html#further-info-5"><i class="fa fa-check"></i><b>10.5</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="w2PGLS.html"><a href="w2PGLS.html"><i class="fa fa-check"></i><b>11</b> Phylogenetic Regression</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="w2PGLS.html"><a href="w2PGLS.html#data-3"><i class="fa fa-check"></i><b>11.1</b> Data</a></li>
+<li class="chapter" data-level="11.2" data-path="w2PGLS.html"><a href="w2PGLS.html#linear-regression"><i class="fa fa-check"></i><b>11.2</b> Linear Regression</a></li>
+<li class="chapter" data-level="11.3" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-signal"><i class="fa fa-check"></i><b>11.3</b> Phylogenetic Signal</a>
+<ul>
+<li class="chapter" data-level="11.3.1" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-signal-1"><i class="fa fa-check"></i><b>11.3.1</b> Phylogenetic signal</a></li>
+<li class="chapter" data-level="11.3.2" data-path="w2PGLS.html"><a href="w2PGLS.html#caper"><i class="fa fa-check"></i><b>11.3.2</b> caper</a></li>
+<li class="chapter" data-level="11.3.3" data-path="w2PGLS.html"><a href="w2PGLS.html#estimating-phylogenetic-signal"><i class="fa fa-check"></i><b>11.3.3</b> Estimating Phylogenetic Signal</a></li>
+</ul></li>
+<li class="chapter" data-level="11.4" data-path="w2PGLS.html"><a href="w2PGLS.html#phylogenetic-regression"><i class="fa fa-check"></i><b>11.4</b> Phylogenetic Regression</a>
+<ul>
+<li class="chapter" data-level="11.4.1" data-path="w2PGLS.html"><a href="w2PGLS.html#model-checking"><i class="fa fa-check"></i><b>11.4.1</b> Model Checking</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="w2PGLS.html"><a href="w2PGLS.html#conclusion"><i class="fa fa-check"></i><b>11.5</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="pathanalysis.html"><a href="pathanalysis.html"><i class="fa fa-check"></i><b>12</b> Path Analysis</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="pathanalysis.html"><a href="pathanalysis.html#pgls-regression"><i class="fa fa-check"></i><b>12.1</b> PGLS regression</a></li>
+<li class="chapter" data-level="12.2" data-path="pathanalysis.html"><a href="pathanalysis.html#variance-inflation"><i class="fa fa-check"></i><b>12.2</b> Variance Inflation</a></li>
+<li class="chapter" data-level="12.3" data-path="pathanalysis.html"><a href="pathanalysis.html#path-analysis"><i class="fa fa-check"></i><b>12.3</b> Path Analysis</a>
+<ul>
+<li class="chapter" data-level="12.3.1" data-path="pathanalysis.html"><a href="pathanalysis.html#example"><i class="fa fa-check"></i><b>12.3.1</b> Example</a></li>
+</ul></li>
+<li class="chapter" data-level="12.4" data-path="pathanalysis.html"><a href="pathanalysis.html#conclusion-1"><i class="fa fa-check"></i><b>12.4</b> Conclusion</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="convergence.html"><a href="convergence.html"><i class="fa fa-check"></i><b>13</b> Studying Convergence</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="convergence.html"><a href="convergence.html#indentifying-convergent-evolution"><i class="fa fa-check"></i><b>13.1</b> Indentifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="convergence.html"><a href="convergence.html#surface"><i class="fa fa-check"></i><b>13.1.1</b> SURFACE</a></li>
+<li class="chapter" data-level="13.1.2" data-path="convergence.html"><a href="convergence.html#a-super-example"><i class="fa fa-check"></i><b>13.1.2</b> A Super Example</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="convergence.html"><a href="convergence.html#quantifying-convergent-evolution"><i class="fa fa-check"></i><b>13.2</b> Quantifying convergent evolution</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="convergence.html"><a href="convergence.html#the-wheatsheaf-index"><i class="fa fa-check"></i><b>13.2.1</b> The Wheatsheaf Index</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="convergence.html"><a href="convergence.html#further-info-6"><i class="fa fa-check"></i><b>13.3</b> Further info</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>14</b> Bibliography</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Comparative Methods Workshops</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="diversification2" class="section level1" number="10">
+<h1><span class="header-section-number">10</span> Trait Dependent Diversification</h1>
+<p>The previous chapter used a variety of methods to estimate the rate of diversification in a phylogeny. This is an interesting and contentious field of study which allows us to ask marcoevolutionary questions. In this chapter, we will extend this approach to model the effects of trait evolution on diversification.</p>
+<div id="binary-traits-bisse" class="section level2" number="10.1">
+<h2><span class="header-section-number">10.1</span> Binary traits: BiSSE</h2>
+<p><strong>BiSSE</strong> stands for Binary State Speciation and Extinction model.</p>
+<p>Let’s start by simulating a tree and binary character using the <strong>tree.bisse</strong> function in the package <strong>diversitree</strong> <span class="citation">(FitzJohn <a href="#ref-diversitree" role="doc-biblioref">2012</a>)</span>. We need to specify parameters for the simulation. These parameters are (in order);</p>
+<ul>
+<li>The speciation rate with the trait in state 0: <span class="math inline">\(\lambda_{0}\)</span></li>
+<li>The speciation rate with the trait in state 1: <span class="math inline">\(\lambda_{1}\)</span></li>
+<li>The extinction rate with the trait in state 0: <span class="math inline">\(\mu_{0}\)</span></li>
+<li>The extinction rate with the trait in state 1: <span class="math inline">\(\mu_{1}\)</span></li>
+<li>The probability of transitioning from state 0 to 1: <span class="math inline">\(q_{01}\)</span></li>
+<li>The probability of transitioning from state 1 to 0: <span class="math inline">\(q_{10}\)</span></li>
+</ul>
+<p>For this example, we will imagine a scenario in which lineages are twice as likely to speciate with the trait in state 1 than in state 0 (<span class="math inline">\(\lambda_{1} = 2 \times\lambda_{0}\)</span>). Extinction rates will not be different in either state (<span class="math inline">\(\mu_{0} = \mu_{1}\)</span>) and the probability of transitioning between states is the same in either direction (<span class="math inline">\(q_{01} = q_{10}\)</span>).</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="diversification2.html#cb198-1"></a><span class="kw">library</span>(diversitree)</span>
+<span id="cb198-2"><a href="diversification2.html#cb198-2"></a>pars &lt;-<span class="st"> </span><span class="kw">c</span>(.<span class="dv">1</span>,.<span class="dv">2</span>,.<span class="dv">03</span>,.<span class="dv">03</span>,.<span class="dv">01</span>,.<span class="dv">01</span>)</span>
+<span id="cb198-3"><a href="diversification2.html#cb198-3"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb198-4"><a href="diversification2.html#cb198-4"></a>phy &lt;-<span class="st"> </span><span class="kw">tree.bisse</span>(pars, <span class="dt">max.t =</span> <span class="dv">30</span>, <span class="dt">x0 =</span> <span class="dv">0</span>)</span>
+<span id="cb198-5"><a href="diversification2.html#cb198-5"></a>states &lt;-<span class="st"> </span>phy<span class="op">$</span>tip.state</span></code></pre></div>
+<p>We can extract the history of the trait’s evolution using <strong>history.from.sim.discrete</strong>. Note that although this looks like an ancestral state reconstruction, it isn’t. This is the <em>actual</em> history of the trait we have simulated.</p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="diversification2.html#cb199-1"></a><span class="kw">plot</span>(<span class="kw">history.from.sim.discrete</span>(phy, <span class="dv">0</span><span class="op">:</span><span class="dv">1</span>), </span>
+<span id="cb199-2"><a href="diversification2.html#cb199-2"></a>     phy, <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;#004165&quot;</span>, <span class="st">&quot;#eaab00&quot;</span>), <span class="dt">no.margin =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-183-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Next we use the function <strong>make.bisse</strong> with the tree and the named vector of states. This creates a likelihood function that we will go on to use in our analysis.</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="diversification2.html#cb200-1"></a>lik &lt;-<span class="st"> </span><span class="kw">make.bisse</span>(phy, states)</span></code></pre></div>
+<p>To perform a maximum likelihood search, we will also need to select a starting point. The function <strong>starting.point.bisse</strong> produces a guess for a starting point based on the <em>character-independent</em> birth-death fit.</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="diversification2.html#cb201-1"></a>p &lt;-<span class="st"> </span><span class="kw">starting.point.bisse</span>(phy)</span>
+<span id="cb201-2"><a href="diversification2.html#cb201-2"></a>p</span></code></pre></div>
+<pre><code>   lambda0    lambda1        mu0        mu1        q01        q10 
+0.09380372 0.09380372 0.00000000 0.00000000 0.01876074 0.01876074 </code></pre>
+<p>Now that we have our likelihood function and our starting point for each parameter, we can start the likelihood search using <strong>find.mle</strong>. Depending on the size and complexity of your tree and data, this step may take a while.</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="diversification2.html#cb203-1"></a>fit &lt;-<span class="st"> </span><span class="kw">find.mle</span>(lik, p)</span></code></pre></div>
+<p>The resulting object contains the log likelihood of the model (<strong>lnLik</strong>) and the estimates for all of the parameters.</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="diversification2.html#cb204-1"></a>fit<span class="op">$</span>lnLik</span></code></pre></div>
+<pre><code>[1] -152.5654</code></pre>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="diversification2.html#cb206-1"></a><span class="kw">round</span>(<span class="kw">coef</span>(fit),<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>lambda0 lambda1     mu0     mu1     q01     q10 
+  0.089   0.150   0.000   0.052   0.018   0.022 </code></pre>
+<p>In this case we can compare these parameters to the known values we set for the simulation. The estimates are not exactly the same and perhaps a better set of starting estimates would be helpful. However, we can see that <span class="math inline">\(\lambda_{1} &gt; \lambda_{0}\)</span> as we know it should be.</p>
+<p>Let’s look at testing the hypothesis that speciation rates are different when the trait we are studying is in different states. We can do this by constraining the speciation rates to be equal in a new model using <strong>constrain</strong>.</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="diversification2.html#cb208-1"></a>lik1 &lt;-<span class="st"> </span><span class="kw">constrain</span>(lik, lambda1<span class="op">~</span>lambda0)</span>
+<span id="cb208-2"><a href="diversification2.html#cb208-2"></a>fit1 &lt;-<span class="st"> </span><span class="kw">find.mle</span>(lik1, p[<span class="kw">argnames</span>(lik1)])</span>
+<span id="cb208-3"><a href="diversification2.html#cb208-3"></a>fit1<span class="op">$</span>lnLik</span></code></pre></div>
+<pre><code>[1] -153.0321</code></pre>
+<p>We can put the estimated parameters together in a table for ease of comparison.</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="diversification2.html#cb210-1"></a>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">round</span>(<span class="kw">rbind</span>(<span class="dt">full=</span><span class="kw">coef</span>(fit), <span class="dt">equal.l=</span><span class="kw">coef</span>(fit1, <span class="ot">TRUE</span>)), <span class="dv">3</span>))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">lambda0</th>
+<th align="right">lambda1</th>
+<th align="right">mu0</th>
+<th align="right">mu1</th>
+<th align="right">q01</th>
+<th align="right">q10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">full</td>
+<td align="right">0.089</td>
+<td align="right">0.150</td>
+<td align="right">0</td>
+<td align="right">0.052</td>
+<td align="right">0.018</td>
+<td align="right">0.022</td>
+</tr>
+<tr class="even">
+<td align="left">equal.l</td>
+<td align="right">0.094</td>
+<td align="right">0.094</td>
+<td align="right">0</td>
+<td align="right">0.000</td>
+<td align="right">0.016</td>
+<td align="right">0.030</td>
+</tr>
+</tbody>
+</table>
+<p>The final thing to do is test the differnece between the new and old models.</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="diversification2.html#cb211-1"></a><span class="kw">anova</span>(fit, fit1)</span></code></pre></div>
+<pre><code>        Df   lnLik    AIC   ChiSq Pr(&gt;|Chi|)
+full     6 -152.56 317.13                   
+model 1  5 -153.03 316.06 0.93342      0.334</code></pre>
+<p>The ANOVA table tells us that there is no significant difference in fit between the two models (<span class="math inline">\(\chi^{2} = 0.93, p = 0.33\)</span>).</p>
+<p>If you’re not a fan of maximum likelihood estimation you can run the same analysis by MCMC. First we need to set a prior as the starting point for our analysis. The function <strong>make.prior.exponential</strong> will allow us to set an exponential prior of <span class="math inline">\(\frac{1}{2r}\)</span>. Remember that <span class="math inline">\(r = \lambda - \mu\)</span>.</p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="diversification2.html#cb213-1"></a>prior &lt;-<span class="st"> </span><span class="kw">make.prior.exponential</span>(<span class="dv">1</span><span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>(p[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span>p[<span class="dv">3</span>])))</span></code></pre></div>
+<p>In our final <em>mcmc</em> analysis we will need to provide an argument called simply <strong>w</strong>. This is a so-called tuning parameter for the sampling that the <strong>mcmc</strong> function will perform. The function uses a process called slice sampling <span class="citation">(Neal <a href="#ref-Neal03" role="doc-biblioref">2003</a>)</span>. In slice sampling, the parameter <strong>w</strong> affects how many function evaluations are required between sample updates. According to the documentation for the function, the optimal value for <strong>w</strong> is equal to the width of the high probability region we are searching through. The easiest way to work this out is to run a short chain and use the obseved range in the results.</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="diversification2.html#cb214-1"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb214-2"><a href="diversification2.html#cb214-2"></a>tmp &lt;-<span class="st"> </span><span class="kw">mcmc</span>(lik, fit<span class="op">$</span>par, <span class="dt">nsteps=</span><span class="dv">100</span>, <span class="dt">prior=</span>prior,</span>
+<span id="cb214-3"><a href="diversification2.html#cb214-3"></a>            <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">w=</span><span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">6</span>), <span class="dt">print.every=</span><span class="dv">0</span>)</span>
+<span id="cb214-4"><a href="diversification2.html#cb214-4"></a>w &lt;-<span class="st"> </span><span class="kw">diff</span>(<span class="kw">sapply</span>(tmp[<span class="dv">2</span><span class="op">:</span><span class="dv">7</span>], range))</span></code></pre></div>
+<p>To run our full analysis, we will need to use a much longer chain. I’ve gone for 10,000 here. Be aware that this will take a little while.</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="diversification2.html#cb215-1"></a>samples &lt;-<span class="st"> </span><span class="kw">mcmc</span>(lik, fit<span class="op">$</span>par, <span class="dt">nsteps=</span><span class="dv">10000</span>, <span class="dt">w=</span>w, </span>
+<span id="cb215-2"><a href="diversification2.html#cb215-2"></a>                <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">prior=</span>prior, <span class="dt">print.every=</span><span class="dv">0</span>)</span></code></pre></div>
+<p>We can plot the distributions of <span class="math inline">\(\lambda_{0}\)</span> and <span class="math inline">\(\lambda_{1}\)</span> using the function <strong>profiles.plot</strong>. Here we can see the true values as lines. The shaded areas and bars along the x axis both represent the 95% confidence intervals of the sample.</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="diversification2.html#cb216-1"></a>col &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#004165&quot;</span>, <span class="st">&quot;#eaab00&quot;</span>)</span>
+<span id="cb216-2"><a href="diversification2.html#cb216-2"></a><span class="kw">profiles.plot</span>(samples[<span class="kw">c</span>(<span class="st">&quot;lambda0&quot;</span>, <span class="st">&quot;lambda1&quot;</span>)], <span class="dt">col.line=</span>col, <span class="dt">las=</span><span class="dv">1</span>,</span>
+<span id="cb216-3"><a href="diversification2.html#cb216-3"></a>              <span class="dt">xlab=</span><span class="st">&quot;Speciation rate&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;topright&quot;</span>)</span>
+<span id="cb216-4"><a href="diversification2.html#cb216-4"></a><span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">c</span>(.<span class="dv">1</span>, <span class="fl">.2</span>), <span class="dt">col=</span>col)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-195-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="realdata-example.-shorebirds" class="section level3" number="10.1.1">
+<h3><span class="header-section-number">10.1.1</span> REALDATA EXAMPLE. SHOREBIRDS?</h3>
+</div>
+</div>
+<div id="multi-state-traits-musse" class="section level2" number="10.2">
+<h2><span class="header-section-number">10.2</span> Multi-state traits: MuSSE</h2>
+<p>BiSSE works well with binary traits but what about categrorical traits with more than two states? For this we can use an extension of the BiSSE model called <strong>MuSSE</strong> (Multiple State Speciation and Extinction).</p>
+<p>Let’s start with a simulated example. The traits we simulate will have three states (coded numerically) and transitions are only possible between adjacent states (you can’t go from state 1 to 3 or 3 to 1). All other transition rates will be equal. In this case we need to specify the parameters in the following order:</p>
+<p><span class="math display">\[\lambda_{1} \;\; \lambda_{2} \;\; \lambda_{3} \;\; \mu_{1} \;\; \mu_{2} \;\; \mu_{3} \;\; q_{12} \;\; q_{13} \;\; q_{21} \;\; q_{23} \;\; q_{31} \;\; q_{32}\]</span></p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="diversification2.html#cb217-1"></a>pars &lt;-<span class="st"> </span><span class="kw">c</span>(.<span class="dv">1</span>,.<span class="dv">15</span>, <span class="fl">.2</span>,       <span class="co">#lambda</span></span>
+<span id="cb217-2"><a href="diversification2.html#cb217-2"></a>          <span class="fl">.03</span>, <span class="fl">.045</span>, <span class="fl">.06</span>,   <span class="co">#mu</span></span>
+<span id="cb217-3"><a href="diversification2.html#cb217-3"></a>          <span class="fl">.05</span>, <span class="dv">0</span>,           <span class="co">#q12 q13</span></span>
+<span id="cb217-4"><a href="diversification2.html#cb217-4"></a>          <span class="fl">.05</span>, <span class="fl">.05</span>,         <span class="co">#q21 q23</span></span>
+<span id="cb217-5"><a href="diversification2.html#cb217-5"></a>          <span class="dv">0</span>, <span class="fl">0.05</span>)          <span class="co">#q31 q32</span></span></code></pre></div>
+<p>Now we can simulate our tree and data using <strong>tree.musse</strong>.</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="diversification2.html#cb218-1"></a><span class="kw">set.seed</span>(<span class="dv">2</span>)</span>
+<span id="cb218-2"><a href="diversification2.html#cb218-2"></a>phy &lt;-<span class="st"> </span><span class="kw">tree.musse</span>(pars, <span class="dv">42</span>, <span class="dt">x0 =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>We can extract the history of the simulated trait with <strong>history.from.sim.discrete</strong> and plot it over the tree.</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="diversification2.html#cb219-1"></a>col &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#eaab00&quot;</span>, <span class="st">&quot;#004165&quot;</span>, <span class="st">&quot;#618e02&quot;</span>)</span>
+<span id="cb219-2"><a href="diversification2.html#cb219-2"></a>h &lt;-<span class="st"> </span><span class="kw">history.from.sim.discrete</span>(phy, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)</span>
+<span id="cb219-3"><a href="diversification2.html#cb219-3"></a><span class="kw">plot</span>(h, phy, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">col=</span>col, <span class="dt">no.margin=</span><span class="ot">TRUE</span>, <span class="dt">font=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-198-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Next we must make the likelihood function in much the same way as we did for BiSSE but this time using the function <strong>make.musse</strong>.</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="diversification2.html#cb220-1"></a>states &lt;-<span class="st"> </span>phy<span class="op">$</span>tip.state</span>
+<span id="cb220-2"><a href="diversification2.html#cb220-2"></a>lik &lt;-<span class="st"> </span><span class="kw">make.musse</span>(phy, states, <span class="dv">3</span>)</span></code></pre></div>
+<p>For our analysis, we’ll start with a very simple model. The simplest model is one in which all three speciation rates are the same (<span class="math inline">\(\lambda_{1} = \lambda_{2} = \lambda_{3}\)</span>), all 3 extinction rates are the same (<span class="math inline">\(\mu_{1} = \mu_{2} = \mu_{3}\)</span>) and all the non-zero transition rates are the same (<span class="math inline">\(q_{12} = q_{21} = q_{23} = q_{32}\)</span>). Also, remember that <span class="math inline">\(q_{13}\)</span> and <span class="math inline">\(q_{31}\)</span> are still both 0.</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="diversification2.html#cb221-1"></a>lik.base &lt;-<span class="st"> </span><span class="kw">constrain</span>(lik, lambda2 <span class="op">~</span><span class="st"> </span>lambda1, lambda3 <span class="op">~</span><span class="st"> </span>lambda1,</span>
+<span id="cb221-2"><a href="diversification2.html#cb221-2"></a>                      mu2 <span class="op">~</span><span class="st"> </span>mu1, mu3 <span class="op">~</span><span class="st"> </span>mu1,</span>
+<span id="cb221-3"><a href="diversification2.html#cb221-3"></a>                      q13 <span class="op">~</span><span class="st"> </span><span class="dv">0</span>, q21 <span class="op">~</span><span class="st"> </span>q12, </span>
+<span id="cb221-4"><a href="diversification2.html#cb221-4"></a>                      q23 <span class="op">~</span><span class="st"> </span>q12, q31 <span class="op">~</span><span class="st"> </span><span class="dv">0</span>, q32 <span class="op">~</span><span class="st"> </span>q12)</span></code></pre></div>
+<p>Just as with BiSSE, we need to set a starting point for the likelihood search, this time with the function <strong>starting.point.musse</strong>.</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="diversification2.html#cb222-1"></a>p &lt;-<span class="st"> </span><span class="kw">starting.point.musse</span>(phy, <span class="dv">3</span>)</span></code></pre></div>
+<p>Now we can start the maximum likelihood search with <strong>find.mle</strong>.</p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="diversification2.html#cb223-1"></a>fit.base &lt;-<span class="st"> </span><span class="kw">find.mle</span>(lik.base, p[<span class="kw">argnames</span>(lik.base)])</span>
+<span id="cb223-2"><a href="diversification2.html#cb223-2"></a>fit.base<span class="op">$</span>lnLik</span></code></pre></div>
+<pre><code>[1] -153.4905</code></pre>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="diversification2.html#cb225-1"></a><span class="kw">round</span>(<span class="kw">coef</span>(fit.base),<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>lambda1     mu1     q12 
+  0.201   0.139   0.055 </code></pre>
+<p>To test if the speciation rate varies when the traits is in different states, we can run another model in which the values of <span class="math inline">\(\lambda_{1}\)</span>, <span class="math inline">\(\lambda_{2}\)</span> and <span class="math inline">\(\lambda_{3}\)</span> are unconstrained.</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="diversification2.html#cb227-1"></a>lik.lambda &lt;-<span class="st"> </span><span class="kw">constrain</span>(lik, mu2 <span class="op">~</span><span class="st"> </span>mu1, mu3 <span class="op">~</span><span class="st"> </span>mu1,</span>
+<span id="cb227-2"><a href="diversification2.html#cb227-2"></a>                        q13 <span class="op">~</span><span class="st"> </span><span class="dv">0</span>, q21 <span class="op">~</span><span class="st"> </span>q12, </span>
+<span id="cb227-3"><a href="diversification2.html#cb227-3"></a>                        q23 <span class="op">~</span><span class="st"> </span>q12, q31 <span class="op">~</span><span class="st"> </span><span class="dv">0</span>, q32 <span class="op">~</span><span class="st"> </span>q12)</span>
+<span id="cb227-4"><a href="diversification2.html#cb227-4"></a>fit.lambda &lt;-<span class="st"> </span><span class="kw">find.mle</span>(lik.lambda, p[<span class="kw">argnames</span>(lik.lambda)])</span></code></pre></div>
+<p>In this case the new model is not significantly better than the minimal model (<span class="math inline">\(\chi^{2} = 2.67, \; p = 0.263\)</span>). Keep in mind that when we simulated the data, we specified that <span class="math inline">\(\lambda\)</span> was indeed different between different states. It’s probable that we haven’t been able to detect this on such a small tree (n = 42).</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="diversification2.html#cb228-1"></a><span class="kw">anova</span>(fit.base, <span class="dt">free.lambda=</span>fit.lambda)</span></code></pre></div>
+<pre><code>            Df   lnLik    AIC  ChiSq Pr(&gt;|Chi|)
+minimal      3 -153.49 312.98                  
+free.lambda  5 -152.16 314.32 2.6651     0.2638</code></pre>
+<p>Small trees are not good fits for these methods. Generally, the larger the tree the more power you have. Here is the model comparison for the same analysis with the same parameters but simulated on a tree with 1000 tips. As you can see, the analysis shows very clearly that the model in which <span class="math inline">\(\lambda\)</span> is allowed to vary is a much better fit (<span class="math inline">\(\chi^{2} = 33.35, \; p &lt; 0.001\)</span>).</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Df</th>
+<th align="right">lnLik</th>
+<th align="right">AIC</th>
+<th align="right">ChiSq</th>
+<th align="right">Pr(&gt;|Chi|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">minimal</td>
+<td align="right">3</td>
+<td align="right">-3694.195</td>
+<td align="right">7394.390</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">free.lambda</td>
+<td align="right">5</td>
+<td align="right">-3677.520</td>
+<td align="right">7365.041</td>
+<td align="right">33.34883</td>
+<td align="right">1e-07</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="quantitative-traits-quasse" class="section level2" number="10.3">
+<h2><span class="header-section-number">10.3</span> Quantitative traits: QuaSSE</h2>
+<p>Dealing with quantitative traits in models like these is lsightly less straightforward. Categorical traits are well defined and we can model the transition rates between states. Deciding when something like body mass has undergone significant evolutionary change is a little more difficult. This is the same problem we faced with continuous characters in ancestral state reconstruction and it will come up again when we look at convergence.</p>
+<p>For diversification, we have the <strong>QuaSSE</strong> (Quantitative State Speciation and Extinction) model.</p>
+<p>First we need to specify some functions to use. For lambda we will use a sigmoidal function with an inflection at x = 0. This means we will have an increasing rate of speciation reaching a plateau. We can specify this with the function <strong>sigmoid.x</strong>.</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="diversification2.html#cb230-1"></a>lambda &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">sigmoid.x</span>(x, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="dv">0</span>, <span class="fl">2.5</span>)</span>
+<span id="cb230-2"><a href="diversification2.html#cb230-2"></a>mu &lt;-<span class="st"> </span><span class="cf">function</span>(x) <span class="kw">constant.x</span>(x, <span class="fl">0.03</span>)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-207-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Next we can specify the model of character evolution for our trait simulation. We will be going with Brownian motion and we will set the diffusion parameter to 0.025. To specify all this, we can use the function <strong>make.brownian.with.drift</strong>.</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="diversification2.html#cb231-1"></a>char &lt;-<span class="st"> </span><span class="kw">make.brownian.with.drift</span>(<span class="dv">0</span>, <span class="fl">0.025</span>)</span></code></pre></div>
+<p>Now as with BiSSE and MuSSE, we can simulate the tree and data using <strong>tree.quasse</strong>.</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="diversification2.html#cb232-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb232-2"><a href="diversification2.html#cb232-2"></a>phy &lt;-<span class="st"> </span><span class="kw">tree.quasse</span>(<span class="kw">c</span>(lambda, mu, char), <span class="dt">max.taxa=</span><span class="dv">15</span>, <span class="dt">x0=</span><span class="dv">0</span>, <span class="dt">single.lineage=</span><span class="ot">FALSE</span>)</span></code></pre></div>
+<p>Extract the trait states and specify the standard deviation. For this example, assume the standard deviation for all tips is 1/200.</p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="diversification2.html#cb233-1"></a>states &lt;-<span class="st"> </span>phy<span class="op">$</span>tip.state</span>
+<span id="cb233-2"><a href="diversification2.html#cb233-2"></a>states.sd &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">200</span></span></code></pre></div>
+<p>Next we create the likelihood function, this time specifying the speciation and extinction functions.</p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="diversification2.html#cb234-1"></a>lik &lt;-<span class="st"> </span><span class="kw">make.quasse</span>(phy, states, states.sd, sigmoid.x, constant.x)</span></code></pre></div>
+<p>Now to calculate the starting point. This is a little more involved than BiSSE and MuSSE! <strong>starting.point.quasse</strong> gives us constant rates for each parameter.</p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="diversification2.html#cb235-1"></a>p &lt;-<span class="st"> </span><span class="kw">starting.point.quasse</span>(phy, states)</span>
+<span id="cb235-2"><a href="diversification2.html#cb235-2"></a>p</span></code></pre></div>
+<pre><code>    lambda         mu  diffusion 
+0.16107838 0.02569057 0.03164062 </code></pre>
+<p>Let’s ignore drift for our first model (<strong>drift ~ 0</strong>). The function <strong>argnames</strong> will return the names of parameters we will need to supply.</p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="diversification2.html#cb237-1"></a>lik.nodrift &lt;-<span class="st"> </span><span class="kw">constrain</span>(lik, drift <span class="op">~</span><span class="st"> </span><span class="dv">0</span>)</span>
+<span id="cb237-2"><a href="diversification2.html#cb237-2"></a><span class="kw">argnames</span>(lik.nodrift)</span></code></pre></div>
+<pre><code>[1] &quot;l.y0&quot;      &quot;l.y1&quot;      &quot;l.xmid&quot;    &quot;l.r&quot;       &quot;m.c&quot;       &quot;diffusion&quot;</code></pre>
+<p>Next, we select the starting point values. For <strong>l.y0</strong> and <strong>l.y1</strong>, we will take the suggested value of <span class="math inline">\(\lambda\)</span> from <strong>starting.point.quasse</strong> (<strong>p[1]</strong>). For <strong>l.xmid</strong> we will take the mean of the state values (<strong>mean(states)</strong>). <strong>l.r</strong> is set at 1. <strong>m.c</strong> (<span class="math inline">\(\mu\)</span>) and <strong>diffusion</strong> are taken straight form <strong>p</strong> (<strong>p[2:3]</strong>)</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="diversification2.html#cb239-1"></a>p.start &lt;-<span class="st"> </span><span class="kw">c</span>(p[<span class="dv">1</span>], p[<span class="dv">1</span>], <span class="kw">mean</span>(states), <span class="dv">1</span>, p[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>])</span>
+<span id="cb239-2"><a href="diversification2.html#cb239-2"></a><span class="kw">names</span>(p.start) &lt;-<span class="st"> </span><span class="kw">argnames</span>(lik.nodrift)</span>
+<span id="cb239-3"><a href="diversification2.html#cb239-3"></a>p.start</span></code></pre></div>
+<pre><code>      l.y0       l.y1     l.xmid        l.r        m.c  diffusion 
+0.16107838 0.16107838 0.57097062 1.00000000 0.02569057 0.03164062 </code></pre>
+<p>One final thing before we run the search. We now need to specify the lower bounds for the search for each parameter..</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="diversification2.html#cb241-1"></a>lower &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="kw">min</span>(states), <span class="op">-</span><span class="ot">Inf</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span></code></pre></div>
+<p>Finally we are ready to run our analysis! As with BiSSE and MuSSE, we will do so with <strong>find.mle</strong>. This will take some time.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="diversification2.html#cb242-1"></a>fit &lt;-<span class="st"> </span><span class="kw">find.mle</span>(lik.nodrift, p.start, </span>
+<span id="cb242-2"><a href="diversification2.html#cb242-2"></a>                <span class="dt">control=</span><span class="kw">list</span>(<span class="dt">parscale=</span>.<span class="dv">1</span>), </span>
+<span id="cb242-3"><a href="diversification2.html#cb242-3"></a>                <span class="dt">lower=</span>lower, <span class="dt">verbose=</span><span class="dv">0</span>)</span>
+<span id="cb242-4"><a href="diversification2.html#cb242-4"></a><span class="kw">round</span>(<span class="kw">coef</span>(fit),<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>     l.y0      l.y1    l.xmid       l.r       m.c diffusion 
+    0.000     0.220     0.238 28961.248     0.000     0.029 </code></pre>
+<p>Let’s compare this model to one in which <span class="math inline">\(\lambda\)</span> is constant.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="diversification2.html#cb244-1"></a>lik.constant &lt;-<span class="st"> </span><span class="kw">constrain</span>(lik.nodrift, </span>
+<span id="cb244-2"><a href="diversification2.html#cb244-2"></a>                          l.y1 <span class="op">~</span><span class="st"> </span>l.y0, </span>
+<span id="cb244-3"><a href="diversification2.html#cb244-3"></a>                          l.xmid <span class="op">~</span><span class="st"> </span><span class="dv">0</span>, </span>
+<span id="cb244-4"><a href="diversification2.html#cb244-4"></a>                          l.r <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb244-5"><a href="diversification2.html#cb244-5"></a>fit.constant &lt;-<span class="st"> </span><span class="kw">find.mle</span>(lik.constant, </span>
+<span id="cb244-6"><a href="diversification2.html#cb244-6"></a>                         p.start[<span class="kw">argnames</span>(lik.constant)], </span>
+<span id="cb244-7"><a href="diversification2.html#cb244-7"></a>                         <span class="dt">control=</span><span class="kw">list</span>(<span class="dt">parscale=</span>.<span class="dv">1</span>), </span>
+<span id="cb244-8"><a href="diversification2.html#cb244-8"></a>                         <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">verbose=</span><span class="dv">0</span>)</span>
+<span id="cb244-9"><a href="diversification2.html#cb244-9"></a>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">anova</span>(fit, <span class="dt">constant=</span>fit.constant))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Df</th>
+<th align="right">lnLik</th>
+<th align="right">AIC</th>
+<th align="right">ChiSq</th>
+<th align="right">Pr(&gt;|Chi|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">full</td>
+<td align="right">6</td>
+<td align="right">-51.73395</td>
+<td align="right">115.4679</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">constant</td>
+<td align="right">3</td>
+<td align="right">-55.15222</td>
+<td align="right">116.3044</td>
+<td align="right">6.836543</td>
+<td align="right">0.0772943</td>
+</tr>
+</tbody>
+</table>
+<p>Once again we see no significant difference (<span class="math inline">\(\chi^{2} = 6.84, \; p = 0.08\)</span>). Again this probably due to the small tree and a larger one would give us more power.</p>
+<div id="quasse-primate-example" class="section level3" number="10.3.1">
+<h3><span class="header-section-number">10.3.1</span> QuaSSE primate example</h3>
+<p>To demonstrate how QuaSSE can be used in research, let’s investigate trait dependent diversification in primates using some existing data on primate body mass <span class="citation">(Fitzjohn <a href="#ref-Fitzjohn10" role="doc-biblioref">2010</a>)</span>.</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="diversification2.html#cb245-1"></a>phy &lt;-<span class="st"> </span><span class="kw">read.nexus</span>(<span class="st">&quot;Vos-2006.nex&quot;</span>)</span>
+<span id="cb245-2"><a href="diversification2.html#cb245-2"></a>d &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;Redding-2010.csv&quot;</span>)</span></code></pre></div>
+<p>We will need to log-transform mass and we will also assume the standard deviation is <span class="math inline">\(\frac{1}{50}\)</span>.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="diversification2.html#cb246-1"></a>mass &lt;-<span class="st"> </span><span class="kw">log</span>(d<span class="op">$</span>mass)</span>
+<span id="cb246-2"><a href="diversification2.html#cb246-2"></a><span class="kw">names</span>(mass) &lt;-<span class="st"> </span>d<span class="op">$</span>tip.label</span>
+<span id="cb246-3"><a href="diversification2.html#cb246-3"></a>mass.sd &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">50</span></span></code></pre></div>
+<p>Starting point parameter estimates.</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="diversification2.html#cb247-1"></a>p &lt;-<span class="st"> </span><span class="kw">starting.point.quasse</span>(phy, mass)</span>
+<span id="cb247-2"><a href="diversification2.html#cb247-2"></a>p</span></code></pre></div>
+<pre><code>    lambda         mu  diffusion 
+0.19072726 0.11034810 0.03251953 </code></pre>
+<p>Now we will create a piecewise linear function using <strong>make.linear.x</strong>. The function is linear between <strong>xr[1]</strong> and <strong>xr[2]</strong> and flat outside this range.</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="diversification2.html#cb249-1"></a>xr &lt;-<span class="st"> </span><span class="kw">range</span>(mass) <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>) <span class="op">*</span><span class="st"> </span><span class="dv">20</span> <span class="op">*</span><span class="st"> </span>p[<span class="st">&quot;diffusion&quot;</span>]</span>
+<span id="cb249-2"><a href="diversification2.html#cb249-2"></a>linear.x &lt;-<span class="st"> </span><span class="kw">make.linear.x</span>(xr[<span class="dv">1</span>], xr[<span class="dv">2</span>])</span></code></pre></div>
+<p>Now let’s create a shortcut because we will be analysing several models. First we will create a function that will take our speciation and extinction functions and buld our model for us using <strong>make.quasse</strong>. The second function simply constrains drift to zero.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="diversification2.html#cb250-1"></a>make.primates &lt;-<span class="st"> </span><span class="cf">function</span>(lambda, mu) </span>
+<span id="cb250-2"><a href="diversification2.html#cb250-2"></a>  <span class="kw">make.quasse</span>(phy, mass, mass.sd, lambda, mu)</span>
+<span id="cb250-3"><a href="diversification2.html#cb250-3"></a>nodrift &lt;-<span class="st"> </span><span class="cf">function</span>(f)</span>
+<span id="cb250-4"><a href="diversification2.html#cb250-4"></a>  <span class="kw">constrain</span>(f, drift <span class="op">~</span><span class="st"> </span><span class="dv">0</span>)</span></code></pre></div>
+<p>Now we can use these functions to build our likelihood functions. We are keeping <span class="math inline">\(\mu\)</span> constant in each case.</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="diversification2.html#cb251-1"></a>f.c &lt;-<span class="st"> </span><span class="kw">make.primates</span>(constant.x, constant.x)</span>
+<span id="cb251-2"><a href="diversification2.html#cb251-2"></a>f.l &lt;-<span class="st"> </span><span class="kw">make.primates</span>(linear.x, constant.x)</span>
+<span id="cb251-3"><a href="diversification2.html#cb251-3"></a>f.s &lt;-<span class="st"> </span><span class="kw">make.primates</span>(sigmoid.x, constant.x)</span>
+<span id="cb251-4"><a href="diversification2.html#cb251-4"></a>f.h &lt;-<span class="st"> </span><span class="kw">make.primates</span>(noroptimal.x, constant.x)</span></code></pre></div>
+<p>We will start by fitting the constant model (<strong>f.c</strong>) with no drift.</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="diversification2.html#cb252-1"></a>control &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">parscale=</span>.<span class="dv">1</span>, <span class="dt">reltol=</span><span class="fl">0.001</span>)</span>
+<span id="cb252-2"><a href="diversification2.html#cb252-2"></a>mle.c &lt;-<span class="st"> </span><span class="kw">find.mle</span>(<span class="kw">nodrift</span>(f.c), p, <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">control=</span>control, <span class="dt">verbose=</span><span class="dv">0</span>)</span></code></pre></div>
+<p>Next we calculate starting points for our other models.</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="diversification2.html#cb253-1"></a>p.c &lt;-<span class="st"> </span>mle.c<span class="op">$</span>par</span>
+<span id="cb253-2"><a href="diversification2.html#cb253-2"></a>p.l &lt;-<span class="st"> </span><span class="kw">c</span>(p.c[<span class="dv">1</span>], <span class="dt">l.m=</span><span class="dv">0</span>, p.c[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>])</span>
+<span id="cb253-3"><a href="diversification2.html#cb253-3"></a>p.s &lt;-<span class="st"> </span>p.h &lt;-<span class="st"> </span><span class="kw">c</span>(p.c[<span class="dv">1</span>], p.c[<span class="dv">1</span>], <span class="kw">mean</span>(xr), <span class="dv">1</span>, p.c[<span class="dv">2</span><span class="op">:</span><span class="dv">3</span>])</span>
+<span id="cb253-4"><a href="diversification2.html#cb253-4"></a><span class="kw">names</span>(p.s) &lt;-<span class="st"> </span><span class="kw">argnames</span>(<span class="kw">nodrift</span>(f.s))</span>
+<span id="cb253-5"><a href="diversification2.html#cb253-5"></a><span class="kw">names</span>(p.h) &lt;-<span class="st"> </span><span class="kw">argnames</span>(<span class="kw">nodrift</span>(f.h))</span></code></pre></div>
+<p>Once we have our starting points, we are ready to fit each of the models. Each of these lines may take a while to run.</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="diversification2.html#cb254-1"></a>mle.l &lt;-<span class="st"> </span><span class="kw">find.mle</span>(<span class="kw">nodrift</span>(f.l), p.l, <span class="dt">control=</span>control, <span class="dt">verbose=</span><span class="dv">0</span>)</span>
+<span id="cb254-2"><a href="diversification2.html#cb254-2"></a>mle.s &lt;-<span class="st"> </span><span class="kw">find.mle</span>(<span class="kw">nodrift</span>(f.s), p.s, <span class="dt">control=</span>control, <span class="dt">verbose=</span><span class="dv">0</span>)</span>
+<span id="cb254-3"><a href="diversification2.html#cb254-3"></a>mle.h &lt;-<span class="st"> </span><span class="kw">find.mle</span>(<span class="kw">nodrift</span>(f.h), p.h, <span class="dt">control=</span>control, <span class="dt">verbose=</span><span class="dv">0</span>)</span>
+<span id="cb254-4"><a href="diversification2.html#cb254-4"></a><span class="kw">anova</span>(mle.c, <span class="dt">linear=</span>mle.l, <span class="dt">sigmoidal=</span>mle.s, <span class="dt">hump=</span>mle.h)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Df</th>
+<th align="right">lnLik</th>
+<th align="right">AIC</th>
+<th align="right">ChiSq</th>
+<th align="right">Pr(&gt;|Chi|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">minimal</td>
+<td align="right">3</td>
+<td align="right">-841.4029</td>
+<td align="right">1688.806</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">linear</td>
+<td align="right">4</td>
+<td align="right">-836.0697</td>
+<td align="right">1680.139</td>
+<td align="right">10.66629</td>
+<td align="right">0.0010911</td>
+</tr>
+<tr class="odd">
+<td align="left">sigmoidal</td>
+<td align="right">6</td>
+<td align="right">-832.6038</td>
+<td align="right">1677.208</td>
+<td align="right">17.59805</td>
+<td align="right">0.0005323</td>
+</tr>
+<tr class="even">
+<td align="left">hump</td>
+<td align="right">6</td>
+<td align="right">-829.0036</td>
+<td align="right">1670.007</td>
+<td align="right">24.79861</td>
+<td align="right">0.0000170</td>
+</tr>
+</tbody>
+</table>
+<p>The ANOVA table shows us that the best fit is the <em>hump</em> model where speciation rate follows a hump shaped fit.</p>
+<p>The next lines (which will again take some time) will start with parameters from the previous constrained models and add the drift parameter.</p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="diversification2.html#cb255-1"></a>mle.d.l &lt;-<span class="st"> </span><span class="kw">find.mle</span>(f.l, <span class="kw">coef</span>(mle.l, <span class="ot">TRUE</span>), <span class="dt">control=</span>control, <span class="dt">verbose=</span><span class="dv">0</span>)</span>
+<span id="cb255-2"><a href="diversification2.html#cb255-2"></a>mle.d.s &lt;-<span class="st"> </span><span class="kw">find.mle</span>(f.s, <span class="kw">coef</span>(mle.s, <span class="ot">TRUE</span>), <span class="dt">control=</span>control, <span class="dt">verbose=</span><span class="dv">0</span>)</span>
+<span id="cb255-3"><a href="diversification2.html#cb255-3"></a>mle.d.h &lt;-<span class="st"> </span><span class="kw">find.mle</span>(f.h, <span class="kw">coef</span>(mle.h, <span class="ot">TRUE</span>), <span class="dt">control=</span>control, <span class="dt">verbose=</span><span class="dv">0</span>)</span></code></pre></div>
+<p>We should add these new models to the ANOVA table to compare them all. We can see that in all cases the fit of the model is improved by the addition of drift.</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="diversification2.html#cb256-1"></a>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">anova</span>(mle.c, <span class="dt">linear=</span>mle.l, <span class="dt">sigmoidal=</span>mle.s, </span>
+<span id="cb256-2"><a href="diversification2.html#cb256-2"></a>                   <span class="dt">hump=</span>mle.h, <span class="dt">drift.linear=</span>mle.d.l, </span>
+<span id="cb256-3"><a href="diversification2.html#cb256-3"></a>                   <span class="dt">drift.sigmoidal=</span>mle.d.s, <span class="dt">drift.hump=</span>mle.d.h))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Df</th>
+<th align="right">lnLik</th>
+<th align="right">AIC</th>
+<th align="right">ChiSq</th>
+<th align="right">Pr(&gt;|Chi|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">minimal</td>
+<td align="right">3</td>
+<td align="right">-841.4029</td>
+<td align="right">1688.806</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">linear</td>
+<td align="right">4</td>
+<td align="right">-836.0697</td>
+<td align="right">1680.139</td>
+<td align="right">10.66629</td>
+<td align="right">0.0010911</td>
+</tr>
+<tr class="odd">
+<td align="left">sigmoidal</td>
+<td align="right">6</td>
+<td align="right">-832.6038</td>
+<td align="right">1677.208</td>
+<td align="right">17.59805</td>
+<td align="right">0.0005323</td>
+</tr>
+<tr class="even">
+<td align="left">hump</td>
+<td align="right">6</td>
+<td align="right">-829.0036</td>
+<td align="right">1670.007</td>
+<td align="right">24.79861</td>
+<td align="right">0.0000170</td>
+</tr>
+<tr class="odd">
+<td align="left">drift.linear</td>
+<td align="right">5</td>
+<td align="right">-832.5001</td>
+<td align="right">1675.000</td>
+<td align="right">17.80563</td>
+<td align="right">0.0001360</td>
+</tr>
+<tr class="even">
+<td align="left">drift.sigmoidal</td>
+<td align="right">7</td>
+<td align="right">-830.2691</td>
+<td align="right">1674.538</td>
+<td align="right">22.26745</td>
+<td align="right">0.0001773</td>
+</tr>
+<tr class="odd">
+<td align="left">drift.hump</td>
+<td align="right">7</td>
+<td align="right">-825.3671</td>
+<td align="right">1664.734</td>
+<td align="right">32.07150</td>
+<td align="right">0.0000018</td>
+</tr>
+</tbody>
+</table>
+<p>When we extract the drift parameters, we can see that in all cases they are positive, indicating that mass is increasing over the tree on average.</p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="diversification2.html#cb257-1"></a><span class="kw">c</span>(<span class="dt">linear=</span><span class="kw">coef</span>(mle.d.l)[[<span class="st">&quot;drift&quot;</span>]], </span>
+<span id="cb257-2"><a href="diversification2.html#cb257-2"></a>  <span class="dt">sigmoidal=</span><span class="kw">coef</span>(mle.d.s)[[<span class="st">&quot;drift&quot;</span>]], </span>
+<span id="cb257-3"><a href="diversification2.html#cb257-3"></a>  <span class="dt">hump=</span><span class="kw">coef</span>(mle.d.h)[[<span class="st">&quot;drift&quot;</span>]])</span></code></pre></div>
+<pre><code>    linear  sigmoidal       hump 
+0.10458477 0.06776915 0.07929087 </code></pre>
+<p>So the hump model with drift is the best fit to the data. The parameters of this model tell us that <span class="math inline">\(\lambda\)</span> peaks around a log body mass value of 8.43 (<strong>l.xmid</strong>) and a variance of 0.12 (<strong>l.s2</strong>).</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="diversification2.html#cb259-1"></a><span class="kw">coef</span>(mle.d.h)</span></code></pre></div>
+<p>When we plot the data alongside the tree, we can see that many of the species that fall within 2 standard deviations of the value of <strong>l.xmid</strong> are within the Cercopithecidae.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-236"></span>
+<img src="bookdown-demo_files/figure-html/unnamed-chunk-236-1.png" alt="Body mass plotted alongside the primate phylogenetic tree. Species with a body mass in the range identified as having higher speciation rates are plotted in red" width="672" />
+<p class="caption">
+Figure 10.1: Body mass plotted alongside the primate phylogenetic tree. Species with a body mass in the range identified as having higher speciation rates are plotted in red
+</p>
+</div>
+<p>This suggests we might want to split the tree here and evaluate different models for each section of the tree much like we did with cetaceans in the previous chapter. In fact, the output of analysis with MEDUSA supports the idea that there has been a shift in diversification in the Cercopithecinae.</p>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="diversification2.html#cb260-1"></a><span class="kw">library</span>(geiger)</span>
+<span id="cb260-2"><a href="diversification2.html#cb260-2"></a>m1 &lt;-<span class="st"> </span><span class="kw">medusa</span>(phy, <span class="dt">model =</span> <span class="st">&quot;bd&quot;</span>)</span></code></pre></div>
+<pre><code>Appropriate  aicc-threshold for a tree of 233 tips is: 6.687066.
+
+Step 1: lnLik=-691.8978; aicc=1387.821; model=bd
+Step 2: lnLik=-678.3882; aicc=1366.907; shift at node 386; model=bd; cut=node; # shifts=1
+
+No significant increase in aicc score. Disregarding subsequent piecewise models.
+
+Calculating profile likelihoods on parameter values.
+
+  Model.ID Shift.Node Cut.At Model Ln.Lik.part         r   epsilon     r.low
+1        1        234   node    bd   -491.4083 0.0756587 0.4497380 0.0627243
+2        2        386   node    bd   -186.9799 0.2446490 0.0745145 0.1937557
+     r.high   eps.low  eps.high
+1 0.0903268 0.2837926 0.5764245
+2 0.3039223 0.0000000 0.3621622</code></pre>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="diversification2.html#cb262-1"></a><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="fl">3.1</span>, <span class="dv">0</span>, <span class="fl">0.1</span>, <span class="dv">0</span>))</span>
+<span id="cb262-2"><a href="diversification2.html#cb262-2"></a><span class="kw">plot</span>(m1, <span class="dt">show.tip.label =</span> F)</span></code></pre></div>
+<p><img src="bookdown-demo_files/figure-html/unnamed-chunk-237-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Before we proceed, it might be best to label the nodes so we can call the right one by name.</p>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="diversification2.html#cb263-1"></a>phy<span class="op">$</span>node.label &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;nd&quot;</span>, <span class="dv">1</span><span class="op">:</span>phy<span class="op">$</span>Nnode, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p>Now we can make split QuaSSE objects using <strong>make.quasse.split</strong>. The node we want here is node 153. In this case the speciation and extinction functions are both constant and the functions are the same on both sides of the split. For cases where functions may differ either side of the split, we can pass lists of functions. The <strong>Inf</strong> places the split at the base of the branch protuding from Node 153 (as in the MEDUSA plot above). A value of <strong>0</strong> would place the split at the node itself.</p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="diversification2.html#cb264-1"></a>f.cc &lt;-<span class="st"> </span><span class="kw">make.quasse.split</span>(phy, mass, mass.sd, </span>
+<span id="cb264-2"><a href="diversification2.html#cb264-2"></a>                          constant.x, constant.x, </span>
+<span id="cb264-3"><a href="diversification2.html#cb264-3"></a>                          <span class="st">&quot;nd153&quot;</span>, <span class="ot">Inf</span>)</span>
+<span id="cb264-4"><a href="diversification2.html#cb264-4"></a><span class="kw">argnames</span>(f.cc)</span></code></pre></div>
+<pre><code>[1] &quot;l.c.1&quot;       &quot;m.c.1&quot;       &quot;drift.1&quot;     &quot;diffusion.1&quot; &quot;l.c.2&quot;      
+[6] &quot;m.c.2&quot;       &quot;drift.2&quot;     &quot;diffusion.2&quot;</code></pre>
+<p>The first set of parameters refer to the “background” tree and the second set refer to the “foreground” tree rooted at node 153.</p>
+<p>Let’s constrain drift to be 0 and assume diffusion is the same in both trees.</p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="diversification2.html#cb266-1"></a>g.cc &lt;-<span class="st"> </span><span class="kw">constrain</span>(f.cc, drift<span class="fl">.1</span> <span class="op">~</span><span class="st"> </span><span class="dv">0</span>, drift<span class="fl">.2</span> <span class="op">~</span><span class="st"> </span><span class="dv">0</span>, </span>
+<span id="cb266-2"><a href="diversification2.html#cb266-2"></a>                  diffusion<span class="fl">.2</span> <span class="op">~</span><span class="st"> </span>diffusion<span class="fl">.1</span>)</span>
+<span id="cb266-3"><a href="diversification2.html#cb266-3"></a><span class="kw">argnames</span>(g.cc)</span></code></pre></div>
+<pre><code>[1] &quot;l.c.1&quot;       &quot;m.c.1&quot;       &quot;diffusion.1&quot; &quot;l.c.2&quot;       &quot;m.c.2&quot;      </code></pre>
+<p>Next we generate a starting point using the starting points from the earlier model (<strong>p.c</strong>).</p>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="diversification2.html#cb268-1"></a>p.cc &lt;-<span class="st"> </span><span class="kw">c</span>(p.c, p.c[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>])</span>
+<span id="cb268-2"><a href="diversification2.html#cb268-2"></a><span class="kw">names</span>(p.cc) &lt;-<span class="st"> </span><span class="kw">argnames</span>(g.cc)</span></code></pre></div>
+<p>Let’s run the ML search.</p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="diversification2.html#cb269-1"></a>mle.cc &lt;-<span class="st"> </span><span class="kw">find.mle</span>(g.cc, p.cc, <span class="dt">control=</span>control, <span class="dt">lower=</span><span class="dv">0</span>, <span class="dt">verbose=</span><span class="dv">0</span>)</span></code></pre></div>
+<p>We need to repeat this process for linear speciation functions and calculate starting points for these as well.</p>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="diversification2.html#cb270-1"></a>f.ll &lt;-<span class="st"> </span><span class="kw">make.quasse.split</span>(phy, mass, mass.sd, linear.x, constant.x, <span class="st">&quot;nd153&quot;</span>, <span class="ot">Inf</span>)</span>
+<span id="cb270-2"><a href="diversification2.html#cb270-2"></a>g.ll &lt;-<span class="st"> </span><span class="kw">constrain</span>(f.ll, drift<span class="fl">.1</span> <span class="op">~</span><span class="st"> </span><span class="dv">0</span>, drift<span class="fl">.2</span> <span class="op">~</span><span class="st"> </span><span class="dv">0</span>, diffusion<span class="fl">.2</span> <span class="op">~</span><span class="st"> </span>diffusion<span class="fl">.1</span>)</span>
+<span id="cb270-3"><a href="diversification2.html#cb270-3"></a>g.lc &lt;-<span class="st"> </span><span class="kw">constrain</span>(g.ll, l.m<span class="fl">.2</span> <span class="op">~</span><span class="st"> </span><span class="dv">0</span>)</span>
+<span id="cb270-4"><a href="diversification2.html#cb270-4"></a>g.cl &lt;-<span class="st"> </span><span class="kw">constrain</span>(g.ll, l.m<span class="fl">.1</span> <span class="op">~</span><span class="st"> </span><span class="dv">0</span>)</span>
+<span id="cb270-5"><a href="diversification2.html#cb270-5"></a>p.cc &lt;-<span class="st"> </span><span class="kw">coef</span>(mle.cc)</span>
+<span id="cb270-6"><a href="diversification2.html#cb270-6"></a>p.ll &lt;-<span class="st"> </span><span class="kw">c</span>(p.cc[<span class="dv">1</span>], <span class="dv">0</span>, p.cc[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">0</span>, p.cc[<span class="dv">5</span>])</span>
+<span id="cb270-7"><a href="diversification2.html#cb270-7"></a><span class="kw">names</span>(p.ll) &lt;-<span class="st"> </span><span class="kw">argnames</span>(g.ll)</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="diversification2.html#cb271-1"></a>mle.ll &lt;-<span class="st"> </span><span class="kw">find.mle</span>(g.ll, p.ll, <span class="dt">control=</span>control, <span class="dt">verbose=</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="diversification2.html#cb272-1"></a>p.lc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(mle.ll)[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], p.ll[<span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">7</span>)])</span>
+<span id="cb272-2"><a href="diversification2.html#cb272-2"></a>p.cl &lt;-<span class="st"> </span><span class="kw">c</span>(p.ll[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>)], <span class="kw">coef</span>(mle.ll)[<span class="dv">5</span><span class="op">:</span><span class="dv">7</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="diversification2.html#cb273-1"></a>mle.lc &lt;-<span class="st"> </span><span class="kw">find.mle</span>(g.lc, p.lc, <span class="dt">control=</span>control, <span class="dt">verbose=</span><span class="dv">0</span>)</span>
+<span id="cb273-2"><a href="diversification2.html#cb273-2"></a>mle.cl &lt;-<span class="st"> </span><span class="kw">find.mle</span>(g.cl, p.cl, <span class="dt">control=</span>control, <span class="dt">verbose=</span><span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="diversification2.html#cb274-1"></a>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">anova</span>(mle.c, <span class="dt">linear=</span>mle.l, <span class="dt">sigmoidal=</span>mle.s, <span class="dt">hump=</span>mle.h, </span>
+<span id="cb274-2"><a href="diversification2.html#cb274-2"></a>      <span class="dt">part.constant=</span>mle.cc, <span class="dt">part.linear.bg=</span>mle.lc, </span>
+<span id="cb274-3"><a href="diversification2.html#cb274-3"></a>      <span class="dt">part.linear.fg=</span>mle.cl, <span class="dt">part.linear=</span>mle.ll))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Df</th>
+<th align="right">lnLik</th>
+<th align="right">AIC</th>
+<th align="right">ChiSq</th>
+<th align="right">Pr(&gt;|Chi|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">minimal</td>
+<td align="right">3</td>
+<td align="right">-841.4029</td>
+<td align="right">1688.806</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">linear</td>
+<td align="right">4</td>
+<td align="right">-836.0697</td>
+<td align="right">1680.139</td>
+<td align="right">10.66629</td>
+<td align="right">0.0010911</td>
+</tr>
+<tr class="odd">
+<td align="left">sigmoidal</td>
+<td align="right">6</td>
+<td align="right">-832.6038</td>
+<td align="right">1677.208</td>
+<td align="right">17.59805</td>
+<td align="right">0.0005323</td>
+</tr>
+<tr class="even">
+<td align="left">hump</td>
+<td align="right">6</td>
+<td align="right">-829.0036</td>
+<td align="right">1670.007</td>
+<td align="right">24.79861</td>
+<td align="right">0.0000170</td>
+</tr>
+<tr class="odd">
+<td align="left">part.constant</td>
+<td align="right">5</td>
+<td align="right">-828.5921</td>
+<td align="right">1667.184</td>
+<td align="right">25.62147</td>
+<td align="right">0.0000027</td>
+</tr>
+<tr class="even">
+<td align="left">part.linear.bg</td>
+<td align="right">6</td>
+<td align="right">-828.2577</td>
+<td align="right">1668.515</td>
+<td align="right">26.29041</td>
+<td align="right">0.0000083</td>
+</tr>
+<tr class="odd">
+<td align="left">part.linear.fg</td>
+<td align="right">6</td>
+<td align="right">-826.0173</td>
+<td align="right">1664.035</td>
+<td align="right">30.77116</td>
+<td align="right">0.0000009</td>
+</tr>
+<tr class="even">
+<td align="left">part.linear</td>
+<td align="right">7</td>
+<td align="right">-828.3231</td>
+<td align="right">1670.646</td>
+<td align="right">26.15951</td>
+<td align="right">0.0000294</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="section" class="section level2" number="10.4">
+<h2><span class="header-section-number">10.4</span> </h2>
+</div>
+<div id="further-info-5" class="section level2" number="10.5">
+<h2><span class="header-section-number">10.5</span> Further info</h2>
+
+</div>
+</div>
+<h3> Bibliography</h3>
+<div id="refs" class="references">
+<div id="ref-diversitree">
+<p>FitzJohn, R.G. (2012) ‘Diversitree: Comparative Phylogenetic Analyses of Diversification in R’. <em>Methods in Ecology and Evolution</em> in press</p>
+</div>
+<div id="ref-Fitzjohn10">
+<p>Fitzjohn, R.G. (2010) ‘Quantitative Traits and Diversification’. <em>Systematic Biology</em> [online] 59 (6), 619–633. available from &lt;<a href="https://liverpool.idm.oclc.org/login?url=https://search.ebscohost.com/login.aspx?direct=true&amp;db=edselc&amp;AN=edselc.2-52.0-78650666284&amp;site=eds-live&amp;scope=site">https://liverpool.idm.oclc.org/login?url=https://search.ebscohost.com/login.aspx?direct=true&amp;db=edselc&amp;AN=edselc.2-52.0-78650666284&amp;site=eds-live&amp;scope=site</a>&gt;</p>
+</div>
+<div id="ref-Neal03">
+<p>Neal, R.M. (2003) ‘Slice Sampling’. <em>Annals of Statistics</em> [online] 31 (3), 705–741. available from &lt;<a href="https://liverpool.idm.oclc.org/login?url=https://search.ebscohost.com/login.aspx?direct=true&amp;db=edselc&amp;AN=edselc.2-52.0-1642370803&amp;site=eds-live&amp;scope=site">https://liverpool.idm.oclc.org/login?url=https://search.ebscohost.com/login.aspx?direct=true&amp;db=edselc&amp;AN=edselc.2-52.0-1642370803&amp;site=eds-live&amp;scope=site</a>&gt;</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="diversification.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="w2PGLS.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -253,7 +253,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 42.00867
+[1] 41.96491
 \end{verbatim}
 
 \begin{Shaded}
@@ -263,7 +263,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 4.243771
+[1] 4.192614
 \end{verbatim}
 
 \hypertarget{plotting}{%
@@ -943,7 +943,7 @@ Analysis of Variance Table
 
 Response: dat
           Df   Sum-Sq  Mean-Sq F-value  Pr(>F) Pr(>F) given phy
-group      2 0.063237 0.031619  3.0067 0.09497           0.1868
+group      2 0.063237 0.031619  3.0067 0.09497           0.1658
 Residuals 10 0.105161 0.010516                                 
 \end{verbatim}
 
@@ -2840,6 +2840,831 @@ If correct, this is a \emph{huge} problem for the study of diversification. The 
 
 However, developers of comparative methods have been aware for some time that including fossil taxa in these analyses is important. For example, look back to the chapters on ancestral state reconstruction for a demonstration of how fossil data improves an analysis. Versions of these analyses that can deal with non-ultrametric trees are bound to help address the concerns of Louca and Pennell \citeyearpar{Louca20}.
 
+\hypertarget{diversification2}{%
+\chapter{Trait Dependent Diversification}\label{diversification2}}
+
+The previous chapter used a variety of methods to estimate the rate of diversification in a phylogeny. This is an interesting and contentious field of study which allows us to ask marcoevolutionary questions. In this chapter, we will extend this approach to model the effects of trait evolution on diversification.
+
+\hypertarget{binary-traits-bisse}{%
+\section{Binary traits: BiSSE}\label{binary-traits-bisse}}
+
+\textbf{BiSSE} stands for Binary State Speciation and Extinction model.
+
+Let's start by simulating a tree and binary character using the \textbf{tree.bisse} function in the package \textbf{diversitree} \citep{diversitree}. We need to specify parameters for the simulation. These parameters are (in order);
+
+\begin{itemize}
+\tightlist
+\item
+  The speciation rate with the trait in state 0: \(\lambda_{0}\)
+\item
+  The speciation rate with the trait in state 1: \(\lambda_{1}\)
+\item
+  The extinction rate with the trait in state 0: \(\mu_{0}\)
+\item
+  The extinction rate with the trait in state 1: \(\mu_{1}\)
+\item
+  The probability of transitioning from state 0 to 1: \(q_{01}\)
+\item
+  The probability of transitioning from state 1 to 0: \(q_{10}\)
+\end{itemize}
+
+For this example, we will imagine a scenario in which lineages are twice as likely to speciate with the trait in state 1 than in state 0 (\(\lambda_{1} = 2 \times\lambda_{0}\)). Extinction rates will not be different in either state (\(\mu_{0} = \mu_{1}\)) and the probability of transitioning between states is the same in either direction (\(q_{01} = q_{10}\)).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(diversitree)}
+\NormalTok{pars \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(.}\DecValTok{1}\NormalTok{,.}\DecValTok{2}\NormalTok{,.}\DecValTok{03}\NormalTok{,.}\DecValTok{03}\NormalTok{,.}\DecValTok{01}\NormalTok{,.}\DecValTok{01}\NormalTok{)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{42}\NormalTok{)}
+\NormalTok{phy \textless{}{-}}\StringTok{ }\KeywordTok{tree.bisse}\NormalTok{(pars, }\DataTypeTok{max.t =} \DecValTok{30}\NormalTok{, }\DataTypeTok{x0 =} \DecValTok{0}\NormalTok{)}
+\NormalTok{states \textless{}{-}}\StringTok{ }\NormalTok{phy}\OperatorTok{$}\NormalTok{tip.state}
+\end{Highlighting}
+\end{Shaded}
+
+We can extract the history of the trait's evolution using \textbf{history.from.sim.discrete}. Note that although this looks like an ancestral state reconstruction, it isn't. This is the \emph{actual} history of the trait we have simulated.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{history.from.sim.discrete}\NormalTok{(phy, }\DecValTok{0}\OperatorTok{:}\DecValTok{1}\NormalTok{), }
+\NormalTok{     phy, }\DataTypeTok{col=}\KeywordTok{c}\NormalTok{(}\StringTok{"\#004165"}\NormalTok{, }\StringTok{"\#eaab00"}\NormalTok{), }\DataTypeTok{no.margin =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-183-1} \end{center}
+
+Next we use the function \textbf{make.bisse} with the tree and the named vector of states. This creates a likelihood function that we will go on to use in our analysis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lik \textless{}{-}}\StringTok{ }\KeywordTok{make.bisse}\NormalTok{(phy, states)}
+\end{Highlighting}
+\end{Shaded}
+
+To perform a maximum likelihood search, we will also need to select a starting point. The function \textbf{starting.point.bisse} produces a guess for a starting point based on the \emph{character-independent} birth-death fit.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p \textless{}{-}}\StringTok{ }\KeywordTok{starting.point.bisse}\NormalTok{(phy)}
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   lambda0    lambda1        mu0        mu1        q01        q10 
+0.09380372 0.09380372 0.00000000 0.00000000 0.01876074 0.01876074 
+\end{verbatim}
+
+Now that we have our likelihood function and our starting point for each parameter, we can start the likelihood search using \textbf{find.mle}. Depending on the size and complexity of your tree and data, this step may take a while.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(lik, p)}
+\end{Highlighting}
+\end{Shaded}
+
+The resulting object contains the log likelihood of the model (\textbf{lnLik}) and the estimates for all of the parameters.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit}\OperatorTok{$}\NormalTok{lnLik}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] -152.5654
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{round}\NormalTok{(}\KeywordTok{coef}\NormalTok{(fit),}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+lambda0 lambda1     mu0     mu1     q01     q10 
+  0.089   0.150   0.000   0.052   0.018   0.022 
+\end{verbatim}
+
+In this case we can compare these parameters to the known values we set for the simulation. The estimates are not exactly the same and perhaps a better set of starting estimates would be helpful. However, we can see that \(\lambda_{1} > \lambda_{0}\) as we know it should be.
+
+Let's look at testing the hypothesis that speciation rates are different when the trait we are studying is in different states. We can do this by constraining the speciation rates to be equal in a new model using \textbf{constrain}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lik1 \textless{}{-}}\StringTok{ }\KeywordTok{constrain}\NormalTok{(lik, lambda1}\OperatorTok{\textasciitilde{}}\NormalTok{lambda0)}
+\NormalTok{fit1 \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(lik1, p[}\KeywordTok{argnames}\NormalTok{(lik1)])}
+\NormalTok{fit1}\OperatorTok{$}\NormalTok{lnLik}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] -153.0321
+\end{verbatim}
+
+We can put the estimated parameters together in a table for ease of comparison.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(}\KeywordTok{round}\NormalTok{(}\KeywordTok{rbind}\NormalTok{(}\DataTypeTok{full=}\KeywordTok{coef}\NormalTok{(fit), }\DataTypeTok{equal.l=}\KeywordTok{coef}\NormalTok{(fit1, }\OtherTok{TRUE}\NormalTok{)), }\DecValTok{3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r|r|r}
+\hline
+  & lambda0 & lambda1 & mu0 & mu1 & q01 & q10\\
+\hline
+full & 0.089 & 0.150 & 0 & 0.052 & 0.018 & 0.022\\
+\hline
+equal.l & 0.094 & 0.094 & 0 & 0.000 & 0.016 & 0.030\\
+\hline
+\end{tabular}
+
+The final thing to do is test the differnece between the new and old models.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{anova}\NormalTok{(fit, fit1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+        Df   lnLik    AIC   ChiSq Pr(>|Chi|)
+full     6 -152.56 317.13                   
+model 1  5 -153.03 316.06 0.93342      0.334
+\end{verbatim}
+
+The ANOVA table tells us that there is no significant difference in fit between the two models (\(\chi^{2} = 0.93, p = 0.33\)).
+
+If you're not a fan of maximum likelihood estimation you can run the same analysis by MCMC. First we need to set a prior as the starting point for our analysis. The function \textbf{make.prior.exponential} will allow us to set an exponential prior of \(\frac{1}{2r}\). Remember that \(r = \lambda - \mu\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{prior \textless{}{-}}\StringTok{ }\KeywordTok{make.prior.exponential}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\NormalTok{(}\DecValTok{2}\OperatorTok{*}\NormalTok{(p[}\DecValTok{1}\NormalTok{] }\OperatorTok{{-}}\StringTok{ }\NormalTok{p[}\DecValTok{3}\NormalTok{])))}
+\end{Highlighting}
+\end{Shaded}
+
+In our final \emph{mcmc} analysis we will need to provide an argument called simply \textbf{w}. This is a so-called tuning parameter for the sampling that the \textbf{mcmc} function will perform. The function uses a process called slice sampling \citep{Neal03}. In slice sampling, the parameter \textbf{w} affects how many function evaluations are required between sample updates. According to the documentation for the function, the optimal value for \textbf{w} is equal to the width of the high probability region we are searching through. The easiest way to work this out is to run a short chain and use the obseved range in the results.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{42}\NormalTok{)}
+\NormalTok{tmp \textless{}{-}}\StringTok{ }\KeywordTok{mcmc}\NormalTok{(lik, fit}\OperatorTok{$}\NormalTok{par, }\DataTypeTok{nsteps=}\DecValTok{100}\NormalTok{, }\DataTypeTok{prior=}\NormalTok{prior,}
+            \DataTypeTok{lower=}\DecValTok{0}\NormalTok{, }\DataTypeTok{w=}\KeywordTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{6}\NormalTok{), }\DataTypeTok{print.every=}\DecValTok{0}\NormalTok{)}
+\NormalTok{w \textless{}{-}}\StringTok{ }\KeywordTok{diff}\NormalTok{(}\KeywordTok{sapply}\NormalTok{(tmp[}\DecValTok{2}\OperatorTok{:}\DecValTok{7}\NormalTok{], range))}
+\end{Highlighting}
+\end{Shaded}
+
+To run our full analysis, we will need to use a much longer chain. I've gone for 10,000 here. Be aware that this will take a little while.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{samples \textless{}{-}}\StringTok{ }\KeywordTok{mcmc}\NormalTok{(lik, fit}\OperatorTok{$}\NormalTok{par, }\DataTypeTok{nsteps=}\DecValTok{10000}\NormalTok{, }\DataTypeTok{w=}\NormalTok{w, }
+                \DataTypeTok{lower=}\DecValTok{0}\NormalTok{, }\DataTypeTok{prior=}\NormalTok{prior, }\DataTypeTok{print.every=}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We can plot the distributions of \(\lambda_{0}\) and \(\lambda_{1}\) using the function \textbf{profiles.plot}. Here we can see the true values as lines. The shaded areas and bars along the x axis both represent the 95\% confidence intervals of the sample.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{col \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"\#004165"}\NormalTok{, }\StringTok{"\#eaab00"}\NormalTok{)}
+\KeywordTok{profiles.plot}\NormalTok{(samples[}\KeywordTok{c}\NormalTok{(}\StringTok{"lambda0"}\NormalTok{, }\StringTok{"lambda1"}\NormalTok{)], }\DataTypeTok{col.line=}\NormalTok{col, }\DataTypeTok{las=}\DecValTok{1}\NormalTok{,}
+              \DataTypeTok{xlab=}\StringTok{"Speciation rate"}\NormalTok{, }\DataTypeTok{legend=}\StringTok{"topright"}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{v=}\KeywordTok{c}\NormalTok{(.}\DecValTok{1}\NormalTok{, }\FloatTok{.2}\NormalTok{), }\DataTypeTok{col=}\NormalTok{col)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-195-1} \end{center}
+
+\hypertarget{realdata-example.-shorebirds}{%
+\subsection{REALDATA EXAMPLE. SHOREBIRDS?}\label{realdata-example.-shorebirds}}
+
+\hypertarget{multi-state-traits-musse}{%
+\section{Multi-state traits: MuSSE}\label{multi-state-traits-musse}}
+
+BiSSE works well with binary traits but what about categrorical traits with more than two states? For this we can use an extension of the BiSSE model called \textbf{MuSSE} (Multiple State Speciation and Extinction).
+
+Let's start with a simulated example. The traits we simulate will have three states (coded numerically) and transitions are only possible between adjacent states (you can't go from state 1 to 3 or 3 to 1). All other transition rates will be equal. In this case we need to specify the parameters in the following order:
+
+\[\lambda_{1} \;\; \lambda_{2} \;\; \lambda_{3} \;\; \mu_{1} \;\; \mu_{2} \;\; \mu_{3} \;\; q_{12} \;\; q_{13} \;\; q_{21} \;\; q_{23} \;\; q_{31} \;\; q_{32}\]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pars \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(.}\DecValTok{1}\NormalTok{,.}\DecValTok{15}\NormalTok{, }\FloatTok{.2}\NormalTok{,       }\CommentTok{\#lambda}
+          \FloatTok{.03}\NormalTok{, }\FloatTok{.045}\NormalTok{, }\FloatTok{.06}\NormalTok{,   }\CommentTok{\#mu}
+          \FloatTok{.05}\NormalTok{, }\DecValTok{0}\NormalTok{,           }\CommentTok{\#q12 q13}
+          \FloatTok{.05}\NormalTok{, }\FloatTok{.05}\NormalTok{,         }\CommentTok{\#q21 q23}
+          \DecValTok{0}\NormalTok{, }\FloatTok{0.05}\NormalTok{)          }\CommentTok{\#q31 q32}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can simulate our tree and data using \textbf{tree.musse}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2}\NormalTok{)}
+\NormalTok{phy \textless{}{-}}\StringTok{ }\KeywordTok{tree.musse}\NormalTok{(pars, }\DecValTok{42}\NormalTok{, }\DataTypeTok{x0 =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We can extract the history of the simulated trait with \textbf{history.from.sim.discrete} and plot it over the tree.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{col \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"\#eaab00"}\NormalTok{, }\StringTok{"\#004165"}\NormalTok{, }\StringTok{"\#618e02"}\NormalTok{)}
+\NormalTok{h \textless{}{-}}\StringTok{ }\KeywordTok{history.from.sim.discrete}\NormalTok{(phy, }\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{)}
+\KeywordTok{plot}\NormalTok{(h, phy, }\DataTypeTok{cex=}\DecValTok{1}\NormalTok{, }\DataTypeTok{col=}\NormalTok{col, }\DataTypeTok{no.margin=}\OtherTok{TRUE}\NormalTok{, }\DataTypeTok{font=}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-198-1} \end{center}
+
+Next we must make the likelihood function in much the same way as we did for BiSSE but this time using the function \textbf{make.musse}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{states \textless{}{-}}\StringTok{ }\NormalTok{phy}\OperatorTok{$}\NormalTok{tip.state}
+\NormalTok{lik \textless{}{-}}\StringTok{ }\KeywordTok{make.musse}\NormalTok{(phy, states, }\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+For our analysis, we'll start with a very simple model. The simplest model is one in which all three speciation rates are the same (\(\lambda_{1} = \lambda_{2} = \lambda_{3}\)), all 3 extinction rates are the same (\(\mu_{1} = \mu_{2} = \mu_{3}\)) and all the non-zero transition rates are the same (\(q_{12} = q_{21} = q_{23} = q_{32}\)). Also, remember that \(q_{13}\) and \(q_{31}\) are still both 0.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lik.base \textless{}{-}}\StringTok{ }\KeywordTok{constrain}\NormalTok{(lik, lambda2 }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{lambda1, lambda3 }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{lambda1,}
+\NormalTok{                      mu2 }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{mu1, mu3 }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{mu1,}
+\NormalTok{                      q13 }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{0}\NormalTok{, q21 }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{q12, }
+\NormalTok{                      q23 }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{q12, q31 }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{0}\NormalTok{, q32 }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{q12)}
+\end{Highlighting}
+\end{Shaded}
+
+Just as with BiSSE, we need to set a starting point for the likelihood search, this time with the function \textbf{starting.point.musse}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p \textless{}{-}}\StringTok{ }\KeywordTok{starting.point.musse}\NormalTok{(phy, }\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can start the maximum likelihood search with \textbf{find.mle}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit.base \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(lik.base, p[}\KeywordTok{argnames}\NormalTok{(lik.base)])}
+\NormalTok{fit.base}\OperatorTok{$}\NormalTok{lnLik}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] -153.4905
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{round}\NormalTok{(}\KeywordTok{coef}\NormalTok{(fit.base),}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+lambda1     mu1     q12 
+  0.201   0.139   0.055 
+\end{verbatim}
+
+To test if the speciation rate varies when the traits is in different states, we can run another model in which the values of \(\lambda_{1}\), \(\lambda_{2}\) and \(\lambda_{3}\) are unconstrained.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lik.lambda \textless{}{-}}\StringTok{ }\KeywordTok{constrain}\NormalTok{(lik, mu2 }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{mu1, mu3 }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{mu1,}
+\NormalTok{                        q13 }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{0}\NormalTok{, q21 }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{q12, }
+\NormalTok{                        q23 }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{q12, q31 }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{0}\NormalTok{, q32 }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{q12)}
+\NormalTok{fit.lambda \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(lik.lambda, p[}\KeywordTok{argnames}\NormalTok{(lik.lambda)])}
+\end{Highlighting}
+\end{Shaded}
+
+In this case the new model is not significantly better than the minimal model (\(\chi^{2} = 2.67, \; p = 0.263\)). Keep in mind that when we simulated the data, we specified that \(\lambda\) was indeed different between different states. It's probable that we haven't been able to detect this on such a small tree (n = 42).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{anova}\NormalTok{(fit.base, }\DataTypeTok{free.lambda=}\NormalTok{fit.lambda)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+            Df   lnLik    AIC  ChiSq Pr(>|Chi|)
+minimal      3 -153.49 312.98                  
+free.lambda  5 -152.16 314.32 2.6651     0.2638
+\end{verbatim}
+
+Small trees are not good fits for these methods. Generally, the larger the tree the more power you have. Here is the model comparison for the same analysis with the same parameters but simulated on a tree with 1000 tips. As you can see, the analysis shows very clearly that the model in which \(\lambda\) is allowed to vary is a much better fit (\(\chi^{2} = 33.35, \; p < 0.001\)).
+
+\begin{tabular}{l|r|r|r|r|r}
+\hline
+  & Df & lnLik & AIC & ChiSq & Pr(>|Chi|)\\
+\hline
+minimal & 3 & -3694.195 & 7394.390 & NA & NA\\
+\hline
+free.lambda & 5 & -3677.520 & 7365.041 & 33.34883 & 1e-07\\
+\hline
+\end{tabular}
+
+\hypertarget{quantitative-traits-quasse}{%
+\section{Quantitative traits: QuaSSE}\label{quantitative-traits-quasse}}
+
+Dealing with quantitative traits in models like these is lsightly less straightforward. Categorical traits are well defined and we can model the transition rates between states. Deciding when something like body mass has undergone significant evolutionary change is a little more difficult. This is the same problem we faced with continuous characters in ancestral state reconstruction and it will come up again when we look at convergence.
+
+For diversification, we have the \textbf{QuaSSE} (Quantitative State Speciation and Extinction) model.
+
+First we need to specify some functions to use. For lambda we will use a sigmoidal function with an inflection at x = 0. This means we will have an increasing rate of speciation reaching a plateau. We can specify this with the function \textbf{sigmoid.x}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lambda \textless{}{-}}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{sigmoid.x}\NormalTok{(x, }\FloatTok{0.1}\NormalTok{, }\FloatTok{0.2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\FloatTok{2.5}\NormalTok{)}
+\NormalTok{mu \textless{}{-}}\StringTok{ }\ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{constant.x}\NormalTok{(x, }\FloatTok{0.03}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-207-1} \end{center}
+
+Next we can specify the model of character evolution for our trait simulation. We will be going with Brownian motion and we will set the diffusion parameter to 0.025. To specify all this, we can use the function \textbf{make.brownian.with.drift}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{char \textless{}{-}}\StringTok{ }\KeywordTok{make.brownian.with.drift}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.025}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Now as with BiSSE and MuSSE, we can simulate the tree and data using \textbf{tree.quasse}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{phy \textless{}{-}}\StringTok{ }\KeywordTok{tree.quasse}\NormalTok{(}\KeywordTok{c}\NormalTok{(lambda, mu, char), }\DataTypeTok{max.taxa=}\DecValTok{15}\NormalTok{, }\DataTypeTok{x0=}\DecValTok{0}\NormalTok{, }\DataTypeTok{single.lineage=}\OtherTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Extract the trait states and specify the standard deviation. For this example, assume the standard deviation for all tips is 1/200.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{states \textless{}{-}}\StringTok{ }\NormalTok{phy}\OperatorTok{$}\NormalTok{tip.state}
+\NormalTok{states.sd \textless{}{-}}\StringTok{ }\DecValTok{1}\OperatorTok{/}\DecValTok{200}
+\end{Highlighting}
+\end{Shaded}
+
+Next we create the likelihood function, this time specifying the speciation and extinction functions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lik \textless{}{-}}\StringTok{ }\KeywordTok{make.quasse}\NormalTok{(phy, states, states.sd, sigmoid.x, constant.x)}
+\end{Highlighting}
+\end{Shaded}
+
+Now to calculate the starting point. This is a little more involved than BiSSE and MuSSE! \textbf{starting.point.quasse} gives us constant rates for each parameter.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p \textless{}{-}}\StringTok{ }\KeywordTok{starting.point.quasse}\NormalTok{(phy, states)}
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    lambda         mu  diffusion 
+0.16107838 0.02569057 0.03164062 
+\end{verbatim}
+
+Let's ignore drift for our first model (\textbf{drift \textasciitilde{} 0}). The function \textbf{argnames} will return the names of parameters we will need to supply.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lik.nodrift \textless{}{-}}\StringTok{ }\KeywordTok{constrain}\NormalTok{(lik, drift }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{0}\NormalTok{)}
+\KeywordTok{argnames}\NormalTok{(lik.nodrift)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "l.y0"      "l.y1"      "l.xmid"    "l.r"       "m.c"       "diffusion"
+\end{verbatim}
+
+Next, we select the starting point values. For \textbf{l.y0} and \textbf{l.y1}, we will take the suggested value of \(\lambda\) from \textbf{starting.point.quasse} (\textbf{p{[}1{]}}). For \textbf{l.xmid} we will take the mean of the state values (\textbf{mean(states)}). \textbf{l.r} is set at 1. \textbf{m.c} (\(\mu\)) and \textbf{diffusion} are taken straight form \textbf{p} (\textbf{p{[}2:3{]}})
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p.start \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(p[}\DecValTok{1}\NormalTok{], p[}\DecValTok{1}\NormalTok{], }\KeywordTok{mean}\NormalTok{(states), }\DecValTok{1}\NormalTok{, p[}\DecValTok{2}\OperatorTok{:}\DecValTok{3}\NormalTok{])}
+\KeywordTok{names}\NormalTok{(p.start) \textless{}{-}}\StringTok{ }\KeywordTok{argnames}\NormalTok{(lik.nodrift)}
+\NormalTok{p.start}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      l.y0       l.y1     l.xmid        l.r        m.c  diffusion 
+0.16107838 0.16107838 0.57097062 1.00000000 0.02569057 0.03164062 
+\end{verbatim}
+
+One final thing before we run the search. We now need to specify the lower bounds for the search for each parameter..
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lower \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\KeywordTok{min}\NormalTok{(states), }\OperatorTok{{-}}\OtherTok{Inf}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Finally we are ready to run our analysis! As with BiSSE and MuSSE, we will do so with \textbf{find.mle}. This will take some time.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(lik.nodrift, p.start, }
+                \DataTypeTok{control=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{parscale=}\NormalTok{.}\DecValTok{1}\NormalTok{), }
+                \DataTypeTok{lower=}\NormalTok{lower, }\DataTypeTok{verbose=}\DecValTok{0}\NormalTok{)}
+\KeywordTok{round}\NormalTok{(}\KeywordTok{coef}\NormalTok{(fit),}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     l.y0      l.y1    l.xmid       l.r       m.c diffusion 
+    0.000     0.220     0.238 28961.248     0.000     0.029 
+\end{verbatim}
+
+Let's compare this model to one in which \(\lambda\) is constant.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lik.constant \textless{}{-}}\StringTok{ }\KeywordTok{constrain}\NormalTok{(lik.nodrift, }
+\NormalTok{                          l.y1 }\OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{l.y0, }
+\NormalTok{                          l.xmid }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{0}\NormalTok{, }
+\NormalTok{                          l.r }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\NormalTok{fit.constant \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(lik.constant, }
+\NormalTok{                         p.start[}\KeywordTok{argnames}\NormalTok{(lik.constant)], }
+                         \DataTypeTok{control=}\KeywordTok{list}\NormalTok{(}\DataTypeTok{parscale=}\NormalTok{.}\DecValTok{1}\NormalTok{), }
+                         \DataTypeTok{lower=}\DecValTok{0}\NormalTok{, }\DataTypeTok{verbose=}\DecValTok{0}\NormalTok{)}
+\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(}\KeywordTok{anova}\NormalTok{(fit, }\DataTypeTok{constant=}\NormalTok{fit.constant))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r|r}
+\hline
+  & Df & lnLik & AIC & ChiSq & Pr(>|Chi|)\\
+\hline
+full & 6 & -51.73395 & 115.4679 & NA & NA\\
+\hline
+constant & 3 & -55.15222 & 116.3044 & 6.836543 & 0.0772943\\
+\hline
+\end{tabular}
+
+Once again we see no significant difference (\(\chi^{2} = 6.84, \; p = 0.08\)). Again this probably due to the small tree and a larger one would give us more power.
+
+\hypertarget{quasse-primate-example}{%
+\subsection{QuaSSE primate example}\label{quasse-primate-example}}
+
+To demonstrate how QuaSSE can be used in research, let's investigate trait dependent diversification in primates using some existing data on primate body mass \citep{Fitzjohn10}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{phy \textless{}{-}}\StringTok{ }\KeywordTok{read.nexus}\NormalTok{(}\StringTok{"Vos{-}2006.nex"}\NormalTok{)}
+\NormalTok{d \textless{}{-}}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"Redding{-}2010.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We will need to log-transform mass and we will also assume the standard deviation is \(\frac{1}{50}\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mass \textless{}{-}}\StringTok{ }\KeywordTok{log}\NormalTok{(d}\OperatorTok{$}\NormalTok{mass)}
+\KeywordTok{names}\NormalTok{(mass) \textless{}{-}}\StringTok{ }\NormalTok{d}\OperatorTok{$}\NormalTok{tip.label}
+\NormalTok{mass.sd \textless{}{-}}\StringTok{ }\DecValTok{1}\OperatorTok{/}\DecValTok{50}
+\end{Highlighting}
+\end{Shaded}
+
+Starting point parameter estimates.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p \textless{}{-}}\StringTok{ }\KeywordTok{starting.point.quasse}\NormalTok{(phy, mass)}
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    lambda         mu  diffusion 
+0.19072726 0.11034810 0.03251953 
+\end{verbatim}
+
+Now we will create a piecewise linear function using \textbf{make.linear.x}. The function is linear between \textbf{xr{[}1{]}} and \textbf{xr{[}2{]}} and flat outside this range.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{xr \textless{}{-}}\StringTok{ }\KeywordTok{range}\NormalTok{(mass) }\OperatorTok{+}\StringTok{ }\KeywordTok{c}\NormalTok{(}\OperatorTok{{-}}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{) }\OperatorTok{*}\StringTok{ }\DecValTok{20} \OperatorTok{*}\StringTok{ }\NormalTok{p[}\StringTok{"diffusion"}\NormalTok{]}
+\NormalTok{linear.x \textless{}{-}}\StringTok{ }\KeywordTok{make.linear.x}\NormalTok{(xr[}\DecValTok{1}\NormalTok{], xr[}\DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+Now let's create a shortcut because we will be analysing several models. First we will create a function that will take our speciation and extinction functions and buld our model for us using \textbf{make.quasse}. The second function simply constrains drift to zero.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{make.primates \textless{}{-}}\StringTok{ }\ControlFlowTok{function}\NormalTok{(lambda, mu) }
+  \KeywordTok{make.quasse}\NormalTok{(phy, mass, mass.sd, lambda, mu)}
+\NormalTok{nodrift \textless{}{-}}\StringTok{ }\ControlFlowTok{function}\NormalTok{(f)}
+  \KeywordTok{constrain}\NormalTok{(f, drift }\OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can use these functions to build our likelihood functions. We are keeping \(\mu\) constant in each case.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f.c \textless{}{-}}\StringTok{ }\KeywordTok{make.primates}\NormalTok{(constant.x, constant.x)}
+\NormalTok{f.l \textless{}{-}}\StringTok{ }\KeywordTok{make.primates}\NormalTok{(linear.x, constant.x)}
+\NormalTok{f.s \textless{}{-}}\StringTok{ }\KeywordTok{make.primates}\NormalTok{(sigmoid.x, constant.x)}
+\NormalTok{f.h \textless{}{-}}\StringTok{ }\KeywordTok{make.primates}\NormalTok{(noroptimal.x, constant.x)}
+\end{Highlighting}
+\end{Shaded}
+
+We will start by fitting the constant model (\textbf{f.c}) with no drift.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{control \textless{}{-}}\StringTok{ }\KeywordTok{list}\NormalTok{(}\DataTypeTok{parscale=}\NormalTok{.}\DecValTok{1}\NormalTok{, }\DataTypeTok{reltol=}\FloatTok{0.001}\NormalTok{)}
+\NormalTok{mle.c \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(}\KeywordTok{nodrift}\NormalTok{(f.c), p, }\DataTypeTok{lower=}\DecValTok{0}\NormalTok{, }\DataTypeTok{control=}\NormalTok{control, }\DataTypeTok{verbose=}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Next we calculate starting points for our other models.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p.c \textless{}{-}}\StringTok{ }\NormalTok{mle.c}\OperatorTok{$}\NormalTok{par}
+\NormalTok{p.l \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(p.c[}\DecValTok{1}\NormalTok{], }\DataTypeTok{l.m=}\DecValTok{0}\NormalTok{, p.c[}\DecValTok{2}\OperatorTok{:}\DecValTok{3}\NormalTok{])}
+\NormalTok{p.s \textless{}{-}}\StringTok{ }\NormalTok{p.h \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(p.c[}\DecValTok{1}\NormalTok{], p.c[}\DecValTok{1}\NormalTok{], }\KeywordTok{mean}\NormalTok{(xr), }\DecValTok{1}\NormalTok{, p.c[}\DecValTok{2}\OperatorTok{:}\DecValTok{3}\NormalTok{])}
+\KeywordTok{names}\NormalTok{(p.s) \textless{}{-}}\StringTok{ }\KeywordTok{argnames}\NormalTok{(}\KeywordTok{nodrift}\NormalTok{(f.s))}
+\KeywordTok{names}\NormalTok{(p.h) \textless{}{-}}\StringTok{ }\KeywordTok{argnames}\NormalTok{(}\KeywordTok{nodrift}\NormalTok{(f.h))}
+\end{Highlighting}
+\end{Shaded}
+
+Once we have our starting points, we are ready to fit each of the models. Each of these lines may take a while to run.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mle.l \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(}\KeywordTok{nodrift}\NormalTok{(f.l), p.l, }\DataTypeTok{control=}\NormalTok{control, }\DataTypeTok{verbose=}\DecValTok{0}\NormalTok{)}
+\NormalTok{mle.s \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(}\KeywordTok{nodrift}\NormalTok{(f.s), p.s, }\DataTypeTok{control=}\NormalTok{control, }\DataTypeTok{verbose=}\DecValTok{0}\NormalTok{)}
+\NormalTok{mle.h \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(}\KeywordTok{nodrift}\NormalTok{(f.h), p.h, }\DataTypeTok{control=}\NormalTok{control, }\DataTypeTok{verbose=}\DecValTok{0}\NormalTok{)}
+\KeywordTok{anova}\NormalTok{(mle.c, }\DataTypeTok{linear=}\NormalTok{mle.l, }\DataTypeTok{sigmoidal=}\NormalTok{mle.s, }\DataTypeTok{hump=}\NormalTok{mle.h)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r|r}
+\hline
+  & Df & lnLik & AIC & ChiSq & Pr(>|Chi|)\\
+\hline
+minimal & 3 & -841.4029 & 1688.806 & NA & NA\\
+\hline
+linear & 4 & -836.0697 & 1680.139 & 10.66629 & 0.0010911\\
+\hline
+sigmoidal & 6 & -832.6038 & 1677.208 & 17.59805 & 0.0005323\\
+\hline
+hump & 6 & -829.0036 & 1670.007 & 24.79861 & 0.0000170\\
+\hline
+\end{tabular}
+
+The ANOVA table shows us that the best fit is the \emph{hump} model where speciation rate follows a hump shaped fit.
+
+The next lines (which will again take some time) will start with parameters from the previous constrained models and add the drift parameter.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mle.d.l \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(f.l, }\KeywordTok{coef}\NormalTok{(mle.l, }\OtherTok{TRUE}\NormalTok{), }\DataTypeTok{control=}\NormalTok{control, }\DataTypeTok{verbose=}\DecValTok{0}\NormalTok{)}
+\NormalTok{mle.d.s \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(f.s, }\KeywordTok{coef}\NormalTok{(mle.s, }\OtherTok{TRUE}\NormalTok{), }\DataTypeTok{control=}\NormalTok{control, }\DataTypeTok{verbose=}\DecValTok{0}\NormalTok{)}
+\NormalTok{mle.d.h \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(f.h, }\KeywordTok{coef}\NormalTok{(mle.h, }\OtherTok{TRUE}\NormalTok{), }\DataTypeTok{control=}\NormalTok{control, }\DataTypeTok{verbose=}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We should add these new models to the ANOVA table to compare them all. We can see that in all cases the fit of the model is improved by the addition of drift.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(}\KeywordTok{anova}\NormalTok{(mle.c, }\DataTypeTok{linear=}\NormalTok{mle.l, }\DataTypeTok{sigmoidal=}\NormalTok{mle.s, }
+                   \DataTypeTok{hump=}\NormalTok{mle.h, }\DataTypeTok{drift.linear=}\NormalTok{mle.d.l, }
+                   \DataTypeTok{drift.sigmoidal=}\NormalTok{mle.d.s, }\DataTypeTok{drift.hump=}\NormalTok{mle.d.h))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r|r}
+\hline
+  & Df & lnLik & AIC & ChiSq & Pr(>|Chi|)\\
+\hline
+minimal & 3 & -841.4029 & 1688.806 & NA & NA\\
+\hline
+linear & 4 & -836.0697 & 1680.139 & 10.66629 & 0.0010911\\
+\hline
+sigmoidal & 6 & -832.6038 & 1677.208 & 17.59805 & 0.0005323\\
+\hline
+hump & 6 & -829.0036 & 1670.007 & 24.79861 & 0.0000170\\
+\hline
+drift.linear & 5 & -832.5001 & 1675.000 & 17.80563 & 0.0001360\\
+\hline
+drift.sigmoidal & 7 & -830.2691 & 1674.538 & 22.26745 & 0.0001773\\
+\hline
+drift.hump & 7 & -825.3671 & 1664.734 & 32.07150 & 0.0000018\\
+\hline
+\end{tabular}
+
+When we extract the drift parameters, we can see that in all cases they are positive, indicating that mass is increasing over the tree on average.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{c}\NormalTok{(}\DataTypeTok{linear=}\KeywordTok{coef}\NormalTok{(mle.d.l)[[}\StringTok{"drift"}\NormalTok{]], }
+  \DataTypeTok{sigmoidal=}\KeywordTok{coef}\NormalTok{(mle.d.s)[[}\StringTok{"drift"}\NormalTok{]], }
+  \DataTypeTok{hump=}\KeywordTok{coef}\NormalTok{(mle.d.h)[[}\StringTok{"drift"}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    linear  sigmoidal       hump 
+0.10458477 0.06776915 0.07929087 
+\end{verbatim}
+
+So the hump model with drift is the best fit to the data. The parameters of this model tell us that \(\lambda\) peaks around a log body mass value of 8.43 (\textbf{l.xmid}) and a variance of 0.12 (\textbf{l.s2}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{coef}\NormalTok{(mle.d.h)}
+\end{Highlighting}
+\end{Shaded}
+
+When we plot the data alongside the tree, we can see that many of the species that fall within 2 standard deviations of the value of \textbf{l.xmid} are within the Cercopithecidae.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-236-1} 
+
+}
+
+\caption{Body mass plotted alongside the primate phylogenetic tree. Species with a body mass in the range identified as having higher speciation rates are plotted in red}\label{fig:unnamed-chunk-236}
+\end{figure}
+
+This suggests we might want to split the tree here and evaluate different models for each section of the tree much like we did with cetaceans in the previous chapter. In fact, the output of analysis with MEDUSA supports the idea that there has been a shift in diversification in the Cercopithecinae.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(geiger)}
+\NormalTok{m1 \textless{}{-}}\StringTok{ }\KeywordTok{medusa}\NormalTok{(phy, }\DataTypeTok{model =} \StringTok{"bd"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Appropriate  aicc-threshold for a tree of 233 tips is: 6.687066.
+
+Step 1: lnLik=-691.8978; aicc=1387.821; model=bd
+Step 2: lnLik=-678.3882; aicc=1366.907; shift at node 386; model=bd; cut=node; # shifts=1
+
+No significant increase in aicc score. Disregarding subsequent piecewise models.
+
+Calculating profile likelihoods on parameter values.
+
+  Model.ID Shift.Node Cut.At Model Ln.Lik.part         r   epsilon     r.low
+1        1        234   node    bd   -491.4083 0.0756587 0.4497380 0.0627243
+2        2        386   node    bd   -186.9799 0.2446490 0.0745145 0.1937557
+     r.high   eps.low  eps.high
+1 0.0903268 0.2837926 0.5764245
+2 0.3039223 0.0000000 0.3621622
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{par}\NormalTok{(}\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\FloatTok{3.1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\FloatTok{0.1}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+\KeywordTok{plot}\NormalTok{(m1, }\DataTypeTok{show.tip.label =}\NormalTok{ F)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-237-1} \end{center}
+
+Before we proceed, it might be best to label the nodes so we can call the right one by name.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{phy}\OperatorTok{$}\NormalTok{node.label \textless{}{-}}\StringTok{ }\KeywordTok{paste}\NormalTok{(}\StringTok{"nd"}\NormalTok{, }\DecValTok{1}\OperatorTok{:}\NormalTok{phy}\OperatorTok{$}\NormalTok{Nnode, }\DataTypeTok{sep =} \StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Now we can make split QuaSSE objects using \textbf{make.quasse.split}. The node we want here is node 153. In this case the speciation and extinction functions are both constant and the functions are the same on both sides of the split. For cases where functions may differ either side of the split, we can pass lists of functions. The \textbf{Inf} places the split at the base of the branch protuding from Node 153 (as in the MEDUSA plot above). A value of \textbf{0} would place the split at the node itself.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f.cc \textless{}{-}}\StringTok{ }\KeywordTok{make.quasse.split}\NormalTok{(phy, mass, mass.sd, }
+\NormalTok{                          constant.x, constant.x, }
+                          \StringTok{"nd153"}\NormalTok{, }\OtherTok{Inf}\NormalTok{)}
+\KeywordTok{argnames}\NormalTok{(f.cc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "l.c.1"       "m.c.1"       "drift.1"     "diffusion.1" "l.c.2"      
+[6] "m.c.2"       "drift.2"     "diffusion.2"
+\end{verbatim}
+
+The first set of parameters refer to the ``background'' tree and the second set refer to the ``foreground'' tree rooted at node 153.
+
+Let's constrain drift to be 0 and assume diffusion is the same in both trees.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{g.cc \textless{}{-}}\StringTok{ }\KeywordTok{constrain}\NormalTok{(f.cc, drift}\FloatTok{.1} \OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{0}\NormalTok{, drift}\FloatTok{.2} \OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{0}\NormalTok{, }
+\NormalTok{                  diffusion}\FloatTok{.2} \OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{diffusion}\FloatTok{.1}\NormalTok{)}
+\KeywordTok{argnames}\NormalTok{(g.cc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "l.c.1"       "m.c.1"       "diffusion.1" "l.c.2"       "m.c.2"      
+\end{verbatim}
+
+Next we generate a starting point using the starting points from the earlier model (\textbf{p.c}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p.cc \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(p.c, p.c[}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{])}
+\KeywordTok{names}\NormalTok{(p.cc) \textless{}{-}}\StringTok{ }\KeywordTok{argnames}\NormalTok{(g.cc)}
+\end{Highlighting}
+\end{Shaded}
+
+Let's run the ML search.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mle.cc \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(g.cc, p.cc, }\DataTypeTok{control=}\NormalTok{control, }\DataTypeTok{lower=}\DecValTok{0}\NormalTok{, }\DataTypeTok{verbose=}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+We need to repeat this process for linear speciation functions and calculate starting points for these as well.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f.ll \textless{}{-}}\StringTok{ }\KeywordTok{make.quasse.split}\NormalTok{(phy, mass, mass.sd, linear.x, constant.x, }\StringTok{"nd153"}\NormalTok{, }\OtherTok{Inf}\NormalTok{)}
+\NormalTok{g.ll \textless{}{-}}\StringTok{ }\KeywordTok{constrain}\NormalTok{(f.ll, drift}\FloatTok{.1} \OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{0}\NormalTok{, drift}\FloatTok{.2} \OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{0}\NormalTok{, diffusion}\FloatTok{.2} \OperatorTok{\textasciitilde{}}\StringTok{ }\NormalTok{diffusion}\FloatTok{.1}\NormalTok{)}
+\NormalTok{g.lc \textless{}{-}}\StringTok{ }\KeywordTok{constrain}\NormalTok{(g.ll, l.m}\FloatTok{.2} \OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{0}\NormalTok{)}
+\NormalTok{g.cl \textless{}{-}}\StringTok{ }\KeywordTok{constrain}\NormalTok{(g.ll, l.m}\FloatTok{.1} \OperatorTok{\textasciitilde{}}\StringTok{ }\DecValTok{0}\NormalTok{)}
+\NormalTok{p.cc \textless{}{-}}\StringTok{ }\KeywordTok{coef}\NormalTok{(mle.cc)}
+\NormalTok{p.ll \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(p.cc[}\DecValTok{1}\NormalTok{], }\DecValTok{0}\NormalTok{, p.cc[}\DecValTok{2}\OperatorTok{:}\DecValTok{4}\NormalTok{], }\DecValTok{0}\NormalTok{, p.cc[}\DecValTok{5}\NormalTok{])}
+\KeywordTok{names}\NormalTok{(p.ll) \textless{}{-}}\StringTok{ }\KeywordTok{argnames}\NormalTok{(g.ll)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mle.ll \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(g.ll, p.ll, }\DataTypeTok{control=}\NormalTok{control, }\DataTypeTok{verbose=}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p.lc \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{coef}\NormalTok{(mle.ll)[}\DecValTok{1}\OperatorTok{:}\DecValTok{3}\NormalTok{], p.ll[}\KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{7}\NormalTok{)])}
+\NormalTok{p.cl \textless{}{-}}\StringTok{ }\KeywordTok{c}\NormalTok{(p.ll[}\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{)], }\KeywordTok{coef}\NormalTok{(mle.ll)[}\DecValTok{5}\OperatorTok{:}\DecValTok{7}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mle.lc \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(g.lc, p.lc, }\DataTypeTok{control=}\NormalTok{control, }\DataTypeTok{verbose=}\DecValTok{0}\NormalTok{)}
+\NormalTok{mle.cl \textless{}{-}}\StringTok{ }\KeywordTok{find.mle}\NormalTok{(g.cl, p.cl, }\DataTypeTok{control=}\NormalTok{control, }\DataTypeTok{verbose=}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(}\KeywordTok{anova}\NormalTok{(mle.c, }\DataTypeTok{linear=}\NormalTok{mle.l, }\DataTypeTok{sigmoidal=}\NormalTok{mle.s, }\DataTypeTok{hump=}\NormalTok{mle.h, }
+      \DataTypeTok{part.constant=}\NormalTok{mle.cc, }\DataTypeTok{part.linear.bg=}\NormalTok{mle.lc, }
+      \DataTypeTok{part.linear.fg=}\NormalTok{mle.cl, }\DataTypeTok{part.linear=}\NormalTok{mle.ll))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r|r}
+\hline
+  & Df & lnLik & AIC & ChiSq & Pr(>|Chi|)\\
+\hline
+minimal & 3 & -841.4029 & 1688.806 & NA & NA\\
+\hline
+linear & 4 & -836.0697 & 1680.139 & 10.66629 & 0.0010911\\
+\hline
+sigmoidal & 6 & -832.6038 & 1677.208 & 17.59805 & 0.0005323\\
+\hline
+hump & 6 & -829.0036 & 1670.007 & 24.79861 & 0.0000170\\
+\hline
+part.constant & 5 & -828.5921 & 1667.184 & 25.62147 & 0.0000027\\
+\hline
+part.linear.bg & 6 & -828.2577 & 1668.515 & 26.29041 & 0.0000083\\
+\hline
+part.linear.fg & 6 & -826.0173 & 1664.035 & 30.77116 & 0.0000009\\
+\hline
+part.linear & 7 & -828.3231 & 1670.646 & 26.15951 & 0.0000294\\
+\hline
+\end{tabular}
+
+\hypertarget{section}{%
+\section{}\label{section}}
+
+\hypertarget{further-info-5}{%
+\section{Further info}\label{further-info-5}}
+
 \hypertarget{w2PGLS}{%
 \chapter{Phylogenetic Regression}\label{w2PGLS}}
 
@@ -2916,7 +3741,7 @@ We can also plot this line with \textbf{ggplot} with the following code. To plot
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-186-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-255-1} \end{center}
 
 \hypertarget{phylogenetic-signal}{%
 \section{Phylogenetic Signal}\label{phylogenetic-signal}}
@@ -2936,7 +3761,7 @@ The degree of phylogenetic signal in a trait is often described using the scalin
 
 For example, take the case on the left, where \(\lambda\) = 1. In this case the tree is untransformed because the variation in the trait follows the structure of the tree. On the right, where \(\lambda\) = 0, all the internal branch lengths have been multiplied by 0 and therefore collapsed. This ``star phylogeny'' describes a pattern of variation in which the trait varies at random with respect to the phylogeny. The trait is not equal across the tree but rather the variation in the trait does not correlate to the pattern of relatedness.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-187-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-256-1} \end{center}
 
 \hypertarget{caper}{%
 \subsection{caper}\label{caper}}
@@ -3074,7 +3899,7 @@ Now let's have a go at performing a PGLS regression!
 
 Let's say we have an idea that larger species of primate have longer gestations. Our plot seems to back this up but how strong is this relationship?
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-194-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-263-1} \end{center}
 
 We found earlier that there does seem to be a relationship but ordinary least squares linear regression can't be relied upon in this situation. This is because of the statistical non-independence of data points due to shared evolutionary history!
 
@@ -3140,7 +3965,7 @@ A brief note here. The syntax to get \textbf{ggplot} to do this is a little more
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-197-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-266-1} \end{center}
 
 \hypertarget{model-checking}{%
 \subsection{Model Checking}\label{model-checking}}
@@ -3156,7 +3981,7 @@ We begin by using the \textbf{pgls.profile} function to extract the likelihoods 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-198-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-267-1} \end{center}
 
 This plot describes the log likelihood of \(\lambda\) across its possible range of values (0 - 1). We can clearly see that the likelihood is highest around a single point around 0.8. Check back against the model output earlier to see if this is what we would expect.
 
@@ -3257,7 +4082,7 @@ Finally, we can check the diagnostic plots of the model. I've included some line
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-204-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-273-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3375,7 +4200,7 @@ We have a \(\lambda\) of 0.683. This is \textbf{not} the phylogenetic signal of 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-212-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-281-1} \end{center}
 
 Not to worry! On we go. The coefficients table in the results output is what we really want to look at here. We can see that the overall fit of the model is significant (R\textsuperscript{2} = 0.23, p \textless{} 0.001) but a little underwhelming. The only significant predictor of longevity in our model is body mass (\(\beta\) = 0.13, se = 0.05, p = 0.006). Our other variables do not significantly predict lifespan.
 
@@ -3473,7 +4298,7 @@ Also keep in mind that the model we've built here doesn't use any interaction te
 
 In analyses like the one above, it is not uncommon to run into problems. When constructing a regression model, it is important to make sure your predictor variables don't correlate.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-215-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-284-1} \end{center}
 
 As we can see here, this is clearly not the case. Exactly how much of a problem this can be is uncertain. Strong correlations are hugely problematic but weak ones are probably not that big a deal.
 
@@ -3513,7 +4338,7 @@ In path analysis, we take a number of variables and define a \textbf{causal mode
 
 }
 
-\caption{Predicted pathway model of primate brain evolution taken from Dunbar and Shultz (2007).}\label{fig:unnamed-chunk-217}
+\caption{Predicted pathway model of primate brain evolution taken from Dunbar and Shultz (2007).}\label{fig:unnamed-chunk-286}
 \end{figure}
 
 Models like this one can be complex with many arrows showing a complex network of relationships. This is fairly typical of biological systems! If you study it closely, you'll be able to see that it describes the interactions between variables. For example, \emph{body size} directly influences \emph{lifespan}, \emph{home range}, \emph{activity}, \emph{BMR} and \emph{diet}. The relationships described by these arrows represent a causal hypothesis.
@@ -3528,7 +4353,7 @@ D-sep tests \textbf{conditional independencies} in your DAG. If two vertices are
 
 }
 
-\caption{Example of a simple directed acyclic graph from Gonzalez-Voyer and Von Hardenberg 2014.}\label{fig:unnamed-chunk-218}
+\caption{Example of a simple directed acyclic graph from Gonzalez-Voyer and Von Hardenberg 2014.}\label{fig:unnamed-chunk-287}
 \end{figure}
 
 This example DAG contains a number of independencies. \textbf{BM} and \textbf{DD} are unconnected and therefore should be independent if this model is reasonable. We can actually build a model to test that indepedency as follows:
@@ -3597,7 +4422,7 @@ We can plot the model using the function \textbf{plot\_model\_set}. The extra ar
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-224-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-293-1} \end{center}
 
 The layout isn't exactly the same as the previous diagram but we can manipulate that with the argument \textbf{manual\_layout} if we wish. We need to create a dataframe with x and y coordinates for the final plots. We can also set the arrows to be straight by setting \textbf{curvature} to be 0.
 
@@ -3611,7 +4436,7 @@ The layout isn't exactly the same as the previous diagram but we can manipulate 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-225-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-294-1} \end{center}
 
 For the full analysis, let's define a number of possible models and try and see which best describes the data. We start with \textbf{define\_model\_set} and pass lists of formulae to each model which here I have named numerically 1 to 9. We've also passed some formulae to the \textbf{.common} option as these formulae are present in every model. This saves a fair bit of repetition.
 
@@ -3641,7 +4466,7 @@ Because this is a complex step, ALWAYS check your \textbf{Directed Acyclic Graph
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-227-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-296-1} \end{center}
 
 If we are doing this by hand, now we need to identify d-separation statements and test conditional independencies. \textbf{Phylopath} does it all for us. To interpret the final results, you really need to understand what happens in this step so take it slow and revisit the explanations above. You can also refer to the methods papers which explain things very well \citep{Hardenberg13, Gonzalez14}.
 
@@ -3698,7 +4523,7 @@ We can plot the summary of results and we are presented with a very useful plot,
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-231-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-300-1} \end{center}
 
 For now, let's just plot the best model.
 
@@ -3709,7 +4534,7 @@ For now, let's just plot the best model.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-232-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-301-1} \end{center}
 
 The numbers and width of each arrow represent the path coefficents (effect sizes). The blue colour represents a positive relationship. A negative relationship would be red. Remember here that we have a few models with roughly equivalent support. We can average these models if this happens. The \textbf{cut\_off} argument tells us where to place the limit of support. By default this is 2 CICc and so the function \textbf{average} will only average the models that fall within 2 CICc of the best supported model.
 
@@ -3720,7 +4545,7 @@ The numbers and width of each arrow represent the path coefficents (effect sizes
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-233-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-302-1} \end{center}
 
 \hypertarget{conclusion-1}{%
 \section{Conclusion}\label{conclusion-1}}
@@ -3745,11 +4570,11 @@ As we saw in chapter 8, there has been and independent loss of conspicuous sexua
 
 \begin{figure}[H]
 
-{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-236-1} 
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-305-1} 
 
 }
 
-\caption{Maximum likelihood reconstruction of the evolution of conspicuous sexual swellings in macaques using an equal rates model of evolution.}\label{fig:unnamed-chunk-236}
+\caption{Maximum likelihood reconstruction of the evolution of conspicuous sexual swellings in macaques using an equal rates model of evolution.}\label{fig:unnamed-chunk-305}
 \end{figure}
 
 As you can probably tell, it can be easy to assign convergent evolution to categorical traits and less so to continuous traits. To identify convergence in continuous characters, we need to identify selective regimes.
@@ -3798,7 +4623,7 @@ Next we can load some example data.
 
 The data we have here describe three personality traits of 25 characters from the Marvel and DC cinematic universes. There is also a phylogeny describing the pattern of relatedness between characters. For this analysis, we are going to use all 3 personality traits to try and identify any convergence across universes.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-241-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-310-1} \end{center}
 
 \hypertarget{forward-phase}{%
 \subsubsection{Forward Phase}\label{forward-phase}}
@@ -3905,7 +4730,7 @@ The best thing to do with an analysis like this is visualise the results. We can
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-248-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-317-1} \end{center}
 
 Using the tree like this allows us to spot some patterns. The blue regime appears to be mostly heroes such as Wonder Woman, Captain Marvel and Black Panther. The selective regime that produces heroes occurs 3 times here. Once leading to Wonder Woman and Superman in the DC universe, once leading to a cluster of Avengers plus Professor X in the Marvel universe and a third time leading to Deadpool.
 
@@ -3923,7 +4748,7 @@ There are some surprising placements. Batman and Iron Man are both in the same r
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-249-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-318-1} \end{center}
 
 These plots show how the traits cluster along with the average value for each regime (larger point).
 
@@ -3949,19 +4774,19 @@ The package to perform a Wheatsheaf analysis is called \textbf{windex} \citep{wi
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-251-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-320-1} \end{center}
 
 This scatterplot represents the \textbf{phenotypic space} described by the two traits. We can see there is a clear clustering of species but the question we have to ask is, does this pattern mean convergence and if yes, how strong is that convergence?
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-252-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-321-1} \end{center}
 
 To make things clearer, let's highlight our focal group species in phenotypic space by plotting them in red.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-253-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-322-1} \end{center}
 
 It's clear that the focal group species cluster very closely. The tree shows us the taxonomic distribution of the focal group. so it seems that this clustering cannot be explained by phylogeny.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-254-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-323-1} \end{center}
 
 To calculate \emph{W}, we can use the \textbf{windex} function. Remember that a value of W greater than 1 indicates the focal group is more similar to each other than to the group as a whole.
 
@@ -3998,7 +4823,7 @@ The question we have to answer now is whether the value of \emph{W} is higher th
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-256-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-325-1} \end{center}
 
 The plot here shows the distribution of the bootstrap replicates. We can see from the plotted line that the calculated value and the accompanying confidence intervals are far separate from the distribution of the replicates. This indicates a hih degree of confidence in some unusually storng convergence here. As we can see, the p-value backs this up.
 
@@ -4013,8 +4838,8 @@ $`P-value=`
 [1] 0
 \end{verbatim}
 
-\hypertarget{further-info-5}{%
-\section{Further info}\label{further-info-5}}
+\hypertarget{further-info-6}{%
+\section{Further info}\label{further-info-6}}
 
 \hypertarget{bibliography}{%
 \chapter{Bibliography}\label{bibliography}}

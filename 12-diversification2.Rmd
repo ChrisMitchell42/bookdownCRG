@@ -1,0 +1,687 @@
+# Trait Dependent Diversification {#diversification2}
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+The previous chapter used a variety of methods to estimate the rate of diversification in a phylogeny. This is an interesting and contentious field of study which allows us to ask marcoevolutionary questions. In this chapter, we will extend this approach to model the effects of trait evolution on diversification.
+
+## Binary traits: BiSSE
+
+**BiSSE** stands for Binary State Speciation and Extinction model.
+
+Let's start by simulating a tree and binary character using the **tree.bisse** function in the package **diversitree** [@diversitree]. We need to specify parameters for the simulation. These parameters are (in order); 
+
+* The speciation rate with the trait in state 0: $\lambda_{0}$
+* The speciation rate with the trait in state 1: $\lambda_{1}$
+* The extinction rate with the trait in state 0: $\mu_{0}$
+* The extinction rate with the trait in state 1: $\mu_{1}$
+* The probability of transitioning from state 0 to 1: $q_{01}$
+* The probability of transitioning from state 1 to 0: $q_{10}$
+
+For this example, we will imagine a scenario in which lineages are twice as likely to speciate with the trait in state 1 than in state 0 ($\lambda_{1} = 2 \times\lambda_{0}$). Extinction rates will not be different in either state ($\mu_{0} = \mu_{1}$) and the probability of transitioning between states is the same in either direction ($q_{01} = q_{10}$).
+
+```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
+library(diversitree)
+pars <- c(.1,.2,.03,.03,.01,.01)
+set.seed(42)
+phy <- tree.bisse(pars, max.t = 30, x0 = 0)
+states <- phy$tip.state
+```
+
+We can extract the history of the trait's evolution using **history.from.sim.discrete**. Note that although this looks like an ancestral state reconstruction, it isn't. This is the *actual* history of the trait we have simulated.
+
+```{r, echo=TRUE, eval=TRUE, fig.height=7}
+plot(history.from.sim.discrete(phy, 0:1), 
+     phy, col=c("#004165", "#eaab00"), no.margin = TRUE)
+```
+
+Next we use the function **make.bisse** with the tree and the named vector of states. This creates a likelihood function that we will go on to use in our analysis.
+
+```{r, echo=TRUE, eval=TRUE}
+lik <- make.bisse(phy, states)
+```
+
+To perform a maximum likelihood search, we will also need to select a starting point. The function **starting.point.bisse** produces a guess for a starting point based on the *character-independent* birth-death fit. 
+
+```{r, echo=TRUE, eval=TRUE}
+p <- starting.point.bisse(phy)
+p
+```
+
+Now that we have our likelihood function and our starting point for each parameter, we can start the likelihood search using **find.mle**. Depending on the size and complexity of your tree and data, this step may take a while.
+
+```{r, echo=TRUE, eval=TRUE}
+fit <- find.mle(lik, p)
+```
+
+The resulting object contains the log likelihood of the model (**lnLik**) and the estimates for all of the parameters.
+
+```{r, echo=TRUE, eval=TRUE}
+fit$lnLik
+round(coef(fit),3)
+```
+
+In this case we can compare these parameters to the known values we set for the simulation. The estimates are not exactly the same and perhaps a better set of starting estimates would be helpful. However, we can see that $\lambda_{1} > \lambda_{0}$ as we know it should be.
+
+Let's look at testing the hypothesis that speciation rates are different when the trait we are studying is in different states. We can do this by constraining the speciation rates to be equal in a new model using **constrain**.
+
+```{r, echo=TRUE, eval=TRUE}
+lik1 <- constrain(lik, lambda1~lambda0)
+fit1 <- find.mle(lik1, p[argnames(lik1)])
+fit1$lnLik
+```
+
+We can put the estimated parameters together in a table for ease of comparison.
+
+```{r, echo=TRUE, eval=TRUE}
+knitr::kable(round(rbind(full=coef(fit), equal.l=coef(fit1, TRUE)), 3))
+```
+
+The final thing to do is test the differnece between the new and old models.
+
+```{r, echo=TRUE, eval=TRUE}
+anova(fit, fit1)
+```
+
+The ANOVA table tells us that there is no significant difference in fit between the two models ($\chi^{2} = 0.93, p = 0.33$).
+
+If you're not a fan of maximum likelihood estimation you can run the same analysis by MCMC. First we need to set a prior as the starting point for our analysis. The function **make.prior.exponential** will allow us to set an exponential prior of $\frac{1}{2r}$. Remember that $r = \lambda - \mu$.
+
+```{r, echo=TRUE, eval=TRUE}
+prior <- make.prior.exponential(1/(2*(p[1] - p[3])))
+```
+
+In our final *mcmc* analysis we will need to provide an argument called simply **w**. This is a so-called tuning parameter for the sampling that the **mcmc** function will perform. The function uses a process called slice sampling [@Neal03]. In slice sampling, the parameter **w** affects how many function evaluations are required between sample updates. According to the documentation for the function, the optimal value for **w** is equal to the width of the high probability region we are searching through. The easiest way to work this out is to run a short chain and use the obseved range in the results.
+
+```{r, echo=TRUE, eval=TRUE}
+set.seed(42)
+tmp <- mcmc(lik, fit$par, nsteps=100, prior=prior,
+            lower=0, w=rep(1, 6), print.every=0)
+w <- diff(sapply(tmp[2:7], range))
+```
+
+To run our full analysis, we will need to use a much longer chain. I've gone for 10,000 here. Be aware that this will take a little while.
+
+```{r, echo=TRUE, eval=FALSE}
+samples <- mcmc(lik, fit$par, nsteps=10000, w=w, 
+                lower=0, prior=prior, print.every=0)
+```
+```{r, echo=FALSE, eval=TRUE}
+load("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/diversification/samples.RData")
+```
+
+We can plot the distributions of $\lambda_{0}$ and $\lambda_{1}$ using the function **profiles.plot**. Here we can see the true values as lines. The shaded areas and bars along the x axis both represent the 95% confidence intervals of the sample.
+
+```{r, echo=TRUE, eval=TRUE}
+col <- c("#004165", "#eaab00")
+profiles.plot(samples[c("lambda0", "lambda1")], col.line=col, las=1,
+              xlab="Speciation rate", legend="topright")
+abline(v=c(.1, .2), col=col)
+```
+
+### REALDATA EXAMPLE. SHOREBIRDS?
+
+
+## Multi-state traits: MuSSE
+
+BiSSE works well with binary traits but what about categrorical traits with more than two states? For this we can use an extension of the BiSSE model called **MuSSE** (Multiple State Speciation and Extinction).
+
+Let's start with a simulated example. The traits we simulate will have three states (coded numerically) and transitions are only possible between adjacent states (you can't go from state 1 to 3 or 3 to 1). All other transition rates will be equal. In this case we need to specify the parameters in the following order: 
+
+$$\lambda_{1} \;\; \lambda_{2} \;\; \lambda_{3} \;\; \mu_{1} \;\; \mu_{2} \;\; \mu_{3} \;\; q_{12} \;\; q_{13} \;\; q_{21} \;\; q_{23} \;\; q_{31} \;\; q_{32}$$
+
+```{r, echo=TRUE, eval=TRUE}
+pars <- c(.1,.15, .2,       #lambda
+          .03, .045, .06,   #mu
+          .05, 0,           #q12 q13
+          .05, .05,         #q21 q23
+          0, 0.05)          #q31 q32
+```
+
+Now we can simulate our tree and data using **tree.musse**.
+
+```{r, echo=TRUE, eval=TRUE}
+set.seed(2)
+phy <- tree.musse(pars, 42, x0 = 1)
+```
+
+We can extract the history of the simulated trait with **history.from.sim.discrete** and plot it over the tree.
+
+```{r, echo=TRUE, eval=TRUE}
+col <- c("#eaab00", "#004165", "#618e02")
+h <- history.from.sim.discrete(phy, 1:3)
+plot(h, phy, cex=1, col=col, no.margin=TRUE, font=1)
+```
+
+Next we must make the likelihood function in much the same way as we did for BiSSE but this time using the function **make.musse**.
+
+```{r, echo=TRUE, eval=TRUE}
+states <- phy$tip.state
+lik <- make.musse(phy, states, 3)
+```
+
+For our analysis, we'll start with a very simple model. The simplest model is one in which all three speciation rates are the same ($\lambda_{1} = \lambda_{2} = \lambda_{3}$), all 3 extinction rates are the same ($\mu_{1} = \mu_{2} = \mu_{3}$) and all the non-zero transition rates are the same ($q_{12} = q_{21} = q_{23} = q_{32}$). Also, remember that $q_{13}$ and $q_{31}$ are still both 0.
+
+```{r, echo=TRUE, eval=TRUE}
+lik.base <- constrain(lik, lambda2 ~ lambda1, lambda3 ~ lambda1,
+                      mu2 ~ mu1, mu3 ~ mu1,
+                      q13 ~ 0, q21 ~ q12, 
+                      q23 ~ q12, q31 ~ 0, q32 ~ q12)
+```
+
+Just as with BiSSE, we need to set a starting point for the likelihood search, this time with the function **starting.point.musse**.
+
+```{r, echo=TRUE, eval=TRUE}
+p <- starting.point.musse(phy, 3)
+```
+
+Now we can start the maximum likelihood search with **find.mle**.
+
+```{r, echo=TRUE, eval=TRUE}
+fit.base <- find.mle(lik.base, p[argnames(lik.base)])
+fit.base$lnLik
+round(coef(fit.base),3)
+```
+
+To test if the speciation rate varies when the traits is in different states, we can run another model in which the values of $\lambda_{1}$, $\lambda_{2}$ and $\lambda_{3}$ are unconstrained.
+
+```{r, echo=TRUE, eval=TRUE}
+lik.lambda <- constrain(lik, mu2 ~ mu1, mu3 ~ mu1,
+                        q13 ~ 0, q21 ~ q12, 
+                        q23 ~ q12, q31 ~ 0, q32 ~ q12)
+fit.lambda <- find.mle(lik.lambda, p[argnames(lik.lambda)])
+```
+
+In this case the new model is not significantly better than the minimal model ($\chi^{2} = 2.67, \; p = 0.263$). Keep in mind that when we simulated the data, we specified that $\lambda$ was indeed different between different states. It's probable that we haven't been able to detect this on such a small tree (n = 42).
+
+```{r, echo=TRUE, eval=TRUE}
+anova(fit.base, free.lambda=fit.lambda)
+```
+
+Small trees are not good fits for these methods. Generally, the larger the tree the more power you have. Here is the model comparison for the same analysis with the same parameters but simulated on a tree with 1000 tips. As you can see, the analysis shows very clearly that the model in which $\lambda$ is allowed to vary is a much better fit ($\chi^{2} = 33.35, \; p < 0.001$).
+
+```{r, echo=FALSE, eval=TRUE}
+set.seed(2)
+pars <- c(.1,.15, .2, .03, .045, .06, .05, 0, .05, .05, 0, 0.05)
+phy <- tree.musse(pars, 1000, x0 = 1)
+states <- phy$tip.state
+lik <- make.musse(phy, states, 3)
+lik.base <- constrain(lik, lambda2 ~ lambda1, lambda3 ~ lambda1, mu2 ~ mu1, mu3 ~ mu1, q13 ~ 0, q21 ~ q12, q23 ~ q12, q31 ~ 0, q32 ~ q12)
+p <- starting.point.musse(phy, 3)
+fit.base <- find.mle(lik.base, p[argnames(lik.base)])
+lik.lambda <- constrain(lik, mu2 ~ mu1, mu3 ~ mu1, q13 ~ 0, q21 ~ q12, q23 ~ q12, q31 ~ 0, q32 ~ q12)
+fit.lambda <- find.mle(lik.lambda, p[argnames(lik.lambda)])
+knitr::kable(anova(fit.base, free.lambda=fit.lambda))
+```
+
+## Quantitative traits: QuaSSE
+
+Dealing with quantitative traits in models like these is lsightly less straightforward. Categorical traits are well defined and we can model the transition rates between states. Deciding when something like body mass has undergone significant evolutionary change is a little more difficult. This is the same problem we faced with continuous characters in ancestral state reconstruction and it will come up again when we look at convergence.
+
+For diversification, we have the **QuaSSE** (Quantitative State Speciation and Extinction) model.
+
+First we need to specify some functions to use. For lambda we will use a sigmoidal function with an inflection at x = 0. This means we will have an increasing rate of speciation reaching a plateau. We can specify this with the function **sigmoid.x**.
+
+```{r, echo=TRUE, eval=TRUE}
+lambda <- function(x) sigmoid.x(x, 0.1, 0.2, 0, 2.5)
+mu <- function(x) constant.x(x, 0.03)
+```
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
+library(ggplot2) 
+ggplot(data = data.frame(x = 0), mapping = aes(x = x)) +
+  stat_function(fun = lambda, col = "red", size = 1) + 
+  stat_function(fun = mu, col = "black", size = 1) + 
+  xlim(0,2) + ylim(0,0.22) + labs(x = "Time", y = "Rate") +
+  geom_text(x = 1.9, y = 0.21, label = expression(lambda), colour = "red", size = 7) +
+  geom_text(x = 1.9, y = 0.04, label = expression(mu), size = 7)
+```
+
+Next we can specify the model of character evolution for our trait simulation. We will be going with Brownian motion and we will set the diffusion parameter to 0.025. To specify all this, we can use the function **make.brownian.with.drift**.
+
+```{r, echo=TRUE, eval=TRUE}
+char <- make.brownian.with.drift(0, 0.025)
+```
+
+Now as with BiSSE and MuSSE, we can simulate the tree and data using **tree.quasse**.
+
+```{r, echo=TRUE, eval=TRUE}
+set.seed(1)
+phy <- tree.quasse(c(lambda, mu, char), max.taxa=15, x0=0, single.lineage=FALSE)
+```
+
+Extract the trait states and specify the standard deviation. For this example, assume the standard deviation for all tips is 1/200.
+
+```{r, echo=TRUE, eval=TRUE}
+states <- phy$tip.state
+states.sd <- 1/200
+```
+
+Next we create the likelihood function, this time specifying the speciation and extinction functions.
+
+```{r, echo=TRUE, eval=TRUE}
+lik <- make.quasse(phy, states, states.sd, sigmoid.x, constant.x)
+```
+
+Now to calculate the starting point. This is a little more involved than BiSSE and MuSSE! **starting.point.quasse** gives us constant rates for each parameter.
+
+```{r, echo=TRUE, eval=TRUE}
+p <- starting.point.quasse(phy, states)
+p
+```
+
+Let's ignore drift for our first model (**drift ~ 0**). The function **argnames** will return the names of parameters we will need to supply.
+
+```{r, echo=TRUE, eval=TRUE}
+lik.nodrift <- constrain(lik, drift ~ 0)
+argnames(lik.nodrift)
+```
+
+Next, we select the starting point values. For **l.y0** and **l.y1**, we will take the suggested value of $\lambda$ from **starting.point.quasse** (**p[1]**). For **l.xmid** we will take the mean of the state values (**mean(states)**). **l.r** is set at 1. **m.c** ($\mu$) and **diffusion** are taken straight form **p** (**p[2:3]**)
+
+```{r, echo=TRUE, eval=TRUE}
+p.start <- c(p[1], p[1], mean(states), 1, p[2:3])
+names(p.start) <- argnames(lik.nodrift)
+p.start
+```
+
+One final thing before we run the search. We now need to specify the lower bounds for the search for each parameter..
+
+```{r, echo=TRUE, eval=TRUE}
+lower <- c(0, 0, min(states), -Inf, 0, 0)
+```
+
+Finally we are ready to run our analysis! As with BiSSE and MuSSE, we will do so with **find.mle**. This will take some time.
+
+```{r, echo=TRUE, eval=FALSE}
+fit <- find.mle(lik.nodrift, p.start, 
+                control=list(parscale=.1), 
+                lower=lower, verbose=0)
+round(coef(fit),3)
+```
+
+```{r, echo=FALSE, eval=TRUE}
+load("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/diversification/MuSSEfit.RData")
+round(coef(fit),3)
+```
+
+Let's compare this model to one in which $\lambda$ is constant.
+```{r, echo=TRUE, eval=FALSE}
+lik.constant <- constrain(lik.nodrift, 
+                          l.y1 ~ l.y0, 
+                          l.xmid ~ 0, 
+                          l.r ~ 1)
+fit.constant <- find.mle(lik.constant, 
+                         p.start[argnames(lik.constant)], 
+                         control=list(parscale=.1), 
+                         lower=0, verbose=0)
+knitr::kable(anova(fit, constant=fit.constant))
+```
+
+```{r, echo=FALSE, eval=TRUE}
+load("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/diversification/MuSSEfit2.RData")
+knitr::kable(anova(fit, constant=fit.constant))
+```
+
+Once again we see no significant difference ($\chi^{2} = 6.84, \; p = 0.08$). Again this probably due to the small tree and a larger one would give us more power.
+
+### QuaSSE primate example
+
+To demonstrate how QuaSSE can be used in research, let's investigate trait dependent diversification in primates using some existing data on primate body mass [@Fitzjohn10].
+
+```{r, echo=TRUE, eval=FALSE}
+phy <- read.nexus("Vos-2006.nex")
+d <- read.csv("Redding-2010.csv")
+```
+
+```{r, echo=FALSE, eval=TRUE}
+phy <- read.nexus("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/diversification/primates/Vos-2006.nex")
+d <- read.csv("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/diversification/primates/Redding-2010.csv")
+```
+
+We will need to log-transform mass and we will also assume the standard deviation is $\frac{1}{50}$.
+
+```{r, echo=TRUE, eval=TRUE}
+mass <- log(d$mass)
+names(mass) <- d$tip.label
+mass.sd <- 1/50
+```
+
+Starting point parameter estimates.
+
+```{r, echo=TRUE, eval=TRUE}
+p <- starting.point.quasse(phy, mass)
+p
+```
+
+Now we will create a piecewise linear function using **make.linear.x**. The function is linear between **xr[1]** and **xr[2]** and flat outside this range.
+
+```{r, echo=TRUE, eval=TRUE}
+xr <- range(mass) + c(-1,1) * 20 * p["diffusion"]
+linear.x <- make.linear.x(xr[1], xr[2])
+```
+
+Now let's create a shortcut because we will be analysing several models. First we will create a function that will take our speciation and extinction functions and buld our model for us using **make.quasse**. The second function simply constrains drift to zero.
+
+```{r, echo=TRUE, eval=TRUE}
+make.primates <- function(lambda, mu) 
+  make.quasse(phy, mass, mass.sd, lambda, mu)
+nodrift <- function(f)
+  constrain(f, drift ~ 0)
+```
+
+Now we can use these functions to build our likelihood functions. We are keeping $\mu$ constant in each case.
+
+```{r, echo=TRUE, eval=TRUE}
+f.c <- make.primates(constant.x, constant.x)
+f.l <- make.primates(linear.x, constant.x)
+f.s <- make.primates(sigmoid.x, constant.x)
+f.h <- make.primates(noroptimal.x, constant.x)
+```
+
+We will start by fitting the constant model (**f.c**) with no drift.
+
+```{r, echo=TRUE, eval=FALSE}
+control <- list(parscale=.1, reltol=0.001)
+mle.c <- find.mle(nodrift(f.c), p, lower=0, control=control, verbose=0)
+```
+
+```{r, echo=FALSE, eval=TRUE}
+load("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/diversification/primatefits3.RData")
+```
+
+Next we calculate starting points for our other models.
+
+```{r, echo=TRUE, eval=TRUE}
+p.c <- mle.c$par
+p.l <- c(p.c[1], l.m=0, p.c[2:3])
+p.s <- p.h <- c(p.c[1], p.c[1], mean(xr), 1, p.c[2:3])
+names(p.s) <- argnames(nodrift(f.s))
+names(p.h) <- argnames(nodrift(f.h))
+```
+
+Once we have our starting points, we are ready to fit each of the models. Each of these lines may take a while to run.
+
+```{r eval=FALSE, echo=TRUE, message=FALSE, warning=FALSE}
+mle.l <- find.mle(nodrift(f.l), p.l, control=control, verbose=0)
+mle.s <- find.mle(nodrift(f.s), p.s, control=control, verbose=0)
+mle.h <- find.mle(nodrift(f.h), p.h, control=control, verbose=0)
+anova(mle.c, linear=mle.l, sigmoidal=mle.s, hump=mle.h)
+```
+```{r, echo=FALSE, eval=TRUE}
+load("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/diversification/primatefits.RData")
+knitr::kable(anova(mle.c, linear=mle.l, sigmoidal=mle.s, hump=mle.h))
+```
+
+The ANOVA table shows us that the best fit is the *hump* model where speciation rate follows a hump shaped fit.
+
+The next lines (which will again take some time) will start with parameters from the previous constrained models and add the drift parameter.
+
+```{r, echo=TRUE, eval=FALSE, message=FALSE, warning=FALSE}
+mle.d.l <- find.mle(f.l, coef(mle.l, TRUE), control=control, verbose=0)
+mle.d.s <- find.mle(f.s, coef(mle.s, TRUE), control=control, verbose=0)
+mle.d.h <- find.mle(f.h, coef(mle.h, TRUE), control=control, verbose=0)
+```
+
+We should add these new models to the ANOVA table to compare them all. We can see that in all cases the fit of the model is improved by the addition of drift.
+
+```{r, echo=TRUE, eval=TRUE}
+knitr::kable(anova(mle.c, linear=mle.l, sigmoidal=mle.s, 
+                   hump=mle.h, drift.linear=mle.d.l, 
+                   drift.sigmoidal=mle.d.s, drift.hump=mle.d.h))
+```
+
+When we extract the drift parameters, we can see that in all cases they are positive, indicating that mass is increasing over the tree on average. 
+```{r, echo=TRUE, eval=TRUE}
+c(linear=coef(mle.d.l)[["drift"]], 
+  sigmoidal=coef(mle.d.s)[["drift"]], 
+  hump=coef(mle.d.h)[["drift"]])
+```
+
+So the hump model with drift is the best fit to the data. The parameters of this model tell us that $\lambda$ peaks around a log body mass value of 8.43 (**l.xmid**) and a variance of 0.12 (**l.s2**).
+
+```{r}
+coef(mle.d.h)
+```
+
+When we plot the data alongside the tree, we can see that many of the species that fall within 2 standard deviations of the value of **l.xmid** are within the Cercopithecidae.
+
+```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, fig.cap="Body mass plotted alongside the primate phylogenetic tree. Species with a body mass in the range identified as having higher speciation rates are plotted in red"}
+require(ggtree)
+require(ggplot2)
+require(grid)
+require(gtable)
+p <- ggtree(phy) 
+d$cols <- log(d$mass)
+d$cols <- ifelse(dplyr::between(d$cols,7.743224,9.125202), "red", "black")
+p2 <- facet_plot(p, "Body Mass", data = d, 
+           geom = ggstance::geom_barh, 
+           mapping = aes(x = log(mass), colour = cols), 
+           stat = "identity") + 
+  scale_color_manual(values = c("grey", "red"))
+p3 <- facet_plot(p2, "Body Mass", geom=geom_vline, 
+           mapping = aes(xintercept = coef(mle.d.h)[["l.xmid"]] - 2*sqrt(coef(mle.d.h)[["l.s2"]])), 
+           data = d)
+p4 <- facet_plot(p3, "Body Mass", geom=geom_vline, 
+           mapping = aes(xintercept = coef(mle.d.h)[["l.xmid"]] + 2*sqrt(coef(mle.d.h)[["l.s2"]])), 
+           data = d)
+gt = ggplot_gtable(ggplot_build(p4))
+gt$widths[7] = 0.25*gt$widths[7] # in this case it was colmun 7 - reduce the width by a half
+grid::grid.draw(gt)
+```
+
+This suggests we might want to split the tree here and evaluate different models for each section of the tree much like we did with cetaceans in the previous chapter. In fact, the output of analysis with MEDUSA supports the idea that there has been a shift in diversification in the Cercopithecinae.
+
+```{r, echo=TRUE, eval=TRUE}
+library(geiger)
+m1 <- medusa(phy, model = "bd")
+par(mar = c(3.1, 0, 0.1, 0))
+plot(m1, show.tip.label = F)
+```
+
+Before we proceed, it might be best to label the nodes so we can call the right one by name.
+
+```{r, echo=TRUE, eval=TRUE}
+phy$node.label <- paste("nd", 1:phy$Nnode, sep = "")
+```
+
+Now we can make split QuaSSE objects using **make.quasse.split**. The node we want here is node 153. In this case the speciation and extinction functions are both constant and the functions are the same on both sides of the split. For cases where functions may differ either side of the split, we can pass lists of functions. The **Inf** places the split at the base of the branch protuding from Node 153 (as in the MEDUSA plot above). A value of **0** would place the split at the node itself.
+
+```{r, echo=TRUE, eval=TRUE}
+f.cc <- make.quasse.split(phy, mass, mass.sd, 
+                          constant.x, constant.x, 
+                          "nd153", Inf)
+argnames(f.cc)
+```
+
+The first set of parameters refer to the "background" tree and the second set refer to the "foreground" tree rooted at node 153.
+
+Let's constrain drift to be 0 and assume diffusion is the same in both trees.
+
+```{r, echo=TRUE, eval=TRUE}
+g.cc <- constrain(f.cc, drift.1 ~ 0, drift.2 ~ 0, 
+                  diffusion.2 ~ diffusion.1)
+argnames(g.cc)
+```
+
+Next we generate a starting point using the starting points from the earlier model (**p.c**).
+
+```{r, echo=TRUE, eval=TRUE}
+p.cc <- c(p.c, p.c[1:2])
+names(p.cc) <- argnames(g.cc)
+```
+
+Let's run the ML search.
+
+```{r, echo=TRUE, eval=FALSE}
+mle.cc <- find.mle(g.cc, p.cc, control=control, lower=0, verbose=0)
+```
+```{r, echo=FALSE, eval=TRUE}
+load("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/diversification/primatefits2.RData")
+```
+
+We need to repeat this process for linear speciation functions and calculate starting points for these as well.
+
+```{r, echo=TRUE, eval=TRUE}
+f.ll <- make.quasse.split(phy, mass, mass.sd, linear.x, constant.x, "nd153", Inf)
+g.ll <- constrain(f.ll, drift.1 ~ 0, drift.2 ~ 0, diffusion.2 ~ diffusion.1)
+g.lc <- constrain(g.ll, l.m.2 ~ 0)
+g.cl <- constrain(g.ll, l.m.1 ~ 0)
+p.cc <- coef(mle.cc)
+p.ll <- c(p.cc[1], 0, p.cc[2:4], 0, p.cc[5])
+names(p.ll) <- argnames(g.ll)
+```
+
+```{r, echo=TRUE, eval=FALSE}
+mle.ll <- find.mle(g.ll, p.ll, control=control, verbose=0)
+```
+
+
+```{r, echo=TRUE, eval=TRUE}
+p.lc <- c(coef(mle.ll)[1:3], p.ll[c(4, 5, 7)])
+p.cl <- c(p.ll[c(1, 3, 4)], coef(mle.ll)[5:7])
+
+```
+
+```{r, echo=TRUE, eval=FALSE}
+mle.lc <- find.mle(g.lc, p.lc, control=control, verbose=0)
+mle.cl <- find.mle(g.cl, p.cl, control=control, verbose=0)
+```
+
+```{r, echo=TRUE, eval=TRUE}
+knitr::kable(anova(mle.c, linear=mle.l, sigmoidal=mle.s, hump=mle.h, 
+      part.constant=mle.cc, part.linear.bg=mle.lc, 
+      part.linear.fg=mle.cl, part.linear=mle.ll))
+```
+
+## 
+
+
+```{r, echo=FALSE, eval=FALSE}
+require(phytools)
+require(ape)
+require(geiger)
+require(ggtree)
+
+phy <- read.tree("Data/Terapontidae.tre")
+ggtree(phy) +
+  geom_tiplab(size = 2) +
+  xlim(0,50)
+
+phytools::ltt(phy, show.tree = TRUE, lwd = 3)
+
+dat <- read.csv("Data/SSE.csv", row.names = 1)
+
+Diet <- setNames(dat$Diet, rownames(dat))
+
+samplingf <- c(.58, .78, .85)  #??
+
+#MuSSE
+
+require(diversitree)
+p <- starting.point.musse(phy, k = 3)
+p
+
+lik.musse <- make.musse(phy, Diet, 3, sampling.f = samplingf)
+lik.musse
+
+lik.null<-constrain(lik.musse,lambda2 ~ lambda1, lambda3 ~ lambda1, 
+    mu2 ~ mu1, mu3 ~ mu1, q13 ~ 0, q21 ~ q12, q23 ~ q12, q31 ~ 0, 
+    q32 ~ q12)
+lik.null
+
+p[argnames(lik.null)]
+
+fit.null<-find.mle(lik.null,x.init=p[argnames(lik.null)])
+fit.null
+
+fit.full<-find.mle(lik.musse,x.init=p[argnames(lik.musse)])
+fit.full
+
+
+## create likelihood function
+lik.lambda <- constrain(lik.musse, mu2 ~ mu1, mu3 ~ mu1, q13 ~ 0, q21 ~ q12, 
+    q23 ~ q12, q31 ~ 0, q32 ~ q12)
+## fit it
+fit.lambda <- find.mle(lik.lambda, p[argnames(lik.lambda)])
+fit.lambda
+
+lik.mu <- constrain(lik.musse, lambda2 ~ lambda1, lambda3 ~ lambda1, 
+    q13 ~ 0, q21 ~ q12, q23 ~ q12, q31 ~ 0, q32 ~ q12)
+fit.mu <- find.mle(lik.mu, p[argnames(lik.mu)])
+fit.mu
+
+lik.lambda.mu <- constrain(lik.musse, q13 ~ 0, q21 ~ q12, q23 ~ q12, 
+    q31 ~ 0, q32 ~ q12)
+fit.lambda.mu <- find.mle(lik.lambda.mu, p[argnames(lik.lambda.mu)])
+fit.lambda.mu
+
+lik.unordered <- constrain(lik.musse, lambda2 ~ lambda1, lambda3 ~ lambda1, 
+    mu2 ~ mu1, mu3 ~ mu1)
+fit.unordered <- find.mle(lik.unordered, p[argnames(lik.unordered)])
+fit.unordered
+
+AnovaResults <- anova(fit.null, 
+    all.different=fit.full, 
+    free.lambda=fit.lambda, 
+    free.mu=fit.mu, 
+    free.lambda.mu=fit.lambda.mu, 
+    free.q=fit.unordered)
+AnovaResults
+
+aicw(setNames(AnovaResults$AIC,rownames(AnovaResults)))
+
+coef(fit.lambda.mu)
+
+logLik(fit.lambda.mu)
+
+AIC(fit.lambda.mu)
+
+prior <- make.prior.exponential(1/2)
+prior
+
+prelim <- mcmc(lik.lambda.mu, fit.lambda.mu$par, nsteps=100, prior=prior, 
+    w=1, print.every=0)
+head(prelim)
+
+w <- diff(sapply(prelim[2:(ncol(prelim)-1)], quantile, c(0.05, 0.95)))
+w
+
+mcmc.lambda.mu <- mcmc(lik.lambda.mu, p[colnames(w)], nsteps=1000, 
+    prior=prior, w=w, print.every=100)
+
+head(mcmc.lambda.mu)
+
+plot(mcmc.lambda.mu$i, mcmc.lambda.mu$p, type="l", xlab="generation",
+    ylab="log(L)")
+
+mcmc.lambda.mu. <- mcmc.lambda.mu[601:3000,]
+
+colMeans(mcmc.lambda.mu)[2:ncol(mcmc.lambda.mu)]
+
+colors<-setNames(c("yellow","red","green"),1:3)
+profiles.plot(mcmc.lambda.mu[,grep("lambda",colnames(mcmc.lambda.mu))], 
+    col.line=colors, las=1, legend.pos="topright")
+
+profiles.plot(mcmc.lambda.mu[,grep("mu",colnames(mcmc.lambda.mu))], 
+    col.line=colors, las=1, legend.pos="topright")
+
+net.div<-mcmc.lambda.mu[,grep("lambda",colnames(mcmc.lambda.mu))]-
+    mcmc.lambda.mu[,grep("mu",colnames(mcmc.lambda.mu))]
+colnames(net.div)<-paste("lambda-mu(",1:3,")",sep="")
+profiles.plot(net.div, 
+    xlab="Net diversification rate", ylab="Probability density",
+    legend.pos="topleft",col.line=setNames(colors,colnames(net.div)),
+    lty=1)
+
+```
+
+
+
+
+
+
+
+## Further info
+
