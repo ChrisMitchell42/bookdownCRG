@@ -239,17 +239,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10" data-path="diversification2.html"><a href="diversification2.html"><i class="fa fa-check"></i><b>10</b> Trait Dependent Diversification</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="diversification2.html"><a href="diversification2.html#binary-traits-bisse"><i class="fa fa-check"></i><b>10.1</b> Binary traits: BiSSE</a>
-<ul>
-<li class="chapter" data-level="10.1.1" data-path="diversification2.html"><a href="diversification2.html#realdata-example.-shorebirds"><i class="fa fa-check"></i><b>10.1.1</b> REALDATA EXAMPLE. SHOREBIRDS?</a></li>
-</ul></li>
+<li class="chapter" data-level="10.1" data-path="diversification2.html"><a href="diversification2.html#binary-traits-bisse"><i class="fa fa-check"></i><b>10.1</b> Binary traits: BiSSE</a></li>
 <li class="chapter" data-level="10.2" data-path="diversification2.html"><a href="diversification2.html#multi-state-traits-musse"><i class="fa fa-check"></i><b>10.2</b> Multi-state traits: MuSSE</a></li>
 <li class="chapter" data-level="10.3" data-path="diversification2.html"><a href="diversification2.html#quantitative-traits-quasse"><i class="fa fa-check"></i><b>10.3</b> Quantitative traits: QuaSSE</a>
 <ul>
 <li class="chapter" data-level="10.3.1" data-path="diversification2.html"><a href="diversification2.html#quasse-primate-example"><i class="fa fa-check"></i><b>10.3.1</b> QuaSSE primate example</a></li>
 </ul></li>
-<li class="chapter" data-level="10.4" data-path="diversification2.html"><a href="diversification2.html#section"><i class="fa fa-check"></i><b>10.4</b> </a></li>
-<li class="chapter" data-level="10.5" data-path="diversification2.html"><a href="diversification2.html#further-info-5"><i class="fa fa-check"></i><b>10.5</b> Further info</a></li>
+<li class="chapter" data-level="10.4" data-path="diversification2.html"><a href="diversification2.html#further-info-5"><i class="fa fa-check"></i><b>10.4</b> Further info</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="w2PGLS.html"><a href="w2PGLS.html"><i class="fa fa-check"></i><b>11</b> Phylogenetic Regression</a>
 <ul>
@@ -414,9 +410,6 @@ model 1  5 -153.03 316.06 0.93342      0.334</code></pre>
 <span id="cb216-3"><a href="diversification2.html#cb216-3"></a>              <span class="dt">xlab=</span><span class="st">&quot;Speciation rate&quot;</span>, <span class="dt">legend=</span><span class="st">&quot;topright&quot;</span>)</span>
 <span id="cb216-4"><a href="diversification2.html#cb216-4"></a><span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">c</span>(.<span class="dv">1</span>, <span class="fl">.2</span>), <span class="dt">col=</span>col)</span></code></pre></div>
 <p><img src="bookdown-demo_files/figure-html/unnamed-chunk-195-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div id="realdata-example.-shorebirds" class="section level3" number="10.1.1">
-<h3><span class="header-section-number">10.1.1</span> REALDATA EXAMPLE. SHOREBIRDS?</h3>
-</div>
 </div>
 <div id="multi-state-traits-musse" class="section level2" number="10.2">
 <h2><span class="header-section-number">10.2</span> Multi-state traits: MuSSE</h2>
@@ -808,11 +801,15 @@ Calculating profile likelihoods on parameter values.
 <span id="cb270-5"><a href="diversification2.html#cb270-5"></a>p.cc &lt;-<span class="st"> </span><span class="kw">coef</span>(mle.cc)</span>
 <span id="cb270-6"><a href="diversification2.html#cb270-6"></a>p.ll &lt;-<span class="st"> </span><span class="kw">c</span>(p.cc[<span class="dv">1</span>], <span class="dv">0</span>, p.cc[<span class="dv">2</span><span class="op">:</span><span class="dv">4</span>], <span class="dv">0</span>, p.cc[<span class="dv">5</span>])</span>
 <span id="cb270-7"><a href="diversification2.html#cb270-7"></a><span class="kw">names</span>(p.ll) &lt;-<span class="st"> </span><span class="kw">argnames</span>(g.ll)</span></code></pre></div>
+<p>Once again we run the ML search and save the results.</p>
 <div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="diversification2.html#cb271-1"></a>mle.ll &lt;-<span class="st"> </span><span class="kw">find.mle</span>(g.ll, p.ll, <span class="dt">control=</span>control, <span class="dt">verbose=</span><span class="dv">0</span>)</span></code></pre></div>
+<p>Finally, we generate starting points for models in which just one of the sections of the tree have linear speciation functions.</p>
 <div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="diversification2.html#cb272-1"></a>p.lc &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">coef</span>(mle.ll)[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>], p.ll[<span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">7</span>)])</span>
 <span id="cb272-2"><a href="diversification2.html#cb272-2"></a>p.cl &lt;-<span class="st"> </span><span class="kw">c</span>(p.ll[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>)], <span class="kw">coef</span>(mle.ll)[<span class="dv">5</span><span class="op">:</span><span class="dv">7</span>])</span></code></pre></div>
+<p>The ML searches for these models…</p>
 <div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="diversification2.html#cb273-1"></a>mle.lc &lt;-<span class="st"> </span><span class="kw">find.mle</span>(g.lc, p.lc, <span class="dt">control=</span>control, <span class="dt">verbose=</span><span class="dv">0</span>)</span>
 <span id="cb273-2"><a href="diversification2.html#cb273-2"></a>mle.cl &lt;-<span class="st"> </span><span class="kw">find.mle</span>(g.cl, p.cl, <span class="dt">control=</span>control, <span class="dt">verbose=</span><span class="dv">0</span>)</span></code></pre></div>
+<p>Once all the searches are complete, we can finally compare each model in an ANOVA table.</p>
 <div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="diversification2.html#cb274-1"></a>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">anova</span>(mle.c, <span class="dt">linear=</span>mle.l, <span class="dt">sigmoidal=</span>mle.s, <span class="dt">hump=</span>mle.h, </span>
 <span id="cb274-2"><a href="diversification2.html#cb274-2"></a>      <span class="dt">part.constant=</span>mle.cc, <span class="dt">part.linear.bg=</span>mle.lc, </span>
 <span id="cb274-3"><a href="diversification2.html#cb274-3"></a>      <span class="dt">part.linear.fg=</span>mle.cl, <span class="dt">part.linear=</span>mle.ll))</span></code></pre></div>
@@ -894,13 +891,15 @@ Calculating profile likelihoods on parameter values.
 </tr>
 </tbody>
 </table>
+<p>We can clearly see that all models are significant improvements over the minimal model. The best fit is for <strong>part.linear.fg</strong> in which the foreground tree has a linear speciation model. We can see this as it has the lowest AIC value (AIC = 1664).</p>
+<p>Inspecting the coeffiients shows us that the speciation rate in the foreground clade is a negative function of body size (<strong>l.m.2 = -0.193</strong>) and therefore that in this clade, an increasing body size is associated with a decreasing speciation rate.</p>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="diversification2.html#cb275-1"></a><span class="kw">coef</span>(mle.cl)</span></code></pre></div>
+<pre><code>       l.c.1        m.c.1  diffusion.1        l.c.2        l.m.2        m.c.2 
+ 0.141392843  0.068877966  0.031964900  1.972507892 -0.193181732  0.005147044 </code></pre>
 </div>
 </div>
-<div id="section" class="section level2" number="10.4">
-<h2><span class="header-section-number">10.4</span> </h2>
-</div>
-<div id="further-info-5" class="section level2" number="10.5">
-<h2><span class="header-section-number">10.5</span> Further info</h2>
+<div id="further-info-5" class="section level2" number="10.4">
+<h2><span class="header-section-number">10.4</span> Further info</h2>
 
 </div>
 </div>

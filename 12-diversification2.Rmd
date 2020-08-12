@@ -120,9 +120,6 @@ profiles.plot(samples[c("lambda0", "lambda1")], col.line=col, las=1,
 abline(v=c(.1, .2), col=col)
 ```
 
-### REALDATA EXAMPLE. SHOREBIRDS?
-
-
 ## Multi-state traits: MuSSE
 
 BiSSE works well with binary traits but what about categrorical traits with more than two states? For this we can use an extension of the BiSSE model called **MuSSE** (Multiple State Speciation and Extinction).
@@ -533,21 +530,26 @@ p.ll <- c(p.cc[1], 0, p.cc[2:4], 0, p.cc[5])
 names(p.ll) <- argnames(g.ll)
 ```
 
+Once again we run the ML search and save the results.
+
 ```{r, echo=TRUE, eval=FALSE}
 mle.ll <- find.mle(g.ll, p.ll, control=control, verbose=0)
 ```
 
-
+Finally, we generate starting points for models in which just one of the sections of the tree have linear speciation functions.
 ```{r, echo=TRUE, eval=TRUE}
 p.lc <- c(coef(mle.ll)[1:3], p.ll[c(4, 5, 7)])
 p.cl <- c(p.ll[c(1, 3, 4)], coef(mle.ll)[5:7])
-
 ```
+
+The ML searches for these models...
 
 ```{r, echo=TRUE, eval=FALSE}
 mle.lc <- find.mle(g.lc, p.lc, control=control, verbose=0)
 mle.cl <- find.mle(g.cl, p.cl, control=control, verbose=0)
 ```
+
+Once all the searches are complete, we can finally compare each model in an ANOVA table.
 
 ```{r, echo=TRUE, eval=TRUE}
 knitr::kable(anova(mle.c, linear=mle.l, sigmoidal=mle.s, hump=mle.h, 
@@ -555,132 +557,12 @@ knitr::kable(anova(mle.c, linear=mle.l, sigmoidal=mle.s, hump=mle.h,
       part.linear.fg=mle.cl, part.linear=mle.ll))
 ```
 
-## 
+We can clearly see that all models are significant improvements over the minimal model. The best fit is for **part.linear.fg** in which the foreground tree has a linear speciation model. We can see this as it has the lowest AIC value (AIC = 1664).
 
-
-```{r, echo=FALSE, eval=FALSE}
-require(phytools)
-require(ape)
-require(geiger)
-require(ggtree)
-
-phy <- read.tree("Data/Terapontidae.tre")
-ggtree(phy) +
-  geom_tiplab(size = 2) +
-  xlim(0,50)
-
-phytools::ltt(phy, show.tree = TRUE, lwd = 3)
-
-dat <- read.csv("Data/SSE.csv", row.names = 1)
-
-Diet <- setNames(dat$Diet, rownames(dat))
-
-samplingf <- c(.58, .78, .85)  #??
-
-#MuSSE
-
-require(diversitree)
-p <- starting.point.musse(phy, k = 3)
-p
-
-lik.musse <- make.musse(phy, Diet, 3, sampling.f = samplingf)
-lik.musse
-
-lik.null<-constrain(lik.musse,lambda2 ~ lambda1, lambda3 ~ lambda1, 
-    mu2 ~ mu1, mu3 ~ mu1, q13 ~ 0, q21 ~ q12, q23 ~ q12, q31 ~ 0, 
-    q32 ~ q12)
-lik.null
-
-p[argnames(lik.null)]
-
-fit.null<-find.mle(lik.null,x.init=p[argnames(lik.null)])
-fit.null
-
-fit.full<-find.mle(lik.musse,x.init=p[argnames(lik.musse)])
-fit.full
-
-
-## create likelihood function
-lik.lambda <- constrain(lik.musse, mu2 ~ mu1, mu3 ~ mu1, q13 ~ 0, q21 ~ q12, 
-    q23 ~ q12, q31 ~ 0, q32 ~ q12)
-## fit it
-fit.lambda <- find.mle(lik.lambda, p[argnames(lik.lambda)])
-fit.lambda
-
-lik.mu <- constrain(lik.musse, lambda2 ~ lambda1, lambda3 ~ lambda1, 
-    q13 ~ 0, q21 ~ q12, q23 ~ q12, q31 ~ 0, q32 ~ q12)
-fit.mu <- find.mle(lik.mu, p[argnames(lik.mu)])
-fit.mu
-
-lik.lambda.mu <- constrain(lik.musse, q13 ~ 0, q21 ~ q12, q23 ~ q12, 
-    q31 ~ 0, q32 ~ q12)
-fit.lambda.mu <- find.mle(lik.lambda.mu, p[argnames(lik.lambda.mu)])
-fit.lambda.mu
-
-lik.unordered <- constrain(lik.musse, lambda2 ~ lambda1, lambda3 ~ lambda1, 
-    mu2 ~ mu1, mu3 ~ mu1)
-fit.unordered <- find.mle(lik.unordered, p[argnames(lik.unordered)])
-fit.unordered
-
-AnovaResults <- anova(fit.null, 
-    all.different=fit.full, 
-    free.lambda=fit.lambda, 
-    free.mu=fit.mu, 
-    free.lambda.mu=fit.lambda.mu, 
-    free.q=fit.unordered)
-AnovaResults
-
-aicw(setNames(AnovaResults$AIC,rownames(AnovaResults)))
-
-coef(fit.lambda.mu)
-
-logLik(fit.lambda.mu)
-
-AIC(fit.lambda.mu)
-
-prior <- make.prior.exponential(1/2)
-prior
-
-prelim <- mcmc(lik.lambda.mu, fit.lambda.mu$par, nsteps=100, prior=prior, 
-    w=1, print.every=0)
-head(prelim)
-
-w <- diff(sapply(prelim[2:(ncol(prelim)-1)], quantile, c(0.05, 0.95)))
-w
-
-mcmc.lambda.mu <- mcmc(lik.lambda.mu, p[colnames(w)], nsteps=1000, 
-    prior=prior, w=w, print.every=100)
-
-head(mcmc.lambda.mu)
-
-plot(mcmc.lambda.mu$i, mcmc.lambda.mu$p, type="l", xlab="generation",
-    ylab="log(L)")
-
-mcmc.lambda.mu. <- mcmc.lambda.mu[601:3000,]
-
-colMeans(mcmc.lambda.mu)[2:ncol(mcmc.lambda.mu)]
-
-colors<-setNames(c("yellow","red","green"),1:3)
-profiles.plot(mcmc.lambda.mu[,grep("lambda",colnames(mcmc.lambda.mu))], 
-    col.line=colors, las=1, legend.pos="topright")
-
-profiles.plot(mcmc.lambda.mu[,grep("mu",colnames(mcmc.lambda.mu))], 
-    col.line=colors, las=1, legend.pos="topright")
-
-net.div<-mcmc.lambda.mu[,grep("lambda",colnames(mcmc.lambda.mu))]-
-    mcmc.lambda.mu[,grep("mu",colnames(mcmc.lambda.mu))]
-colnames(net.div)<-paste("lambda-mu(",1:3,")",sep="")
-profiles.plot(net.div, 
-    xlab="Net diversification rate", ylab="Probability density",
-    legend.pos="topleft",col.line=setNames(colors,colnames(net.div)),
-    lty=1)
-
+Inspecting the coeffiients shows us that the speciation rate in the foreground clade is a negative function of body size (**l.m.2 = -0.193**) and therefore that in this clade, an increasing body size is associated with a decreasing speciation rate.
+```{r, echo=TRUE, eval=TRUE}
+coef(mle.cl)
 ```
-
-
-
-
-
 
 
 ## Further info
