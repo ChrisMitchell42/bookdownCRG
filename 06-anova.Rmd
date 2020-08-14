@@ -23,12 +23,12 @@ corncrake <- read.csv("~/Google Drive/University of Liverpool/GitHub Stuff/bookd
 corncrake$Supplement <- factor(corncrake$Supplement, levels = c("None", "Sizefast", "Linseed", "Allvit", "Earlybird"))
 ```
 
-```{r, echo=FALSE, eval=TRUE, fig.cap="Plot of weight gain in corncrake hatchlings reared on four different nutritional supplements and a control group. The mean and standard deviation of each group is plotted in blue. the mean weight gain across the entire sample is plotted in red.", fig.width=5}
+```{r eval=TRUE, echo=FALSE, fig.cap="Plot of weight gain in corncrake hatchlings reared on four different nutritional supplements and a control group. The mean and standard deviation of each group is plotted in blue. The mean weight gain across the entire sample is plotted in red.", fig.width=5, message=FALSE, warning=FALSE}
 ggplot(data = corncrake, aes(x = Supplement, y = WeightGain)) +
   geom_point(colour = "darkgrey", position = position_dodge2(width = 0.3)) +
   ylim(0, 32) +
   geom_hline(yintercept = mean(corncrake$WeightGain), linetype = "dashed", colour = "red", size = 1) +
-  geom_point(stat = "summary", fun.y = "mean", size = 3, colour = "blue") +
+  geom_point(stat = "summary", size = 3, colour = "blue") +
   geom_errorbar(stat="summary", fun.data="mean_se", width = 0.15, colour = "blue") +
   ylab("Weight Gain (g)")
 ```
@@ -53,7 +53,7 @@ As you know, when trying to run a similar analysis on non-independent data (such
 
 ## Example data & analysis
 
-The data we're using is taken from the package geiger [@geiger] so make sure the package is installed and loaded.
+The data we're using is taken from the package **geiger** [@geiger] so make sure the package is installed and loaded.
 ```{r, echo=TRUE, eval = FALSE}
 install.packages("geiger")
 library(geiger)
@@ -63,7 +63,7 @@ library(geiger)
 require(geiger)
 ```
 
-Load the data as follows. The tree and data are stored together so we'll need to save the to separate objects called **dat** and **phy**. You probably don't *need* to do this but this is more similar to what you're likely to see when using your own data.
+Load the data as follows. The tree and data are stored together so we'll need to save them to separate objects called **dat** and **phy**. You probably don't *need* to do this but this is more similar to what you're likely to see when using your own data.
 ```{r,echo=TRUE, eval=TRUE}
 data("geospiza")
 dat <- geospiza$dat
@@ -78,7 +78,7 @@ ggtree(tree) +
   xlim(0,1.1)
 ```
 
-We need to start by defining the categories for the data. It is likely that you will have already done this in your data frame. If so, just make sure the groups are stored as a factor. In this case, we'll just create some random categories to work with for the example.
+We need to start by defining the categories for the data. It is likely that you will have already done this in your data frame when using your own data. If so, just make sure the groups are stored as a factor. In this case, we'll just create some random categories to work with for the example.
 ```{r, echo=TRUE, eval=TRUE}
 groups <- as.factor(c(rep("A", 4), rep("B", 5), rep("C", 4)))
 names(groups) <- rownames(dat)
@@ -114,9 +114,9 @@ You should notice some similarities and differences from the way you have run AN
 x <- aov.phylo(d1 ~ groups, phy = tree, nsim = 1000)
 ```
 
-The results table should be very familiar! The only real difference here is that you have been provided with two p-values. The first (*Pr(>F)*) is the p-value without accounting for phylogeny and the second (*Pr(>F) given phy*) is the value when we account for phylogeny. In both cases, there is no significant difference between groups.
+The results table should be very familiar! The only real difference here is that you have been provided with two p-values. The first (**Pr(>F)**) is the p-value without accounting for phylogeny and the second (**Pr(>F) given phy**) is the value when we account for phylogeny. In both cases, there is no significant difference between groups.
 
-As you can see, accounting for phylogeny *usually* raises the p-value (makes it less significant). This shows us that not accounting for phylogeny increases the risk of type I errors (false positives).
+As you can see, accounting for phylogeny *usually* raises the p-value. This shows us that not accounting for phylogeny increases the risk of type I errors (false positives).
 
 ## Further info
 

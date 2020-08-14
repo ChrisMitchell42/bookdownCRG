@@ -29,12 +29,12 @@ R is also a very flexible graphical tool. From LIFE223, you probably remember a 
 ```{r, eval=TRUE}
 boxplot(x, ylab = "Potential answers")
 hist(x, xlab = "Potential answers", breaks = 25)
-plot(x, y, xlab = "Potential answers", pch = 19, cex = 0.1)
+plot(x, y, xlab = "Potential answers", pch = 19, cex = 0.1, ylab = "")
 ```
 
-For much of this book, I will actually be doing most plotting in a package called **ggplot2**. This package has a slightly different syntax to get used to but the increased flexibility you have will be a good payoff. Plus the plots look quite nice.
+For much of this book, I will actually be doing most plotting in a package called **ggplot2** [@ggplot2]. This package has a slightly different syntax to get used to but the increased flexibility you have will be a good payoff. Plus the plots look quite nice.
 
-```{r, eval=TRUE, echo=FALSE, message =FALSE}
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
 brains <- read.csv("~/Google Drive/University of Liverpool/LIFE322/Lecture graphs/all brains.csv")
 rownames(brains) <- brains$species
 brains <- subset(brains, brain.vol!="NA" & body.mass != "NA")
@@ -68,6 +68,8 @@ m
 
 ```
 
+For all the details on how to use ggplot2, have a look at [this bookdown][ggplot2] all about visualising data using ggplot2.
+
 ### The working directory
 
 The working directory is the folder on your computer where R's attention is focused. This is where you should store any files you need R to open. You can find out the path of the current working directory using the function **getwd()**
@@ -82,7 +84,7 @@ If this isn't the folder we want as our working directory, we can just as easily
 setwd("~/Desktop/My R Folder")
 ```
 
-If you are using RStudio there is also a shortcut to do this in the *Files* pane (usually bottom right). Use this pane to navigate to your chosen directory and then use the drop down menu under *More* (look for a blue cog) to set the current folder as your working directory.
+If you are using RStudio there is also a shortcut to do this in the **Files** pane (usually bottom right). Use this pane to navigate to your chosen directory and then use the drop down menu under **More** (look for a blue cog) to set the current folder as your working directory.
 
 If you aren't using RStudio, I'd strongly suggest you start. It's much more user friendly than base R.
 
@@ -100,12 +102,12 @@ data <- read.table(file = "DATAFILE.txt", header = TRUE)
 ```
 
 ### Subsetting
-Let's say I want to subset my data based on a certain condition. I can achieve this multiple ways but one of the simplest is the function subset.
+Let's say I want to subset my data based on a certain condition. I can achieve this multiple ways but one of the simplest is the function **subset**.
 ```{r}
 newdata <- subset(data, species == "Homo sapiens")
 ```
 
-This function takes a subset of the object *data* and applies the rule that the value of each row in the column *species* be *Homo sapiens*. Thus it extracts the lines of data that are from human beings.
+This function takes a subset of the object **data** and applies the rule that the value of each row in the column *species* be *Homo sapiens*. Thus it extracts the lines of data that are from human beings.
 
 
 
@@ -138,3 +140,4 @@ If imitation is the greatest form of flattery then learning to code in R is just
 
 You will have acheived a pretty good level of skill in R when you can take someone else's code and edit it for your own purposes. This is the **core skill** of R and once you can do that, you'll be unstoppable.
 
+[ggplot2]: https://ggplot2.tidyverse.org "ggplot2"

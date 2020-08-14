@@ -17,7 +17,7 @@ As we saw in chapter 8, there has been and independent loss of conspicuous sexua
 macaques <- read.table("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/macaque_data.txt", header = TRUE)
 macaque.tree <- ape::read.nexus("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/macaque_tree.nex")
 m1 <- ape::ace(x = macaques$swelling, phy = macaque.tree, method = "ML", type = "discrete", model = "ER")
-plot(macaque.tree, cex = 0.7, label.offset = 0.4, edge.width = 2)
+plot(macaque.tree, cex = 0.7, label.offset = 0.4, edge.width = 2, no.margin = TRUE)
 ape::tiplabels(pch = 21, bg = as.numeric(macaques$swelling)+1, cex = 1.7)
 ape::nodelabels(pie = m1$lik.anc, piecol = c("black", "red"), cex = 0.8)
 rm(macaques, macaque.tree, m1)
@@ -37,7 +37,7 @@ To summarise, the **forward** phase begins at the root and identifies rgeime shi
 
 The **backward** phase is very similar but starts at the tips of the tree. In this phase we go backwards in time and each time we reach a regime shift, we collapse the regime and combine it with others across the tree. Each time regimes are combined, this produces a new model to be compared against the older model. If the combination of two regimes improves the fit of the model, the regimes are combined and we move on. This means that this phase of the analysis will collapse similar regimes together across the tree.
 
-The end product of SURFACE is a list of parameters describing the number of distinct regimes *k'*, the number of shifts towards convergent regimes *c* and other useful parameters like the number of convergent regimes reached by multiple shifts and the proportion of shifts towards convergent regimes (see [@surface] for details).
+The end product of SURFACE is a list of parameters describing the number of distinct regimes **k'**, the number of shifts towards convergent regimes **c** and other useful parameters like the number of convergent regimes reached by multiple shifts and the proportion of shifts towards convergent regimes (see Ingram and Mahler [-@surface] for details).
 
 ### A Super Example
 
@@ -121,7 +121,7 @@ kk
 bsum$n_regimes
 ```
 
-So we have 6 regime shifts from **surfaceForward** (*k*). There are 3 distinct regimes (*kprime*), 2 of which are convergent (*kprime_conv*) and 1 is non-convergent (*kprime_nonconv*).
+So we have 6 regime shifts from *surfaceForward* (**k**). There are 3 distinct regimes (**kprime**), 2 of which are convergent (**kprime_conv**) and 1 is non-convergent (**kprime_nonconv**).
 
 #### Visualisation
 
@@ -191,7 +191,7 @@ ggplot(sample.data, aes(x = ou1, y = ou2, colour = sample.data$focals2)) +
         legend.text = element_text(size = 14))
 ```
 
-It's clear that the focal group species cluster very closely. The tree shows us the taxonomic distribution of the focal group. so it seems that this clustering cannot be explained by phylogeny.
+It's clear that the focal group species cluster very closely. The tree shows us the taxonomic distribution of the focal group. So it seems that this clustering cannot be explained by common descent.
 ```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE, fig.height=8}
 ggtree(sample.tree) +
   geom_tiplab(size = 1.5) +
@@ -218,17 +218,10 @@ t <- test.windex(sample.data, sample.tree,
        SE = FALSE, plot = TRUE)
 ```
 
-The plot here shows the distribution of the bootstrap replicates. We can see from the plotted line that the calculated value and the accompanying confidence intervals are far separate from the distribution of the replicates. This indicates a hih degree of confidence in some unusually storng convergence here. As we can see, the p-value backs this up.
+The plot here shows the distribution of the bootstrap replicates. We can see from the plotted line that the calculated value and the accompanying confidence intervals are far separate from the distribution of the replicates. This indicates a high degree of confidence in some unusually strong convergence here. As we can see, the p-value backs this up.
 
 ```{r, echo=TRUE, eval=TRUE}
 t
 ```
 
-## Further info
-
 [MRAN]: https://mran.microsoft.com/ "MRAN"
-
-
-
-
-

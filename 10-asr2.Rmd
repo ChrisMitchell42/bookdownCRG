@@ -106,7 +106,7 @@ install_github("rgriff23/btw")
 library(btw)
 ```
 
-```{r, echo=FALSE, eval = TRUE}
+```{r eval=TRUE, echo=FALSE, message=FALSE, warning=FALSE}
 require(devtools)
 require(btw)
 ```
@@ -216,7 +216,7 @@ setwd(wd.reset)
 
 Now we need to compare these models! What he have so far is two models and a log likelihood assigned to each. This means we can compare them using a **likelihood ratio test**. The general formula for an LR test is;
 
-$$LR=2*(Lh_{ModelB} - Lh_{ModelA})$$
+$$\text{LR}=2\times(\text{Lh}_{\text{ Model B}} - \text{Lh}_{\text{ Model A}})$$
 
 The result is the **likelhood ratio statistic** (LR) which is asymptotically $\chi^2$ distributed with degrees of freedom equal to the difference in the number of parameters between the models. Model A has 1 parameter (the root value) and model B has 2 (the root and the direction of change) so the degrees of freedom are 1.
 ```{r, echo=TRUE, eval=TRUE}
@@ -285,7 +285,7 @@ This problem is well understood in phylogenetic comparative methods. In fact, al
 
 To demonstrate the importance of fossil data, let's take a closer look at the evolution of body size in cetaceans. With **fastAnc**, we found a mass of around 2,650kg for the root of the cetaceans.
 
-The package **RRphylo** [@rrphylo] contains data on fossil and living cetaceans [@Serio19]. Using these data, we can hopefully perform a more rigorous ancestral state reconstruction [@Castiglione20]. Note that the values here differ betwwen datasets because the previous dataset used a log10 transformation whereas this one uses a natural log transformation!
+The package **RRphylo** [@rrphylo] contains data on fossil and living cetaceans [@Serio19]. Using these data, we can hopefully perform a more rigorous ancestral state reconstruction [@Castiglione20]. Note that the values here differ between datasets because the previous dataset used a log10 transformation whereas this one uses a natural log transformation!
 ```{r, echo=TRUE, eval=TRUE, message=FALSE, warning=FALSE}
 library(RRphylo)
 data("DataCetaceans")

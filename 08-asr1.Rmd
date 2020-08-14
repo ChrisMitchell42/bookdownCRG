@@ -45,7 +45,8 @@ plot(macaque.tree,        #Tree object
      cex = 0.7,           #Font size for tip labels
      label.offset = 0.3,  #Create a space between tip and label
      edge.color = "blue", #Paint the branches blue
-     edge.width = 2)      #Make the branches thicker
+     edge.width = 2,      #Make the branches thicker
+     no.margin = TRUE)    #remove blank margins  
 tiplabels(macaques[,2], bg = "white", cex = 0.7)
 ```
 
@@ -74,7 +75,7 @@ for(i in 1:length(mp1[,1])){
 Once we've done that we can plot those expressions onto the tree with the function nodelabels.
 ```{r, echo=TRUE, eval=TRUE}
 plot(macaque.tree, cex = 0.7, label.offset = 0.3,
-     edge.color = "blue", edge.width = 2)      
+     edge.color = "blue", edge.width = 2, no.margin = TRUE)      
 tiplabels(macaques[,2], bg = "white", cex = 0.7)
 nodelabels(mp.nodes, c(18:31), bg = "white")
 ```
@@ -124,11 +125,11 @@ Let's try a different approach. Maximum likelihood is different from parsimony f
 
 Let's replot the tree. Here I've changed the tiplabels function to plot the character states as colours rather than numbers. The **bg** argument is what lets me do this. In this argument I list the states (adding 1 because the first is 0) and then the function passes those states to R to assign colours based on a numbered list of standard colours.
 ```{r, echo=TRUE, eval=TRUE}
-plot(macaque.tree, cex = 0.7, label.offset = 0.4, edge.width = 2)
+plot(macaque.tree, cex = 0.7, label.offset = 0.4, edge.width = 2, no.margin = TRUE)
 tiplabels(pch = 21, bg = as.numeric(macaques$swelling)+1, cex = 1.7)
 ```
 
-To run an ancestral state reconstruction using maximum likelihood we can use the function **ace** (ancestral character estimation) in the ape package [@ape]. In our first reconstruction, we will make the assumption that the rate of evolution of the trait is equal across the tree by setting the model to *ER* (equal rates).
+To run an ancestral state reconstruction using maximum likelihood we can use the function **ace** (ancestral character estimation) in the **ape** package [@ape]. In our first reconstruction, we will make the assumption that the rate of evolution of the trait is equal across the tree by setting the model to **ER** (equal rates).
 ```{r, echo=TRUE, eval=TRUE}
 m1 <- ace(x = macaques$swelling,  #trait data
           phy = macaque.tree,     #phylogeny
@@ -138,9 +139,9 @@ m1 <- ace(x = macaques$swelling,  #trait data
 m1
 ```
 
-Looking at the results shows us the likelihood at the root (91% in favour of state 1 here). However, it's always best to plot the results. We can represent the likelihoods at each node with a piechart. Generally speaking, piecharts are awful but when used in this way, they can actually add useful information to a plot and that's the most important point about plotting any data. In this plot, the piecharts represent the probability that each node exhibited sexual swelling (red) or concealed estrus (black). We can see that the two uncertain nodes from our parsimony analysis are now more certain. Visual inspection shows that these nodes have a greater tha 75% probability of having exhibited sexual swellings.
-```{r, echo=TRUE, eval=FALSE, fig.cap="Maximum likelihood reconstruction of the evolution of conspicuous sexual swellings in macaques using an equal rates model of evolution."}
-plot(macaque.tree, cex = 0.7, label.offset = 0.4, edge.width = 2)
+Looking at the results shows us the likelihood at the root (91% in favour of state 1 here). However, it's always best to plot the results. We can represent the likelihoods at each node with a piechart. Generally speaking, piecharts are awful but when used in this way, they can actually add useful information to a plot and that's the most important point about plotting any data. In this plot, the piecharts represent the probability that each node exhibited sexual swelling (red) or concealed estrus (black). We can see that the two uncertain nodes from our parsimony analysis are now more certain. Visual inspection shows that these nodes have a greater than 75% probability of having exhibited sexual swellings.
+```{r, echo=TRUE, eval=TRUE, fig.cap="Maximum likelihood reconstruction of the evolution of conspicuous sexual swellings in macaques using an equal rates model of evolution."}
+plot(macaque.tree, cex = 0.7, label.offset = 0.4, edge.width = 2, no.margin = TRUE)
 tiplabels(pch = 21, bg = as.numeric(macaques$swelling)+1, cex = 1.7)
 nodelabels(pie = m1$lik.anc, piecol = c("black", "red"), cex = 0.8)
 ```
@@ -150,7 +151,7 @@ Now we can run a similar analysis but let's assume that rates of evolution can v
 m2 <- ace(x = macaques$swelling, phy = macaque.tree,
           method = "ML", type = "discrete", model = "ARD")
 
-plot(macaque.tree, cex = 0.7, label.offset = 0.4, edge.width = 2)
+plot(macaque.tree, cex = 0.7, label.offset = 0.4, edge.width = 2, no.margin = TRUE)
 tiplabels(pch = 21, bg = as.numeric(macaques$swelling)+1, cex = 1.7)
 nodelabels(pie = m2$lik.anc, piecol = c("black", "red"), cex = 0.8)
 ```
@@ -209,7 +210,7 @@ Now we can sample character histories assuming an *equal rates* model of evoluti
 scm1 <- make.simmap(macaque.tree, x = swelling, model = "ER")
 ```
 
-Q here is the matrix of transition rates which we have constrained to be equal (model = "ER") which explains why the numbers match. As usual with reconstructions, the best thing is to plot them. Here we can use the phytools function **plotSimmap** to plot the special object we've created. It even has a companion function to add a legend. The first line here assigns colours to the traits.
+Q here is the matrix of transition rates which we have constrained to be equal (**model = "ER"**) which explains why the numbers match. As usual with reconstructions, the best thing is to plot them. Here we can use the phytools function **plotSimmap** to plot the special object we've created. It even has a companion function to add a legend. The first line here assigns colours to the traits.
 
 ```{r, echo=FALSE, eval=TRUE}
 rm(scm1)

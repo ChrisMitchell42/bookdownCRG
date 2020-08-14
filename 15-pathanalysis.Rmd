@@ -40,7 +40,7 @@ primates<-comparative.data(phy = primate.tree, data = primate.data,
 
 Now we can assemble and run our model. We want to predict longevity. Many things might influence longevity so how about something like this.
 
-$$ Longevity = Body Mass + Gestation + Home Range + Group Size$$
+$$ \text{Longevity = Body Mass + Gestation + Home Range + Group Size}$$
 
 Pretty much all of those will need to be log transformed in our model. We can do this ahead of time to make the code easier.
 ```{r, echo=TRUE, eval=TRUE}
@@ -136,7 +136,7 @@ knitr::include_graphics('Images/DAG1.png')
 
 This example DAG contains a number of independencies. **BM** and **DD** are unconnected and therefore should be independent if this model is reasonable. We can actually build a model to test that indepedency as follows:
 
-$$ DD = BM + NL$$
+$$ \text{DD = BM + NL}$$
 
 Note that **NL** must be included as a predictor of **DD** as it is in the model. If **BM** and **DD** are truly independent, then this model would return no statistically significant relationship between them.
 
@@ -144,11 +144,11 @@ This is not the only independency to test for. **LS** and **RS**, **DD** and **L
 
 To calculate C, we add the natural logs of all the p-values describing the supposed independencies using the formula below where *k* is the number of indepedence tests.
 
-$$ C = -2 \sum_{i=1}^k ln(p_i) $$
+$$ C = -2 \sum_{i=1}^k \text{ln(p}_i) $$
 
 Using this approach for numerous models, we can begin to compare competeing hypotheses and select the most appropriate model. To do so, we can calculate the C-statistic Information Criterion with a modification for small sample sizes (CICc) with the following formula where *n* is the sample size, *q* is the number of parameters and *C* is the C-statistic.
 
-$$ CICc = C + 2q \times \frac{n}{(n - q - 1)}$$
+$$ \text{CICc} = C + 2q \times \frac{n}{(n - q - 1)}$$
 
 CICc is an information theory based approach. Essentially, the smaller the value of CICc the better the fit of the model to the data. There's no hard limit for distinguishing between two models but the general rule of thumb is that a difference in CICc of more than 2 mean that one model is a better fit than the other. Within 2 and we can't reliably distinguish between the models.
 

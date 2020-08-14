@@ -31,7 +31,7 @@ names(primate.data)
 ## Linear Regression
 Simple linear regression will be familiar to you from LIFE223. The principle is to find out what the relationship is between two or more variables.
 
-To see if body mass and gestation length are related in primate, the best way to go would seem to be a traditional linear regression. The funtion to perform an ordinary least squares linear regression is **lm()**. The first argument is our model, stating in this case that body mass predicts gestation length. Then we specify the data object to tell R where to find the data.
+To see if body mass and gestation length are related in primate, the best way to go would seem to be a traditional linear regression. The function to perform an ordinary least squares linear regression is **lm()**. The first argument is our model, stating in this case that body mass predicts gestation length. Then we specify the data object to tell R where to find the data.
 ```{r, echo=TRUE, eval=TRUE}
 m1 <- lm(GestationLen_d ~ log10(AdultBodyMass_g), data = primate.data)
 ```
@@ -43,12 +43,13 @@ summary(m1)
 
 The key parts of our output are the coefficients table and the three lines of output below which contain the R^2^ value. Here, it's telling us that our model is a significant fit to the data as we might expect. Also, the mid-range R^2^ (0.50) is what we'd expect given the spread of data in the plot.
 
-We can also plot this line with **ggplot** with the following code. To plot the regression line, add the function geom_smooth amd used the method "lm" to specify that I want a linear model plotted.
+We can also plot this line with **ggplot** [@ggplot2] with the following code. To plot the regression line, add the function geom_smooth amd used the method "lm" to specify that I want a linear model plotted.
 ```{r, echo=TRUE, eval=TRUE, fig.align='center', message=FALSE, warning=FALSE}
 library(ggplot2)
 ggplot(data = primate.data, aes(x = log10(AdultBodyMass_g), y = GestationLen_d)) +
   geom_point() + 
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Log Body Mass", y = "Gestation Length (days)")
 ```
 
 ## Phylogenetic Signal
@@ -65,7 +66,8 @@ For example, body mass is (usually) a trait with a strong phylogenetic signal. W
 
 The degree of phylogenetic signal in a trait is often described using the scaling parameter $\lambda$. $\lambda$ varies between 0 and 1 and is used to multiply the internal branch lengths so that the tree describes the pattern of variation in the trait.
 
-For example, take the case on the left, where $\lambda$ = 1. In this case the tree is untransformed because the variation in the trait follows the structure of the tree. On the right, where $\lambda$ = 0, all the internal branch lengths have been multiplied by 0 and therefore collapsed. This "star phylogeny" describes a pattern of variation in which the trait varies at random with respect to the phylogeny. The trait is not equal across the tree but rather the variation in the trait does not correlate to the pattern of relatedness.
+For example, take the case on the left, where $\lambda = 1$. In this case the tree is untransformed because the variation in the trait follows the structure of the tree. On the right, where $\lambda = 0$, all the internal branch lengths have been multiplied by 0 and therefore collapsed. This "star phylogeny" describes a pattern of variation in which the trait varies at random with respect to the phylogeny. The trait is not equal across the tree but rather the variation in the trait does not correlate to the pattern of relatedness.
+
 ```{r,echo=F, eval=TRUE, warning=FALSE, message = FALSE, fig.align='center', fig.height = 4}
 require(phytools)
 par(mfrow = c(1,2))
@@ -88,7 +90,7 @@ par(par.default)
 
 ### caper
 
-Let's run through some examples. There are a few packages that can run phylogenetic regressions in R but the one I usually go with is called caper (Comparative Analysis of Phylogenetics and Evolution in R) [@caper]. So first we'll need to load caper.
+Let's run through some examples. There are a few packages that can run phylogenetic regressions in R but the one I usually go with is called **caper** (Comparative Analysis of Phylogenetics and Evolution in R) [@caper]. So first we'll need to load caper.
 ```{r, echo = TRUE, eval = FALSE}
 library(caper)
 ```
@@ -99,7 +101,7 @@ library(ape)
 primate.tree <- read.nexus("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/primate_tree.nex")
 ```
 
-Now we can load up our phylogeny using read.nexus from the ape package.
+Now we can load up our phylogeny using **read.nexus** from the **ape** package [@ape].
 ```{r, echo=TRUE, eval=FALSE, warning=FALSE, message=FALSE}
 library(ape)
 primate.tree <- read.nexus("primate_tree.nex")
@@ -124,7 +126,7 @@ str(primates)
 
 ### Estimating Phylogenetic Signal
 
-Let's estimate the phylogenetic signal of gestation length in primates. The key is to remember that we need to call our comparative data object and not the data file we loaded up at the start. We're running the trait on its own (hence the "~ 1") and estimating lambda by maximum likelihood.
+Let's estimate the phylogenetic signal of gestation length in primates. The key is to remember that we need to call our comparative data object and not the data file we loaded up at the start. We're running the trait on its own (hence the **~ 1**) and estimating lambda by maximum likelihood.
 ```{r, echo=TRUE, eval=TRUE}
 signal <- pgls(log10(GestationLen_d) ~ 1,
                data = primates,
@@ -144,7 +146,7 @@ The upper bound test shows us that $\lambda$ is (narrowly) not significantly dif
 
 Now let's have a go at performing a PGLS regression!
 
-Let's say we have an idea that larger species of primate have longer gestations. Our plot seems to back this up but how strong is this relationship?
+Let's say we have a hypothesis that larger species of primate have longer gestations. Our plot seems to back this up but how strong is this relationship?
 ```{r, echo=FALSE, eval=TRUE}
 ggplot(data = primate.data) +
   geom_point(mapping = aes(x = log10(AdultBodyMass_g), y = GestationLen_d),

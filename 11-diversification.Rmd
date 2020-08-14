@@ -12,7 +12,7 @@ Phylogenetic comparative methods can be used to study the diversification of lin
 
 The simplest form of diversification model is a **pure birth** model. Under this model, each lineage has a constant probability of speciating. This probability gives us the **birth rate** (*b*). Over time (*t*), lineages will speciate and thus the number of lineages (*N*) will increase exponentially.
 
-$$ N_{(t)} = N_{(0)}e^{bt} $$
+$$ N_{(\text{t})} = N_{(0)}e^{\text{bt}} $$
 This plot shows how the number of species would grow over time. Note that in this model, there is no extinction and so the exponential increase is because each speciation event produces two daughter lineages which each can then speciate with probabilty *b*, creating two more daughter lineages each and so on.
 ```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
 t <- seq(0,100, by = 5)
@@ -37,7 +37,7 @@ As you can probably tell, the pure birth model is not a very good representation
 
 The **birth-death** model incorporates extinction as well as speciation. Under the simplest form of this model, speciation and extinction occur randomly. Each lineage is assumed to have a constant rate of speciation (*b*) and extinction (*d*). Under this model, the number of lineages will increase exponentially with the difference between birth and death rate (*b - d*).
 
-$$ N_{(t)} = N_{(0)}e^{(b-d)t} $$
+$$ N_{(\text{t})} = N_{(0)}e^{\text{(b-d)t}} $$
 This graph shows the change in number of taxa over time when the birth rate slightly exceeds death rate.
 ```{r, echo=FALSE, eval=TRUE, message=FALSE, warning=FALSE}
 t <- seq(0,100, by = 5)
@@ -54,9 +54,7 @@ ggplot(x, aes(x = t, y = N)) +
   geom_point(color = "blue", size = 1.5) +
   labs(x = "Millions of Years", y = "Number of Taxa") +
   geom_smooth(se = FALSE, size = .5)
-
 rm(t,b,N,i,x,d)
-
 ```
 
 ### The signature of extinction
@@ -139,7 +137,7 @@ Let's see how it works using the phylogeny of cetaceans.
 require(geiger)
 ```
 
-We can run the analysis using the **medusa** function in geiger [@geiger]. All we have to specify here is the tree *phy = whales* and that we want to fit birth-death models *model = "bd"*.
+We can run the analysis using the **medusa** function in geiger [@geiger]. All we have to specify here is the tree **phy = whales** and that we want to fit birth-death models **model = "bd"**.
 
 ```{r, echo=TRUE, eval=FALSE}
 library(geiger)
@@ -175,7 +173,7 @@ The package **RPANDA** [@rpanda] allows us to fit different defined models of va
 
 The first step is to define a few functions that describe our hypotheses. First we need to define speciation rate ($\lambda$) as either constant (**lambda.cst**) or varying exponentially (**lambda.var**). We can do the same for extinction rate ($\mu$).
 
-$$ \lambda_{(t)} = \lambda_{(0)}e^{\alpha t} \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;  \mu_{(t)} = \mu_{(0)}e^{\beta t} $$
+$$ \lambda_{(\text{t})} = \lambda_{(0)}e^{\alpha \text{t}} \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;  \mu_{(\text{t})} = \mu_{(0)}e^{\beta \text{t}} $$
 ```{r, echo=TRUE, eval=TRUE}
 lambda.cst <- function(x,y){y}
 lambda.var <- function(x,y){y[1]*exp(y[2]*x)}
@@ -219,10 +217,6 @@ ggpubr::ggarrange(g1, g2, g3, g4, ncol = 2, nrow = 2, labels = c("A", "B", "C", 
 
 In RPANDA, we need to specify which clades are most likely to have diversification shifts to test our hypotheses. For this example, we will look at 4 major radiations of cetaceans. These are; *Balaenopteridae, Ziphidae, Phocoenidae* and *Delphinidae*.
 
-```{r, echo=TRUE, eval = FALSE}
-library(RPANDA)
-```
-
 ```{r, echo=FALSE, eval = TRUE, warning=FALSE, message=FALSE, fig.height=8}
 whales <- ape::read.tree("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/Diversification/whaletree.tre")
 require(ggtree)
@@ -238,6 +232,9 @@ ggtree(whales) +
   geom_cladelabel(95, "Balaenopteridae", offset = 10, angle=65,
                   offset.text=0.7, hjust=0.1, fontsize=4)
 whales <- ape::read.tree("~/Google Drive/University of Liverpool/GitHub Stuff/bookdownCRG/Data/Diversification/whaletree.tre")
+library(RPANDA)
+```
+```{r, echo=TRUE, eval = FALSE}
 library(RPANDA)
 ```
 
@@ -257,7 +254,7 @@ othercetaceans.tree <- drop.tip(whales,c(balaenopteridae.tree$tip.label,
 
 Now we can fit some birth-death models! Let's start with both parameters constant (**bcstdcst**). The function we need is **fit_bd**. This function requires a lot of information so let's take it slowly.
 
-The first argument is just our tree (*phylo*). Then we need to include the total length of the tree (*tot_time*). We don't know this offhand but we can calculate it using **max(branching.times(TREE))**. The arguments *f.lamb* and *f.mu* take our previously defined functions for $\lambda$ (birth rate) and $\mu$ (death rate). *lamb_par* and *mu_par* similarly take our initial values for $\lambda$ and $\mu$ which here, will be 0.4 and 0 respectively. **cst.lamb** and **cst.mu** are both logical (they can be true or false) and ask if $\lambda$ and $\mu$ are constant (they are). The argument *f* is the fraction of extant species included in the whole phylogeny. Here we have 87 out of the 89 cetacean species. Finally, **dt** is set to the recommended value in the vignette for the function. In short, **dt** is the length of the time interval on which functions are assumed to be constant. Smaller values mean a finer-grain analysis and longer computing times. Larger values mean the analysis will be quicker but lower resolution.
+The first argument is just our tree (**phylo**). Then we need to include the total length of the tree (**tot_time**). We don't know this offhand but we can calculate it using **max(branching.times(TREE))**. The arguments **f.lamb** and **f.mu** take our previously defined functions for $\lambda$ (birth rate) and $\mu$ (death rate). **lamb_par** and **mu_par** similarly take our initial values for $\lambda$ and $\mu$ which here, will be 0.4 and 0 respectively. **cst.lamb** and **cst.mu** are both logical (they can be true or false) and ask if $\lambda$ and $\mu$ are constant (they are). The argument **f** is the fraction of extant species included in the whole phylogeny. Here we have 87 out of the 89 cetacean species. Finally, **dt** is set to the recommended value in the vignette for the function. In short, **dt** is the length of the time interval on which functions are assumed to be constant. Smaller values mean a finer-grain analysis and longer computing times. Larger values mean the analysis will be quicker but lower resolution.
 
 ```{r, echo=TRUE, eval=TRUE}
 bcstdcst <- fit_bd(phylo = delphinidae.tree, 

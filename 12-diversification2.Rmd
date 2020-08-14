@@ -8,7 +8,7 @@ The previous chapter used a variety of methods to estimate the rate of diversifi
 
 ## Binary traits: BiSSE
 
-**BiSSE** stands for Binary State Speciation and Extinction model.
+**BiSSE** stands for Binary State Speciation and Extinction model. In fitting this model, we are looking to see if the rate of diversification is different when lineages are in one state or another. For example, we might hypothesise that aquatic animals diversify more rapidly than terrestrial species.
 
 Let's start by simulating a tree and binary character using the **tree.bisse** function in the package **diversitree** [@diversitree]. We need to specify parameters for the simulation. These parameters are (in order); 
 
@@ -78,13 +78,13 @@ We can put the estimated parameters together in a table for ease of comparison.
 knitr::kable(round(rbind(full=coef(fit), equal.l=coef(fit1, TRUE)), 3))
 ```
 
-The final thing to do is test the differnece between the new and old models.
+The final thing to do is test the difference between the new and old models.
 
 ```{r, echo=TRUE, eval=TRUE}
 anova(fit, fit1)
 ```
 
-The ANOVA table tells us that there is no significant difference in fit between the two models ($\chi^{2} = 0.93, p = 0.33$).
+The ANOVA table tells us that there is no significant difference in fit between the two models ($\chi^{2} = 0.93, \text{p} = 0.33$).
 
 If you're not a fan of maximum likelihood estimation you can run the same analysis by MCMC. First we need to set a prior as the starting point for our analysis. The function **make.prior.exponential** will allow us to set an exponential prior of $\frac{1}{2r}$. Remember that $r = \lambda - \mu$.
 
@@ -119,6 +119,8 @@ profiles.plot(samples[c("lambda0", "lambda1")], col.line=col, las=1,
               xlab="Speciation rate", legend="topright")
 abline(v=c(.1, .2), col=col)
 ```
+
+The reason we haven't really identified the difference that we know is there from our simulation is almost certainly because the tree is too small and so our analysis is not powerful enough.
 
 ## Multi-state traits: MuSSE
 
@@ -190,13 +192,13 @@ lik.lambda <- constrain(lik, mu2 ~ mu1, mu3 ~ mu1,
 fit.lambda <- find.mle(lik.lambda, p[argnames(lik.lambda)])
 ```
 
-In this case the new model is not significantly better than the minimal model ($\chi^{2} = 2.67, \; p = 0.263$). Keep in mind that when we simulated the data, we specified that $\lambda$ was indeed different between different states. It's probable that we haven't been able to detect this on such a small tree (n = 42).
+In this case the new model is not significantly better than the minimal model ($\chi^{2} = 2.67, \; \text{p} = 0.263$). Keep in mind that when we simulated the data, we specified that $\lambda$ was indeed different between different states. It's probable that we haven't been able to detect this on such a small tree (n = 42).
 
 ```{r, echo=TRUE, eval=TRUE}
 anova(fit.base, free.lambda=fit.lambda)
 ```
 
-Small trees are not good fits for these methods. Generally, the larger the tree the more power you have. Here is the model comparison for the same analysis with the same parameters but simulated on a tree with 1000 tips. As you can see, the analysis shows very clearly that the model in which $\lambda$ is allowed to vary is a much better fit ($\chi^{2} = 33.35, \; p < 0.001$).
+Small trees are not good fits for these methods. Generally, the larger the tree the more power you have. Here is the model comparison for the same analysis with the same parameters but simulated on a tree with 1000 tips. As you can see, the analysis shows very clearly that the model in which $\lambda$ is allowed to vary is a much better fit ($\chi^{2} = 33.35, \; \text{p} < 0.001$).
 
 ```{r, echo=FALSE, eval=TRUE}
 set.seed(2)
@@ -214,7 +216,7 @@ knitr::kable(anova(fit.base, free.lambda=fit.lambda))
 
 ## Quantitative traits: QuaSSE
 
-Dealing with quantitative traits in models like these is lsightly less straightforward. Categorical traits are well defined and we can model the transition rates between states. Deciding when something like body mass has undergone significant evolutionary change is a little more difficult. This is the same problem we faced with continuous characters in ancestral state reconstruction and it will come up again when we look at convergence.
+Dealing with quantitative traits in models like these is slightly less straightforward. Categorical traits are well defined and we can model the transition rates between states. Deciding when something like body mass has undergone significant evolutionary change is a little more difficult. This is the same problem we faced with continuous characters in ancestral state reconstruction and it will come up again when we look at convergence.
 
 For diversification, we have the **QuaSSE** (Quantitative State Speciation and Extinction) model.
 
@@ -275,7 +277,7 @@ lik.nodrift <- constrain(lik, drift ~ 0)
 argnames(lik.nodrift)
 ```
 
-Next, we select the starting point values. For **l.y0** and **l.y1**, we will take the suggested value of $\lambda$ from **starting.point.quasse** (**p[1]**). For **l.xmid** we will take the mean of the state values (**mean(states)**). **l.r** is set at 1. **m.c** ($\mu$) and **diffusion** are taken straight form **p** (**p[2:3]**)
+Next, we select the starting point values. For **l.y0** and **l.y1**, we will take the suggested value of $\lambda$ from **starting.point.quasse** (**p[1]**). For **l.xmid** we will take the mean of the state values (**mean(states)**). **l.r** is set at 1. **m.c** ($\mu$) and **diffusion** are taken straight from **p** (**p[2:3]**)
 
 ```{r, echo=TRUE, eval=TRUE}
 p.start <- c(p[1], p[1], mean(states), 1, p[2:3])
@@ -563,7 +565,4 @@ Inspecting the coeffiients shows us that the speciation rate in the foreground c
 ```{r, echo=TRUE, eval=TRUE}
 coef(mle.cl)
 ```
-
-
-## Further info
 
