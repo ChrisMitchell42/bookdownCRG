@@ -253,7 +253,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 41.99693
+[1] 42.00768
 \end{verbatim}
 
 \begin{Shaded}
@@ -263,7 +263,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 4.197835
+[1] 4.249571
 \end{verbatim}
 
 \hypertarget{plotting}{%
@@ -295,7 +295,7 @@ R is also a very flexible graphical tool. From LIFE223, you probably remember a 
 
 \begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-9-3} \end{center}
 
-For much of this book, I will actually be doing most plotting in a package called \textbf{ggplot2} \citep{ggplot}. This package has a slightly different syntax to get used to but the increased flexibility you have will be a good payoff. Plus the plots look quite nice.
+For much of this book, I will actually be doing most plotting in a package called \textbf{ggplot2} \citep{ggplot2}. This package has a slightly different syntax to get used to but the increased flexibility you have will be a good payoff. Plus the plots look quite nice.
 
 \begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
@@ -946,6 +946,75 @@ This chapter barely scratches the surface of what ggtree is capable of. For much
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{data}{%
+\chapter{Data}\label{data}}
+
+This chapter is only really relevant to LIFE363 students. As part of your honours project, you will be collecting and analysing comparative data. In order to do this appropriately, you need to understand the nature of the data available and how it should be interpreted.
+
+\hypertarget{comparative-data}{%
+\section{Comparative data}\label{comparative-data}}
+
+The basic format of comparative data is so-called ``wide'' data. Wide data has a column for each variable and each row is an observation. For a species-level comparative dataset, each row would be a species. An example of this format can be seen here. Keep in mind that not all data looks like this and you may have to reshape it to fit the format best suited for your analysis.
+
+\begin{tabular}{l|r|r|r|r|r}
+\hline
+  & wingL & tarsusL & culmenL & beakD & gonysW\\
+\hline
+magnirostris & 4.404 & 3.039 & 2.725 & 2.824 & 2.676\\
+\hline
+conirostris & 4.350 & 2.984 & 2.654 & 2.514 & 2.360\\
+\hline
+difficilis & 4.224 & 2.899 & 2.277 & 2.011 & 1.930\\
+\hline
+scandens & 4.261 & 2.929 & 2.622 & 2.145 & 2.037\\
+\hline
+fortis & 4.244 & 2.895 & 2.407 & 2.363 & 2.222\\
+\hline
+fuliginosa & 4.133 & 2.807 & 2.095 & 1.941 & 1.845\\
+\hline
+pallida & 4.265 & 3.089 & 2.430 & 2.016 & 1.949\\
+\hline
+\end{tabular}
+
+An ideal comparative study would have data for every single species in the study lineage. So if we wanted to study birds, that would involve collecting data on our chosen variables for approximately 10,000 species! To go and collect such a volume of data would be a huge undertaking and far beyond the scope of an undergraduate project.
+
+Fortunately, there is a huge amount of data available in the literature already and so nobody expects you to go out and measure the wingspan of every single bird species. In fact, there are many lifetimes worth of data collection that are very easily accessible online.
+
+\hypertarget{databases}{%
+\section{Databases}\label{databases}}
+
+A large amount of data is stored in data repositories. The most well known of these is probably \href{https://datadryad.org/stash/}{Dryad} where researchers deposit the data used in their own work. The purpose of doing this is so that others can access the data to check the work as well as use the data in further research. You will often find links to Dryad in the methods sections and supplementary information of scientific papers. In fact, some journals make it a condition of publication that authors make their data available for scrutiny and further use.
+
+In addition to data from individual studies, there are a few projects that have sought to gather large amounts of data. For example, a group of researchers gathered data on 25 ecological and life history variables covering as many sepceies of mammal as possible \citep{Jones09}. The project took a lot of effort and the resulting database (called PanTHEIRA) is available \href{https://ecologicaldata.org/wiki/pantheria}{here} as part of the \href{https://ecologicaldata.org/home}{Ecological Data Wiki} site.
+
+There are many more places that data can be sourced from that are too numerous to be listed here.
+
+\hypertarget{data-riches}{%
+\section{Data Riches}\label{data-riches}}
+
+The volume of data about the natural world that is available to us is truly a great thing. It gives us as scientists the scope to ask big questions. However, we cannot be carelessly gathering up every scrap of information we come across and blindly lumping it all together. Collecting data from multiple sources like this requires us to be critical at every stage. A paper by Borries \emph{et al.} \citeyearpar{Borries16} sums up the issue quite well.
+
+When gathering a large amount of data on as many species as possible, mistakes are inevitable. This is a simple fact of life. Typos, copying errors and corrupted files are all potential sources of error. Usually, they are easy to spot but for comparative researchers, it is unreasonable to assume that we will be experts in every species we are studying. So it may be difficult for us to spot if two species' data got switched or the decimal point is in the wrong place.
+
+On a similar note, if we gather data from multiple sources, we need to understand the metos used to gather those data. If different methodologies were used in different sources, it may be the case that the data are not directly comparable. We would also need to be careful lumping together data from sources with different sample sizes. If one study reports a body mass for a species based on measurements of two individuals and another reports the mass based on 42 species, the second is likely to be a better estimate of species average. Be aware however, that this may not be true if the larger sample included juveniles or captive animals. Or perhaps the species exhibits sexual dimorphism and this wasn't accounted for in the larger sample. We need to be aware of all of this!
+
+Borries \emph{et al.} \citeyearpar{Borries16} put together 4 guiding principles that I think it is useful to follow.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Include explicit \textbf{definitions} for every variable collected.
+\item
+  Include \textbf{metadata} with each datum collected.
+\item
+  \textbf{Document} the procedures used to collect and validate the data.
+\item
+  All data collected should be \textbf{universally accessible}.
+\end{enumerate}
+
+During your project, use these principles when gathering and preparing data and you'll be able to prevent a whole lot of misery and stress!
+
 \hypertarget{anova}{%
 \chapter{ANOVA}\label{anova}}
 
@@ -960,11 +1029,11 @@ In LIFE223 you analysed the results of an experiment in which corncrake hatchlin
 
 \begin{figure}[H]
 
-{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-59-1} 
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-60-1} 
 
 }
 
-\caption{Plot of weight gain in corncrake hatchlings reared on four different nutritional supplements and a control group. The mean and standard deviation of each group is plotted in blue. The mean weight gain across the entire sample is plotted in red.}\label{fig:unnamed-chunk-59}
+\caption{Plot of weight gain in corncrake hatchlings reared on four different nutritional supplements and a control group. The mean and standard deviation of each group is plotted in blue. The mean weight gain across the entire sample is plotted in red.}\label{fig:unnamed-chunk-60}
 \end{figure}
 
 \begin{Shaded}
@@ -1057,11 +1126,11 @@ fuliginosa   4.132957 2.806514 2.094971 1.941157 1.845379
 
 \begin{figure}[H]
 
-{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-65-1} 
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-66-1} 
 
 }
 
-\caption{Phylogeny of the species contained within the 'geospiza' dataset of the package geiger.}\label{fig:unnamed-chunk-65}
+\caption{Phylogeny of the species contained within the 'geospiza' dataset of the package geiger.}\label{fig:unnamed-chunk-66}
 \end{figure}
 
 We need to start by defining the categories for the data. It is likely that you will have already done this in your data frame when using your own data. If so, just make sure the groups are stored as a factor. In this case, we'll just create some random categories to work with for the example.
@@ -1138,7 +1207,7 @@ Analysis of Variance Table
 
 Response: dat
           Df   Sum-Sq  Mean-Sq F-value  Pr(>F) Pr(>F) given phy
-group      2 0.063237 0.031619  3.0067 0.09497           0.1908
+group      2 0.063237 0.031619  3.0067 0.09497           0.1728
 Residuals 10 0.105161 0.010516                                 
 \end{verbatim}
 
@@ -1156,8 +1225,8 @@ For further information about the phylogenetic ANOVA, you can read the original 
 
 This chapter will take you through the code we can use to run ancestral state reconstruction with \textbf{categorical} characters. As always, remember to begin by setting your working directory to wherever you have saved the data files.
 
-\hypertarget{data}{%
-\section{Data}\label{data}}
+\hypertarget{data-1}{%
+\section{Data}\label{data-1}}
 
 The first thing we need to do is load some data. When you're doing this, you need to keep in mind that you should keep your workspace as well organised as possible. In practice, this means giving things good names. ``RicksDataV1.1'' is not a great name depending on how many datasets you want in there. Neither is ``data1'' if you plan on having multiple datasets (which we do). So give your data object, and all other objects, simple, useful names. My personal preference is to use the name of the group but whatever works is fine. You need to be able to keep track of everything.
 
@@ -1210,7 +1279,7 @@ Let's plot the tree to make sure it loaded correctly. I've used base graphics he
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-79-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-80-1} \end{center}
 
 \hypertarget{parsimony}{%
 \section{Parsimony}\label{parsimony}}
@@ -1273,17 +1342,17 @@ Once we've done that we can plot those expressions onto the tree with the functi
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-83-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-84-1} \end{center}
 
 You should note that this isn't a very good plot! There are better ways to represent this information with a little code manipulation. Here's a version using \textbf{ggtree} that plots the character states as points on the tips and the reconstructed nodes.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-84-1} 
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-85-1} 
 
 }
 
-\caption{Maximum parsimony reconstruction of the evolution of conspicuous sexual swellings in macaques}\label{fig:unnamed-chunk-84}
+\caption{Maximum parsimony reconstruction of the evolution of conspicuous sexual swellings in macaques}\label{fig:unnamed-chunk-85}
 \end{figure}
 
 As you can see, the uncertainty in some nodes comes from the fact that there seems to be at least two equally parsimonious histories with gains and losses ocurring in different places. For any serious analysis, this is a highly unsatisfactory outcome!
@@ -1302,7 +1371,7 @@ Let's replot the tree. Here I've changed the tiplabels function to plot the char
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-85-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-86-1} \end{center}
 
 To run an ancestral state reconstruction using maximum likelihood we can use the function \textbf{ace} (ancestral character estimation) in the \textbf{ape} package \citep{ape}. In our first reconstruction, we will make the assumption that the rate of evolution of the trait is equal across the tree by setting the model to \textbf{ER} (equal rates).
 
@@ -1351,11 +1420,11 @@ Looking at the results shows us the likelihood at the root (91\% in favour of st
 
 \begin{figure}[H]
 
-{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-87-1} 
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-88-1} 
 
 }
 
-\caption{Maximum likelihood reconstruction of the evolution of conspicuous sexual swellings in macaques using an equal rates model of evolution.}\label{fig:unnamed-chunk-87}
+\caption{Maximum likelihood reconstruction of the evolution of conspicuous sexual swellings in macaques using an equal rates model of evolution.}\label{fig:unnamed-chunk-88}
 \end{figure}
 
 Now we can run a similar analysis but let's assume that rates of evolution can vary by setting model to \textbf{ARD} (All Rates Different).
@@ -1371,7 +1440,7 @@ Now we can run a similar analysis but let's assume that rates of evolution can v
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-88-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-89-1} \end{center}
 
 As you can see, the different model of evolution makes a big difference to the results. Which model you choose to use depends on which assumptions you think are justified. Is it fair to assume that the rate of evolution of conspicuous sexual swelling would be constant across the tree as in the equal rates model?
 
@@ -1389,7 +1458,7 @@ Obviously these kind of histories are biologically absurd but not mathematically
 
 Let's say that we were to plot the entire multiverse as such a distribution using the evil tendencies of one particular occupant (Rick Sanchez) of the multiverse as our parameter. All the different Ricks in all the different universes will vary in their evil tendencies. But overall, Rick's character is actually a nihilist meaning his mean evilness is around 0 when taken over the whole multiverse. Given all this, the posterior distribution of evil Ricks in the multiverse might look like this.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-89-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-90-1} \end{center}
 
 MCMC samples this distribution of histories in a chain. If a history has a higher likelihood than the previous sampling, it is accepted. If it is lower then it is rejected from the sample. In this way, MCMC quickly narrows down the possibilities and gives us a sample of quite likely histories.
 
@@ -1463,11 +1532,11 @@ Q here is the matrix of transition rates which we have constrained to be equal (
 
 \begin{figure}[H]
 
-{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-94-1} 
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-95-1} 
 
 }
 
-\caption{Simmap showing a single possible evolutionary history of sexual swelling in macaques.}\label{fig:unnamed-chunk-94}
+\caption{Simmap showing a single possible evolutionary history of sexual swelling in macaques.}\label{fig:unnamed-chunk-95}
 \end{figure}
 
 Here you can see the single history we have sampled (yours will likely differ). The history contains branches painted according to the trait colour we specified and the position of the transitions on the branch mark the exact position the changes are theorised to have taken place. This is an awful lot of certainty for an ancestral state reconstruction! You should note that the one plotted here is very odd. It says that the ancestor of the group had concealed estrus and then this trait was lost 3 times independently, leaving no trace in the extant species. Given the data and tree we provided, it is hard to see how we can have any confidence in this reconstruction. What evidence have we collected that actually supports this?
@@ -1544,11 +1613,11 @@ As usual, we're going to want a summary plot. The backbone of this plot won't lo
 
 \begin{figure}[H]
 
-{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-97-1} 
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-98-1} 
 
 }
 
-\caption{Summary of 500 sampled discrete character histories showing the evolution of sexual swellings in macaques.}\label{fig:unnamed-chunk-97}
+\caption{Summary of 500 sampled discrete character histories showing the evolution of sexual swellings in macaques.}\label{fig:unnamed-chunk-98}
 \end{figure}
 
 This analysis gives us a very similar output to the maximum likelihood analysis in the previous section. If you're intrested, give this analysis another try with different models of evolution.
@@ -1558,8 +1627,8 @@ This analysis gives us a very similar output to the maximum likelihood analysis 
 
 Stochastic character mapping can also be used for traits with more than one state. For example, burrowing in carnivores can be classified as 0 (no burrowing), 1 (use a burrow dug by another animal) or 2 (dig your own burrow).
 
-\hypertarget{data-1}{%
-\subsubsection{Data}\label{data-1}}
+\hypertarget{data-2}{%
+\subsubsection{Data}\label{data-2}}
 
 Let's load some data from a paper which investigated aposematism in terrestrial carnivores \citep{Stankowich11}. Don't forget to assign the species names to rownames to keep everything tidy while we manipulate the data. We also have a tree covering all carnivores \citep{Nyakatura12}.
 
@@ -1793,7 +1862,7 @@ Done.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-106-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-107-1} \end{center}
 
 Let's sample 200 possible histories. This may take a few moments. For reports and publications, you should sample more than this. There's no hard rule but 1000 seems to be a good minimum for a proper analysis.
 
@@ -1837,21 +1906,21 @@ trees have 52 changes between states on average
 
 changes are of the following types:
      Dig a Burrow,No Burrowing Dig a Burrow,Use existing Burrows
-x->y                      7.26                             12.24
+x->y                     7.205                             12.19
      No Burrowing,Dig a Burrow No Burrowing,Use existing Burrows
-x->y                     6.925                              5.99
+x->y                      7.05                              6.02
      Use existing Burrows,Dig a Burrow Use existing Burrows,No Burrowing
-x->y                            12.265                              7.32
+x->y                            12.195                              7.34
 
 mean total time spent in each state is:
      Dig a Burrow No Burrowing Use existing Burrows total
-raw   366.1971509  214.5972284          350.2056207   931
-prop    0.3933374    0.2305019            0.3761607     1
+raw   366.0111023  216.2510123          348.7378854   931
+prop    0.3931376    0.2322782            0.3745842     1
 \end{verbatim}
 
 Finally we can plot the summary of the analysis as before.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-108-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-109-1} \end{center}
 
 \hypertarget{further-info-3}{%
 \section{Further info}\label{further-info-3}}
@@ -1869,8 +1938,8 @@ The logic of ancestral state reconstruction applies equally to continuous traits
 
 As always, check that you have set your working directory!
 
-\hypertarget{data-2}{%
-\section{Data}\label{data-2}}
+\hypertarget{data-3}{%
+\section{Data}\label{data-3}}
 
 The data we have here is taken from a study of the evolution of cetacean brain and body size \citep{Montgomery13}. The reduced version here contains only body mass and the log transformed body mass for 42 species.
 
@@ -2033,7 +2102,7 @@ To get an idea of what these results show, we should probably plot it. The \text
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-118-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-119-1} \end{center}
 
 As is often the case, there are better ways to plot this information! The function \textbf{contMap} calls \textbf{fastAnc} and then maps the history of the trait onto the tree as a heatmap. This is a much clearer plot.
 
@@ -2043,7 +2112,7 @@ As is often the case, there are better ways to plot this information! The functi
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-119-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-120-1} \end{center}
 
 \hypertarget{bayestraits}{%
 \section{BayesTraits}\label{bayestraits}}
@@ -2192,11 +2261,11 @@ Let's see if we can detect a trend in cetacean body mass. For this analysis, we 
 
 \begin{figure}[H]
 
-{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-127-1} 
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-128-1} 
 
 }
 
-\caption{Phylogenetic tree of 42 species of cetcaeans with branch lengths proportional to molecular change.}\label{fig:unnamed-chunk-127}
+\caption{Phylogenetic tree of 42 species of cetcaeans with branch lengths proportional to molecular change.}\label{fig:unnamed-chunk-128}
 \end{figure}
 
 We're using BayesTraits again so the first step is to get our data into the right format.
@@ -2300,7 +2369,7 @@ So what have we got here? Well we have tested two models of the evolution of bod
 
 Often when investigating the evolution of a continuous trait, we might have reason to suggest that in some lineages, the rate of evolution of that trait changed.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-133-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-134-1} \end{center}
 
 Let's say we have a hypothesis that says the rate of change of body mass changed at the root of mysticetes (node 44). We can paint that onto the tree for demonstration using \textbf{paintSubTree} and \textbf{plotSimmap} in \textbf{phytools} \citep{phytools}.
 
@@ -2312,7 +2381,7 @@ Let's say we have a hypothesis that says the rate of change of body mass changed
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-134-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-135-1} \end{center}
 
 Now we can run the test. Here the function \textbf{brownie.lite} in \textbf{phytools} compares the single rate model to the multi-rate model we have specified!
 
@@ -2407,7 +2476,7 @@ RRphylo returns a lot of information as a list. Included in this list is the \te
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-139-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-140-1} \end{center}
 
 Using this reconstruction, we can extract the mass of the root. Remember that we need \textbf{exp} to calculate the untransformed value rather than raising to the power of 10 because of the natural log transformation.
 
@@ -2442,7 +2511,7 @@ Now we can pass this state to the argument \textbf{aces} in \textbf{RRphylo} and
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-142-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-143-1} \end{center}
 
 Hopefully you can see that the more fossil information you include in your reconstructions, the more reliable they are.
 
@@ -2461,7 +2530,7 @@ This seems to suggest that we should also find a regime shift in mysticetes. Let
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-143-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-144-1} \end{center}
 
 Next we run \textbf{brownie.lite} on our expanded dataset.
 
@@ -2509,7 +2578,7 @@ The simplest form of diversification model is a \textbf{pure birth} model. Under
 \[ N_{(\text{t})} = N_{(0)}e^{\text{bt}} \]
 This plot shows how the number of species would grow over time. Note that in this model, there is no extinction and so the exponential increase is because each speciation event produces two daughter lineages which each can then speciate with probabilty \emph{b}, creating two more daughter lineages each and so on.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-146-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-147-1} \end{center}
 
 As you can probably tell, the pure birth model is not a very good representation of biological reality. For example, today there are around 90 species of cetacean. A pure birth model in which we have \emph{b} set at 0.1 (meaning we have 0.1 new species born every million years) would give us over 1 million species of cetacean in 100 million years.
 
@@ -2521,7 +2590,7 @@ The \textbf{birth-death} model incorporates extinction as well as speciation. Un
 \[ N_{(\text{t})} = N_{(0)}e^{\text{(b-d)t}} \]
 This graph shows the change in number of taxa over time when the birth rate slightly exceeds death rate.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-147-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-148-1} \end{center}
 
 \hypertarget{the-signature-of-extinction}{%
 \subsection{The signature of extinction}\label{the-signature-of-extinction}}
@@ -2539,7 +2608,7 @@ The function \textbf{sim.bd.age} in the package \textbf{TreeSim} \citep{treesim}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-149-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-150-1} \end{center}
 
 If you run this command yourself, your tree will look different simply because the simulations will differ each time.
 
@@ -2551,13 +2620,13 @@ We can plot the pattern of lineage accumulation through time with a lineage-thro
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-150-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-151-1} \end{center}
 
 As can be seen from this plot, the increase in lineages over time will be log-linear, just as predicted in previous sections.
 
 What about when we add extinction? We can see here that pure-birth and birth-death trees look quite different. this is because older lineages are more likely to go extinct. This \emph{pull of the present} means that extinction rates appear lower in the present even though there's no reason to assume that they would be any different. We just have a greater proportion of total lineages the closer we are to the present!
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-151-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-152-1} \end{center}
 
 \hypertarget{estimating-speciation-and-extinction-rate}{%
 \section{Estimating speciation and extinction rate}\label{estimating-speciation-and-extinction-rate}}
@@ -2664,7 +2733,7 @@ The best way to visualise this analysis is by plotting the models on the tree. W
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-158-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{bookdown-demo_files/figure-latex/unnamed-chunk-159-1} \end{center}
 
 \hypertarget{rpanda}{%
 \section{RPANDA}\label{rpanda}}
@@ -2686,11 +2755,11 @@ The first step is to define a few functions that describe our hypotheses. First 
 
 We will test 4 different combinations of these scenarios. I find it easier to visualise models like this graphically so these plots describe the various models.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-161-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-162-1} \end{center}
 
 In RPANDA, we need to specify which clades are most likely to have diversification shifts to test our hypotheses. For this example, we will look at 4 major radiations of cetaceans. These are; \emph{Balaenopteridae, Ziphidae, Phocoenidae} and \emph{Delphinidae}.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-162-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-163-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2820,7 +2889,7 @@ As before, the first thing to look at is the AICc scores for each model and each
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-171}AICc scores for 4 different birth-death models fitted to five cetacean sub-trees.}
+\caption{\label{tab:unnamed-chunk-172}AICc scores for 4 different birth-death models fitted to five cetacean sub-trees.}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r}
 \hline
@@ -2841,7 +2910,7 @@ The final step is to look at the extracted parameters from the favoured models. 
 
 \begin{table}
 
-\caption{\label{tab:unnamed-chunk-172}Estimates of speciation and extinction rates from birth-death modelling of cetacean evolution}
+\caption{\label{tab:unnamed-chunk-173}Estimates of speciation and extinction rates from birth-death modelling of cetacean evolution}
 \centering
 \begin{tabular}[t]{l|r|r|r|r|r}
 \hline
@@ -2866,7 +2935,7 @@ Focusing in on the Delphinidae tree again, we can begin to plot some interesting
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-174-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-175-1} \end{center}
 
 The function \textbf{plot\_dtt} will produce a plot of diversity through time. Here we can see how Delphinidae diversity has increased over the tree.
 
@@ -2948,7 +3017,7 @@ You are certainly going to want to plot your analysis. We can do so by using the
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-183-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-184-1} \end{center}
 
 BAMM has clearly identified a shift early in the history of Delphinidae, matching some other methods we've used. Also in this plot, we can see a potentially spurious shift on the branch leading to \emph{Lipotes vexillifer}. Remember that this is just one sample from the posterior distribution and another one would be different. The colour of the branches tells us the story of the whole sample.
 
@@ -2961,7 +3030,7 @@ BAMM has clearly identified a shift early in the history of Delphinidae, matchin
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-184-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-185-1} \end{center}
 
 Let's plot the speciation rate through time for some lineages of interest. We can use the function \textbf{plotRateThroughTime} for this.
 
@@ -2972,7 +3041,7 @@ Let's plot the speciation rate through time for some lineages of interest. We ca
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-186-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-187-1} \end{center}
 
 We can also compare lineages. Here we are plotting the speciation rate in dolphins against the rest of cetaceans.
 
@@ -2986,7 +3055,7 @@ We can also compare lineages. Here we are plotting the speciation rate in dolphi
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-187-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-188-1} \end{center}
 
 If we desire, we can extract the rates at the tips and analyse them using \textbf{getTipRates}.
 
@@ -3008,7 +3077,7 @@ A simple histogram of the speciation rates and extinction rates show strongly bi
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-189-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-190-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3020,7 +3089,7 @@ A simple histogram of the speciation rates and extinction rates show strongly bi
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-190-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-191-1} \end{center}
 
 It appears on closer inspection that the differences are down to the rate shift in Delphinidae we have identified multiple times throughout this chapter.
 
@@ -3034,7 +3103,7 @@ It appears on closer inspection that the differences are down to the rate shift 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-191-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-192-1} \end{center}
 
 \hypertarget{further-info-5}{%
 \section{Further info}\label{further-info-5}}
@@ -3094,7 +3163,7 @@ We can extract the history of the trait's evolution using \textbf{history.from.s
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-194-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-195-1} \end{center}
 
 Next we use the function \textbf{make.bisse} with the tree and the named vector of states. This creates a likelihood function that we will go on to use in our analysis.
 
@@ -3238,7 +3307,7 @@ We can plot the distributions of \(\lambda_{0}\) and \(\lambda_{1}\) using the f
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-206-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-207-1} \end{center}
 
 The reason we haven't really identified the difference that we know is there from our simulation is almost certainly because the tree is too small and so our analysis is not powerful enough.
 
@@ -3280,7 +3349,7 @@ We can extract the history of the simulated trait with \textbf{history.from.sim.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-209-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-210-1} \end{center}
 
 Next we must make the likelihood function in much the same way as we did for BiSSE but this time using the function \textbf{make.musse}.
 
@@ -3367,7 +3436,7 @@ Small trees are not good fits for these methods. Generally, the larger the tree 
 \hline
 minimal & 3 & -3694.195 & 7394.390 & NA & NA\\
 \hline
-free.lambda & 5 & -3677.520 & 7365.041 & 33.34883 & 1e-07\\
+free.lambda & 5 & -3677.520 & 7365.041 & 33.34918 & 1e-07\\
 \hline
 \end{tabular}
 
@@ -3387,7 +3456,7 @@ First we need to specify some functions to use. For lambda we will use a sigmoid
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-218-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-219-1} \end{center}
 
 Next we can specify the model of character evolution for our trait simulation. We will be going with Brownian motion and we will set the diffusion parameter to 0.025. To specify all this, we can use the function \textbf{make.brownian.with.drift}.
 
@@ -3699,11 +3768,11 @@ When we plot the data alongside the tree, we can see that many of the species th
 
 \begin{figure}[H]
 
-{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-247-1} 
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-248-1} 
 
 }
 
-\caption{Body mass plotted alongside the primate phylogenetic tree. Species with a body mass in the range identified as having higher speciation rates are plotted in red}\label{fig:unnamed-chunk-247}
+\caption{Body mass plotted alongside the primate phylogenetic tree. Species with a body mass in the range identified as having higher speciation rates are plotted in red}\label{fig:unnamed-chunk-248}
 \end{figure}
 
 This suggests we might want to split the tree here and evaluate different models for each section of the tree much like we did with cetaceans in the previous chapter. In fact, the output of analysis with MEDUSA supports the idea that there has been a shift in diversification in the Cercopithecinae.
@@ -3740,7 +3809,7 @@ Calculating profile likelihoods on parameter values.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-248-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-249-1} \end{center}
 
 Before we proceed, it might be best to label the nodes so we can call the right one by name.
 
@@ -3891,8 +3960,8 @@ Inspecting the coeffiients shows us that the speciation rate in the foreground c
 
 This chapter will show you how to perform phylogenetically correct regression analyses on continuous data in R. As usual, remember to set your working directory to wherever you have saved the necessary files.
 
-\hypertarget{data-3}{%
-\section{Data}\label{data-3}}
+\hypertarget{data-4}{%
+\section{Data}\label{data-4}}
 
 Let's load up some example primate data. You should see the dataframe appear in your environment. If you inspect the object, you will find a number of continuous variables in there for us to investigate.
 
@@ -3963,7 +4032,7 @@ We can also plot this line with \textbf{ggplot} \citep{ggplot2} with the followi
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-266-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-267-1} \end{center}
 
 \hypertarget{phylogenetic-signal}{%
 \section{Phylogenetic Signal}\label{phylogenetic-signal}}
@@ -3983,7 +4052,7 @@ The degree of phylogenetic signal in a trait is often described using the scalin
 
 For example, take the case on the left, where \(\lambda = 1\). In this case the tree is untransformed because the variation in the trait follows the structure of the tree. On the right, where \(\lambda = 0\), all the internal branch lengths have been multiplied by 0 and therefore collapsed. This ``star phylogeny'' describes a pattern of variation in which the trait varies at random with respect to the phylogeny. The trait is not equal across the tree but rather the variation in the trait does not correlate to the pattern of relatedness.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-267-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-268-1} \end{center}
 
 \hypertarget{caper}{%
 \subsection{caper}\label{caper}}
@@ -4121,7 +4190,7 @@ Now let's have a go at performing a PGLS regression!
 
 Let's say we have a hypothesis that larger species of primate have longer gestations. Our plot seems to back this up but how strong is this relationship?
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-274-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-275-1} \end{center}
 
 We found earlier that there does seem to be a relationship but ordinary least squares linear regression can't be relied upon in this situation. This is because of the statistical non-independence of data points due to shared evolutionary history!
 
@@ -4187,7 +4256,7 @@ A brief note here. The syntax to get \textbf{ggplot} to do this is a little more
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-277-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-278-1} \end{center}
 
 \hypertarget{model-checking}{%
 \subsection{Model Checking}\label{model-checking}}
@@ -4203,7 +4272,7 @@ We begin by using the \textbf{pgls.profile} function to extract the likelihoods 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-278-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-279-1} \end{center}
 
 This plot describes the log likelihood of \(\lambda\) across its possible range of values (0 - 1). We can clearly see that the likelihood is highest around a single point around 0.8. Check back against the model output earlier to see if this is what we would expect.
 
@@ -4304,7 +4373,7 @@ Finally, we can check the diagnostic plots of the model. I've included some line
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-284-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-285-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -4422,7 +4491,7 @@ We have a \(\lambda\) of 0.683. This is \textbf{not} the phylogenetic signal of 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-292-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-293-1} \end{center}
 
 Not to worry! On we go. The coefficients table in the results output is what we really want to look at here. We can see that the overall fit of the model is significant (R\textsuperscript{2} = 0.23, p \textless{} 0.001) but a little underwhelming. The only significant predictor of longevity in our model is body mass (\(\beta\) = 0.13, se = 0.05, p = 0.006). Our other variables do not significantly predict lifespan.
 
@@ -4520,7 +4589,7 @@ Also keep in mind that the model we've built here doesn't use any interaction te
 
 In analyses like the one above, it is not uncommon to run into problems. When constructing a regression model, it is important to make sure your predictor variables don't correlate.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-295-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-296-1} \end{center}
 
 As we can see here, this is clearly not the case. Exactly how much of a problem this can be is uncertain. Strong correlations are hugely problematic but weak ones are probably not that big a deal.
 
@@ -4560,7 +4629,7 @@ In path analysis, we take a number of variables and define a \textbf{causal mode
 
 }
 
-\caption{Predicted pathway model of primate brain evolution taken from Dunbar and Shultz (2007).}\label{fig:unnamed-chunk-297}
+\caption{Predicted pathway model of primate brain evolution taken from Dunbar and Shultz (2007).}\label{fig:unnamed-chunk-298}
 \end{figure}
 
 Models like this one can be complex with many arrows showing a complex network of relationships. This is fairly typical of biological systems! If you study it closely, you'll be able to see that it describes the interactions between variables. For example, \emph{body size} directly influences \emph{lifespan}, \emph{home range}, \emph{activity}, \emph{BMR} and \emph{diet}. The relationships described by these arrows represent a causal hypothesis.
@@ -4575,7 +4644,7 @@ D-sep tests \textbf{conditional independencies} in your DAG. If two vertices are
 
 }
 
-\caption{Example of a simple directed acyclic graph from Gonzalez-Voyer and Von Hardenberg 2014.}\label{fig:unnamed-chunk-298}
+\caption{Example of a simple directed acyclic graph from Gonzalez-Voyer and Von Hardenberg 2014.}\label{fig:unnamed-chunk-299}
 \end{figure}
 
 This example DAG contains a number of independencies. \textbf{BM} and \textbf{DD} are unconnected and therefore should be independent if this model is reasonable. We can actually build a model to test that indepedency as follows:
@@ -4644,7 +4713,7 @@ We can plot the model using the function \textbf{plot\_model\_set}. The extra ar
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-304-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-305-1} \end{center}
 
 The layout isn't exactly the same as the previous diagram but we can manipulate that with the argument \textbf{manual\_layout} if we wish. We need to create a dataframe with x and y coordinates for the final plots. We can also set the arrows to be straight by setting \textbf{curvature} to be 0.
 
@@ -4658,7 +4727,7 @@ The layout isn't exactly the same as the previous diagram but we can manipulate 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-305-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-306-1} \end{center}
 
 For the full analysis, let's define a number of possible models and try and see which best describes the data. We start with \textbf{define\_model\_set} and pass lists of formulae to each model which here I have named numerically 1 to 9. We've also passed some formulae to the \textbf{.common} option as these formulae are present in every model. This saves a fair bit of repetition.
 
@@ -4688,7 +4757,7 @@ Because this is a complex step, ALWAYS check your \textbf{Directed Acyclic Graph
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-307-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-308-1} \end{center}
 
 If we are doing this by hand, now we need to identify d-separation statements and test conditional independencies. \textbf{Phylopath} does it all for us. To interpret the final results, you really need to understand what happens in this step so take it slow and revisit the explanations above. You can also refer to the methods papers which explain things very well \citep{Hardenberg13, Gonzalez14}.
 
@@ -4745,7 +4814,7 @@ We can plot the summary of results and we are presented with a very useful plot,
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-311-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-312-1} \end{center}
 
 For now, let's just plot the best model.
 
@@ -4756,7 +4825,7 @@ For now, let's just plot the best model.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-312-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-313-1} \end{center}
 
 The numbers and width of each arrow represent the path coefficents (effect sizes). The blue colour represents a positive relationship. A negative relationship would be red. Remember here that we have a few models with roughly equivalent support. We can average these models if this happens. The \textbf{cut\_off} argument tells us where to place the limit of support. By default this is 2 CICc and so the function \textbf{average} will only average the models that fall within 2 CICc of the best supported model.
 
@@ -4767,7 +4836,7 @@ The numbers and width of each arrow represent the path coefficents (effect sizes
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-313-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-314-1} \end{center}
 
 \hypertarget{conclusion-1}{%
 \section{Conclusion}\label{conclusion-1}}
@@ -4792,11 +4861,11 @@ As we saw in chapter 8, there has been and independent loss of conspicuous sexua
 
 \begin{figure}[H]
 
-{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-316-1} 
+{\centering \includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-317-1} 
 
 }
 
-\caption{Maximum likelihood reconstruction of the evolution of conspicuous sexual swellings in macaques using an equal rates model of evolution.}\label{fig:unnamed-chunk-316}
+\caption{Maximum likelihood reconstruction of the evolution of conspicuous sexual swellings in macaques using an equal rates model of evolution.}\label{fig:unnamed-chunk-317}
 \end{figure}
 
 As you can probably tell, it can be easy to assign convergent evolution to categorical traits and less so to continuous traits. To identify convergence in continuous characters, we need to identify selective regimes.
@@ -4845,7 +4914,7 @@ Next we can load some example data.
 
 The data we have here describe three personality traits of 25 characters from the Marvel and DC cinematic universes. There is also a phylogeny describing the pattern of relatedness between characters. For this analysis, we are going to use all 3 personality traits to try and identify any convergence across universes.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-321-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-322-1} \end{center}
 
 \hypertarget{forward-phase}{%
 \subsubsection{Forward Phase}\label{forward-phase}}
@@ -4952,7 +5021,7 @@ The best thing to do with an analysis like this is visualise the results. We can
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-328-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-329-1} \end{center}
 
 Using the tree like this allows us to spot some patterns. The blue regime appears to be mostly heroes such as Wonder Woman, Captain Marvel and Black Panther. The selective regime that produces heroes occurs 3 times here. Once leading to Wonder Woman and Superman in the DC universe, once leading to a cluster of Avengers plus Professor X in the Marvel universe and a third time leading to Deadpool.
 
@@ -4970,7 +5039,7 @@ There are some surprising placements. Batman and Iron Man are both in the same r
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-329-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-330-1} \end{center}
 
 These plots show how the traits cluster along with the average value for each regime (larger point).
 
@@ -4996,19 +5065,19 @@ The package to perform a Wheatsheaf analysis is called \textbf{windex} \citep{wi
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-331-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-332-1} \end{center}
 
 This scatterplot represents the \textbf{phenotypic space} described by the two traits. We can see there is a clear clustering of species but the question we have to ask is, does this pattern mean convergence and if yes, how strong is that convergence?
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-332-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-333-1} \end{center}
 
 To make things clearer, let's highlight our focal group species in phenotypic space by plotting them in red.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-333-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-334-1} \end{center}
 
 It's clear that the focal group species cluster very closely. The tree shows us the taxonomic distribution of the focal group. So it seems that this clustering cannot be explained by common descent.
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-334-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-335-1} \end{center}
 
 To calculate \emph{W}, we can use the \textbf{windex} function. Remember that a value of W greater than 1 indicates the focal group is more similar to each other than to the group as a whole.
 
@@ -5045,7 +5114,7 @@ The question we have to answer now is whether the value of \emph{W} is higher th
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-336-1} \end{center}
+\begin{center}\includegraphics{bookdown-demo_files/figure-latex/unnamed-chunk-337-1} \end{center}
 
 The plot here shows the distribution of the bootstrap replicates. We can see from the plotted line that the calculated value and the accompanying confidence intervals are far separate from the distribution of the replicates. This indicates a high degree of confidence in some unusually strong convergence here. As we can see, the p-value backs this up.
 
