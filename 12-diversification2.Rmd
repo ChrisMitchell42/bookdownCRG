@@ -440,7 +440,7 @@ c(linear=coef(mle.d.l)[["drift"]],
 
 So the hump model with drift is the best fit to the data. The parameters of this model tell us that $\lambda$ peaks around a log body mass value of 8.43 (**l.xmid**) and a variance of 0.12 (**l.s2**).
 
-```{r}
+```{r, echo=TRUE, eval=TRUE}
 coef(mle.d.h)
 ```
 

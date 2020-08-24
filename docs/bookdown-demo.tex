@@ -253,7 +253,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 42.00768
+[1] 41.9786
 \end{verbatim}
 
 \begin{Shaded}
@@ -263,7 +263,7 @@ However, R is capable of a great deal more than just simple mathematical operati
 \end{Shaded}
 
 \begin{verbatim}
-[1] 4.249571
+[1] 4.211861
 \end{verbatim}
 
 \hypertarget{plotting}{%
@@ -1207,7 +1207,7 @@ Analysis of Variance Table
 
 Response: dat
           Df   Sum-Sq  Mean-Sq F-value  Pr(>F) Pr(>F) given phy
-group      2 0.063237 0.031619  3.0067 0.09497           0.1728
+group      2 0.063237 0.031619  3.0067 0.09497           0.1618
 Residuals 10 0.105161 0.010516                                 
 \end{verbatim}
 
@@ -3436,7 +3436,7 @@ Small trees are not good fits for these methods. Generally, the larger the tree 
 \hline
 minimal & 3 & -3694.195 & 7394.390 & NA & NA\\
 \hline
-free.lambda & 5 & -3677.520 & 7365.041 & 33.34918 & 1e-07\\
+free.lambda & 5 & -3677.520 & 7365.041 & 33.34883 & 1e-07\\
 \hline
 \end{tabular}
 
@@ -3763,6 +3763,11 @@ So the hump model with drift is the best fit to the data. The parameters of this
 \KeywordTok{coef}\NormalTok{(mle.d.h)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+      l.y0       l.y1     l.xmid       l.s2        m.c      drift  diffusion 
+0.12415911 0.33331587 8.43421271 0.11936647 0.05362881 0.07929087 0.03201213 
+\end{verbatim}
 
 When we plot the data alongside the tree, we can see that many of the species that fall within 2 standard deviations of the value of \textbf{l.xmid} are within the Cercopithecidae.
 
@@ -5128,6 +5133,52 @@ The plot here shows the distribution of the bootstrap replicates. We can see fro
 $`P-value=`
 [1] 0
 \end{verbatim}
+
+\hypertarget{tips-and-tricks}{%
+\chapter{Tips and Tricks}\label{tips-and-tricks}}
+
+This section will be populated with tips to help with a general comparative research project. Some will be quite specific solutions to problems that have popped up but don't quite fit into one of the previous chapters. Others will be much more generic and can be applied in many different situations.
+
+\hypertarget{literature-searching-with-connected-papers}{%
+\section{\texorpdfstring{Literature searching with \emph{Connected Papers}}{Literature searching with Connected Papers}}\label{literature-searching-with-connected-papers}}
+
+Seraching through the literature can be a daunting task. The volume of information available can be overwhelming. A rcently developed tool could make this task a little easier. \href{https://www.connectedpapers.com}{Connected Papers} is an online tool that allows you to visualise how a paper fits into the wider body of the literature.
+
+The tool is connected to Semantic Scholar, an online repository of scientific papers. To use the tool, simply enter the title of a paper (or URL/doi) into the search bar on the home page.
+
+\begin{center}\includegraphics[width=17.85in]{Images/Screens/CPhome} \end{center}
+
+Once the search function has located the corrected paper, select \textbf{Build Graph} and the tool will build a network-style graph of papers that are similar to the one you have chosen.
+
+\begin{center}\includegraphics[width=17.85in]{Images/Screens/CPmap} \end{center}
+
+Interpreting this graph is very useful. Papers are arranged by \textbf{similarity} meaning that the bibliographies of each paper are compared looking for overlapping bilbliographies. This means that this is not just a map of papers that cite each other (although many are likely to cite each other). It is a map of papers that write about similar things and therefore cite similar sources.
+
+Clusters of papers are more similar. In the graph above you can see three clusters of papers. One is very tightly clustered indicating strong overlap in bibliography whereas the others are slightly more diffuse. You can also call up \textbf{Prior works} and \textbf{Derivative works} allowing you to investigate papers that cite and are cited by the papers in the graph.
+
+This can be a really useful way to approach a literature search. Often it can be easy to find a paper that is relevant to your topic and not search too much further. This means you can miss the broader context of the paper and may mean you end up citing one paper without citing others that might be more up-to-date, contradictory or otherwise relevant.
+
+\hypertarget{extracting-data-from-a-pdf-using-excel}{%
+\section{Extracting data from a PDF using Excel}\label{extracting-data-from-a-pdf-using-excel}}
+
+Microsoft Excel is either a really useful programme or a frustrating mess depending on who you ask and possibly how long it's been since their last coffee. Whatever you think of the programme, it's quite likely that you'll be using it to edit/store your data.
+
+Many authors make their data available as .csv files (comma separated values) which are easily readable by Excel (amongst others). However, sometimes this is not the case. Data are sometimes presented in neatly formatted tables in a PDF.
+
+Quite recently, Microsoft have introduced a feature to Excel that some project students have found useful in the past. If you navigate to the \textbf{Insert} tab you will see the option to insert \textbf{Data from picture}.
+
+\begin{center}\includegraphics[width=14.14in]{Images/Screens/MSEx1} \end{center}
+
+This option allows you to upload a picture (such as a screenshot of a pdf or page from a book) into Excel. Once you've selected the picture, Excel will use its AI to process the image and convert it into a table. Once complete, Excel will present a draft of the table to insert for you to check manually. It is very important to check this for missing decimal points, misspellings and similar mistakes that the AI may have made.
+
+If you can't get hold of data any other way, this is a great timesaver that will prevent you typing it all out by hand!
+
+\hypertarget{dataeditr}{%
+\section{DataEditR}\label{dataeditr}}
+
+Traditionally, if you find an error in your data there are a couple of ways to solve the problem. You could use the \textbf{tidyverse} suite of packages, within which there are many functions for manipulating data. Alternatively, you could go to Excel (or wherever your data is stored) and edit the source file before reloading it into R. Which method you choose is probably dependent on your experience and comfort with R.
+
+A third option is to use the package \textbf{DataEditR} \citep{dataeditr}. This package opens up a dataset in an interactive viewer which the user can then edit manually as they would when using Excel. It's a really useful add-on package to R and it has a truly excellent associated Github site \href{https://dillonhammill.github.io/DataEditR/articles/DataEditR.html}{here} which takes you through the key features and how to use them.
 
 \hypertarget{bibliography}{%
 \chapter{Bibliography}\label{bibliography}}

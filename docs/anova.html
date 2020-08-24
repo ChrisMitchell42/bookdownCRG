@@ -300,7 +300,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.2.1" data-path="convergence.html"><a href="convergence.html#the-wheatsheaf-index"><i class="fa fa-check"></i><b>14.2.1</b> The Wheatsheaf Index</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>15</b> Bibliography</a></li>
+<li class="chapter" data-level="15" data-path="tips-and-tricks.html"><a href="tips-and-tricks.html"><i class="fa fa-check"></i><b>15</b> Tips and Tricks</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="tips-and-tricks.html"><a href="tips-and-tricks.html#literature-searching-with-connected-papers"><i class="fa fa-check"></i><b>15.1</b> Literature searching with <em>Connected Papers</em></a></li>
+<li class="chapter" data-level="15.2" data-path="tips-and-tricks.html"><a href="tips-and-tricks.html#extracting-data-from-a-pdf-using-excel"><i class="fa fa-check"></i><b>15.2</b> Extracting data from a PDF using Excel</a></li>
+<li class="chapter" data-level="15.3" data-path="tips-and-tricks.html"><a href="tips-and-tricks.html#dataeditr"><i class="fa fa-check"></i><b>15.3</b> DataEditR</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i><b>16</b> Bibliography</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -419,7 +425,7 @@ character(0)</code></pre>
 
 Response: dat
           Df   Sum-Sq  Mean-Sq F-value  Pr(&gt;F) Pr(&gt;F) given phy
-group      2 0.063237 0.031619  3.0067 0.09497           0.1718
+group      2 0.063237 0.031619  3.0067 0.09497           0.1918
 Residuals 10 0.105161 0.010516                                 </code></pre>
 <p>The results table should be very familiar! The only real difference here is that you have been provided with two p-values. The first (<strong>Pr(&gt;F)</strong>) is the p-value without accounting for phylogeny and the second (<strong>Pr(&gt;F) given phy</strong>) is the value when we account for phylogeny. In both cases, there is no significant difference between groups.</p>
 <p>As you can see, accounting for phylogeny <em>usually</em> raises the p-value. This shows us that not accounting for phylogeny increases the risk of type I errors (false positives).</p>
